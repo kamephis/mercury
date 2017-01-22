@@ -30,7 +30,7 @@ class View
             }
         } else {
             require_once('header.php');
-            require('application/views/login.php');
+            require('application/views/login/index.php');
             require_once('footer.php');
         }
     }

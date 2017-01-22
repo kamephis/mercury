@@ -19,6 +19,7 @@ class Picker extends Controller
 
     public function showPicklist()
     {
+        $this->view->render('');
         $this->view->render('mercury/picklist');
     }
 }

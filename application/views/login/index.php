@@ -1,14 +1,3 @@
-<?php
-$appTarget = null;
-
-if (isset($_REQUEST['appTarget'])) {
-    $appTarget = $_REQUEST['appTarget'];
-} else {
-    // Default
-    $appTarget = 'zuschnitt';
-}
-//if($_REQUEST['e'] = 'logout') session_destroy();
-?>
 <div class="panel col-xs-12 col-md-6 col-md-offset-3" id="loginbox">
     <div class="panel-heading">
         <img src="<?php echo IMG_PATH; ?>logo_600.jpg" class="img img-responsive">
@@ -77,5 +66,4 @@ if (isset($_REQUEST['appTarget'])) {
             </div>
         </form>
     </div>
-</div>
 </div>

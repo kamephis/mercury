@@ -8,6 +8,7 @@
  */
 class Login_Model extends Model
 {
+
     private $_dbHost, $_dbUser, $_dbPasswd, $_dbName, $_dbPort;
     private $_username, $_password, $_targetApp;
     /**
@@ -16,6 +17,7 @@ class Login_Model extends Model
     public function __construct()
     {
         parent::__construct();
+        echo "login_model";
         // Zugangsdaten DB Intern
         $this->_dbHost = '192.168.200.2';
         $this->_dbName = 'usrdb_stokcgbl5';

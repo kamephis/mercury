@@ -1,0 +1,88 @@
+/* Login Form */
+#loginbox {
+    margin-top: 50px;
+}
+
+#loginbox input {
+    height: 50px;
+}
+
+#loginbox button {
+    height: 50px;
+    width: 150px;
+}
+
+.inputLogin {
+    margin-bottom: 25px;
+}
+
+.backendContainer {
+    margin-top: 20px;
+}
+
+.loginPanel {
+    padding-top: 20px;
+}
+
+/* UI Controls */
+.btn-touch {
+    height: 80px !important;
+    width: 100%;
+    padding: 20px;
+    text-align: left;
+}
+
+.btn-touch-xs {
+    height: 50px !important;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Login Logo*/
+.logoTop {
+    width: auto;
+}
+
+/*
+.text-large{
+    font-size:150%;
+}
+.text-md {
+    font-size:100%;
+}
+.text-large strong{
+    font-weight: bold;
+}
+*/
+
+h2.pick {
+    margin-top: 0 !important;
+    margin-bottom: 1.2em !important;
+}
+
+.binColor {
+    background: red !important;
+    color: white !important;
+    display: inline-block !important;
+}
+
+input[type='checkbox'] {
+    height: 2em !important;
+    width: 2em !important;
+    margin-left: -3em !important;
+    margin-bottom: 0.5em !important;
+}
+
+.checkbox label {
+    margin-left: 2.5em !important;
+    height: 2em !important;
+    margin-top: 0.2em !important;
+}
+
+.fixNav {
+    position: fixed;
+    right: 25px;
+    top: 60px;
+}
+

@@ -74,6 +74,8 @@ class UserAuth
                 }
                 $_SESSION['rights'] = $arrayRights;
 
+                $_SESSION['targetApp'] = $targetApp;
+
                 // Weiterleitung zur Startseite der Anwendung
                 // TODO: Pfade auslagern
                 if (isset($_SESSION['targetApp'])) {

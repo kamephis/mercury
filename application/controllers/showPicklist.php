@@ -14,6 +14,7 @@ class ShowPicklist extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->view->render('mercury/topNav');
         $this->view->render('mercury/picklist');
     }
 }

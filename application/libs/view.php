@@ -11,16 +11,12 @@ class View
     /**
      * View constructor.
      */
-    public $test;
-
     public function __construct()
     {
-        $this->test = 'blubb';
     }
 
     public function render($view, $noInclude = false)
     {
-
         if ($noInclude == true) {
             // include ohne header / footer
             require('application/views/' . $view . '.php');
@@ -30,7 +26,5 @@ class View
             require('application/views/' . $view . '.php');
             require_once('footer.php');
         }
-
     }
-
 }

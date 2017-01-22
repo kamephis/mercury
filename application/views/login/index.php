@@ -5,7 +5,7 @@ if (isset($_REQUEST['appTarget'])) {
     $appTarget = $_REQUEST['appTarget'];
 } else {
     // Default
-    $appTarget = 'ab';
+    $appTarget = 'zuschnitt';
 }
 //if($_REQUEST['e'] = 'logout') session_destroy();
 ?>

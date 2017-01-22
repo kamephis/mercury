@@ -27,7 +27,7 @@ class UserAuth
         $this->_dbPort = '3307';
     }
 
-    public function authUser($username, $password)
+    public function authUser($username, $password, $targetApp)
     {
         /**
          * pruefen ob der Benutzer berechtigt ist
@@ -155,4 +155,5 @@ class MyDateTime extends DateTime
 $auth = new UserAuth();
 $user = $_POST['user'];
 $passwd = $_POST['passwd'];
-$auth->authUser($user, $passwd);
+$targetApp = $_POST['targetApp'];
+$auth->authUser($user, $passwd, $targetApp);

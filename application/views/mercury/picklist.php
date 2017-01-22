@@ -1,3 +1,4 @@
+<div class="well-sm">
 <div class="row">
     <div class="col-xs-9">
         <div class="row">
@@ -151,3 +152,4 @@
     <!-- ./ modal test -_>
 
    <!-- ./ Pickliste -->
+</div>

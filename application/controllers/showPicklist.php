@@ -4,9 +4,9 @@
  * User: Marlon
  * Date: 11.12.2016
  * Time: 22:16
- * Picker Controller
+ * ShowPicklist Controller
  */
-class Picker extends Controller
+class ShowPicklist extends Controller
 {
     /**
      * zuschnitt constructor.
@@ -14,6 +14,6 @@ class Picker extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->view->render('mercury/index');
+        $this->view->render('mercury/picklist');
     }
 }

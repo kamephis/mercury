@@ -10,7 +10,7 @@ class Model
     /**
      * Model constructor.
      */
-    public function __construct($model)
+    public function __construct()
     {
         // Neue DB Verbindung
         $this->db = new DBase();

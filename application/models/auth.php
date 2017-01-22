@@ -83,11 +83,11 @@ class UserAuth
                 if (isset($_SESSION['targetApp'])) {
                     switch ($_SESSION['targetApp']) {
                         case 'ab':
-                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/?p=zuschnitt");
+                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/zuschnitt");
                             break;
 
                         case 'pick':
-                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/?p=picker");
+                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/picker");
                             break;
                     }
                 }

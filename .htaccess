@@ -1,7 +1,17 @@
+php_flag display_errors on
+php_value error_reporting 9999
+
 RewriteEngine On
+RewriteBase /mvc/
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
 
-RewriteRule ^(.+)$ index.php?p=$1 [QSA,L]
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-l
+#RewriteRule ^(.+)$ index.php?p=$1 [QSA,L]

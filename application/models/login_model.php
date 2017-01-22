@@ -17,24 +17,19 @@ class Login_Model extends Model
     public function __construct()
     {
         parent::__construct();
-        echo "login_model";
         // Zugangsdaten DB Intern
         $this->_dbHost = '192.168.200.2';
         $this->_dbName = 'usrdb_stokcgbl5';
         $this->_dbUser = 'stokcgbl5';
         $this->_dbPasswd = 'X$9?2IMalDUU';
         $this->_dbPort = '3307';
-
-        $this->_username = $_REQUEST['username'];
-        $this->_password = $_REQUEST['password'];
-        $this->_targetApp = $_REQUEST['targetApp'];
     }
 
     public function authUser()
     {
-        $username = $this->_username;
-        $password = $this->_password;
-        $targetApp = $this->_targetApp;
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+        $targetApp = $_REQUEST['targetApp'];
 
         /**
          * pruefen ob der Benutzer berechtigt ist

@@ -16,4 +16,9 @@ class Picker extends Controller
         parent::__construct();
         $this->view->render('mercury/index');
     }
+
+    public function showPicklist()
+    {
+        $this->view->render('mercury/picklist');
+    }
 }

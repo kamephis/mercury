@@ -18,14 +18,18 @@ class View
 
     public function render($view, $noInclude = false)
     {
-        if ($noInclude == true) {
-            // include ohne header / footer
-            require('application/views/' . $view . '.php');
+        if (isset($_SESSION['userName'])) {
+            if ($noInclude == true) {
+                // include ohne header / footer
+                require('application/views/' . $view . '.php');
+            } else {
+                // header und footer einbinden
+                require_once('header.php');
+                require('application/views/' . $view . '.php');
+                require_once('footer.php');
+            }
         } else {
-            // header und footer einbinden
-            require_once('header.php');
-            require('application/views/' . $view . '.php');
-            require_once('footer.php');
+            echo 'Zugriff verweigert!';
         }
     }
 }

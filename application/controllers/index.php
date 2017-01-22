@@ -13,8 +13,8 @@ class Index extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->view->render('index/header');
-        $this->view->render('index/home');
-        $this->view->render('index/footer');
+        $this->view->render('mercury/header');
+        $this->view->render('mercury/home');
+        $this->view->render('mercury/footer');
     }
 }

@@ -20,11 +20,15 @@
                             class="glyphicon glyphicon-search pull-right text-sm"></span></a>
                 </li>
                 <li>
-                    <a href="#">Hilfe&nbsp;<span class="glyphicon glyphicon-question-sign pull-right"></span></a>
+                    <a href="#">Hilfe&nbsp;
+                        <small><span class="glyphicon glyphicon-question-sign pull-right"></span></small>
+                    </a>
                 </li>
                 <li>
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home">Abmelden&nbsp;<span
-                            class="glyphicon glyphicon-log-out pull-right text-sm"></span></a>
+                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home">Abmelden&nbsp;
+                        <small><span
+                                class="glyphicon glyphicon-log-out pull-right"></span></small>
+                    </a>
                 </li>
             </ul>
         </div>

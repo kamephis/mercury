@@ -29,6 +29,7 @@ class UserAuth
 
     public function authUser($username, $password, $targetApp)
     {
+        echo $targetApp;
         /**
          * pruefen ob der Benutzer berechtigt ist
          * Voraussetzung fuer den Zugriff auf das Backend ist mind. ein Eintrag in der Tabelle iRight2iUser

@@ -29,7 +29,9 @@ class View
                 require_once('footer.php');
             }
         } else {
-            echo 'Zugriff verweigert!';
+            require_once('header.php');
+            require('application/views/login.php');
+            require_once('footer.php');
         }
     }
 }

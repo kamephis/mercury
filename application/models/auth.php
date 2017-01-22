@@ -10,7 +10,7 @@
  * Date: 01.12.2016
  * Time: 19:26
  */
-class UserAuth
+class UserAuth extends Model
 {
     private $_dbHost, $_dbUser, $_dbPasswd, $_dbName, $_dbPort;
 
@@ -57,7 +57,13 @@ class UserAuth
             if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate'])) {
 
                 // Registrieren der Session Variablen fuer den User
-                session_start();
+
+                Session::init();
+                //Session::set('role', $data['role']);
+                //Session::set('loggedIn', true);
+                //Session::set('userid', $data['userid']);
+
+                //session_start();
                 $_SESSION['userName'] = $username;
                 $_SESSION['userID'] = $userID;
                 $_SESSION['vorname'] = $vorname;
@@ -83,11 +89,12 @@ class UserAuth
                 if (isset($_SESSION['targetApp'])) {
                     switch ($_SESSION['targetApp']) {
                         case 'ab':
-                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/zuschnitt");
+                            header('location: /zuschnitt');
+                            //header("Location: http://dev.stoffpalette.com/pixiPickprozess/zuschnitt");
                             break;
 
                         case 'pick':
-                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/picker");
+                            header("Location: /picker");
                             break;
                     }
                 }

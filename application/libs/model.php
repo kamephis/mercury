@@ -13,6 +13,6 @@ class Model
     public function __construct()
     {
         // Neue DB Verbindung
-        $this->db = new DBase();
+        //$this->db = new DBase();
     }
 }

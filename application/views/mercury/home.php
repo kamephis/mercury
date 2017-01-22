@@ -25,21 +25,21 @@
                 Böhland
             </div>
             <div class="clearfix"></div>
-            <div class="col-xs-5 text-left">
+            <div class="col-xs-5 col-md-2 text-left">
                 Erstellt am:
             </div>
             <div class="col-xs-7 text-left">
                 01.02.2017
             </div>
             <div class="clearfix"></div>
-            <div class="col-xs-5 text-left">
+            <div class="col-xs-5 col-md-2 text-left">
                 Verfällt am:
             </div>
             <div class="col-xs-7 text-left">
                 11.02.2017
             </div>
             <div class="clearfix"></div>
-            <div class="col-xs-5 text-left">
+            <div class="col-xs-5 col-md-2 text-left">
                 Positionen:
             </div>
             <div class="col-xs-7 text-left	">

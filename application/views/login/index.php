@@ -16,7 +16,7 @@ if (isset($_REQUEST['appTarget'])) {
 
     <div class="panel-body loginPanel">
         <form id="loginform" class="form-horizontal" role="form" method="post" action="application/models/auth.php">
-            <input type="text" name="appTarget" value="<?php echo $appTarget; ?>">
+            <input type="hidden" name="appTarget" value="<?php echo $appTarget; ?>">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                 <input id="login-username" type="text" class="form-control" name="user" value=""

@@ -54,11 +54,11 @@ if (isset($_REQUEST['appTarget'])) {
             <div style="margin-top:10px" class="form-group">
                 <div class="col-xs-12 col-sm-12">
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-xs-6 col-sm-2">
                             <button type="submit" class="btn btn-success btn-block">
                                 Anmelden <?php #echo $lang->aText['buttonLoginText'];?></button>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-xs-6 col-sm-2">
                             <button type="button" class="btn btn-default btn-block" data-toggle="collapse"
                                     data-target="#hilfe">
                                 Hilfe<?php # echo $lang->aText['buttonHelpText'];?></button>

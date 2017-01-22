@@ -8,7 +8,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-heart small"></span>&nbsp;enVio</a>
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-heart small"></span>&nbsp;Mercury
+                <small style="color:#333;">beta</small>
+            </a>
         </div>
         <!-- ./ Header -->
         <div id="navbar" class="collapse navbar-collapse">

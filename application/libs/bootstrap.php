@@ -32,8 +32,6 @@ class Bootstrap
         define('CONTROLLER_PATH', APPLICATION_PATH . 'controllers/');
         define('LANG_PATH', APPLICATION_PATH . 'lang/');
 
-        $p = null;
-
         // URL auslesen
         $url = isset($_REQUEST['p']) ? $_REQUEST['p'] : null;
         $url = rtrim($_REQUEST['p'], '/');

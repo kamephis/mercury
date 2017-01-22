@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 require_once('application/libs/bootstrap.php');
 require_once('application/libs/model.php');
 require_once('application/libs/controller.php');

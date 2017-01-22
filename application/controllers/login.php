@@ -13,11 +13,12 @@ class Login extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->view->render('login/index');
     }
 
-    public function test($arg = false)
+    public function index()
     {
-        echo $arg . " Methode Test in Login aufgerufen";
+        require_once('../models/login_model.php');
+        $model = new Login_Model();
+        $this->view->render('login/index');
     }
 }

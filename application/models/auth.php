@@ -10,7 +10,7 @@
  * Date: 01.12.2016
  * Time: 19:26
  */
-class UserAuth 
+class UserAuth
 {
     private $_dbHost, $_dbUser, $_dbPasswd, $_dbName, $_dbPort;
 
@@ -58,7 +58,7 @@ class UserAuth
 
                 // Registrieren der Session Variablen fuer den User
 
-                Session::init();
+                @session_start();
                 //Session::set('role', $data['role']);
                 //Session::set('loggedIn', true);
                 //Session::set('userid', $data['userid']);

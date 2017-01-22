@@ -8,5 +8,11 @@
  */
 class Login_Model extends Model
 {
-    
+    /**
+     * Login_Model constructor.
+     */
+    public function __construct()
+    {
+        echo 'Login Model';
+    }
 }

@@ -21,13 +21,12 @@
                 </li>
                 <li>
                     <a href="#">Hilfe&nbsp;
-                        <small><span class="glyphicon glyphicon-question-sign pull-right"></span></small>
+                        <span class="glyphicon glyphicon-question-sign pull-right"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home">Abmelden&nbsp;
-                        <small><span
-                                class="glyphicon glyphicon-log-out pull-right"></span></small>
+                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home">Abmelden&nbsp;<span
+                            class="glyphicon glyphicon-log-out pull-right"></span>
                     </a>
                 </li>
             </ul>

@@ -1,3 +1,4 @@
+<div class="well-sm">
 <!-- Anzeige Picklisten -->
 <div class="row">
     <div class="col-xs-12">
@@ -60,4 +61,5 @@
             </button>
         </form>
     </div>
+</div>
 </div>

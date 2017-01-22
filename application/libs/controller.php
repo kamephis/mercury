@@ -23,11 +23,10 @@ class Controller
      */
     public function loadModel($name, $modelPath = 'application/models/')
     {
-
-        $path = 'application/models' . $name . '_model.php';
+        $path = $modelPath . $name . '_model.php';
 
         if (file_exists($path)) {
-            require $modelPath . $name . '_model.php';
+            require $path;
 
             $modelName = $name . '_model';
             $this->model = new $modelName();

@@ -76,7 +76,17 @@ class UserAuth
 
                 // Weiterleitung zur Startseite der Anwendung
                 // TODO: Pfade auslagern
-                header("Location: http://dev.stoffpalette.com/pixiPickprozess/zuschnitt");
+                if (isset($_SESSION['targetApp'])) {
+                    switch ($_SESSION['targetApp']) {
+                        case 'ab':
+                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/zuschnitt");
+                            break;
+
+                        case 'pick':
+                            header("Location: http://dev.stoffpalette.com/pixiPickprozess/picker");
+                            break;
+                    }
+                }
             } else {
                 header("Location: http://dev.stoffpalette.com/pixiPickprozess/?e=401");
             }

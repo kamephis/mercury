@@ -1,4 +1,12 @@
 <?php
+$appTarget = null;
+
+if (isset($_REQUEST['appTarget'])) {
+    $appTarget = $_REQUEST['appTarget'];
+} else {
+    // Default
+    $appTarget = 'ab';
+}
 //if($_REQUEST['e'] = 'logout') session_destroy();
 ?>
 <div class="panel col-xs-12 col-md-6 col-md-offset-3" id="loginbox">
@@ -8,6 +16,7 @@
 
     <div class="panel-body loginPanel">
         <form id="loginform" class="form-horizontal" role="form" method="post" action="application/models/auth.php">
+            <input type="hidden" name="appTarget" value="<?php echo $appTarget; ?>">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                 <input id="login-username" type="text" class="form-control" name="user" value=""

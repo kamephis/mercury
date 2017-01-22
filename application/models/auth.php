@@ -10,7 +10,7 @@
  * Date: 01.12.2016
  * Time: 19:26
  */
-class UserAuth extends Model
+class UserAuth 
 {
     private $_dbHost, $_dbUser, $_dbPasswd, $_dbName, $_dbPort;
 

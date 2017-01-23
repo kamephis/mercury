@@ -56,10 +56,12 @@ class Login_Model extends Model
             if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate'])) {
 
                 // Registrieren der Session Variablen fuer den User
-                Session::init();
+                /*Session::init();
                 Session::set('loggedIn', true);
                 Session::set('userName', $username);
-
+*/
+                $_SESSION['userName'] = $username;
+                @session_start();
                 /**
                  * Array mit den Benutzerrechten erzeugen und in die Session speichern
                  */
@@ -70,8 +72,8 @@ class Login_Model extends Model
                 while ($rowRights = $queryRights->fetch(PDO::FETCH_ASSOC)) {
                     $arrayRights[] = $rowRights['RID'];
                 }
-                Session::set('rights', $arrayRights);
-                //$_SESSION['rights'] = $arrayRights;
+                //Session::set('rights', $arrayRights);
+                $_SESSION['rights'] = $arrayRights;
                 //Session::set('role', $data['role']);
 
                 header('location: /auftrag');

@@ -72,7 +72,7 @@
         <button type="submit" class="btn btn-danger btn-lg pull-right">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
-
+        &nbsp;
         <button type="submit" class="btn btn-success btn-lg pull-right">
                 <span class="glyphicon glyphicon-ok"></span>
             </button>

@@ -91,10 +91,10 @@ input[type='checkbox'] {
     margin-bottom: 10px !important;
 }
 
-.row-table:first-child {
+.row-table div:first-child {
     background: red;
 }
 
-.row-table {
+.row-table div {
     background: blue;
 }

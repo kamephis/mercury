@@ -41,11 +41,13 @@
                 <span class="glyphicon glyphicon-user"></span> Abmelden
             </button>
         </form>
+        <div class="clearfix"></div>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
             <button type="submit" class="btn btn-lg btn-danger btn-block pull-right">
                 <span class="glyphicon glyphicon-remove"></span> Abbrechen
             </button>
         </form>
+        <div class="clearfix"></div>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
             <button type="submit" class="btn btn-lg btn-success btn-block pull-right">
                 <span class="glyphicon glyphicon-check"></span> Abschließen

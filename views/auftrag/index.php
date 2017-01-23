@@ -66,9 +66,9 @@
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-3">12m</div>
+    <div class="col-sm-2">12m</div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-4">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>

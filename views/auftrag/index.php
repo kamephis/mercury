@@ -1,5 +1,5 @@
 <!-- Top Bar -->
-<div class="row">
+<div class="row" style="position: fixed;">
             <div class="col-sm-2"><img
                     src="https://www.stoff4you.de/out/pictures/master/product/1/fn1094-love-universalstoff-_z1.jpg"
                     width="100%"
@@ -50,7 +50,7 @@
 <!-- ./ Top Bar -->
 <br><br>
 <!-- Auftragspositionen / Header -->
-<div class="row" style="position: fixed;">
+<div class="row">
     <div class="col-sm-2"><b>#</b></div>
     <div class="col-sm-4"><b>Info</b></div>
     <div class="col-sm-2"><b>Anzahl</b></div>

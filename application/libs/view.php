@@ -13,7 +13,6 @@ class View
      */
     public function __construct()
     {
-
     }
 
     public function render($view, $noInclude = false)

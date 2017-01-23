@@ -15,7 +15,6 @@ class Controller
     {
         $this->view = new View();
     }
-
     /**
      *
      * @param string $name Name of the model

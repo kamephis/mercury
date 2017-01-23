@@ -23,6 +23,6 @@ class Login extends Controller
 
     public function run()
     {
-        $this->loadModel('login');
+        $this->loadModel('Login');
     }
 }

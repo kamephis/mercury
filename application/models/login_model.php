@@ -1,16 +1,13 @@
 <?php
 
 /**
- * Created by PhpStorm.
  * User: Marlon
  * Date: 22.01.2017
  * Time: 22:29
  */
 class Login_Model extends Model
 {
-
     private $_dbHost, $_dbUser, $_dbPasswd, $_dbName, $_dbPort;
-    private $_username, $_password, $_targetApp;
     /**
      * Login_Model constructor.
      */

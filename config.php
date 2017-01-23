@@ -1,6 +1,7 @@
 <?php
 define('URL', 'http://dev.stoffpalette.com/pixiPickprozess/');
 define('LIBS', 'libs/');
+define('IMG_PATH', 'out/img/');
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', '192.168.200.2');

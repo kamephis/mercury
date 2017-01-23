@@ -2,30 +2,32 @@
 <div class="row">
             <div class="col-sm-2"><img
                     src="https://www.stoff4you.de/out/pictures/master/product/1/fn1094-love-universalstoff-_z1.jpg"
-                    class="img img-responsive img-square"></div>
+                    width="100%"
+                    class="img img-responsive img-square">
+            </div>
 
             <div class="col-sm-4">
                 <div class="row">
-                    <div class="col-sm-2">Artikel (Variante)</div>
-                    <div class="col-sm-2">Universalstoff (rot)</div>
+                    <div class="col-sm-4">Artikel (Variante)</div>
+                    <div class="col-sm-8">Universalstoff (rot)</div>
                     <div class="clearfix"></div>
 
-                    <div class="col-sm-2">Art.Nr.</div>
-                    <div class="col-sm-2">60003001</div>
-                    <div class="clearfix"></div>
+                    <div class="col-sm-4">Art.Nr.</div>
+                    <div class="col-sm-8">60003001</div>
                 </div>
+            </div>
 
                 <div class="col-sm-4">
-                    <div class="col-sm-2">EAN</div>
-                    <div class="col-sm-2">01234567890123</div>
-                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-sm-4">EAN</div>
+                        <div class="col-sm-8">01234567890123</div>
 
-                    <div class="col-sm-2">Lagerplatz</div>
-                    <div class="col-sm-2">H1-C-01</div>
-                    <div class="clearfix"></div>
+                        <div class="col-sm-4">Lagerplatz</div>
+                        <div class="col-sm-8">H1-C-01</div>
 
-                    <div class="col-sm-2">Lagerbestand</div>
-                    <div class="col-sm-2">145</div>
+                        <div class="col-sm-4">Lagerbestand</div>
+                        <div class="col-sm-8">145</div>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-2">

@@ -29,6 +29,8 @@ class Controller
 
             $modelName = ucfirst($name) . '_Model';
             $this->model = new $modelName();
+        } else {
+            echo "blubb";
         }
     }
 }

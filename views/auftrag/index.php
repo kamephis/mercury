@@ -24,7 +24,7 @@
                         <div class="col-sm-4"><b>Lagerplatz</b></div>
                         <div class="col-sm-8">H1-C-01</div>
 
-                        <div class="col-sm-4"><b>Lagerbestand</b></div>
+                        <div class="col-sm-4"><b>Bestand</b></div>
                         <div class="col-sm-8">145</div>
                     </div>
                 </div>

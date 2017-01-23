@@ -1,7 +1,5 @@
 <?php
-foreach ($this->getMasterPicklist as $picklist) {
-    echo $picklist['PLHkey'] . '<br>';
-}
+echo $this->getMasterPicklist['PLHkey'] . '<br>';
 ?>
 <div class="well-sm">
     <!-- Anzeige Picklisten -->

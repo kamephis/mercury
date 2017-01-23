@@ -90,3 +90,8 @@ input[type='checkbox'] {
     width: 200px !important;
     margin-bottom: 10px !important;
 }
+
+.row-table {
+    border: 1px solid grey;
+    padding: 1em;
+}

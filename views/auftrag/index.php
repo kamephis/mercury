@@ -8,7 +8,7 @@
 
             <div class="col-sm-4">
                 <div class="row">
-                    <div class="col-sm-4"><b>Artikel:<b></div>
+                    <div class="col-sm-4"><b>Artikel:</b></div>
                     <div class="col-sm-8">Universalstoff - Love</div>
 
                     <div class="col-sm-4"><b>Art.Nr:</b></div>
@@ -18,7 +18,7 @@
 
                 <div class="col-sm-4">
                     <div class="row">
-                        <div class="col-sm-4"><b>EAN<b></div>
+                        <div class="col-sm-4"><b>EAN</b></div>
                         <div class="col-sm-8">01234567890123</div>
 
                         <div class="col-sm-4"><b>Lagerplatz</b></div>

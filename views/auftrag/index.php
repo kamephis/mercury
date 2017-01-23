@@ -50,12 +50,13 @@
 <!-- ./ Top Bar -->
 
 <!-- Auftragspositionen / Header -->
-<div class="row row-header">
+<div class="row">
     <div class="col-sm-2"><b>#</b></div>
     <div class="col-sm-4"><b>Info</b></div>
     <div class="col-sm-2"><b>Anzahl</b></div>
     <div class="col-sm-4"><b>Aktion</b></div>
 </div>
+<br><br>
 <!-- Auftragspositionen -->
 <div class="row row-table">
     <div class="col-sm-2">01</div>

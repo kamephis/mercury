@@ -12,7 +12,7 @@ class Login extends Controller
     {
         $this->view->title = 'Login';
         $this->view->render('header');
-        //$this->view->render('login/index');
+        $this->view->render('login/index');
         $this->view->render('footer');
     }
 

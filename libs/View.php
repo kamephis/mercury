@@ -10,6 +10,7 @@ class View
 
     public function render($name, $noInclude = false)
     {
+        echo $name;
         require 'views/' . $name . '.php';
     }
 }

@@ -72,7 +72,7 @@
                 <span class="glyphicon glyphicon-ok"></span>
             </button>
         </div>
-        <div class="clearfix"></div>
     </div>
+    <div class="clearfix"></div>
 </div>
 <!-- ./ Auftragspositionen -->

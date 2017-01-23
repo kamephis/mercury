@@ -3,7 +3,8 @@
     <div class="row">
         <div class="col-xs-12">
             <h1>Aktive Picklisten</h1>
-            <p class="lead">Hallo USERNAME, folgende Picklisten sind für dich zum Picken freigegeben.</p>
+            <p class="lead">Hallo <?php echo $_SESSION['vorname']; ?>, folgende Picklisten sind für dich zum Picken
+                freigegeben.</p>
         </div>
     </div>
 

@@ -57,7 +57,7 @@
     <div class="col-sm-4"><b>Aktion</b></div>
 </div>
 <!-- Auftragspositionen -->
-<div class="row col-table">
+<div class="row row-table">
     <div class="col-sm-2">01</div>
 
     <div class="col-sm-4">

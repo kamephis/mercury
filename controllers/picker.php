@@ -20,6 +20,6 @@ class Picker extends Controller
 
     function run()
     {
-        $this->model->run();
+        $this->run();
     }
 }

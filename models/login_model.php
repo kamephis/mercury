@@ -12,14 +12,18 @@ class Login_Model extends Model
         // Session starten
         Session::init();
 
+        $username = null;
+        $password = null;
+        $targetApp = null;
+
         if (isset($_REQUEST['user'])) {
-            Session::set('user', $_REQUEST['user']);
+            $username = $_REQUEST['user'];
         }
         if (isset($_REQUEST['passwd'])) {
-            Session::set('passwd', $_REQUEST['passwd']);
+            $password = $_REQUEST['passwd'];
         }
         if (isset($_REQUEST['targetApp'])) {
-            Session::set('targetApp', $_REQUEST['targetApp']);
+            $targetApp = $_REQUEST['targetApp'];
         }
 
         /**

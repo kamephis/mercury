@@ -67,7 +67,7 @@
     <div class="col-sm-2">01</div>
 
     <div class="col-sm-4">
-        Pickliste: 6585
+        Pickliste: 6585<br>
         Expires: 17.02.2017
     </div>
 

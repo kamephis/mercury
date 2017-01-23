@@ -69,11 +69,11 @@
     <div class="col-sm-2">12m</div>
 
     <div class="col-sm-4">
-        <button type="submit" class="btn btn-danger btn-lg pull-right" style="margin-left:10px;">
+        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
 
-        <button type="submit" class="btn btn-success btn-lg pull-right">
+        <button type="submit" class="btn btn-success btn-lg-square pull-right">
                 <span class="glyphicon glyphicon-ok"></span>
             </button>
     </div>

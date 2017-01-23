@@ -87,6 +87,12 @@ input[type='checkbox'] {
 }
 
 .btn-lg {
+    width: 200px !important;
+    /*margin-top:auto;
+    margin-bottom:auto;*/
+}
+
+.btn-lg-square {
     width: 50px !important;
     height: 50px !important;
     /*margin-top:auto;

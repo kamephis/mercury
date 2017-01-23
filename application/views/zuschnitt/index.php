@@ -2,6 +2,7 @@
 <style>
     .btn-lg {
         width: 200px !important;
+        margin-bottom: 10px !important;
     }
 </style>
 <div class="row">

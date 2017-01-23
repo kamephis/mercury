@@ -51,10 +51,10 @@
 <br><br>
 <!-- Auftragspositionen / Header -->
 <div class="row">
-    <div class="col-sm-2"><b>#</b></div>
-    <div class="col-sm-4"><b>Info</b></div>
+    <div class="col-sm-2 text-left"><b>#</b></div>
+    <div class="col-sm-4 text-left"><b>Info</b></div>
     <div class="col-sm-2"><b>Anzahl</b></div>
-    <div class="col-sm-4"><b>Aktion</b></div>
+    <div class="col-sm-4 text-right text-left"><b>Aktion</b></div>
 </div>
 
 <!-- Auftragspositionen -->

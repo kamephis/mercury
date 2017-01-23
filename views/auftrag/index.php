@@ -56,23 +56,23 @@
 <!-- ./ Top Bar -->
 
 <!-- Auftragspositionen -->
-<div class="well">
 <div class="row">
+    <div class="col-sm-2">01</div>
 
-        <div class="col-sm-2">01</div>
     <div class="col-sm-4">Expires: 17.02.2017</div>
-        <div class="col-sm-2">12m</div>
+
+    <div class="col-sm-2">12m</div>
+
     <div class="col-sm-2">
             <button type="submit" class="btn btn-danger btn-lg btn-block">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
-        </div>
+    </div>
+
     <div class="col-sm-2">
             <button type="submit" class="btn btn-success btn-lg btn-block">
                 <span class="glyphicon glyphicon-ok"></span>
             </button>
-        </div>
     </div>
-    <div class="clearfix"></div>
 </div>
 <!-- ./ Auftragspositionen -->

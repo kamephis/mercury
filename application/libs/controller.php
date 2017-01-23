@@ -26,7 +26,6 @@ class Controller
 
         if (file_exists($path)) {
             require $path;
-            echo "läuft";
 
             $modelName = ucfirst($name) . '_Model';
             $this->model = new $modelName();

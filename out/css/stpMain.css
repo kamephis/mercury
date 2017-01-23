@@ -91,14 +91,6 @@ input[type='checkbox'] {
     margin-bottom: 10px !important;
 }
 
-.row-table:first-child {
-    border-top: 1px solid black;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
-}
-
-.row-table {
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+.col-table {
+    border: 1px solid grey;
 }

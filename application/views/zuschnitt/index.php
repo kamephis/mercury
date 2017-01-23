@@ -1,7 +1,7 @@
 <!-- Top Bar -->
 <style>
     .btn-lg {
-        width: 100px !important;
+        width: 200px !important;
     }
 </style>
 <div class="row">

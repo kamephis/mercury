@@ -1,4 +1,9 @@
 <!-- Top Bar -->
+<style>
+    .btn-lg {
+        width: 100px !important;
+    }
+</style>
 <div class="row">
     <div class="panel panel-primary">
         <div class="panel-heading">Auftragsbearbeitung</div>

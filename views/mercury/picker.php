@@ -1,5 +1,5 @@
 <?php
-foreach ($this->getPicklist as $picklist) {
+foreach ($this->getMasterPicklist as $picklist) {
     echo $picklist['PLHkey'] . '<br>';
 }
 ?>

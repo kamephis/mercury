@@ -66,7 +66,10 @@
 <div class="row row-table">
     <div class="col-sm-2">01</div>
 
-    <div class="col-sm-4">Expires: 17.02.2017</div>
+    <div class="col-sm-4">
+        Pickliste: 6585
+        Expires: 17.02.2017
+    </div>
 
     <div class="col-sm-2">12m</div>
 

@@ -9,9 +9,15 @@ class Login_Model extends Model
 
     public function run()
     {
-        $username = $_REQUEST['username'];
-        $password = $_REQUEST['password'];
-        $targetApp = $_REQUEST['targetApp'];
+        if (isset($_REQUEST['username'])) {
+            $username = $_REQUEST['user'];
+        }
+        if (isset($_REQUEST['passwd'])) {
+            $username = $_REQUEST['passwd'];
+        }
+        if (isset($_REQUEST['targetApp'])) {
+            $username = $_REQUEST['targetApp'];
+        }
 
         /**
          * pruefen ob der Benutzer berechtigt ist

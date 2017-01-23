@@ -50,7 +50,7 @@
 <!-- ./ Top Bar -->
 
 <!-- Auftragspositionen / Header -->
-<div class="row">
+<div class="row row-header">
     <div class="col-sm-2"><b>#</b></div>
     <div class="col-sm-4"><b>Info</b></div>
     <div class="col-sm-2"><b>Anzahl</b></div>

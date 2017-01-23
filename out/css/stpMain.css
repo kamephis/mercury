@@ -95,3 +95,7 @@ input[type='checkbox'] {
     border: 1px solid grey;
     margin-bottom: 4px;
 }
+
+.row-header {
+    margin-bottom: 10px;
+}

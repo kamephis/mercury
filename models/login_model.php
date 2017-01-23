@@ -9,14 +9,17 @@ class Login_Model extends Model
 
     public function run()
     {
+        // Session starten
+        Session::init();
+
         if (isset($_REQUEST['user'])) {
-            $username = $_REQUEST['user'];
+            Session::set('user', $_REQUEST['user']);
         }
         if (isset($_REQUEST['passwd'])) {
-            $password = $_REQUEST['passwd'];
+            Session::set('passwd', $_REQUEST['passwd']);
         }
         if (isset($_REQUEST['targetApp'])) {
-            $targetApp = $_REQUEST['targetApp'];
+            Session::set('targetApp', $_REQUEST['targetApp']);
         }
 
         /**
@@ -28,20 +31,15 @@ class Login_Model extends Model
         $totalRows = $sql->rowCount();
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
-        // Session starten
-        Session::init();
-
         // Zuweisung der Rows
-        Session::set('UID', $userID);
-        Session::set('vorname', $vorname);
-        Session::set('name', $name);
+        Session::set('UID', $result['UID']);
+        Session::set('vorname', $result['vorname']);
+        Session::set('name', $result['name']);
 
         // Pruefen ob der Benutzername existiert
         if ($totalRows > 0 || ($username == $result['Username'])) {
             // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
             if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate'])) {
-                echo "kennwort passt";
-
                 /**
                  * Array mit den Benutzerrechten erzeugen und in die Session speichern
                  */
@@ -54,8 +52,7 @@ class Login_Model extends Model
                 }
                 Session::set('rights', $arrayRights);
 
-                //header('location: ' . URL . 'auftrag');
-                header('location: http://dev.stoffpalette.com/pixiPickprozess/auftrag');
+                header('location: ' . URL . 'auftrag');
             }
         } else {
             header('location: ' . URL . 'error');

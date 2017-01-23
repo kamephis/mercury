@@ -9,7 +9,7 @@ class Login_Model extends Model
 
     public function run()
     {
-        if (isset($_REQUEST['username'])) {
+        if (isset($_REQUEST['user'])) {
             $username = $_REQUEST['user'];
         }
         if (isset($_REQUEST['passwd'])) {
@@ -84,6 +84,8 @@ class Login_Model extends Model
 
                 header('location: /auftrag');
             }
+        } else {
+            echo "Daten falsch";
         }
     }
 

@@ -1,3 +1,8 @@
+<?php
+foreach ($this->getPicklist as $picklist) {
+    echo $picklist['PLHkey'] . '<br>';
+}
+?>
 <div class="well-sm">
     <!-- Anzeige Picklisten -->
     <div class="row">
@@ -45,7 +50,7 @@
                     Positionen:
                 </div>
                 <div class="col-xs-7 text-left	">
-                    142
+
                 </div>
                 <div class="clearfix"></div>
                 <br>

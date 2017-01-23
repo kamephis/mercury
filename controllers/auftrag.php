@@ -12,7 +12,7 @@ class Auftrag extends Controller
     {
         $this->view->title = 'Auftragsbearbeitung';
         $this->view->render('header');
-        $this->view->render('mercury/topNav');
+        $this->view->render('navbar_top');
         $this->view->render('auftrag/index');
         $this->view->render('footer');
     }

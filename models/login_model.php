@@ -39,35 +39,20 @@ class Login_Model extends Model
         $vorname = $result['vorname'];
         $name = $result['name'];
 
-        /*  $data = $sth->fetch();
-  
-          $count =  $sth->rowCount();
-          if ($count > 0) {
-              // login
-              Session::init();
-              Session::set('role', $data['role']);
-              Session::set('loggedIn', true);
-              Session::set('userid', $data['userid']);
-              header('location: ../dashboard');
-          } else {
-              header('location: ../login');
-          }
-          */
-
-
 
         // Pruefen ob der Benutzername existiert
         if ($totalRows > 0 || ($username == $result['Username'])) {
             // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
             if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate'])) {
+                echo "kennwort passt";
 
                 // Registrieren der Session Variablen fuer den User
                 /*Session::init();
                 Session::set('loggedIn', true);
                 Session::set('userName', $username);
 */
-                $_SESSION['userName'] = $username;
                 @session_start();
+                $_SESSION['userName'] = $username;
                 /**
                  * Array mit den Benutzerrechten erzeugen und in die Session speichern
                  */

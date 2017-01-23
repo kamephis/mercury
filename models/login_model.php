@@ -51,8 +51,10 @@ class Login_Model extends Model
                 Session::set('loggedIn', true);
                 Session::set('userName', $username);
 */
-                @session_start();
-                $_SESSION['userName'] = $username;
+
+                Session::init();
+                Session::set('userName', $username);
+                //$_SESSION['userName'] = $username;
                 /**
                  * Array mit den Benutzerrechten erzeugen und in die Session speichern
                  */
@@ -63,14 +65,13 @@ class Login_Model extends Model
                 while ($rowRights = $queryRights->fetch(PDO::FETCH_ASSOC)) {
                     $arrayRights[] = $rowRights['RID'];
                 }
-                //Session::set('rights', $arrayRights);
-                $_SESSION['rights'] = $arrayRights;
-                //Session::set('role', $data['role']);
+                Session::set('rights', $arrayRights);
+                //$_SESSION['rights'] = $arrayRights;
 
-                header('location: /pixiPickprozess/auftrag');
+                header('location: ' . URL . 'auftrag');
             }
         } else {
-            header('location: /pixiPickprozess/error');
+            header('location: ' . URL . 'error');
         }
     }
 

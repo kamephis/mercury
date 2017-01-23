@@ -28,7 +28,7 @@ class Controller
         if (file_exists($path)) {
             require $path;
 
-            $modelName = $name . '_model';
+            $modelName = ucfirst($name) . '_Model';
             $this->model = new $modelName();
         }
     }

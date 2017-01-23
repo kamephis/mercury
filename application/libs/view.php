@@ -19,6 +19,7 @@ class View
     {
         $path = 'application/views/' . $view . '.php';
 
+        /*
         if (isset($_SESSION['userName'])) {
             if ($noInclude == true) {
                 // include ohne header / footer
@@ -36,6 +37,8 @@ class View
             require_once('header.php');
             require('application/views/login/index.php');
             require_once('footer.php');
-        }
+        }*/
+        echo "test";
     }
+
 }

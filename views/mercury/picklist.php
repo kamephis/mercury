@@ -65,9 +65,8 @@
 
                         <small>&nbsp;</small>
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-default btn-block btn-lg-square"
-                                    
-                                    data-toggle="modal" data-target="#nextDataset">
+                            <button type="submit" class="btn btn-default btn-block btn-lg-square" data-toggle="modal"
+                                    data-target="#nextDataset">
                                 <span class="glyphicon glyphicon-arrow-right"></span>
                             </button>
                         </div>

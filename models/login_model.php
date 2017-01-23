@@ -13,10 +13,10 @@ class Login_Model extends Model
             $username = $_REQUEST['user'];
         }
         if (isset($_REQUEST['passwd'])) {
-            $username = $_REQUEST['passwd'];
+            $password = $_REQUEST['passwd'];
         }
         if (isset($_REQUEST['targetApp'])) {
-            $username = $_REQUEST['targetApp'];
+            $targetApp = $_REQUEST['targetApp'];
         }
 
         /**

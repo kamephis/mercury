@@ -1,13 +1,7 @@
 <!-- Top Bar -->
-<style>
-    .btn-lg {
-        width: 200px !important;
-        margin-bottom: 10px !important;
-    }
-</style>
 <div class="row">
     <div class="panel panel-primary">
-        <div class="panel-heading">Auftragsbearbeitung</div>
+        <div class="panel-heading"><?php $this->title; ?></div>
 
         <div class="panel-body">
             <div class="col-sm-2"><img
@@ -62,5 +56,19 @@
 <!-- ./ Top Bar -->
 
 <!-- Auftragspositionen -->
-<div class="row"></div>
+<div class="row">
+    <div class="col-sm-2">01</div>
+    <div class="col-sm-4">Expires: 17.02.2017</div>
+    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2">
+        <button type="submit" class="btn btn-danger btn-lg btn-block">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </div>
+    <div class="col-sm-2">
+        <button type="submit" class="btn btn-success btn-lg btn-block">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+</div>
 <!-- ./ Auftragspositionen -->

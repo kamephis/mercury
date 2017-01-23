@@ -74,7 +74,7 @@ class Login_Model extends Model
                 //$_SESSION['rights'] = $arrayRights;
                 //Session::set('role', $data['role']);
 
-                header('location: ../auftrag');
+                header('location: /auftrag');
             }
         }
     }

@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 error_reporting(E_ALL);
 require_once('application/libs/bootstrap.php');
 require_once('application/libs/model.php');

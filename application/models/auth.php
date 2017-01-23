@@ -132,7 +132,6 @@ class UserAuth
     }
 
     /**
-     * @param $username
      * @param $password
      * @param $regDate
      * @return string

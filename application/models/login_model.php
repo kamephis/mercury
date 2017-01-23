@@ -125,7 +125,6 @@ class Login_Model extends Model
     }
 
     /**
-     * @param $username
      * @param $password
      * @param $regDate
      * @return string

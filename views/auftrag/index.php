@@ -59,9 +59,9 @@
 
 <!-- Auftragspositionen -->
 <div class="row row-table">
-    <div class="col-sm-2">01</div>
+    <div class="col-sm-1">01</div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-5">
         Pickliste: 6585<br>
         Expires: 17.02.2017
     </div>

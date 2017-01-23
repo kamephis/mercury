@@ -13,12 +13,13 @@ class Login_Model extends Model
                 login = :login AND password = :password");
         $sth->execute(array(
             ':login' => $_POST['login'],
-            ':password' => Hash::create('sha256', $_POST['password'], HASH_PASSWORD_KEY)
+            ':password' => Hash::create('sha256', $_POST['password'])
         ));
 
         $data = $sth->fetch();
 
         $count = $sth->rowCount();
+
         if ($count > 0) {
             // login
             Session::init();

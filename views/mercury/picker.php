@@ -1,6 +1,3 @@
-<?php
-echo $this->run->getMasterPicklist['PLHkey'] . '<br>';
-?>
 <div class="well-sm">
     <!-- Anzeige Picklisten -->
     <div class="row">

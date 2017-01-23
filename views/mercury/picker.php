@@ -55,7 +55,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-md-12">
-            <form action="mercury/picklist" method="post" role="form">
+            <form action="/picklist" method="post" role="form">
                 <input type="hidden" name="p" value="picklist">
                 <button type="submit" class="btn btn-success btn-block btn-lg" name="btnStartPick" id="btnStartPick">
                     <span class="glyphicon glyphicon-time"></span> Picken beginnen

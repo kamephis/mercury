@@ -20,9 +20,9 @@ class Controller
      * @param string $name Name of the model
      * @param string $path Location of the models
      */
-    public function loadModel($name, $modelPath = 'application/models/')
+    public function loadModel($name)
     {
-        $path = $modelPath . $name . '_model.php';
+        $path = 'application/models/' . $name . '_model.php';
 
         echo $path . '<br>';
 

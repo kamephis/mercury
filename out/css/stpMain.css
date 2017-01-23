@@ -87,7 +87,8 @@ input[type='checkbox'] {
 }
 
 .btn-lg {
-    width: 200px !important;
+    width: 50px !important;
+    height: 50px !important;
     margin-bottom: 10px !important;
 }
 

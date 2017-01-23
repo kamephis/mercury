@@ -32,17 +32,17 @@
     </div>
     <div class="col-sm-3">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-            <button type="submit" class="btn btn-lg btn-default pull-right">
+            <button type="submit" class="btn btn-lg btn-default btn-block pull-right">
                 <span class="glyphicon glyphicon-user"></span> Abmelden
             </button>
         </form>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-            <button type="submit" class="btn btn-lg btn-danger pull-right">
+            <button type="submit" class="btn btn-lg btn-danger btn-block pull-right">
                 <span class="glyphicon glyphicon-remove"></span> Abbrechen
             </button>
         </form>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-            <button type="submit" class="btn btn-lg btn-success pull-right">
+            <button type="submit" class="btn btn-lg btn-success btn-block pull-right">
                 <span class="glyphicon glyphicon-check"></span> Abschließen
             </button>
         </form>

@@ -90,7 +90,8 @@ input[type='checkbox'] {
 }
 
 .btn-lg {
-    width: 200px !important;
+    width: 100% !important;
+    /*width: 200px !important;*/
     /*margin-top:auto;
     margin-bottom:auto;*/
 }

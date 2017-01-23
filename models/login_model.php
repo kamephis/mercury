@@ -33,18 +33,32 @@ class Login_Model extends Model
         $vorname = $result['vorname'];
         $name = $result['name'];
 
+        /*  $data = $sth->fetch();
+  
+          $count =  $sth->rowCount();
+          if ($count > 0) {
+              // login
+              Session::init();
+              Session::set('role', $data['role']);
+              Session::set('loggedIn', true);
+              Session::set('userid', $data['userid']);
+              header('location: ../dashboard');
+          } else {
+              header('location: ../login');
+          }
+          */
+
+
+
         // Pruefen ob der Benutzername existiert
         if ($totalRows > 0 || ($username == $result['Username'])) {
             // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
             if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate'])) {
 
                 // Registrieren der Session Variablen fuer den User
-
-                @session_start();
-                $_SESSION['userName'] = $username;
-                $_SESSION['userID'] = $userID;
-                $_SESSION['vorname'] = $vorname;
-                $_SESSION['name'] = $name;
+                Session::init();
+                Session::set('loggedIn', true);
+                Session::set('userName', $username);
 
                 /**
                  * Array mit den Benutzerrechten erzeugen und in die Session speichern
@@ -56,28 +70,12 @@ class Login_Model extends Model
                 while ($rowRights = $queryRights->fetch(PDO::FETCH_ASSOC)) {
                     $arrayRights[] = $rowRights['RID'];
                 }
-                $_SESSION['rights'] = $arrayRights;
+                Session::set('rights', $arrayRights);
+                //$_SESSION['rights'] = $arrayRights;
+                //Session::set('role', $data['role']);
 
-                $_SESSION['targetApp'] = $targetApp;
-                echo $_SESSION['targetApp'];
-
-                // Weiterleitung zur Startseite der Anwendung
-                if (isset($_SESSION['targetApp'])) {
-                    switch ($_SESSION['targetApp']) {
-                        case 'ab':
-                            header('location: /zuschnitt');
-                            break;
-
-                        case 'pick':
-                            header("Location: /picker");
-                            break;
-                    }
-                }
-            } else {
-                header("Location: http://dev.stoffpalette.com/pixiPickprozess/?e=401");
+                header('location: ../auftrag');
             }
-        } else {
-            header("Location: http://dev.stoffpalette.com/pixiPickprozess/?e=401");
         }
     }
 

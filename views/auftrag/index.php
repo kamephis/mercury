@@ -57,9 +57,9 @@
 
 <!-- Auftragspositionen -->
 <div class="row">
-    <div class="col-sm-2">#</div>
-    <div class="col-sm-4">Info</div>
-    <div class="col-sm-2">Anzahl</div>
+    <div class="col-sm-2"><b>#</b></div>
+    <div class="col-sm-4"><b>Info</b></div>
+    <div class="col-sm-2"><b></b>Anzahl</b></div>
     <div class="col-sm-4"></div>
 </div>
 <div class="row">

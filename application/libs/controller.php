@@ -24,6 +24,7 @@ class Controller
     public function loadModel($name, $modelPath = 'application/models/')
     {
         $path = $modelPath . $name . '_model.php';
+        echo $path;
 
         if (file_exists($path)) {
             require $path;

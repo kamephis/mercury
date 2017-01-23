@@ -78,4 +78,88 @@
             </button>
     </div>
 </div>
+
+<div class="row row-table">
+    <div class="col-sm-2">01</div>
+
+    <div class="col-sm-4">
+        Pickliste: 6585<br>
+        Expires: 17.02.2017
+    </div>
+
+    <div class="col-sm-2">12m</div>
+
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-danger btn-lg pull-right" style="margin-left:10px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+        <button type="submit" class="btn btn-success btn-lg pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row row-table">
+    <div class="col-sm-2">01</div>
+
+    <div class="col-sm-4">
+        Pickliste: 6585<br>
+        Expires: 17.02.2017
+    </div>
+
+    <div class="col-sm-2">12m</div>
+
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-danger btn-lg pull-right" style="margin-left:10px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+        <button type="submit" class="btn btn-success btn-lg pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row row-table">
+    <div class="col-sm-2">01</div>
+
+    <div class="col-sm-4">
+        Pickliste: 6585<br>
+        Expires: 17.02.2017
+    </div>
+
+    <div class="col-sm-2">12m</div>
+
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-danger btn-lg pull-right" style="margin-left:10px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+        <button type="submit" class="btn btn-success btn-lg pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row row-table">
+    <div class="col-sm-2">01</div>
+
+    <div class="col-sm-4">
+        Pickliste: 6585<br>
+        Expires: 17.02.2017
+    </div>
+
+    <div class="col-sm-2">12m</div>
+
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-danger btn-lg pull-right" style="margin-left:10px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+        <button type="submit" class="btn btn-success btn-lg pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+</div>
 <!-- ./ Auftragspositionen -->

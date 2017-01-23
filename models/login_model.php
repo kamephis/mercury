@@ -70,7 +70,7 @@ class Login_Model extends Model
                 header('location: /auftrag');
             }
         } else {
-            echo "Daten falsch";
+            header('location: /error');
         }
     }
 

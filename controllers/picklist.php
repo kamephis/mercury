@@ -13,7 +13,7 @@ class Picklist extends Controller
         $this->view->title = 'Picken';
 
         $this->view->render('header');
-        $this->view->render('navbar_top');
+        $this->view->render('mercury/topNav');
         $this->view->render('mercury/picklist');
         $this->view->render('footer');
     }

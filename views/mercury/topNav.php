@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav">
                 <li>
                     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=artinfo">Artikelinfo&nbsp;<span
-                            class="glyphicon glyphicon-search pull-right text-sm hidden-sm"></span></a>
+                            class="glyphicon glyphicon-search pull-right text-sm"></span></a>
                 </li>
                 <li>
                     <a href="#">Hilfe&nbsp;
@@ -26,7 +26,7 @@
                 </li>
                 <li>
                     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home"><?php echo $_SESSION['vorname']; ?> Abmelden&nbsp;<span
-                            class="glyphicon glyphicon-log-out pull-right hidden-sm"></span>
+                            class="glyphicon glyphicon-log-out pull-right"></span>
                     </a>
                 </li>
             </ul>

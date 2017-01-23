@@ -29,7 +29,5 @@ class Login_Model extends Model
         } else {
             header('location: ../login');
         }
-
     }
-
 }

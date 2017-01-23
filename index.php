@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 // Konfiguration
 require 'config.php';
 require 'util/Auth.php';

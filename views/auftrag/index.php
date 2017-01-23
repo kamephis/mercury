@@ -57,6 +57,12 @@
 
 <!-- Auftragspositionen -->
 <div class="row">
+    <div class="col-sm-2">#</div>
+    <div class="col-sm-4">Info</div>
+    <div class="col-sm-2">Anzahl</div>
+    <div class="col-sm-4"></div>
+</div>
+<div class="row">
     <div class="col-sm-2">01</div>
 
     <div class="col-sm-4">Expires: 17.02.2017</div>

@@ -11,6 +11,7 @@ class Picker extends Controller
     function index()
     {
         $this->view->title = 'Picken';
+        $this->run();
 
         $this->view->render('header');
         $this->view->render('mercury/topNav');
@@ -20,6 +21,6 @@ class Picker extends Controller
 
     function run()
     {
-        $this->run();
+        $this->Model->run();
     }
 }

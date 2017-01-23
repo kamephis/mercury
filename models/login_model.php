@@ -23,22 +23,18 @@ class Login_Model extends Model
          * pruefen ob der Benutzer berechtigt ist
          * Voraussetzung fuer den Zugriff auf das Backend ist mind. ein Eintrag in der Tabelle iRight2iUser
          */
-        //$dbServer = 'mysql:dbname=' . $this->_dbName . ';host=' . $this->_dbHost . '; port=' . $this->_dbPort . '';
-        //$dbUser = $this->_dbUser;
-        //$dbPassword = $this->_dbPasswd;
-        // DB Connection
-        //$pdo = new PDO($dbServer, $dbUser, $dbPassword);
-
         $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname, iUser.Passwd, iUser.RegDate, iUser.kuerzel FROM iUser WHERE Username = '{$username}'");
         $sql->execute();
         $totalRows = $sql->rowCount();
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
-        // Zuweisung der Rows
-        $userID = $result['UID'];
-        $vorname = $result['vorname'];
-        $name = $result['name'];
+        // Session starten
+        Session::init();
 
+        // Zuweisung der Rows
+        Session::set('UID', $userID);
+        Session::set('vorname', $vorname);
+        Session::set('name', $name);
 
         // Pruefen ob der Benutzername existiert
         if ($totalRows > 0 || ($username == $result['Username'])) {
@@ -46,15 +42,6 @@ class Login_Model extends Model
             if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate'])) {
                 echo "kennwort passt";
 
-                // Registrieren der Session Variablen fuer den User
-                /*Session::init();
-                Session::set('loggedIn', true);
-                Session::set('userName', $username);
-*/
-
-                Session::init();
-                Session::set('userName', $username);
-                //$_SESSION['userName'] = $username;
                 /**
                  * Array mit den Benutzerrechten erzeugen und in die Session speichern
                  */
@@ -66,9 +53,9 @@ class Login_Model extends Model
                     $arrayRights[] = $rowRights['RID'];
                 }
                 Session::set('rights', $arrayRights);
-                //$_SESSION['rights'] = $arrayRights;
 
-                header('location: ' . URL . 'auftrag');
+                //header('location: ' . URL . 'auftrag');
+                header('location: http://dev.stoffpalette.com/pixiPickprozess/auftrag');
             }
         } else {
             header('location: ' . URL . 'error');

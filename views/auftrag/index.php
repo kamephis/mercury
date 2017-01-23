@@ -1,12 +1,7 @@
 <!-- Top Bar -->
 <div class="row">
-    <div class="panel panel-primary">
-        <div class="panel-heading"><?php $this->title; ?></div>
-
-        <div class="panel-body">
             <div class="col-sm-2"><img
                     src="https://www.stoff4you.de/out/pictures/master/product/1/fn1094-love-universalstoff-_z1.jpg"
-                    width="150px"
                     class="img img-responsive img-square"></div>
 
             <div class="col-sm-4">
@@ -53,8 +48,6 @@
                 </form>
 
             </div>
-        </div>
-    </div>
 </div>
 <!-- ./ Top Bar -->
 

@@ -13,7 +13,7 @@ class Zuschnitt extends Controller
         $this->view->title = 'Auftragsbearbeitung';
 
         $this->view->render('header');
-        $this->view->render('mercury/zuschnitt/index');
+        $this->view->render('mercury/index');
         $this->view->render('footer');
     }
 

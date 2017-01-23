@@ -24,8 +24,6 @@ class Controller
     {
         $path = 'application/models/' . $name . '_model.php';
 
-        echo $path . '<br>';
-
         if (file_exists($path)) {
             require $path;
 

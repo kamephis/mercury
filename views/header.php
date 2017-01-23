@@ -1,45 +1,27 @@
-<!doctype html>
-<html>
+<?php Session::init(); ?>
+<!DOCTYPE html>
+<html lang="de">
 <head>
-    <title><?= (isset($this->title)) ? $this->title : 'MVC'; ?></title>
-    <link rel="stylesheet" href="<?php echo URL; ?>public/css/default.css"/>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/sunny/jquery-ui.css"/>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript"
-            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="<?php echo URL; ?>public/js/custom.js"></script>
-    <?php
-    if (isset($this->js)) {
-        foreach ($this->js as $js) {
-            echo '<script type="text/javascript" src="' . URL . 'views/' . $js . '"></script>';
-        }
-    }
-    ?>
+    <meta charset="UTF-8">
+    <title><?php (isset($this->title)) ? $this->title : 'Mercury'; ?></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="out/lib/js/html5shiv.min.js"></script>
+    <script src="out/lib/js/respond.min.js"></script>
+
+    <![endif]-->
+
+    <link rel="stylesheet" href="out/css/stpMain.css">
 </head>
 <body>
-
-<?php Session::init(); ?>
-
-<div id="header">
-
-    <?php if (Session::get('loggedIn') == false): ?>
-        <a href="<?php echo URL; ?>index">Index</a>
-        <a href="<?php echo URL; ?>help">Help</a>
-    <?php endif; ?>
-    <?php if (Session::get('loggedIn') == true): ?>
-        <a href="<?php echo URL; ?>dashboard">Dashboard</a>
-        <a href="<?php echo URL; ?>note">Notes</a>
-
-        <?php if (Session::get('role') == 'owner'): ?>
-            <a href="<?php echo URL; ?>user">Users</a>
-        <?php endif; ?>
-
-        <a href="<?php echo URL; ?>dashboard/logout">Logout</a>
-    <?php else: ?>
-        <a href="<?php echo URL; ?>login">Login</a>
-    <?php endif; ?>
-</div>
-
-<div id="content">
-    
+<div class="container-fluid">
     

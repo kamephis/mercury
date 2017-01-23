@@ -1,18 +1,9 @@
 <?php
-
-// Always provide a TRAILING SLASH (/) AFTER A PATH
 define('URL', 'http://dev.stoffpalette.com/pixiPickprozess/');
 define('LIBS', 'libs/');
 
 define('DB_TYPE', 'mysql');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'mvc');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-
-// The sitewide hashkey, do not change this because its used for passwords!
-// This is for other hash keys... Not sure yet
-define('HASH_GENERAL_KEY', 'MixitUp200');
-
-// This is for database passwords only
-define('HASH_PASSWORD_KEY', 'catsFLYhigh2000miles');
+define('DB_HOST', '192.168.200.2');
+define('DB_NAME', 'usrdb_stokcgbl5');
+define('DB_USER', 'stokcgbl5');
+define('DB_PASS', '3307');

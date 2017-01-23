@@ -1,12 +1,15 @@
 <!-- Top Bar -->
 <div class="row">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Auftragsbearbeitung</div>
+
+        <div class="panel-body">
     <div class="col-sm-2"><img
             src="https://www.stoff4you.de/out/pictures/master/product/1/fn1094-love-universalstoff-_z1.jpg"
             width="150px"
             class="img img-responsive img-square"></div>
     <div class="col-sm-7">
         <div class="row">
-            <div class="well">
                 <div class="col-sm-3">Artikel (Variante)</div>
                 <div class="col-sm-4">Universalstoff (rot)</div>
                 <div class="clearfix"></div>
@@ -25,7 +28,6 @@
 
                 <div class="col-sm-3">Lagerbestand</div>
                 <div class="col-sm-4">145</div>
-            </div>
         </div>
     </div>
     <div class="col-sm-3">
@@ -45,6 +47,8 @@
             </button>
         </form>
 
+    </div>
+        </div>
     </div>
 </div>
 <!-- ./ Top Bar -->

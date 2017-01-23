@@ -6,7 +6,7 @@
                     class="img img-responsive img-square">
             </div>
 
-    <div class="col-sm-4 col-table">
+    <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-4"><b>Artikel:</b></div>
                     <div class="col-sm-8">Universalstoff - Love</div>
@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-    <div class="col-sm-4 col-table">
+    <div class="col-sm-4">
                     <div class="row">
                         <div class="col-sm-4"><b>EAN</b></div>
                         <div class="col-sm-8">01234567890123</div>
@@ -28,7 +28,7 @@
                         <div class="col-sm-8">145</div>
                     </div>
                 </div>
-    <div class="col-sm-2 col-table">
+    <div class="col-sm-2">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
                     <button type="submit" class="btn btn-default btn-block">
                         <span class="glyphicon glyphicon-user"></span> Abmelden
@@ -57,23 +57,23 @@
     <div class="col-sm-4"><b>Aktion</b></div>
 </div>
 <!-- Auftragspositionen -->
-<div class="row row-table">
+<div class="row col-table">
     <div class="col-sm-2">01</div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-4 col-table">
         Pickliste: 6585<br>
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2 col-table">12m</div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 col-table">
             <button type="submit" class="btn btn-danger btn-lg btn-block">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 col-table">
             <button type="submit" class="btn btn-success btn-lg btn-block">
                 <span class="glyphicon glyphicon-ok"></span>
             </button>
@@ -81,22 +81,22 @@
 </div>
 
 <div class="row row-table">
-    <div class="col-sm-2">01</div>
+    <div class="col-sm-2 col-table">01</div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-4 col-table">
         Pickliste: 6585<br>
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2 col-table">12m</div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 col-table">
         <button type="submit" class="btn btn-danger btn-lg btn-block">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 col-table">
         <button type="submit" class="btn btn-success btn-lg btn-block">
             <span class="glyphicon glyphicon-ok"></span>
         </button>
@@ -104,22 +104,22 @@
 </div>
 
 <div class="row row-table">
-    <div class="col-sm-2">01</div>
+    <div class="col-sm-2 col-table">01</div>
 
     <div class="col-sm-4">
         Pickliste: 6585<br>
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2 col-table">12m</div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 col-table">
         <button type="submit" class="btn btn-danger btn-lg btn-block">
             <span class="glyphicon glyphicon-remove"></span>
         </button>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 col-table">
         <button type="submit" class="btn btn-success btn-lg btn-block">
             <span class="glyphicon glyphicon-ok"></span>
         </button>

@@ -1,5 +1,4 @@
-<?php
-?>
+
 <div class="well-sm">
     <!-- Anzeige Picklisten -->
     <div class="row">
@@ -65,4 +64,6 @@
             </form>
         </div>
     </div>
-</div>
+</div><?php
+var_dump($this->getMasterPicklist);
+?>

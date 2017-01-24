@@ -28,7 +28,7 @@ foreach ($this->masterPicklist as $pickList) {
                     Erstellt von:
                 </div>
                 <div class="col-xs-7">
-                    <?php echo $pickList['CreatedBy']; ?>
+                    <?php echo utf8_encode($pickList['CreatedBy']); ?>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-5 col-md-2 text-left">

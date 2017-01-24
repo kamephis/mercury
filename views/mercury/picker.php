@@ -65,6 +65,6 @@
         </div>
     </div>
 </div><?php
-echo $this->myName;
+echo $this->Model->myName;
 var_dump($this->Model->getMasterPicklist);
 ?>

@@ -11,7 +11,7 @@ class Auftrag_Model extends Model
 
     public function getAuftrag($artNr)
     {
-        $sql = "SELECT * FROM stpPicklistItems WHERE ItemNrInt = '{$artNr}' ";
+        $sql = "SELECT * FROM stpPicklistItems WHERE ItemNrInt = '{$artNr}' ORDER BY Qty ASC";
         return $this->db->select($sql);
     }
 

@@ -2,7 +2,7 @@
 
 $auftrag = $this->auftrag->getAuftrag('10603480');
 //var_dump($auftrag);
-echo gettype($auftrag);
+print_r($auftrag);
 
 ?>
 

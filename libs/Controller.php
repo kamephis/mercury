@@ -20,6 +20,7 @@ class Controller
         if (file_exists($path)) {
             require $modelPath . $name . '_model.php';
 
+            ucfirst($name);
             $modelName = $name . '_Model';
             $this->model = new $modelName();
         }

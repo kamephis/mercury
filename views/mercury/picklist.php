@@ -1,4 +1,8 @@
 <div class="well-sm">
+    <?php
+    foreach ($this->PicklistItems as $item){
+    ?>
+
     <div class="row">
         <div class="col-xs-9">
             <div class="row">
@@ -6,14 +10,14 @@
                     <b>Lagerplatz</b>
                 </div>
                 <div class="col-sm-12">
-                    <h1 class="pick binColor">H1-C-01</h1>
+                    <h1 class="pick binColor"><?php $item['BinName']; ?></h1>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-md-12 small">
                     <b>Artikel</b>
                 </div>
                 <div class="col-sm-12">
-                    <h3 class="pick">Universalstoff - Love</h3>
+                    <h3 class="pick"><?php $item['ItemName']; ?></h3>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-md-12 small">
@@ -87,7 +91,7 @@
             </div>
         </div>
         <!-- ./ row -->
-
+        <?php } ?>
 
         <!-- modal test -->
 
@@ -156,4 +160,6 @@
         <!-- ./ modal test -_>
 
        <!-- ./ Pickliste -->
+
+
     </div>

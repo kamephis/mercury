@@ -59,9 +59,14 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
 </div>
 
 <!-- Auftragspositionen -->
-<?php foreach ($auftrag as $item) { ?>
+
+<?php
+$rows = 0;
+foreach ($auftrag as $item) {
+    $rows++;
+    ?>
 <div class="row row-table default-state">
-    <div class="col-sm-1">01</div>
+    <div class="col-sm-1"><?php echo $rows; ?></div>
 
     <div class="col-sm-7">
         Pickliste: <?php echo $item['PLIheaderRef']; ?> | Expires: <?php echo $item['PicklistExpiryDate']; ?> <br>

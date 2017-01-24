@@ -11,7 +11,7 @@ class Auftrag_Model extends Model
 
     public function getAuftrag($artNr)
     {
-        $sql = "SELECT pli.*, DATE_FORMAT(pli.PicklistExpiryDate,'%m.%d.%Y') as expDate FROM stpPicklistItems pli WHERE ItemNrInt = '{$artNr}' ORDER BY Qty ASC";
+        $sql = "SELECT pli.*, DATE_FORMAT(pli.PicklistExpiryDate,'%d.%m.%Y') as expDate,DATE_FORMAT(pli.PicklistCreateDate,'%d.%m.%Y') as createDate FROM stpPicklistItems pli WHERE ItemNrInt = '{$artNr}' ORDER BY Qty ASC";
         return $this->db->select($sql);
     }
 

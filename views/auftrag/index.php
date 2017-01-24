@@ -53,7 +53,7 @@
 </div>
 
 <!-- Auftragspositionen -->
-<div class="row row-table">
+<div class="row row-table default-state">
     <div class="col-sm-1">01</div>
 
     <div class="col-sm-7">

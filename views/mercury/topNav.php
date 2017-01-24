@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home"><?php echo $_SESSION['vorname']; ?> Abmelden&nbsp;<span
+                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home"><?php echo Session::get('vorname'); ?> Abmelden&nbsp;<span
                             class="glyphicon glyphicon-log-out pull-right"></span>
                     </a>
                 </li>

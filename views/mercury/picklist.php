@@ -58,7 +58,7 @@
                             <button type="submit" class="btn btn-success btn-block btn-lg-touch pull-right"
 
                                     data-toggle="modal" data-target="#modPicked">
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok" style="font-size:20px;"></span>
                             </button>
                         </div>
                         <div class="clearfix"></div>

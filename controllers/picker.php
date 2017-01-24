@@ -17,6 +17,7 @@ class Picker extends Controller
         $this->view->render('mercury/topNav');
         $this->view->render('mercury/picker');
         $this->view->render('footer');
+
     }
 
     /*function run() {

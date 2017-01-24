@@ -13,7 +13,6 @@ class Picker extends Controller
         $this->view->title = 'Picken';
         $this->model = new Picker_Model();
         $this->view->masterPicklist = $this->model->getMasterPicklist();
-        $this->view->PicklistItems = $this->model->getPicklistItems();
         //$this->run();
 
         $this->view->render('header');

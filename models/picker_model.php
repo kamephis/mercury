@@ -6,6 +6,7 @@ class Picker_Model extends Model
     {
         parent::__construct();
         echo "<br><br><br><br><br><br><br>picker model";
+        $this->myName = "Marlon";
     }
 
     public function getMasterPicklist()

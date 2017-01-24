@@ -89,9 +89,10 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
         </div>
         <!-- ./ row -->
-        <?php } ?>
+
 
         <!-- modal test -->
 

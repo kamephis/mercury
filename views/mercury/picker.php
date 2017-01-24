@@ -65,5 +65,5 @@
         </div>
     </div>
 </div><?php
-echo $this->masterPicklist;
+var_dump($this->masterPicklist);
 ?>

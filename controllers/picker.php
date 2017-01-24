@@ -11,7 +11,8 @@ class Picker extends Controller
     function index()
     {
         $this->view->title = 'Picken';
-        $this->view->masterPicklist = 'blubb';
+        $this->model = new Picker_Model();
+        $this->view->masterPicklist = $this->model->getMasterPicklist();
         //$this->run();
 
         $this->view->render('header');

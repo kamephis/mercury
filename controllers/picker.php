@@ -17,10 +17,6 @@ class Picker extends Controller
         $this->view->render('mercury/topNav');
         $this->view->render('mercury/picker');
         $this->view->render('footer');
-
-        require_once('models/picker_model.php');
-        $this->model = new Picker_Model();
-        $this->view->getMasterPicklist = $this->model->getMasterPicklist();
     }
 
     /*function run() {

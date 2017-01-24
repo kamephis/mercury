@@ -46,7 +46,6 @@
             </div>
         </div>
     </div>
-        <?php } ?>
 
 
         <div class="col-xs-3">
@@ -165,5 +164,5 @@
 
        <!-- ./ Pickliste -->
 
-
+    <?php } ?>
     </div>

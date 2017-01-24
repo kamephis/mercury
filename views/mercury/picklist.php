@@ -2,7 +2,6 @@
     <?php
     foreach ($this->PicklistItems as $item){
     ?>
-
     <div class="row">
         <div class="col-xs-9">
             <div class="row">

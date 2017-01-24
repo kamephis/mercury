@@ -36,8 +36,8 @@
                     </button>
                 </form>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-            <button type="submit" class="btn btn-success btn-lg btn-block">
-                        <span class="glyphicon glyphicon-check"></span> Abschließen
+            <button type="submit" class="btn btn-info btn-lg btn-block">
+                <span class="glyphicon glyphicon-ok"></span> Abschließen
                     </button>
                 </form>
             </div>

@@ -75,7 +75,7 @@
                         <small>&nbsp;</small>
                         <div class="col-xs-12">
                             <button type="submit" class="btn btn-default btn-block btn-lg-touch"
-                                    style="height:90px!important;"
+                                    
                                     data-toggle="modal" data-target="#nextDataset">
                                 <span class="glyphicon glyphicon-arrow-left"></span>
                             </button>

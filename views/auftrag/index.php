@@ -31,11 +31,10 @@
     <div class="col-sm-2">
         <p><b>Auftrag</b></p>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-                    <button type="submit" class="btn btn-danger btn-block">
+                    <button type="submit" class="btn btn-danger btn-block" style="margin-bottom:5px;">
                         <span class="glyphicon glyphicon-user"></span> Abbrechen
                     </button>
                 </form>
-        <small style="height:0.4em; display:inline-block;">&nbsp;</small>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
                     <button type="submit" class="btn btn-success btn-block">
                         <span class="glyphicon glyphicon-check"></span> Abschließen

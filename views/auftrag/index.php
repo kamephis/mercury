@@ -157,6 +157,7 @@
         </button>
     </div>
 </div>
+<?php var_dump($this->getAufraege); ?>
 
 <div class="row row-table">
     <div class="col-sm-1">01</div>
@@ -165,7 +166,6 @@
         Pickliste: 6585<br>
         Expires: 17.02.2017
     </div>
-
     <div class="col-sm-1">12 m</div>
 
     <div class="col-sm-3">

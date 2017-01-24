@@ -1,5 +1,4 @@
 <?php
-var_dump($this->getMasterPicklist);
 ?>
 <div class="well-sm">
     <!-- Anzeige Picklisten -->

@@ -19,7 +19,7 @@ class Bootstrap
     {
         $this->_getUrl();
 
-        // Laden des default Controlelrs
+        // Laden des default Controllers
         if (empty($this->_url[0])) {
             $this->_loadDefaultController();
             return false;

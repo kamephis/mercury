@@ -96,6 +96,11 @@ input[type='checkbox'] {
     margin-bottom:auto;*/
 }
 
+.btn-lg-touch {
+    width: 3em;
+    height: 25%;
+}
+
 .btn-lg-square {
     width: 90px !important;
     height: 90px !important;

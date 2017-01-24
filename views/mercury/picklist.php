@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="navbar navbar-right">
                         <div class="col-xs-12 fixB1">
-                            <button type="submit" class="btn btn-danger btn-block btn-lg-square"
+                            <button type="submit" class="btn btn-danger btn-block btn-lg-touch"
                                     data-toggle="modal" data-target="#modFehler">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
@@ -55,7 +55,7 @@
                         <small>&nbsp;</small>
 
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-success btn-block btn-lg-square"
+                            <button type="submit" class="btn btn-success btn-block btn-lg-touch"
 
                                     data-toggle="modal" data-target="#modPicked">
                                 <span class="glyphicon glyphicon-ok"></span>
@@ -65,7 +65,7 @@
 
                         <small>&nbsp;</small>
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-default btn-block btn-lg-square" data-toggle="modal"
+                            <button type="submit" class="btn btn-default btn-block btn-lg-touch" data-toggle="modal"
                                     data-target="#nextDataset">
                                 <span class="glyphicon glyphicon-arrow-right"></span>
                             </button>
@@ -74,7 +74,7 @@
 
                         <small>&nbsp;</small>
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-default btn-block btn-lg-square"
+                            <button type="submit" class="btn btn-default btn-block btn-lg-touch"
                                     style="height:90px!important;"
                                     data-toggle="modal" data-target="#nextDataset">
                                 <span class="glyphicon glyphicon-arrow-left"></span>

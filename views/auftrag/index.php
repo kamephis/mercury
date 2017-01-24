@@ -49,7 +49,7 @@
     <div class="col-sm-1 text-left"><b>#</b></div>
     <div class="col-sm-6 text-left"><b>Info</b></div>
     <div class="col-sm-2"><b>Anzahl</b></div>
-    <div class="col-sm-3 text-right"><b>Aktion</b></div>
+    <div class="col-sm-3 text-left"><b>Aktion</b></div>
 </div>
 
 <!-- Auftragspositionen -->

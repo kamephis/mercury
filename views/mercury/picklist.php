@@ -1,10 +1,11 @@
+<?php
+foreach ($this->PicklistItems as $item) {
+    ?>
 <div class="well-sm">
 
     <div class="row">
         <div class="col-xs-9">
-            <?php
-            foreach ($this->PicklistItems as $item){
-            ?>
+
             <div class="row">
                 <div class="col-xs-12 col-md-12 small">
                     <b>Lagerplatz</b>
@@ -164,5 +165,6 @@
 
        <!-- ./ Pickliste -->
 
-    <?php } ?>
-    </div>
+
+</div>
+<?php } ?>

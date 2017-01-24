@@ -21,7 +21,7 @@
                         <div class="col-sm-4"><b>EAN</b></div>
                         <div class="col-sm-8">01234567890123</div>
 
-                        <div class="col-sm-4"><b>Lagerplatz</b></div>
+                        <div class="col-sm-4"><b>Lager</b></div>
                         <div class="col-sm-8">H1-C-01</div>
 
                         <div class="col-sm-4"><b>Bestand</b></div>

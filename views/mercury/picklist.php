@@ -89,8 +89,8 @@
                     </div>
                 </div>
             </div>
-            <?php } ?>
         </div>
+        <?php } ?>
         <!-- ./ row -->
 
 

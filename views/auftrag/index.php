@@ -29,8 +29,9 @@
                     </div>
                 </div>
     <div class="col-sm-2">
+        <p><b>Auftrag</b></p>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-                    <button type="submit" class="btn btn-alert btn-block">
+                    <button type="submit" class="btn btn-danger btn-block">
                         <span class="glyphicon glyphicon-user"></span> Abbrechen
                     </button>
                 </form>

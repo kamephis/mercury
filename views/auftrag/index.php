@@ -7,7 +7,7 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
 <!-- Top Bar -->
 <div class="row text-mobile-large">
             <div class="col-sm-2"><img
-                    src="https://www.stoff4you.de/out/pictures/master/product/1/fn1094-love-universalstoff-_z1.jpg"
+                    src="<?php echo $auftrag[0]['PicLinkLarge']; ?>"
                     width="100%"
                     class="img img-responsive img-square img-thumbnail">
             </div>
@@ -59,11 +59,12 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
 </div>
 
 <!-- Auftragspositionen -->
+<?php foreach ($auftrag as $item) { ?>
 <div class="row row-table default-state">
     <div class="col-sm-1">01</div>
 
     <div class="col-sm-7">
-        Pickliste: 6585 | Expires: 17.02.2017<br>
+        Pickliste: <?php echo $item['PLIheaderRef']; ?> | Expires: 17.02.2017<br>
         Auftragsdatum: 16.01.2017
 
     </div>
@@ -81,49 +82,7 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
     </div>
 </div>
 
-<div class="row row-table important-state">
-    <div class="col-sm-1">02</div>
-
-    <div class="col-sm-7">
-        Pickliste: 6585 | Expires: 17.02.2017<br>
-        Auftragsdatum: <strong><u>16.01.2017</u></strong>
-
-    </div>
-
-    <div class="col-sm-1">8 m</div>
-
-    <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
-        </button>
-    </div>
-</div>
-
-<div class="row row-table default-state">
-    <div class="col-sm-1">03</div>
-
-    <div class="col-sm-7">
-        Pickliste: 6585 | Expires: 17.02.2017<br>
-        Auftragsdatum: 16.01.2017
-
-    </div>
-
-    <div class="col-sm-1">6 m</div>
-
-    <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
-        </button>
-    </div>
-</div>
+<?php } ?>
 
 
 

@@ -2,11 +2,19 @@
 
 class Auftrag_Model extends Model
 {
-    private $artNr;
+    private $oProxy;
 
     public function __construct()
     {
         parent::__construct();
+
+        $oSoapClient = new nusoap_client(PIXI_WSDL_PATH, true);
+        $oSoapClient->soap_defencoding = 'UTF-8';
+        $oSoapClient->decode_utf8 = false;
+        $oSoapClient->setCredentials(PIXI_USERNAME, PIXI_PASSWORD);
+
+        // pixi* API Objekt erzeugen
+        $this->oProxy = $oSoapClient->getProxy();
     }
 
     public function getAuftrag($artNr)
@@ -18,5 +26,12 @@ class Auftrag_Model extends Model
     public function setArtNr($artNr)
     {
         $this->artNr = $artNr;
+    }
+
+    public function getPixiBestand($ean)
+    {
+        $itemStock = $this->oProxy->pixiGetItemStock(array('EAN' => $ean));
+        $itemStock = $itemStock['pixiGetItemStockResults']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+        return $itemStock;
     }
 }

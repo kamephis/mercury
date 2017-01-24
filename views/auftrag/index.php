@@ -1,8 +1,6 @@
 <?php
 
 $auftrag = $this->auftrag->getAuftrag('10603480');
-//var_dump($auftrag);
-//print_r($auftrag);
 
 ?>
 
@@ -20,20 +18,20 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
                     <div class="col-sm-8"><?php echo $auftrag[0]['ItemName']; ?></div>
 
                     <div class="col-sm-4"><b>Art.Nr:</b></div>
-                    <div class="col-sm-8">FN1094</div>
+                    <div class="col-sm-8"><?php echo $auftrag[0]['ItemNrInt']; ?></div>
                 </div>
             </div>
 
     <div class="col-sm-4">
                     <div class="row">
                         <div class="col-sm-4"><b>EAN</b></div>
-                        <div class="col-sm-8">01234567890123</div>
+                        <div class="col-sm-8"><?php echo $auftrag[0]['EanUpc']; ?></div>
 
                         <div class="col-sm-4"><b>Lager</b></div>
-                        <div class="col-sm-8">H1-C-01</div>
+                        <div class="col-sm-8"><?php echo $auftrag[0]['BinName']; ?></div>
 
                         <div class="col-sm-4"><b>Bestand</b></div>
-                        <div class="col-sm-8">145</div>
+                        <div class="col-sm-8"><?php echo $auftrag[0]['Qty']; ?></div>
                     </div>
                 </div>
     <div class="col-sm-2">

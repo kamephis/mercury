@@ -1,9 +1,10 @@
 <div class="well-sm">
-    <?php
-    foreach ($this->PicklistItems as $item){
-    ?>
+
     <div class="row">
         <div class="col-xs-9">
+            <?php
+            foreach ($this->PicklistItems as $item){
+            ?>
             <div class="row">
                 <div class="col-xs-12 col-md-12 small">
                     <b>Lagerplatz</b>

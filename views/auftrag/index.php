@@ -57,8 +57,9 @@
     <div class="col-sm-1">01</div>
 
     <div class="col-sm-7">
-        Pickliste: 6585<br>
-        Expires: 17.02.2017
+        Pickliste: 6585 | Expires: 17.02.2017<br>
+        Auftragsdatum: 16.01.2017
+
     </div>
 
     <div class="col-sm-1">12 m</div>
@@ -74,110 +75,7 @@
     </div>
 </div>
 
-<div class="row row-table">
-    <div class="col-sm-1">02</div>
 
-    <div class="col-sm-7">
-        Pickliste: 6584<br>
-        Expires: 17.02.2017
-    </div>
-
-    <div class="col-sm-1">12 m</div>
-
-    <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
-        </button>
-    </div>
-</div>
-
-<div class="row row-table">
-    <div class="col-sm-1">03</div>
-
-    <div class="col-sm-7">
-        Pickliste: 6583<br>
-        Expires: 17.02.2017
-    </div>
-
-    <div class="col-sm-1">12 m</div>
-
-    <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
-        </button>
-    </div>
-</div>
-
-<div class="row row-table">
-    <div class="col-sm-1">04</div>
-
-    <div class="col-sm-7">
-        Pickliste: 6585<br>
-        Expires: 17.02.2017
-    </div>
-
-    <div class="col-sm-1">12 m</div>
-
-    <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
-        </button>
-    </div>
-</div>
-
-<div class="row row-table">
-    <div class="col-sm-1">05</div>
-
-    <div class="col-sm-7">
-        Pickliste: 6585<br>
-        Expires: 17.02.2017
-    </div>
-
-    <div class="col-sm-1">12 m</div>
-
-    <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right"
-                style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok  text-glyphicon-lg"></span>
-        </button>
-    </div>
-</div>
-
-<div class="row row-table">
-    <div class="col-sm-1">01</div>
-
-    <div class="col-sm-7">
-        Pickliste: 6585<br>
-        Expires: 17.02.2017
-    </div>
-    <div class="col-sm-1">12 m</div>
-
-    <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
-        </button>
-    </div>
-</div>
 
 
 <!-- ./ Auftragspositionen -->

@@ -47,23 +47,23 @@
 <!-- Auftragspositionen / Header -->
 <div class="row text-mobile-large">
     <div class="col-sm-1 text-left"><b>#</b></div>
-    <div class="col-sm-5 text-left"><b>Info</b></div>
+    <div class="col-sm-7 text-left"><b>Info</b></div>
     <div class="col-sm-2"><b>Anzahl</b></div>
-    <div class="col-sm-4 text-right text-center"><b>Aktion</b></div>
+    <div class="col-sm-2 text-right"><b>Aktion</b></div>
 </div>
 
 <!-- Auftragspositionen -->
 <div class="row row-table">
     <div class="col-sm-1">01</div>
 
-    <div class="col-sm-5">
+    <div class="col-sm-7">
         Pickliste: 6585<br>
         Expires: 17.02.2017
     </div>
 
     <div class="col-sm-2">12 m</div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-2">
         <button type="submit" class="btn btn-danger btn-lg-square" style="margin-left:10px;">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>

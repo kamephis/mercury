@@ -20,6 +20,7 @@ class Picker extends Controller
 
         require_once('models/picker_model.php');
         $this->model = new Picker_Model();
+        $this->view->getMasterPicklist = $this->model->getMasterPicklist();
     }
 
     /*function run() {

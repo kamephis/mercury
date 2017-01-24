@@ -49,7 +49,7 @@
     <div class="col-sm-1 text-left"><b>#</b></div>
     <div class="col-sm-7 text-left"><b>Info</b></div>
     <div class="col-sm-1"><b>Anzahl</b></div>
-    <div class="col-sm-3 text-left"><b>Aktion</b></div>
+    <div class="col-sm-3 text-left"><b></b></div>
 </div>
 
 <!-- Auftragspositionen -->
@@ -64,11 +64,11 @@
     <div class="col-sm-1">12 m</div>
 
     <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square" style="margin-left:10px;">
+        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
                 <span class="glyphicon glyphicon-remove"></span>
             </button>
 
-        <button type="submit" class="btn btn-success btn-lg-square">
+        <button type="submit" class="btn btn-success btn-lg-square pull-right">
                 <span class="glyphicon glyphicon-ok"></span>
             </button>
     </div>

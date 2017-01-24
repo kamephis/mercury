@@ -10,22 +10,22 @@
                     <b>Lagerplatz</b>
                 </div>
                 <div class="col-sm-12">
-                    <h1 class="pick binColor"><?php $item['BinName']; ?></h1>
+                    <h1 class="pick binColor"><?php echo $item['BinName']; ?></h1>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-md-12 small">
                     <b>Artikel</b>
                 </div>
                 <div class="col-sm-12">
-                    <h3 class="pick"><?php $item['ItemName']; ?></h3>
+                    <h3 class="pick"><?php echo $item['ItemName']; ?></h3>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-md-12 small">
                     <b>EAN/GTIN</b>
                 </div>
                 <div class="col-sm-12">
-                    <h2 class="pick hidden-xs">012345678910121</h2>
-                    <h3 class="pick visible-xs">012345678910121</h3>
+                    <h2 class="pick hidden-xs"><?php echo $item['EanUpc']; ?></h2>
+                    <h3 class="pick visible-xs"><?php echo $item['EanUpc']; ?></h3>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-md-12 small">

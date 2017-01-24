@@ -6,7 +6,7 @@ class Database extends PDO
     //TODO: public function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
     public function __construct()
     {
-        parent::__construct('mysql:host=192.168.200.2;port=3307;dbname=usrdb_stokcgbl5', 'stokcgbl5', 'X$9?2IMalDUU');
+        parent::__construct('mysql:host=192.168.200.2;port=3307;dbname=usrdb_stokcgbl5;charset=utf8', 'stokcgbl5', 'X$9?2IMalDUU');
 
     }
 
@@ -19,6 +19,7 @@ class Database extends PDO
      */
     public function select($sql, $array = array(), $fetchMode = PDO::FETCH_ASSOC)
     {
+
         $sth = $this->prepare($sql);
         foreach ($array as $key => $value) {
             $sth->bindValue("$key", $value);

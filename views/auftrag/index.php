@@ -29,7 +29,7 @@
                     </div>
                 </div>
     <div class="col-sm-2">
-        <p><b>Auftrag</b></p>
+        <p><b>Auftrag 16895</b></p>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
                     <button type="submit" class="btn btn-lg btn-default btn-block" style="margin-bottom:5px;">
                         <span class="glyphicon glyphicon-user"></span> Abbrechen

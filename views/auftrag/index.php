@@ -76,7 +76,7 @@
 </div>
 
 <div class="row row-table important-state">
-    <div class="col-sm-1">01</div>
+    <div class="col-sm-1">02</div>
 
     <div class="col-sm-7">
         Pickliste: 6585 | Expires: 17.02.2017<br>
@@ -98,7 +98,7 @@
 </div>
 
 <div class="row row-table default-state">
-    <div class="col-sm-1">01</div>
+    <div class="col-sm-1">03</div>
 
     <div class="col-sm-7">
         Pickliste: 6585 | Expires: 17.02.2017<br>

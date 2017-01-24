@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <img src="https://www.stoff4you.de/out/pictures/master/product/2/fn1094-love-universalstoff_z2.jpg"
-                         width="100%" class="img img-responsive">
+                         width="100%" class="img img-responsive img-thumbnail">
                 </div>
             </div>
         </div>

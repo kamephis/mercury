@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-xs-6 text-small"><b>Menge</b></div>
                         <div class="col-xs-6 text-small"><b>Lagerbestand</b></div>
-                        <div class="col-xs-6"><h2 class="pick">3,0 m</h2></div>
+                        <div class="col-xs-6"><h2 class="pick"><?php echo $item['Qty']; ?> m</h2></div>
                         <div class="col-xs-6"><h2 class="pick">46 m</h2></div>
                     </div>
                 </div>
@@ -45,6 +45,9 @@
                 </div>
             </div>
         </div>
+        <?php } ?>
+
+
         <div class="col-xs-3">
             <div class="fixNav">
                 <div class="row">
@@ -90,7 +93,6 @@
                 </div>
             </div>
         </div>
-        <?php } ?>
         <!-- ./ row -->
 
 

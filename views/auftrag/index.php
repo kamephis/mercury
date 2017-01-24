@@ -157,7 +157,6 @@
         </button>
     </div>
 </div>
-<?php var_dump($this->model->getAufraege); ?>
 
 <div class="row row-table">
     <div class="col-sm-1">01</div>

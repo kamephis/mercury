@@ -3,7 +3,7 @@
             <div class="col-sm-2"><img
                     src="https://www.stoff4you.de/out/pictures/master/product/1/fn1094-love-universalstoff-_z1.jpg"
                     width="100%"
-                    class="img img-responsive img-square">
+                    class="img img-responsive img-square img-thumbnail">
             </div>
 
     <div class="col-sm-4">

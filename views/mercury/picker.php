@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h1>Aktive Picklisten</h1>
-            <p class="lead">Hallo <?php echo session::get('vorname'); ?>, folgende Picklisten sind für dich zum Picken
+            <p class="lead">Hallo <?php echo Session::get('vorname'); ?>, folgende Picklisten sind für dich zum Picken
                 freigegeben.</p>
         </div>
     </div>

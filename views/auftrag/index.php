@@ -80,7 +80,7 @@
 
     <div class="col-sm-7">
         Pickliste: 6585 | Expires: 17.02.2017<br>
-        Auftragsdatum: 16.01.2017
+        Auftragsdatum: <strong><u>16.01.2017</u></strong>
 
     </div>
 

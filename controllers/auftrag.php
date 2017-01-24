@@ -13,7 +13,6 @@ class Auftrag extends Controller
         $this->view->title = 'Auftragsbearbeitung';
 
         $this->model = new Auftrag_Model();
-        $this->view->Auftrag = $this->model->getAuftrag(null);
 
         $this->view->render('header');
         $this->view->render('navbar_top');

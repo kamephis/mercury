@@ -66,7 +66,7 @@
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2">12 m</div>
 
     <div class="col-sm-4">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
@@ -80,27 +80,6 @@
 </div>
 
 <div class="row row-table">
-    <div class="col-sm-1">01</div>
-
-    <div class="col-sm-5">
-        Pickliste: 6585<br>
-        Expires: 17.02.2017
-    </div>
-
-    <div class="col-sm-2">12m</div>
-
-    <div class="col-sm-4">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
-            <span class="glyphicon glyphicon-ok"></span>
-        </button>
-    </div>
-</div>
-
-<div class="row row-table">
     <div class="col-sm-1">02</div>
 
     <div class="col-sm-5">
@@ -108,7 +87,7 @@
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2">8 m</div>
 
     <div class="col-sm-4">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
@@ -129,7 +108,7 @@
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2">4 m</div>
 
     <div class="col-sm-4">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
@@ -150,7 +129,28 @@
         Expires: 17.02.2017
     </div>
 
-    <div class="col-sm-2">12m</div>
+    <div class="col-sm-2">3 m</div>
+
+    <div class="col-sm-4">
+        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+
+        <button type="submit" class="btn btn-success btn-lg-square pull-right">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row row-table">
+    <div class="col-sm-1">05</div>
+
+    <div class="col-sm-5">
+        Pickliste: 6585<br>
+        Expires: 17.02.2017
+    </div>
+
+    <div class="col-sm-2">1 m</div>
 
     <div class="col-sm-4">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">

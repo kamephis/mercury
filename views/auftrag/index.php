@@ -1,5 +1,5 @@
 <?php
-$auftrag = $this->getAuftrag('10603480');
+$auftrag = $this->Auftrag('10603480');
 
 
 ?>

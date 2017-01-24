@@ -2,12 +2,11 @@
 
 class Bootstrap
 {
-
     private $_url = null;
     private $_controller = null;
 
-    private $_controllerPath = 'controllers/'; // Always include trailing slash
-    private $_modelPath = 'models/'; // Always include trailing slash
+    private $_controllerPath = 'controllers/';
+    private $_modelPath = 'models/';
     private $_errorFile = 'error.php';
     private $_defaultFile = 'index.php';
 
@@ -18,11 +17,9 @@ class Bootstrap
      */
     public function init()
     {
-        // Sets the protected $_url
         $this->_getUrl();
 
-        // Load the default controller if no URL is set
-        // eg: Visit http://localhost it loads Default Controller
+        // Laden des default Controlelrs
         if (empty($this->_url[0])) {
             $this->_loadDefaultController();
             return false;
@@ -33,7 +30,7 @@ class Bootstrap
     }
 
     /**
-     * (Optional) Set a custom path to controllers
+     * (Optional) Eigener Controller Pfad
      * @param string $path
      */
     public function setControllerPath($path)
@@ -42,7 +39,7 @@ class Bootstrap
     }
 
     /**
-     * (Optional) Set a custom path to models
+     * (Optional) Eigner Model Pfad
      * @param string $path
      */
     public function setModelPath($path)
@@ -51,7 +48,7 @@ class Bootstrap
     }
 
     /**
-     * (Optional) Set a custom path to the error file
+     * (Optional) Custom Pfad für das Error File
      * @param string $path Use the file name of your controller, eg: error.php
      */
     public function setErrorFile($path)

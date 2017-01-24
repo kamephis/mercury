@@ -1,11 +1,12 @@
 <?php
 ob_start();
 error_reporting(E_ALL);
+
 // Konfiguration
 require 'config.php';
 require 'util/Auth.php';
 
-// Lander der benötigten Klassen
+// Klassen Auto-Loader
 function __autoload($class)
 {
     require LIBS . $class . ".php";
@@ -13,9 +14,11 @@ function __autoload($class)
 
 $bootstrap = new Bootstrap();
 
-//Pfade
+//Pfade (individuell)
 //$bootstrap->setControllerPath();
 //$bootstrap->setModelPath();
 //$bootstrap->setDefaultFile();
 //$bootstrap->setErrorFile();
+
+// Anwendung starten
 $bootstrap->init();

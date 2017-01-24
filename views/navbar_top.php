@@ -16,13 +16,13 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <button type="submit" class="push-right btn btn-square btn-success">
+                    <button type="submit" class="btn btn-square btn-success pull-right">
                         <span class="glyphicon glyphicon-check"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button type="submit" class="push-right btn btn-square btn-alert">
+                    <button type="submit" class="btn btn-square btn-alert pull-right">
                         <span class="glyphicon glyphicon-log-out"></span>
                     </button>
                 </li>

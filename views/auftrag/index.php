@@ -84,7 +84,7 @@
 
     </div>
 
-    <div class="col-sm-1">12 m</div>
+    <div class="col-sm-1">8 m</div>
 
     <div class="col-sm-3">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
@@ -106,7 +106,7 @@
 
     </div>
 
-    <div class="col-sm-1">12 m</div>
+    <div class="col-sm-1">6 m</div>
 
     <div class="col-sm-3">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">

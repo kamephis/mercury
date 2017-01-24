@@ -15,7 +15,7 @@
         <!-- ./ Header -->
         <div id="navbar" class="collapse navbar-collapse pull-right">
             <ul class="nav navbar-nav">
-                <li>
+                <li class="text-left">
                     <div class="hidden-xs">
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-check"></span>
@@ -27,7 +27,7 @@
                     </div>
                 </li>
 
-                <li>
+                <li class="text-left">
                     <div class="hidden-xs">
                         <button type="submit" class="btn btn-alert">
                             <span class="glyphicon glyphicon-log-out"></span>

@@ -40,7 +40,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <img src="<?php echo $item['PickLinkLarge']; ?>"
+                    <img src="<?php echo $item['PicLinkLarge']; ?>"
                          width="100%" class="img img-responsive img-thumbnail">
                 </div>
             </div>

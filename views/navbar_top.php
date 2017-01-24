@@ -13,7 +13,7 @@
             </a>
         </div>
         <!-- ./ Header -->
-        <div id="navbar" class="collapse navbar-collapse push-right">
+        <div id="navbar" class="collapse navbar-collapse pull-right">
             <ul class="nav navbar-nav">
                 <li>
                     <button type="submit" class="btn btn-square btn-success">

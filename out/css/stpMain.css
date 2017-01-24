@@ -128,3 +128,7 @@ input[type='checkbox'] {
 .row-header {
     margin-bottom: 10px;
 }
+
+.text-glyphicon-lg {
+    font-size: 20px;
+}

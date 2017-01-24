@@ -48,7 +48,7 @@
                         <div class="col-xs-12 fixB1">
                             <button type="submit" class="btn btn-danger btn-block btn-lg-touch pull-right"
                                     data-toggle="modal" data-target="#modFehler">
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
                             </button>
                         </div>
                         <div class="clearfix"></div>
@@ -58,7 +58,7 @@
                             <button type="submit" class="btn btn-success btn-block btn-lg-touch pull-right"
 
                                     data-toggle="modal" data-target="#modPicked">
-                                <span class="glyphicon glyphicon-ok" style="font-size:20px;"></span>
+                                <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
                             </button>
                         </div>
                         <div class="clearfix"></div>
@@ -68,7 +68,7 @@
                             <button type="submit" class="btn btn-default btn-block btn-lg-touch pull-right"
                                     data-toggle="modal"
                                     data-target="#nextDataset">
-                                <span class="glyphicon glyphicon-arrow-right"></span>
+                                <span class="glyphicon glyphicon-arrow-right text-glyphicon-lg"></span>
                             </button>
                         </div>
                         <div class="clearfix"></div>
@@ -78,7 +78,7 @@
                             <button type="submit" class="btn btn-default btn-block btn-lg-touch pull-right"
 
                                     data-toggle="modal" data-target="#nextDataset">
-                                <span class="glyphicon glyphicon-arrow-left"></span>
+                                <span class="glyphicon glyphicon-arrow-left text-glyphicon-lg"></span>
                             </button>
                         </div>
                         <div class="clearfix"></div>

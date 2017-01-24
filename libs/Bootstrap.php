@@ -85,7 +85,7 @@ class Bootstrap
     private function _loadDefaultController()
     {
         require $this->_controllerPath . $this->_defaultFile;
-        $this->_controller = new Login();
+        $this->_controller = new Index();
         $this->_controller->index();
     }
 

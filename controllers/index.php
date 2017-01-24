@@ -11,6 +11,8 @@ class Index extends Controller
     function index()
     {
         $this->view->title = 'Mercury';
+        $this->view->render('header');
         $this->view->render('login/index');
+        $this->view->render('footer');
     }
 }

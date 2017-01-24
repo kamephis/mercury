@@ -30,21 +30,16 @@
                 </div>
     <div class="col-sm-2">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-                    <button type="submit" class="btn btn-default btn-block">
-                        <span class="glyphicon glyphicon-user"></span> Abmelden
+                    <button type="submit" class="btn btn-alert btn-block">
+                        <span class="glyphicon glyphicon-user"></span> Abbrechen
                     </button>
                 </form>
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
-                    <button type="submit" class="btn btn-danger btn-block">
-                        <span class="glyphicon glyphicon-remove"></span> Abbrechen
-                    </button>
-                </form>
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
+
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
                     <button type="submit" class="btn btn-success btn-block">
                         <span class="glyphicon glyphicon-check"></span> Abschließen
                     </button>
                 </form>
-
             </div>
 </div>
 <!-- ./ Top Bar -->

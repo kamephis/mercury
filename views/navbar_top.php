@@ -15,29 +15,29 @@
         <!-- ./ Header -->
         <div id="navbar" class="collapse navbar-collapse pull-right">
             <ul class="nav navbar-nav">
-                <li>
-                    <div class="hidden-xs">
-                        <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-check"></span>
-                        </button>
-                    </div>
-                    <div class="visible-xs">
-                        <span class="glyphicon glyphicon-log-out pull-right"></span>
-                        <p>Auftrag abschließen</p>
-                    </div>
-                </li>
+                <!--   <li>
+                   <div class="hidden-xs">
+                          <button type="submit" class="btn btn-success">
+                              <span class="glyphicon glyphicon-check"></span>
+                          </button>
+                      </div>
+                      <div class="visible-xs">
+                          <span class="glyphicon glyphicon-log-out pull-right"></span>
+                          <p>Auftrag abschließen</p>
+                      </div>
+                  </li>
 
-                <li>
-                    <div class="hidden-xs">
-                        <button type="submit" class="btn btn-alert">
-                            <span class="glyphicon glyphicon-log-out"></span>
-                        </button>
-                    </div>
-                    <div class="visible-xs">
-                        <span class="glyphicon glyphicon-log-out pull-right"></span>
-                        Auftrag abbrechen
-                    </div>
-                </li>
+                  <li>
+                      <div class="hidden-xs">
+                          <button type="submit" class="btn btn-alert">
+                              <span class="glyphicon glyphicon-log-out"></span>
+                          </button>
+                      </div>
+                      <div class="visible-xs">
+                          <span class="glyphicon glyphicon-log-out pull-right"></span>
+                          Auftrag abbrechen
+                      </div>
+                  </li>-->
 
             </ul>
         </div>

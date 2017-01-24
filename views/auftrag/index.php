@@ -69,7 +69,7 @@ foreach ($auftrag as $item) {
     <div class="col-sm-1"><?php echo $rows; ?></div>
 
     <div class="col-sm-7">
-        Pickliste: <?php echo $item['PLIheaderRef']; ?> | Expires: <?php echo $item['PicklistExpiryDate']; ?> <br>
+        Pickliste: <?php echo $item['PLIheaderRef']; ?> | Expires: <?php echo $item['expDate']; ?> <br>
         Auftragsdatum: 16.01.2017
 
     </div>

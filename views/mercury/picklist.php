@@ -17,7 +17,7 @@
                     <b>Artikel</b>
                 </div>
                 <div class="col-sm-12">
-                    <h3 class="pick"><?php echo $item['ItemName']; ?></h3>
+                    <h3 class="pick"><?php echo utf8_encode($item['ItemName']); ?></h3>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-12 col-md-12 small">
@@ -40,7 +40,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <img src="https://www.stoff4you.de/out/pictures/master/product/2/fn1094-love-universalstoff_z2.jpg"
+                    <img src="<?php echo $item['PickLinkLarge']; ?>"
                          width="100%" class="img img-responsive img-thumbnail">
                 </div>
             </div>

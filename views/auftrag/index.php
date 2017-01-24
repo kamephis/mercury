@@ -1,6 +1,6 @@
 <?php
-$auftrag = $this->model->getAuftrag('10603480');
 
+$auftrag = $this->auftrag->getAuftrag('10603480');
 var_dump($auftrag);
 
 ?>

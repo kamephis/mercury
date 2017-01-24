@@ -47,7 +47,7 @@
 <!-- Auftragspositionen / Header -->
 <div class="row text-mobile-large">
     <div class="col-sm-1 text-left"><b>#</b></div>
-    <div class="col-sm-4 text-left"><b>Info</b></div>
+    <div class="col-sm-5 text-left"><b>Info</b></div>
     <div class="col-sm-2"><b>Anzahl</b></div>
     <div class="col-sm-4 text-right text-center"><b>Aktion</b></div>
 </div>

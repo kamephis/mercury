@@ -35,7 +35,7 @@
                         <span class="glyphicon glyphicon-user"></span> Abbrechen
                     </button>
                 </form>
-        <span style="height:1em; display:inline-block;">&nbsp;</span>
+        <small style="height:0.4em; display:inline-block;">&nbsp;</small>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" role="form" method="post">
                     <button type="submit" class="btn btn-success btn-block">
                         <span class="glyphicon glyphicon-check"></span> Abschließen

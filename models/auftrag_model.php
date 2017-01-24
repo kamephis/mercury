@@ -7,7 +7,7 @@ class Auftrag_Model extends Model
     public function __construct()
     {
         parent::__construct();
-
+        require_once(PATH_NUSOAP);
         $oSoapClient = new nusoap_client(PIXI_WSDL_PATH, true);
         $oSoapClient->soap_defencoding = 'UTF-8';
         $oSoapClient->decode_utf8 = false;

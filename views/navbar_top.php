@@ -13,16 +13,16 @@
             </a>
         </div>
         <!-- ./ Header -->
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse push-right">
             <ul class="nav navbar-nav">
                 <li>
-                    <button type="submit" class="btn btn-square btn-success push-right">
+                    <button type="submit" class="btn btn-square btn-success">
                         <span class="glyphicon glyphicon-check"></span>
                     </button>
                 </li>
 
                 <li>
-                    <button type="submit" class="btn btn-square btn-alert push-right">
+                    <button type="submit" class="btn btn-square btn-alert">
                         <span class="glyphicon glyphicon-log-out"></span>
                     </button>
                 </li>

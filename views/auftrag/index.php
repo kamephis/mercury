@@ -17,7 +17,7 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
     <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-4"><b>Artikel:</b></div>
-                    <div class="col-sm-8"><?php $auftrag[0]['ItemName']; ?></div>
+                    <div class="col-sm-8"><?php echo $auftrag[0]['ItemName']; ?></div>
 
                     <div class="col-sm-4"><b>Art.Nr:</b></div>
                     <div class="col-sm-8">FN1094</div>

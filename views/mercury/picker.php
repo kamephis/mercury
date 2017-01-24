@@ -70,4 +70,5 @@ foreach ($this->masterPicklist as $pickList) {
         </div>
     </div><?php
 }
+var_dump($this->masterPicklist);
 ?>

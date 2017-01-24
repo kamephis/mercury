@@ -74,7 +74,7 @@ foreach ($auftrag as $item) {
 
     </div>
 
-    <div class="col-sm-1"><?php echo $item['Qty']; ?> </div>
+    <div class="col-sm-1"><?php echo $item['Qty']; ?> m</div>
 
     <div class="col-sm-3">
         <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">

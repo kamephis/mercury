@@ -21,7 +21,7 @@ $bestand = $aBestand['PhysicalStock'];
                     <div class="col-sm-4">Art.Nr:</div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['ItemNrInt']; ?></div>
 
-                    <div class="col-sm-4">EAN/GTIN:</div>
+                    <div class="col-sm-4">EAN:</div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['EanUpc']; ?></div>
 
                 </div>

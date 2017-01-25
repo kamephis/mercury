@@ -16,21 +16,24 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=artinfo">Artikelinfo&nbsp;
+                    <a href="artikelinfo">Artikelinfo&nbsp;
                         <span
                             class="glyphicon glyphicon-search pull-right text-sm visible-xs"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">Hilfe&nbsp;
+                    <a href="hilfe">Hilfe&nbsp;
                         <span class="glyphicon glyphicon-question-sign pull-right visible-xs"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home"><?php echo Session::get('vorname'); ?> Abmelden&nbsp;<span
+                    <a href="auftrag"><?php echo Session::get('vorname'); ?> Abmelden&nbsp;<span
                             class="glyphicon glyphicon-log-out pull-right visible-xs"></span>
                     </a>
                 </li>
+                <li><a href="picker">Picker</a></li>
+                <li><a href="picklist">Pickliste</a></li>
+                <li><a href="auftrag">Auftrag</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->

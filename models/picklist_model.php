@@ -9,12 +9,15 @@ class Picklist_Model extends Model
 
     public function getPicklistItems($picklistNr)
     {
-        $sql = "SELECT pitem.*
+        $sql = "SELECT pitem.*, plist.PLHkey
                 FROM stpPicklistItems pitem
                 RIGHT JOIN stpArtikel2Pickliste a2p
                 ON (pitem.id = a2p.ArtikelID)
                 
-                WHERE pitem.PLHkey = '{$picklistNr}'
+                LEFT JOIN stpPickliste plist
+                ON (a2p.PicklistID = plist.PLID)
+                
+               WHERE plist.PLHkey = '{$picklistNr}'            
                 LIMIT 1
                 ";
 

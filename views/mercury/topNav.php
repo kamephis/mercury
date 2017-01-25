@@ -16,17 +16,19 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=artinfo">Artikelinfo&nbsp;<span
-                            class="glyphicon glyphicon-search pull-right text-sm"></span></a>
+                    <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=artinfo">Artikelinfo&nbsp;
+                        <span
+                            class="glyphicon glyphicon-search pull-right text-sm visible-xs"></span>
+                    </a>
                 </li>
                 <li>
                     <a href="#">Hilfe&nbsp;
-                        <span class="glyphicon glyphicon-question-sign pull-right"></span>
+                        <span class="glyphicon glyphicon-question-sign pull-right visible-xs"></span>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $_SERVER['PHP_SELF']; ?>?p=home"><?php echo Session::get('vorname'); ?> Abmelden&nbsp;<span
-                            class="glyphicon glyphicon-log-out pull-right"></span>
+                            class="glyphicon glyphicon-log-out pull-right visible-xs"></span>
                     </a>
                 </li>
             </ul>

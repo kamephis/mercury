@@ -15,7 +15,7 @@ $bestand = $aBestand['PhysicalStock'];
     <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-12"><b>Artikel</b></div>
-                    <div class="col-sm-4">Bezeichnung:</div>
+                    <div class="col-sm-4">Titel:</div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['ItemName']; ?></div>
 
                     <div class="col-sm-4">Art.Nr:</div>

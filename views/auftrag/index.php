@@ -4,6 +4,8 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
 //$pixiBestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
 //$bestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
 
+echo $this->Pixi->getItemStock('2147483647');
+
 ?>
 
 <!-- Top Bar -->

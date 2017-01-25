@@ -1,7 +1,14 @@
 <?php
 $picklist = $this->Picklist->getPicklistItems($_REQUEST['picklistNr']);
+
+
 foreach ($picklist as $item) {
     ?>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br><?php var_dump($picklist); ?>
 <div class="well-sm">
 
     <div class="row">

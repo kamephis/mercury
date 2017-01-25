@@ -6,7 +6,7 @@ class Pixi
 
     public function __construct()
     {
-        include('nusoap.php');
+        require_once('nusoap.php');
         $oSoapClient = new nusoap_client(PIXI_WSDL_PATH, true);
         $oSoapClient->soap_defencoding = 'UTF-8';
         $oSoapClient->decode_utf8 = false;

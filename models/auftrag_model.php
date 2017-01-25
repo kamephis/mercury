@@ -23,15 +23,22 @@ class Auftrag_Model extends Model
         return $this->db->select($sql);
     }
 
-    public function setArtNr($artNr)
-    {
-        $this->artNr = $artNr;
-    }
-
     public function getPixiBestand($ean)
     {
         $itemStock = $this->oProxy->pixiGetItemStock(array('EAN' => $ean));
         $itemStock = $itemStock['pixiGetItemStockResults']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
         return $itemStock;
+    }
+
+    public function getAnzArtikelPickliste($auftragsNr)
+    {
+        $sql = "SELECT COUNT(*) FROM stpAuf WHERE PLHkey = '{$auftragsNr}'";
+        return $this->db->select($sql);
+    }
+
+    // Setter
+    public function setArtNr($artNr)
+    {
+        $this->artNr = $artNr;
     }
 }

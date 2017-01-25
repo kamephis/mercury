@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="auftrag"><?php echo Session::get('vorname'); ?> Abmelden&nbsp;<span
+                    <a href="login"><?php echo Session::get('vorname'); ?> Abmelden&nbsp;<span
                             class="glyphicon glyphicon-log-out pull-right visible-xs"></span>
                     </a>
                 </li>

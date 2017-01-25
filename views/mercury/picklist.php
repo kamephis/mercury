@@ -2,7 +2,10 @@
 // Übergabe der Picklistennummer an die getPickListItems zum
 // Abrufen der zugewiesenen Artikel
 
-$picklist = $this->Picklist->getPicklistItems($_POST['picklistNr']);
+
+(isset($_POST['picklistNr'])) ? $picklistNr = $_POST['picklistNr'] : null;
+
+$picklist = $this->Picklist->getPicklistItems($picklistNr);
 
 if ($picklist) {
     foreach ($picklist as $item) {

@@ -18,7 +18,7 @@ class Picklist_Model extends Model
                 ON (a2p.PicklistID = plist.PLID)
                 
                WHERE plist.PLHkey = '{$picklistNr}'            
-                LIMIT 1
+                /*LIMIT 1*/
                 ";
 
         return $this->db->select($sql);

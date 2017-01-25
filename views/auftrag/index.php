@@ -31,13 +31,13 @@ $bestand = $aBestand['PhysicalStock'];
 
     <div class="col-sm-4">
                     <div class="row">
-                        <div class="col-sm-4"><b>EAN</b></div>
+                        <div class="col-sm-4"><b>EAN/GTIN:</b></div>
                         <div class="col-sm-8"><?php echo $auftrag[0]['EanUpc']; ?></div>
 
-                        <div class="col-sm-4"><b>Lager</b></div>
+                        <div class="col-sm-4"><b>Lager:</b></div>
                         <div class="col-sm-8"><?php echo $auftrag[0]['BinName']; ?></div>
 
-                        <div class="col-sm-4"><b>Bestand</b></div>
+                        <div class="col-sm-4"><b>Bestand:</b></div>
                         <div class="col-sm-8"><?php echo $bestand; ?></div>
                     </div>
                 </div>

@@ -1,6 +1,4 @@
-<?php
-foreach ($this->masterPicklist as $pickList) {
-    ?>
+
     <div class="well-sm">
     <!-- Anzeige Picklisten -->
     <div class="row">
@@ -11,7 +9,9 @@ foreach ($this->masterPicklist as $pickList) {
                 freigegeben.</p>
         </div>
         </div>
-
+        <?php
+        foreach ($this->masterPicklist as $pickList) {
+        ?>
     <div class="row">
         <div class="col-xs-3 col-md-1">
             <h4><b>#</b></h4>

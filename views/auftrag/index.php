@@ -15,13 +15,13 @@ $bestand = $aBestand['PhysicalStock'];
     <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-12"><b>Artikel</b></div>
-                    <div class="col-sm-4"><b>Bezeichnung:</b></div>
+                    <div class="col-sm-4">Bezeichnung:</div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['ItemName']; ?></div>
 
-                    <div class="col-sm-4"><b>Art.Nr:</b></div>
+                    <div class="col-sm-4">Art.Nr:</div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['ItemNrInt']; ?></div>
 
-                    <div class="col-sm-4"><b>EAN/GTIN:</b></div>
+                    <div class="col-sm-4">EAN/GTIN:</div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['EanUpc']; ?></div>
 
                 </div>
@@ -30,10 +30,10 @@ $bestand = $aBestand['PhysicalStock'];
     <div class="col-sm-4">
                     <div class="row">
                         <div class="col-sm-12"><b>Lager</b></div>
-                        <div class="col-sm-4"><b>Lagerplatz:</b></div>
+                        <div class="col-sm-4">Lagerplatz:</div>
                         <div class="col-sm-8"><?php echo $auftrag[0]['BinName']; ?></div>
 
-                        <div class="col-sm-4"><b>Bestand:</b></div>
+                        <div class="col-sm-4">Bestand:</div>
                         <div class="col-sm-8"><?php echo $bestand; ?></div>
                     </div>
                 </div>

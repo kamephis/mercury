@@ -6,7 +6,7 @@ define('URL', 'http://dev.stoffpalette.com/pixiPickprozess/');
 // Pfade
 define('LIBS', 'libs/');
 define('IMG_PATH', 'out/img/');
-define('PATH_NUSOAP', 'out/lib/php/nusoap/nusoap.php');
+define('PATH_NUSOAP', getcwd() . '/out/lib/php/nusoap/nusoap.php');
 
 // Datenbank Zugriff
 define('DB_TYPE', 'mysql');

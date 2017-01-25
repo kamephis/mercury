@@ -1,6 +1,8 @@
 <?php
+// Übergabe der Picklistennummer an die getPickListItems zum
+// Abrufen der zugewiesenen Artikel
 
-$picklist = $this->Picklist->getPicklistItems($_REQUEST['picklistNr']);
+$picklist = $this->Picklist->getPicklistItems($_POST['picklistNr']);
 
 if ($picklist) {
     foreach ($picklist as $item) {
@@ -183,7 +185,7 @@ if ($picklist) {
     <?php }
 } else {
     echo '<div class="alert alert-info">';
-    echo "Diese Pickliste enthält derzeit keine Positionen.";
+    echo "Dieser Pickliste wurden noch keine Artikel zugewiesen.";
     echo '</div>';
 }
 ?>

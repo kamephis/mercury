@@ -1,5 +1,5 @@
 <?php
-
+// Übergabe via Barcode
 $auftrag = $this->auftrag->getAuftrag('10603480');
 //$bestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
 
@@ -21,7 +21,7 @@ $auftrag = $this->auftrag->getAuftrag('10603480');
                     <div class="col-sm-4"><b>Art.Nr:</b></div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['ItemNrInt']; ?></div>
 
-                    <div class="col-sm-4"><b>Anz. Positionen:</b></div>
+                    <div class="col-sm-4"><b>Anz.Art:</b></div>
                     <div class="col-sm-8"><?php echo $auftrag[0]['anzItems']; ?></div>
                 </div>
             </div>

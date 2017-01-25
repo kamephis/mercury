@@ -7,16 +7,18 @@ class Picklist_Model extends Model
         parent::__construct();
     }
 
-    public function getPicklistItems($picklistID)
+    public function getPicklistItems($picklistNr)
     {
         $sql = "SELECT pitem.*
                 FROM stpPicklistItems pitem
                 RIGHT JOIN stpArtikel2Pickliste a2p
                 ON (pitem.id = a2p.ArtikelID)
-                WHERE a2p.PicklistID = '{$picklistID}'
+                
+                WHERE pitem.PLHkey = '{$picklistNr}'
                 LIMIT 1
                 ";
 
         return $this->db->select($sql);
     }
+    /*WHERE a2p.PicklistID = '{$picklistID}'*/
 }

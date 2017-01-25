@@ -24,9 +24,9 @@ class Pixi
         return $aPicklists;
     }
 
-    function getItemStock($ean)
+    function getItemStock($artNr)
     {
-        $itemStock = $this->oProxy->pixiGetItemStock(array('EAN' => '.$ean.'));
+        $itemStock = $this->oProxy->pixiGetItemStock(array('ItemNrInt' => '.$artNr.'));
         $itemStock = $itemStock['pixiGetItemStockResults']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
 
         return $itemStock['PhysicalStock'];

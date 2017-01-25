@@ -2,19 +2,19 @@
 
 class Auftrag_Model extends Model
 {
-    private $oProxy;
+    //private $oProxy;
 
     public function __construct()
     {
         parent::__construct();
-        require_once(PATH_NUSOAP);
+        /* require_once(PATH_NUSOAP);
          $oSoapClient = new nusoap_client(PIXI_WSDL_PATH, true);
          $oSoapClient->soap_defencoding = 'UTF-8';
          $oSoapClient->decode_utf8 = false;
          $oSoapClient->setCredentials(PIXI_USERNAME, PIXI_PASSWORD);
  
          // pixi* API Objekt erzeugen
-        $this->oProxy = $oSoapClient->getProxy();
+         $this->oProxy = $oSoapClient->getProxy();*/
     }
 
     public function getAuftrag($artNr)

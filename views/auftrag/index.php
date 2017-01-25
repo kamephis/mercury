@@ -1,7 +1,7 @@
 <?php
 // Übergabe via Barcode
 $auftrag = $this->auftrag->getAuftrag('10603480');
-$pixiBestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
+//$pixiBestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
 //$bestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
 
 ?>
@@ -36,7 +36,7 @@ $pixiBestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
                         <div class="col-sm-8"><?php echo $auftrag[0]['BinName']; ?></div>
 
                         <div class="col-sm-4"><b>Bestand</b></div>
-                        <div class="col-sm-8"><?php echo $pixiBestand; ?></div>
+                        <div class="col-sm-8"><?php // echo $pixiBestand; ?></div>
                     </div>
                 </div>
     <div class="col-sm-2">

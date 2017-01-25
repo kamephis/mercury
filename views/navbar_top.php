@@ -15,9 +15,9 @@
         <!-- ./ Header -->
         <div id="navbar" class="collapse navbar-collapse pull-right">
             <ul class="nav navbar-nav">
-                <li><a href="/picker">Picker</a></li>
-                <li><a href="/picklist">Pickliste</a></li>
-                <li><a href="/auftrag">Auftrag</a></li>
+                <li><a href="picker">Picker</a></li>
+                <li><a href="picklist">Pickliste</a></li>
+                <li><a href="auftrag">Auftrag</a></li>
                 <!--   <li>
                    <div class="hidden-xs">
                           <button type="submit" class="btn btn-success">

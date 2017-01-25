@@ -1,5 +1,6 @@
 <?php
-foreach ($this->PicklistItems as $item) {
+$picklist = $this->Picklist->getPicklistItems($_REQUEST['picklistNr']);
+foreach ($picklist as $item) {
     ?>
 <div class="well-sm">
 

@@ -29,7 +29,7 @@ class Pixi
         $itemStock = $this->oProxy->pixiGetItemStock(array('ItemNrInt' => '.$artNr.'));
         $itemStock = $itemStock['pixiGetItemStockResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
 
-        return $itemStock['PhysicalStock'];
+        return $itemStock;
     }
 
     function getPicklistDetails($picklistID)

@@ -1,7 +1,7 @@
 <?php
 
 $auftrag = $this->auftrag->getAuftrag('10603480');
-$bestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
+//$bestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
 
 ?>
 
@@ -32,7 +32,7 @@ $bestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
                         <div class="col-sm-8"><?php echo $auftrag[0]['BinName']; ?></div>
 
                         <div class="col-sm-4"><b>Bestand</b></div>
-                        <div class="col-sm-8"><?php $bestand; ?></div>
+                        <div class="col-sm-8"><?php //$bestand; ?></div>
                     </div>
                 </div>
     <div class="col-sm-2">

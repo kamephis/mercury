@@ -42,7 +42,7 @@ foreach ($this->masterPicklist as $pickList) {
                     Verfällt am:
                 </div>
                 <div class="col-xs-7 text-left">
-                    <?php echo $pickList['PLHexpiryDate']; ?>
+                    <?php echo $pickList['expDate']; ?>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-xs-5 col-md-2 text-left">

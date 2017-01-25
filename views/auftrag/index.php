@@ -2,7 +2,7 @@
 // Übergabe via Barcode
 $auftrag = $this->auftrag->getAuftrag('10603480');
 //$pixiBestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
-$bestand = $this->auftrag->getPixiBestand($auftrag[0]['ItemNrInt']);
+$bestand = $this->Pixi->getPixiBestand($auftrag[0]['ItemNrInt']);
 
 //var_dump($this->Pixi->getAllPicklists());
 ?>

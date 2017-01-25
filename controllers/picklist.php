@@ -13,7 +13,7 @@ class Picklist extends Controller
         $this->view->title = 'Picken';
 
         $this->model = new Picklist_Model();
-        $this->view->PicklistItems = $this->model->getPicklistItems(1);
+        //$this->view->PicklistItems = $this->model->getPicklistItems(null);
         $this->view->Picklist = $this->model;
 
         $this->view->render('header');

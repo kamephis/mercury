@@ -6,7 +6,7 @@ define('URL', 'http://dev.stoffpalette.com/pixiPickprozess/');
 // Pfade
 define('LIBS', 'libs/');
 define('IMG_PATH', 'out/img/');
-define('PATH_NUSOAP', '/out/lib/php/nusoap/nusoap.php');
+define('PATH_NUSOAP', 'out/lib/php/nusoap/nusoap.php');
 
 // Datenbank Zugriff
 define('DB_TYPE', 'mysql');
@@ -16,6 +16,6 @@ define('DB_USER', 'stokcgbl5');
 define('DB_PASS', '3307');
 
 // Pixi Einstellungen
-define('PIXI_WSDL_PATH', 'https://api.pixi.eu/soap/pixiSTF/');
+define('PIXI_WSDL_PATH', 'https://api.pixi.eu/soap/pixiSTF/?wsdl');
 define('PIXI_USERNAME', 'pixiSTF');
 define('PIXI_PASSWORD', 'eSxKQqxxh2L3kW_STF');

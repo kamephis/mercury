@@ -27,7 +27,7 @@ class Pixi
     function getItemStock($artNr)
     {
         $itemStock = $this->oProxy->pixiGetItemStock(array('ItemNrInt' => '.$artNr.'));
-        $itemStock = $itemStock['pixiGetItemStockResults']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+        $itemStock = $itemStock['pixiGetItemStockResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
 
         return $itemStock['PhysicalStock'];
     }

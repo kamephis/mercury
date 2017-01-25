@@ -12,9 +12,7 @@ class Auftrag extends Controller
     {
         $this->view->title = 'Auftragsbearbeitung';
 
-        $this->model = new Auftrag_Model();
-        $this->view->auftrag = $this->model;
-
+        $this->view->auftrag = new Auftrag_Model();
         $this->view->Pixi = new Pixi();
 
         $this->view->render('header');

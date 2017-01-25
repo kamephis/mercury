@@ -1,6 +1,6 @@
 <?php
 
-$picklist = $this->Picklist->getPicklistItems('50000');
+$picklist = $this->Picklist->getPicklistItems($_REQUEST['picklistNr']);
 
 
 foreach ($picklist as $item) {

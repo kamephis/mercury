@@ -31,9 +31,9 @@
                             class="glyphicon glyphicon-log-out pull-right visible-xs"></span>
                     </a>
                 </li>
-                <li class="push-right"><a href="picker">Picker</a></li>
-                <li class="push-right"><a href="picklist">Pickliste</a></li>
-                <li class="push-right"><a href="auftrag">Auftrag</a></li>
+                <li><a href="picker" class="push-right">Picker</a></li>
+                <li><a href="picklist" class="push-right">Pickliste</a></li>
+                <li><a href="auftrag" class="push-right">Auftrag</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->

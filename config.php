@@ -11,7 +11,8 @@ define('PATH_NUSOAP', getcwd() . '/out/lib/php/nusoap/nusoap.php');
 if (file_exists(PATH_NUSOAP)) {
     echo "nusoap eingebunden";
 } else {
-    echo "nusoap nicht gefunden.";
+    echo "nusoap nicht gefunden.<br>";
+    echo PATH_NUSOAP;
 }
 
 // Datenbank Zugriff

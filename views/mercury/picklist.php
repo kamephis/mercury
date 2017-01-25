@@ -182,6 +182,8 @@ if ($picklist) {
         </div>
     <?php }
 } else {
+    echo '<div class="alert alert-info">';
     echo "Diese Pickliste enthält derzeit keine Positionen.";
+    echo '</div>';
 }
 ?>

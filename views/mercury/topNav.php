@@ -32,7 +32,6 @@
                     </a>
                 </li>
                 <li><a href="picker" class="push-right">Picker</a></li>
-                <li><a href="picklist" class="push-right">Pickliste</a></li>
                 <li><a href="auftrag" class="push-right">Auftrag</a></li>
             </ul>
         </div>

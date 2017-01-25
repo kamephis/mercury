@@ -15,8 +15,8 @@ class Auftrag extends Controller
         $this->model = new Auftrag_Model();
         $this->view->auftrag = $this->model;
 
-        $this->model->Pixi = new Pixi();
-        
+        //$this->model->Pixi = new Pixi();
+
         $this->view->render('header');
         $this->view->render('navbar_top');
         $this->view->render('auftrag/index');

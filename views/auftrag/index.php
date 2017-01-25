@@ -1,11 +1,7 @@
 <?php
-// Übergabe via Barcode
 $auftrag = $this->auftrag->getAuftrag('10603480');
-//$pixiBestand = $this->auftrag->getPixiBestand($auftrag[0]['EanUpc']);
 $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
 $bestand = $aBestand['PhysicalStock'];
-
-//var_dump($this->Pixi->getAllPicklists());
 ?>
 
 <!-- Top Bar -->
@@ -78,6 +74,7 @@ foreach ($auftrag as $item) {
     <div class="col-sm-7">
         Pickliste: <?php echo $item['PLIheaderRef']; ?> | Expires: <?php echo $item['expDate']; ?> <br>
         Pickliste erstellt am: <?php echo $item['createDate']; ?>
+        Bestelldatum: <?php echo $item['createDate']; ?>
 
     </div>
 

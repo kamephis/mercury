@@ -32,6 +32,14 @@ class Pixi
         return $itemStock;
     }
 
+    function getOrderHeader($orderNr)
+    {
+        $aOrderHeader = $this->oProxy->pixiGetOrderHeader(array('OrderNr' => $orderNr));
+        $aOrderHeader = $aOrderHeader['pixiGetOrderHeaderResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+
+        return $aOrderHeader;
+    }
+
     function getPicklistDetails($picklistID)
     {
         $stock = $this->oProxy->pixiShippingGetPicklistDetails(array('PicklistKey' => $picklistID, 'FilterBinGroup' => '060 Standard', 'FilterLocation' => '001'));

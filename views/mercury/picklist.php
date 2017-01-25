@@ -3,7 +3,7 @@
 // Abrufen der zugewiesenen Artikel
 
 
-(isset($_POST['picklistNr'])) ? $picklistNr = $_POST['picklistNr'] : null;
+(isset($_POST['picklistNr'])) ? $picklistNr = $_POST['picklistNr'] : $picklistNr = null;
 
 $picklist = $this->Picklist->getPicklistItems($picklistNr);
 

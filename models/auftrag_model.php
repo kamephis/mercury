@@ -19,7 +19,7 @@ class Auftrag_Model extends Model
 
     public function getAuftrag($artNr)
     {
-        $sql = "SELECT pli.*, DATE_FORMAT(pli.PicklistExpiryDate,'%d.%m.%Y') as expDate,DATE_FORMAT(pli.PicklistCreateDate,'%d.%m.%Y') as createDate FROM stpPicklistItems pli WHERE ItemNrInt = '{$artNr}' ORDER BY Qty ASC";
+        $sql = "SELECT pli.*, COUNT(*) as anzItems, DATE_FORMAT(pli.PicklistExpiryDate,'%d.%m.%Y') as expDate,DATE_FORMAT(pli.PicklistCreateDate,'%d.%m.%Y') as createDate FROM stpPicklistItems pli WHERE ItemNrInt = '{$artNr}' ORDER BY Qty ASC";
         return $this->db->select($sql);
     }
 
@@ -28,12 +28,6 @@ class Auftrag_Model extends Model
         $itemStock = $this->oProxy->pixiGetItemStock(array('EAN' => $ean));
         $itemStock = $itemStock['pixiGetItemStockResults']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
         return $itemStock;
-    }
-
-    public function getAnzArtikelPickliste($auftragsNr)
-    {
-        $sql = "SELECT COUNT(*) FROM stpAuf WHERE PLHkey = '{$auftragsNr}'";
-        return $this->db->select($sql);
     }
 
     // Setter

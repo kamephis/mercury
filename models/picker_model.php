@@ -9,7 +9,7 @@ class Picker_Model extends Model
 
     public function getMasterPicklist()
     {
-        $sql = "SELECT * FROM stpPickliste";
+        $sql = "SELECT pl.*, DATE_FORMAT(pl.createDate,'%d.%m.%Y') as createDate FROM stpPickliste pl";
         return $this->db->select($sql);
     }
 

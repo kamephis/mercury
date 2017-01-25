@@ -34,7 +34,7 @@ class Pixi
 
     function getPicklistDetails($picklistID)
     {
-        $stock = $this->oProxy->pixiShippingGetPicklistDetails(array('PicklistKey' => '' . $picklistID . '', 'FilterBinGroup' => '060 Standard', 'FilterLocation' => '001'));
+        $stock = $this->oProxy->pixiShippingGetPicklistDetails(array('PicklistKey' => $picklistID, 'FilterBinGroup' => '060 Standard', 'FilterLocation' => '001'));
         $stock = $stock['pixiShippingGetPicklistDetailsResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
         return $stock;
     }

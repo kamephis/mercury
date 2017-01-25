@@ -60,7 +60,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-12">
             <form action="<?php echo URL; ?>picklist" method="post" role="form">
-                <input type="hidden" name="p" value="<?php echo $pickList['PLHkey']; ?>">
+                <input type="text" name="p" value="<?php echo $pickList['PLHkey']; ?>">
                 <button type="submit" class="btn btn-success btn-block btn-lg" name="btnStartPick"
                         id="btnStartPick">
                     <span class="glyphicon glyphicon-time"></span> Picken beginnen

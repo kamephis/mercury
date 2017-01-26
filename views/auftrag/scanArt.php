@@ -1,13 +1,26 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Marlon
- * Date: 26.01.2017
- * Time: 12:22
- */
-?>
+<div class="panel col-xs-12 col-md-6 col-md-offset-3" id="loginbox">
+    <div class="panel-heading">
+        <img src="<?php echo IMG_PATH; ?>logo_600.jpg" class="img img-responsive">
+    </div>
 
-<form name="frmScanArtnr" method="post" action="auftrag">
-    <input type="text" name="artNr">
-    <input type="submit" value="weiter">
-</form>
+    <div class="panel-body loginPanel">
+        <form id="loginform" class="form-horizontal" role="form" method="post" action="auftrag">
+            <div class="input-group inputLogin">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input id="artNr" type="text" class="form-control" name="artNr"
+                       placeholder=" ArtNr..." required>
+            </div>
+            <div style="margin-top:10px" class="form-group">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3">
+                            <button type="submit" class="btn btn-success btn-block">
+                                weiter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

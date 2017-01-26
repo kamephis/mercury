@@ -4,11 +4,10 @@
     </div>
 
     <div class="panel-body loginPanel">
-        <form id="loginform" class="form-horizontal" role="form" method="post" action="auftrag">
+        <form id="loginform" class="form-horizontal" role="form" method="post" action="login/run">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input id="artNr" type="text" class="form-control" name="artNr"
-                       placeholder=" ArtNr..." required>
+                <input id="artNr" type="text" class="form-control" name="artNr" placeholder=" ArtNr..." required>
             </div>
             <div style="margin-top:10px" class="form-group">
                 <div class="col-xs-12 col-sm-12">

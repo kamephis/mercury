@@ -5,15 +5,11 @@
 
     <div class="panel-body loginPanel">
         <form id="loginform" class="form-horizontal" role="form" method="post" action="login/run">
+
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                <input id="login-username" type="text" class="form-control" name="user" value=""
-                       placeholder=" Benutzername..." required>
-            </div>
-            <div class="input-group inputLogin">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input id="login-password" type="password" class="form-control" name="passwd"
-                       placeholder=" Kennwort..." required>
+                <input id="login-username" type="text" class="form-control" name="userPasswd" value=""
+                       placeholder="Login Barcode..." required>
             </div>
 
             <div style="margin-top:10px" class="form-group">

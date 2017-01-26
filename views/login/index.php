@@ -32,7 +32,7 @@
                     <div id="hilfe" class="collapse">
                         <br>
                         <div class="alert alert-info" id="helpMsg">
-                            <p>Scannen Sie ihren Zugriffsbarcode auf Ihrer ID-Karte ein.<br>
+                            <p>Scannen Sie ihren Zugriffsbarcode auf Ihrer ID-Karte ein.
                                 sollte der Barcode beschädigt sein, können Sie sich manuell am System anmelden.
                                 Hierzu geben Sie ihren Benutzernamen und Ihr Kennwort in folgendem Format in das
                                 Eingabefeld ein.<br><br>

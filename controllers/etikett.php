@@ -17,13 +17,14 @@ class Etikett extends Controller
         if (isset($_POST['etyp'])) {
             switch ($_POST['etyp']) {
                 case 'ok':
-                    $this->view->render('etikett/index/typ/ok');
+                    $this->view->etyp = 'ok';
                     break;
 
                 case 'fehler':
-                    $this->view->render('etikett/index/typ/fehler');
+                    $this->view->etyp = 'fehler';
                     break;
             }
+            $this->view->render('etikett/index');
         }
         $this->view->render('footer');
     }

@@ -12,8 +12,8 @@ class ScanArt extends Controller
     {
         $this->view->title = 'Artikelnummer Scannen';
 
-        $this->view->auftrag = new Auftrag_Model();
-        $this->view->Pixi = new Pixi();
+        //$this->view->auftrag = new Auftrag_Model();
+        //$this->view->Pixi = new Pixi();
         $this->view->render('header');
         $this->view->render('navbar_top');
         $this->view->render('auftrag/scanArt');

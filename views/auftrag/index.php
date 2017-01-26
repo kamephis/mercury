@@ -3,7 +3,7 @@
 $auftrag = null;
 
 if (isset($_REQUEST['artNr'])) {
-    $auftrag = $_POST['artNr'];
+    $auftrag = $_REQUEST['artNr'];
 } else {
     // Standardwerte zum Testen.
     $auftrag = $this->auftrag->getAuftrag('10603480');

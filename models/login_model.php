@@ -24,13 +24,9 @@ class Login_Model extends Model
             $password = $userAccount[1];
         }
 
-        /*   if (isset($_REQUEST['artNr'])) {
-               Session::set('artNr', $_REQUEST['artNr']);
-           }*/
-
-        if (isset($_REQUEST['targetApp'])) {
-            $targetApp = $_REQUEST['targetApp'];
-        }
+        echo $username;
+        echo "<br>";
+        echo $password;
 
         /**
          * pruefen ob der Benutzer berechtigt ist

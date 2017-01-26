@@ -13,9 +13,9 @@ class Login extends Controller
         $this->view->title = 'Login';
         $this->view->render('header');
 
-        if (isset($_POST['user'])) {
+        /*if (isset($_POST['user'])) {
             $this->view->render('login/password');
-        }
+        }*/
         if (isset($_POST['password'])) {
             $this->view->render('login/index');
             $this->run();

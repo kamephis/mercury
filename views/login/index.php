@@ -8,34 +8,33 @@
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                 <input id="login-username" type="text" class="form-control" name="user" value=""
-                       placeholder=" Benutzername...<?php # echo $lang->aText['inputUserNameRequiredText'];?>" required>
+                       placeholder=" Benutzername..." required>
             </div>
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                 <input id="login-password" type="password" class="form-control" name="passwd"
-                       placeholder=" Kennwort...<?php #echo $lang->aText['inputUserPasswordRequiredText'];?>" required>
+                       placeholder=" Kennwort..." required>
             </div>
 
-            <!--<a href="?lang=de_DE">Deutsch</a>
-            <a href="?lang=en_EN">English</a>-->
             <div style="margin-top:10px" class="form-group">
                 <div class="col-xs-12 col-sm-12">
                     <div class="row">
                         <div class="col-xs-6 col-sm-3">
                             <button type="submit" class="btn btn-success btn-block">
-                                Anmelden <?php #echo $lang->aText['buttonLoginText'];?></button>
+                                Anmelden
+                            </button>
                         </div>
                         <div class="col-xs-6 col-sm-3">
                             <button type="button" class="btn btn-default btn-block" data-toggle="collapse"
                                     data-target="#hilfe">
-                                Hilfe<?php # echo $lang->aText['buttonHelpText'];?></button>
+                                Hilfe
+                            </button>
                         </div>
                     </div>
 
                     <div id="hilfe" class="collapse">
                         <br>
                         <div class="alert alert-info" id="helpMsg">
-                            <!--<?php echo $lang->aText['alertHelpText']; ?>-->
                             1. Barcode <strong>Benutzername</strong> scannen.<br>2. Barcode <strong>Kennwort</strong>
                             scannen.
                         </div>

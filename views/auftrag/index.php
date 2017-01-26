@@ -3,7 +3,13 @@
 $auftrag = null;
 
 /*if (isset($_SESSION['artNr']) && strlen($_SESSION['artNr']) > 0) {*/
-$auftrag = $this->auftrag->getAuftrag($_SESSION['artNr']);
+if (!isset($_POST['artNr'])) {
+    $artnr = '35003130';
+} else {
+    $artnr = $_POST['artNr'];
+}
+
+$auftrag = $this->auftrag->getAuftrag($artnr);
     $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
     $bestand = $aBestand['PhysicalStock'];
 ?>

@@ -8,12 +8,14 @@ define('LIBS', 'libs/');
 define('IMG_PATH', 'out/img/');
 define('PATH_NUSOAP', '/out/lib/php/nusoap/nusoap.php');
 
+
+/*
 if (file_exists(PATH_NUSOAP)) {
     echo "nusoap eingebunden";
 } else {
     echo "nusoap nicht gefunden.<br>";
     echo PATH_NUSOAP;
-}
+}*/
 
 // Datenbank Zugriff
 define('DB_TYPE', 'mysql');

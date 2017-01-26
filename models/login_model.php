@@ -18,8 +18,8 @@ class Login_Model extends Model
         $targetApp = null;
 
         // Zerteilen der Benutzerinformatioenn in Benutzername und Kennwort
-        if ($_POST['userPassword'] && strlen($_POST['userPassword']) > 0) {
-            $userAccount = explode('|', $_POST['userPassword']);
+        if ($_POST['userPasswd'] && strlen($_POST['userPasswd']) > 0) {
+            $userAccount = explode('|', $_POST['userPasswd']);
             $username = $userAccount[0];
             $password = $userAccount[1];
         }

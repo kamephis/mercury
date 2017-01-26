@@ -24,10 +24,6 @@ class Login_Model extends Model
             $password = $userAccount[1];
         }
 
-        echo $username;
-        echo "<br>";
-        echo $password;
-
         /**
          * pruefen ob der Benutzer berechtigt ist
          * Voraussetzung fuer den Zugriff auf das Backend ist mind. ein Eintrag in der Tabelle iRight2iUser

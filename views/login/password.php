@@ -5,6 +5,7 @@
 
     <div class="panel-body loginPanel">
         <form id="loginform" class="form-horizontal" role="form" method="post" action="login">
+            <input type="hidden" name="appTarget" value="<?php echo $appTarget; ?>">
 
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
@@ -16,7 +17,7 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-3">
                             <button type="submit" class="btn btn-success btn-block">
-                                weiter <?php #echo $lang->aText['buttonLoginText'];?></button>
+                                Anmelden <?php #echo $lang->aText['buttonLoginText'];?></button>
                         </div>
                     </div>
                 </div>

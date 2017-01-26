@@ -8,6 +8,7 @@
             <input type="hidden" name="appTarget" value="<?php echo $appTarget; ?>">
 
             <div class="input-group inputLogin">
+                <input type="hidden" name="artNr" value="<?php echo $_REQUEST['artNr']; ?>">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                 <input id="login-password" type="password" class="form-control" name="passwd"
                        placeholder=" Kennwort...<?php #echo $lang->aText['inputUserPasswordRequiredText'];?>" required>

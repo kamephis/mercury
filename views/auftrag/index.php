@@ -1,5 +1,14 @@
 <?php
-$auftrag = $this->auftrag->getAuftrag('10603480');
+// init
+$auftrag = null;
+
+if (isset($_REQUEST['artNr'])) {
+    $auftrag = $_POST['artNr'];
+} else {
+    // Standardwerte zum Testen.
+    $auftrag = $this->auftrag->getAuftrag('10603480');
+}
+
 $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
 $bestand = $aBestand['PhysicalStock'];
 ?>

@@ -7,7 +7,7 @@
  */
 ?>
 
-<form name="frmScanArtnr" method="post" action="/auftrag">
+<form name="frmScanArtnr" method="post" action="auftrag">
     <input type="text" name="artNr">
     <input type="submit" value="weiter">
 </form>

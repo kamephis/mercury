@@ -54,7 +54,7 @@ class Login_Model extends Model
                 }
                 Session::set('rights', $arrayRights);
 
-                header('location: ' . URL . 'auftrag');
+                header('location: ' . URL . 'scanArt');
             }
         } else {
             header('location: ' . URL . 'error');

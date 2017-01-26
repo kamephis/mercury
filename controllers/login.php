@@ -16,12 +16,12 @@ class Login extends Controller
         /*if (isset($_POST['user'])) {
             $this->view->render('login/password');
         }*/
-        if (isset($_POST['password'])) {
+        if (isset($_POST['user'])) {
             //$this->view->render('login/index');
             $this->view->render('auftrag/scanArt');
-            $this->run();
+        } else {
+            $this->view->render('login/index');
         }
-        $this->view->render('login/index');
         $this->view->render('footer');
     }
 

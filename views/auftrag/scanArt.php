@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body loginPanel">
-        <form id="loginform" class="form-horizontal" role="form" method="post" action="login/run">
+        <form id="loginform" class="form-horizontal" role="form" method="post" action="login">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                 <input id="artNr" type="text" class="form-control" name="artNr" placeholder=" ArtNr..." required>

@@ -15,6 +15,9 @@
                 <input id="login-password" type="password" class="form-control" name="passwd"
                        placeholder=" Kennwort...<?php #echo $lang->aText['inputUserPasswordRequiredText'];?>" required>
             </div>
+
+            <!--<a href="?lang=de_DE">Deutsch</a>
+            <a href="?lang=en_EN">English</a>-->
             <div style="margin-top:10px" class="form-group">
                 <div class="col-xs-12 col-sm-12">
                     <div class="row">

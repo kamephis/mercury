@@ -1,6 +1,6 @@
 <div class="panel col-xs-12 col-md-6 col-md-offset-3" id="loginbox">
     <div class="panel-heading">
-        <img src="<?php echo IMG_PATH; ?>logo_600.jpg" style="width:250px" class="img img-responsive">
+        <img src="<?php echo IMG_PATH; ?>logo_600.jpg" style="width:350px" class="img img-responsive">
     </div>
 
     <div class="panel-body loginPanel">

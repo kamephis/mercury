@@ -17,7 +17,8 @@ class Login extends Controller
             $this->view->render('login/password');
         }*/
         if (isset($_POST['password'])) {
-            $this->view->render('login/index');
+            //$this->view->render('login/index');
+            $this->view->render('auftrag/scanArt');
             $this->run();
         }
         $this->view->render('login/index');

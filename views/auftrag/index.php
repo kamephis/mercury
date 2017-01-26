@@ -89,83 +89,87 @@ foreach ($auftrag as $item) {
     <div class="col-sm-1"><?php echo $item['Qty']; ?> m</div>
 
     <div class="col-sm-3">
-        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;">
+        <button type="submit" class="btn btn-danger btn-lg-square pull-right" style="margin-left:10px;"
+                data-toggle="modal" data-target="#modFehler">
             <span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>
             </button>
 
-        <button type="submit" class="btn btn-success btn-lg-square pull-right">
+        <button type="submit" class="btn btn-success btn-lg-square pull-right" data-toggle="modal"
+                data-target="#modPicked">
             <span class="glyphicon glyphicon-ok text-glyphicon-lg"></span>
             </button>
     </div>
 </div>
 
-<?php } ?>
 
 <!-- ./ Auftragspositionen -->
 
-<!-- modal test -->
+    <!-- Modals -->
+    <div id="modFehler" class="modal fade" role="dialog">
+        <form action="etikett/index" method="post">
+            <input type="hidden" name="etyp" value="fehler">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Fehlergrund auswählen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bitte wählen Sie die passende Option:</p>
+                        <div class="row">
+                            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?> ?>" class="form-horizontal">
+                                <div class="well-sm">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Fehlmenge</label>
+                                    </div>
 
-<div id="modFehler" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Fehlbestand melden</h4>
-            </div>
-            <div class="modal-body">
-                <p>Bitte wählen Sie die passende Option:</p>
-                <div class="row">
-                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?> ?>" class="form-horizontal">
-                        <div class="well-sm">
-                            <div class="checkbox">
-                                <label><input type="checkbox" value="">Fehlmenge</label>
-                            </div>
-
-                            <div class="checkbox">
-                                <label><input type="checkbox" value="">Artikel defekt</label>
-                            </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Artikel defekt</label>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">Schließen
+                        </button>
+                        <button type="submit" class="btn btn-success btn-block btn-lg" data-dismiss="modal">Bestätigen
+
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">Schließen
-                </button>
-                <button type="button" class="btn btn-success btn-block btn-lg" data-dismiss="modal">Bestätigen
-                </button>
-            </div>
-        </div>
 
+            </div>
+        </form>
     </div>
-</div>
-<!-- ./ modal test -_>
 
 
-   <!-- modal test -->
+    <div id="modPicked" class="modal fade" role="dialog">
+        <form action="etikett/index" method="post">
+            <input type="hidden" name="etyp" value="ok">
+            <div class="modal-dialog">
 
-<div id="modPicked" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Bearbeitung bestätigen</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h1 class="text-center"><b><?php echo $item['Qty']; ?> m</b></h1>
+                        <h2 class="text-center"><b>bearbeitet?</b></h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">NEIN
+                        </button>
+                        <button type="submit" class="btn btn-success btn-block btn-lg" data-dismiss="modal">JA</button>
+                    </div>
+                </div>
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Pick bestätigen</h4>
             </div>
-            <div class="modal-body">
-                <h1 class="text-center"><b>3 m</b></h1>
-                <h2 class="text-center"><b>gepickt?</b></h2>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">NEIN</button>
-                <button type="button" class="btn btn-success btn-block btn-lg" data-dismiss="modal">JA</button>
-            </div>
-        </div>
-
+        </form>
     </div>
-</div>
-<!-- ./ modal test -_>
+<?php } ?>
 
 

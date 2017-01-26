@@ -13,7 +13,7 @@ class Etikett extends Controller
         $this->view->title = 'Etikettendruck';
         $this->view->render('header');
 
-        // Umschlaten der Ansicht je nach Etiketten-Typ
+        // Übergabe des Etikettentyp an die View
         if (isset($_REQUEST['etyp'])) {
             switch ($_REQUEST['etyp']) {
                 case 'ok':

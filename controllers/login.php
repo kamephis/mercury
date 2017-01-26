@@ -12,6 +12,7 @@ class Login extends Controller
     {
         $this->view->title = 'Login';
         $this->view->render('header');
+        
 
         /*if (isset($_POST['user'])) {
             $this->view->render('login/password');
@@ -22,6 +23,8 @@ class Login extends Controller
         } else {
             $this->view->render('login/index');
         }
+
+
         $this->view->render('footer');
     }
 

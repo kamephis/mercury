@@ -2,7 +2,7 @@
 // init
 $auftrag = null;
 
-if (isset($_SESSION['artNr']) && strlen($_SESSION['artNr']) > 0) {
+/*if (isset($_SESSION['artNr']) && strlen($_SESSION['artNr']) > 0) {*/
 $auftrag = $this->auftrag->getAuftrag($_SESSION['artNr']);
     $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
     $bestand = $aBestand['PhysicalStock'];
@@ -167,11 +167,11 @@ foreach ($auftrag as $item) {
     </div>
 </div>
 <!-- ./ modal test -_>
-<?php
+<?php /*
 } else {
     // Standardwerte zum Testen.
     $auftrag = $this->auftrag->getAuftrag('35003130');
     //echo "Es wurde keine Artikelnummer übergeben.";
-}
+}*/
 ?>
 

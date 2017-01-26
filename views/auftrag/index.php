@@ -1,15 +1,16 @@
 <?php
 // init
+$auftrag = null;
 
-if (isset($_REQUEST['artNr']) && strlen($_REQUEST['artNr']) > 0) {
-    $auftrag = $this->auftrag->getAuftrag($_REQUEST['artNr']);
+if (isset($_POST['artNr']) && strlen($_POST['artNr']) > 0) {
+    $auftrag = $this->auftrag->getAuftrag($_POST['artNr']);
+    $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
+    $bestand = $aBestand['PhysicalStock'];
 } else {
     // Standardwerte zum Testen.
-    $auftrag = $this->auftrag->getAuftrag('35003130');
+    //$auftrag = $this->auftrag->getAuftrag('35003130');
+    echo "Es wurde keine Artikelnummer übergeben.";
 }
-//$auftrag = $this->auftrag->getAuftrag($_REQUEST['artNr']);
-$aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
-$bestand = $aBestand['PhysicalStock'];
 ?>
 
 <!-- Top Bar -->

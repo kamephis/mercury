@@ -1,6 +1,6 @@
 <?php
 // init
-$auftrag = null;
+/*$auftrag = null;
 
 if (isset($_REQUEST['artNr'])) {
     $auftrag = $_REQUEST['artNr'];
@@ -9,7 +9,8 @@ if (isset($_REQUEST['artNr'])) {
     $auftrag = $this->auftrag->getAuftrag('35003130');
     //$auftrag = $this->auftrag->getAuftrag('10603480');
 }
-
+*/
+$auftrag = $this->auftrag->getAuftrag('35003130');
 $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
 $bestand = $aBestand['PhysicalStock'];
 ?>

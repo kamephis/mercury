@@ -14,8 +14,8 @@ class Etikett extends Controller
         $this->view->render('header');
 
         // Umschlaten der Ansicht je nach Etiketten-Typ
-        if (isset($_POST['etyp'])) {
-            switch ($_POST['etyp']) {
+        if (isset($_REQUEST['etyp'])) {
+            switch ($_REQUEST['etyp']) {
                 case 'ok':
                     $this->view->etyp = 'ok';
                     break;

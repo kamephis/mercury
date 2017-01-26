@@ -6,11 +6,6 @@ if (isset($_POST['artNr']) && strlen($_POST['artNr']) > 0) {
     $auftrag = $this->auftrag->getAuftrag($_POST['artNr']);
     $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
     $bestand = $aBestand['PhysicalStock'];
-} else {
-    // Standardwerte zum Testen.
-    //$auftrag = $this->auftrag->getAuftrag('35003130');
-    echo "Es wurde keine Artikelnummer übergeben.";
-}
 ?>
 
 <!-- Top Bar -->
@@ -172,4 +167,11 @@ foreach ($auftrag as $item) {
     </div>
 </div>
 <!-- ./ modal test -_>
+<?php
+} else {
+    // Standardwerte zum Testen.
+    //$auftrag = $this->auftrag->getAuftrag('35003130');
+    echo "Es wurde keine Artikelnummer übergeben.";
+}
+?>
 

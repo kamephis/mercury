@@ -17,9 +17,16 @@ class Login_Model extends Model
         $password = null;
         $targetApp = null;
 
-        if (isset($_REQUEST['artNr'])) {
-            Session::set('artNr', $_REQUEST['artNr']);
+        // Zerteilen der Benutzerinformatioenn in Benutzername und Kennwort
+        if ($_POST['userPassword'] && strlen($_POST['userPassword']) > 0) {
+            $userAccount = explode('|', $_POST['userPassword']);
+            $username = $userAccount[0];
+            $password = $userAccount[1];
         }
+
+        /*   if (isset($_REQUEST['artNr'])) {
+               Session::set('artNr', $_REQUEST['artNr']);
+           }*/
 
         if (isset($_REQUEST['user'])) {
             $username = $_REQUEST['user'];

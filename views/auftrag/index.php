@@ -4,6 +4,7 @@ $auftrag = null;
 
 if (isset($_POST['artNr']) && strlen($_POST['artNr']) > 0) {
     $artnr = $_POST['artNr'];
+    Session::set('artNr', $_POST['artNr']);
 }
 
 $auftrag = $this->auftrag->getAuftrag($artnr);

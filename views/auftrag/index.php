@@ -2,10 +2,7 @@
 // init
 $auftrag = null;
 
-/*if (isset($_SESSION['artNr']) && strlen($_SESSION['artNr']) > 0) {*/
-if (!isset($_POST['artNr'])) {
-    $artnr = '35003130';
-} else {
+if (isset($_POST['artNr']) && strlen($_POST['artNr']) > 0) {
     $artnr = $_POST['artNr'];
 }
 
@@ -173,11 +170,5 @@ foreach ($auftrag as $item) {
     </div>
 </div>
 <!-- ./ modal test -_>
-<?php /*
-} else {
-    // Standardwerte zum Testen.
-    $auftrag = $this->auftrag->getAuftrag('35003130');
-    //echo "Es wurde keine Artikelnummer übergeben.";
-}*/
-?>
+
 

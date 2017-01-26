@@ -4,9 +4,7 @@
     </div>
 
     <div class="panel-body loginPanel">
-        <form id="loginform" class="form-horizontal" role="form" method="post" action="login/run">
-            <input type="hidden" name="user" value="<?php echo $_REQUEST['user']; ?>">
-            <input type="hidden" name="password" value="<?php echo $_REQUEST['password']; ?>">
+        <form id="loginform" class="form-horizontal" role="form" method="post" action="auftrag">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                 <input id="artNr" type="text" class="form-control" name="artNr" placeholder=" ArtNr..." required>

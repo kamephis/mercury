@@ -32,8 +32,12 @@
                     <div id="hilfe" class="collapse">
                         <br>
                         <div class="alert alert-info" id="helpMsg">
-                            1. Barcode <strong>Benutzername</strong> scannen.<br>2. Barcode <strong>Kennwort</strong>
-                            scannen.
+                            <p>Scannen Sie ihren Zugriffsbarcode auf Ihrer ID-Karte ein.<br>
+                                sollte der Barcode beschädigt sein, können Sie sich manuell am System anmelden.
+                                Hierzu geben Sie ihren Benutzernamen und Ihr Kennwort in folgendem Format in das
+                                Eingabefeld ein.<br><br>
+                                <code>benutzername-kennwort</code><br><br>bestätigen Sie Ihre Eingabe mit drücken des
+                                Anmelden Buttons.</p>
                         </div>
                     </div>
                 </div>

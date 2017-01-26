@@ -1,12 +1,11 @@
 <?php
 // init
 
-if (isset($_REQUEST['artNr'])) {
-    $auftrag = $_REQUEST['artNr'];
+if (isset($_REQUEST['artNr']) && strlen($_REQUEST['artNr']) > 0) {
+    $auftrag = $this->auftrag->getAuftrag($_REQUEST['artNr']);
 } else {
     // Standardwerte zum Testen.
     $auftrag = $this->auftrag->getAuftrag('35003130');
-    //$auftrag = $this->auftrag->getAuftrag('10603480');
 }
 //$auftrag = $this->auftrag->getAuftrag($_REQUEST['artNr']);
 $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);

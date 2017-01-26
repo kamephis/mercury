@@ -5,7 +5,6 @@
 
     <div class="panel-body loginPanel">
         <form id="loginform" class="form-horizontal" role="form" method="post" action="login">
-            <input type="hidden" name="appTarget" value="<?php echo $appTarget; ?>">
 
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>

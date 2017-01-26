@@ -21,10 +21,7 @@ class Auftrag extends Controller
             $this->view->render('navbar_top');
             $this->view->render('auftrag/index');
         } else {
-            //$this->view->render('auftrag/scanArt');
-            $_POST['artNr'] = '35003999';
-            $this->view->render('navbar_top');
-            $this->view->render('auftrag/index');
+            $this->view->render('auftrag/scanArt');
         }
         $this->view->render('footer');
     }

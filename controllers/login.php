@@ -18,6 +18,7 @@ class Login extends Controller
         }
         if (isset($_POST['password'])) {
             $this->view->render('login/index');
+            $this->run();
         }
         $this->view->render('login/index');
         $this->view->render('footer');

@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-3">
                             <button type="submit" class="btn btn-success btn-block">
-                                Anmelden <?php #echo $lang->aText['buttonLoginText'];?></button>
+                                weiter <?php #echo $lang->aText['buttonLoginText'];?></button>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,6 @@
 
     <div class="panel-body loginPanel">
         <form id="loginform" class="form-horizontal" role="form" method="post" action="login/run">
-            <input type="hidden" name="appTarget" value="<?php echo $appTarget; ?>">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                 <input id="login-username" type="text" class="form-control" name="user" value=""
@@ -16,30 +15,6 @@
                 <input id="login-password" type="password" class="form-control" name="passwd"
                        placeholder=" Kennwort...<?php #echo $lang->aText['inputUserPasswordRequiredText'];?>" required>
             </div>
-            <?php
-            if (isset($_REQUEST['e'])) {
-
-                switch ($_REQUEST['e']) {
-                    case '401':
-                        echo '<div class="alert alert-danger">';
-                        echo '<span class="glyphicon glyphicon-exclamation-sign"></span> ';
-                        //echo $this->lang->aText['alert401'];
-                        echo 'Zugriff verweigert.';
-                        echo '</div>';
-                        break;
-                    case 'logout':
-                        echo '<div class="alert alert-info">';
-                        echo '<span class="glyphicon glyphicon-info-sign"></span> ';
-                        //echo $this->lang->aText['alertLogout'];
-                        echo 'Sie wurden vom System abgemeldet.';
-                        echo '</div>';
-                        break;
-                }
-            }
-            ?>
-
-            <!--<a href="?lang=de_DE">Deutsch</a>
-            <a href="?lang=en_EN">English</a>-->
             <div style="margin-top:10px" class="form-group">
                 <div class="col-xs-12 col-sm-12">
                     <div class="row">

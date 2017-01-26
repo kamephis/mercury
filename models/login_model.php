@@ -18,7 +18,7 @@ class Login_Model extends Model
         $targetApp = null;
 
         if (isset($_REQUEST['artNr'])) {
-            $_SESSION['artNr'] = $_REQUEST['artNr'];
+            Session::set('artNr', $result['artNr']);
         }
 
         if (isset($_REQUEST['user'])) {

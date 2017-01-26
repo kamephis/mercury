@@ -170,8 +170,8 @@ foreach ($auftrag as $item) {
 <?php
 } else {
     // Standardwerte zum Testen.
-    //$auftrag = $this->auftrag->getAuftrag('35003130');
-    echo "Es wurde keine Artikelnummer übergeben.";
+    $auftrag = $this->auftrag->getAuftrag('35003130');
+    //echo "Es wurde keine Artikelnummer übergeben.";
 }
 ?>
 

@@ -101,11 +101,7 @@ foreach ($auftrag as $item) {
 
 <?php } ?>
 
-
-
-
 <!-- ./ Auftragspositionen -->
-
 
 <!-- modal test -->
 

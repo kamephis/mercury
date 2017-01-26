@@ -4,7 +4,7 @@
     </div>
 
     <div class="panel-body loginPanel">
-        <form id="loginform" class="form-horizontal" role="form" method="post" action="login">
+        <form id="loginform" class="form-horizontal" role="form" method="post" action="login/run">
             <input type="hidden" name="appTarget" value="<?php echo $appTarget; ?>">
             <input type="hidden" name="artNr" value="35003999">
             <div class="input-group inputLogin">

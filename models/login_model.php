@@ -12,9 +12,14 @@ class Login_Model extends Model
         // Session starten
         Session::init();
 
+        $artNr = null;
         $username = null;
         $password = null;
         $targetApp = null;
+
+        if (isset($_REQUEST['artNr'])) {
+            $_SESSION['artNr'] = $_REQUEST['artNr'];
+        }
 
         if (isset($_REQUEST['user'])) {
             $username = $_REQUEST['user'];

@@ -1,6 +1,6 @@
 <div class="panel col-xs-12 col-md-6 col-md-offset-3" id="loginbox">
     <div class="panel-heading">
-        <img src="<?php echo IMG_PATH; ?>logo_600.jpg" class="img img-responsive">
+        Kennwort Code scannen
     </div>
 
     <div class="panel-body loginPanel">

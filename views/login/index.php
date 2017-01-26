@@ -8,8 +8,8 @@
 
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                <input id="login-username" type="text" class="form-control" name="userPasswd" value=""
-                       placeholder="Login Barcode..." required>
+                <input id="login-username" type="password" class="form-control" name="userPasswd" value=""
+                       placeholder="Login Barcode scannen..." required>
             </div>
 
             <div style="margin-top:10px" class="form-group">

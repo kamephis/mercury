@@ -10,7 +10,7 @@ if (isset($_REQUEST['artNr'])) {
     //$auftrag = $this->auftrag->getAuftrag('10603480');
 }
 */
-$auftrag = $this->auftrag->getAuftrag('35003130');
+$auftrag = $this->auftrag->getAuftrag($_REQUEST['artNr']);
 $aBestand = $this->Pixi->getItemStock($auftrag[0]['ItemNrInt']);
 $bestand = $aBestand['PhysicalStock'];
 ?>

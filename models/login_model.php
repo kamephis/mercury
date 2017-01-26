@@ -19,7 +19,7 @@ class Login_Model extends Model
 
         // Zerteilen der Benutzerinformatioenn in Benutzername und Kennwort
         if ($_POST['userPasswd'] && strlen($_POST['userPasswd']) > 0) {
-            $userAccount = explode('@', $_POST['userPasswd']);
+            $userAccount = explode('_', $_POST['userPasswd']);
             $username = $userAccount[0];
             $password = $userAccount[1];
         }

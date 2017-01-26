@@ -16,8 +16,13 @@ class Auftrag extends Controller
         $this->view->Pixi = new Pixi();
 
         $this->view->render('header');
-        $this->view->render('navbar_top');
-        $this->view->render('auftrag/index');
+
+        if (isset($_POST['artNr'])) {
+            $this->view->render('navbar_top');
+            $this->view->render('auftrag/index');
+        } else {
+            $this->view->render('auftrag/scanArt');
+        }
         $this->view->render('footer');
     }
 

@@ -7,7 +7,8 @@
         <form id="loginform" class="form-horizontal" role="form" method="post" action="auftrag">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input id="artNr" type="text" class="form-control" name="artNr" placeholder=" ArtNr..." required>
+                <input id="artNr" type="text" class="form-control" name="artNr" placeholder=" ArtNr..." required
+                       autofocus>
             </div>
             <div style="margin-top:10px" class="form-group">
                 <div class="col-xs-12 col-sm-12">

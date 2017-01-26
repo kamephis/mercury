@@ -9,7 +9,7 @@
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                 <input id="login-username" type="password" class="form-control" name="userPasswd" value=""
-                       placeholder="Login Barcode scannen..." required>
+                       placeholder="Login Barcode scannen..." required autofocus>
             </div>
 
             <div style="margin-top:10px" class="form-group">

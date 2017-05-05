@@ -1,24 +1,29 @@
 <?php
 
+/**
+ * Standardcontroller
+ * @author: Marlon Böhland
+ * @access: public
+ */
 class Controller
 {
-
     function __construct()
     {
         $this->view = new View();
+        $this->view->binColors = Session::get('binColors');
         $this->model = new Model();
     }
 
     /**
-     * @param string $name Name of the model
-     * @param string $path Location of the models
+     * @param $name
+     * @param string $modelPath
      */
-    public function loadModel($name, $modelPath = 'models/')
+    public function loadModel($name, $modelPath)
     {
         $path = $modelPath . $name . '_model.php';
 
         if (file_exists($path)) {
-            require $modelPath . $name . '_model.php';
+            require $path;
 
             $modelName = ucfirst($name) . '_Model';
             $this->model = new $modelName();

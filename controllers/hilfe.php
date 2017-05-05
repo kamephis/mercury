@@ -1,8 +1,14 @@
 <?php
 
+/**
+ * Hilfe Controller
+ *
+ * @author: Marlon Böhland
+ * @date:   25.01.2017
+ * @access: public
+ */
 class Hilfe extends Controller
 {
-
     function __construct()
     {
         parent::__construct();
@@ -10,14 +16,20 @@ class Hilfe extends Controller
 
     function index()
     {
-        $this->view->title = 'Mercury Hilfe';
-        $this->view->render('header');
-        $this->view->render('navbar_top');
-        $this->view->render('help/index');
-        $this->view->render('footer');
+        if (Session::checkAuth()) {
+            $this->view->title = 'Mercury Hilfe';
+            require_once('models/navigation_model.php');
+            $this->view->nav = new Navigation_Model();
+
+            $this->view->render('header');
+            $this->view->render('navigation');
+            $this->view->render('hilfe/index');
+            $this->view->render('footer');
+        }
     }
 
-    /*function run() {
-        $this->Model->run();
-    }*/
+    function run()
+    {
+        $this->model->run();
+    }
 }

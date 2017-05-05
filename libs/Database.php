@@ -1,36 +1,40 @@
 <?php
 
+/**
+ * Gemeinsam genutzte Datenbankfunktionen
+ *
+ * @author: Marlon Böhland
+ * @access: public
+ * @date: 01.12.2016
+ */
 class Database extends PDO
 {
-
-    //TODO: public function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
     public function __construct()
     {
         parent::__construct('mysql:host=192.168.200.2;port=3307;dbname=usrdb_stokcgbl5;charset=utf8_general_ci', 'stokcgbl5', 'X$9?2IMalDUU');
     }
-
     /**
-     * select
-     * @param string $sql An SQL string
-     * @param array $array Paramters to bind
-     * @param constant $fetchMode A PDO Fetch mode
-     * @return mixed
+     * MySQL SELECT
+     * @param $sql - SQL Statement
+     * @param array $array - Parameter
+     * @param int $fetchMode - Return Typ
+     * @return array
      */
     public function select($sql, $array = array(), $fetchMode = PDO::FETCH_ASSOC)
     {
-        $sth = $this->prepare($sql);
+        $pdoStatement = $this->prepare($sql);
         foreach ($array as $key => $value) {
-            $sth->bindValue("$key", $value);
+            $pdoStatement->bindValue("$key", $value);
         }
 
-        $sth->execute();
-        return $sth->fetchAll($fetchMode);
+        $pdoStatement->execute();
+        return $pdoStatement->fetchAll($fetchMode);
     }
 
     /**
-     * insert
-     * @param string $table A name of table to insert into
-     * @param string $data An associative array
+     * MySQL INSERT
+     * @param string $table Der Tabellenname in welche die Daten eingefügt werden sollen.
+     * @param string $data Ein assoziatives Array.
      */
     public function insert($table, $data)
     {
@@ -39,19 +43,19 @@ class Database extends PDO
         $fieldNames = implode('`, `', array_keys($data));
         $fieldValues = ':' . implode(', :', array_keys($data));
 
-        $sth = $this->prepare("INSERT INTO $table (`$fieldNames`) VALUES ($fieldValues)");
+        $pdoStatement = $this->prepare("INSERT INTO $table (`$fieldNames`) VALUES ($fieldValues)");
 
         foreach ($data as $key => $value) {
-            $sth->bindValue(":$key", $value);
+            $pdoStatement->bindValue(":$key", $value);
         }
-        $sth->execute();
+        $pdoStatement->execute();
     }
 
     /**
-     * update
-     * @param string $table A name of table to insert into
-     * @param string $data An associative array
-     * @param string $where the WHERE query part
+     * MySQL UPDATE
+     * @param string $table Der Tabellenname in welche die Daten eingefügt werden sollen.
+     * @param string $data Ein assoziatives Array.
+     * @param string $where WHERE Bedingung
      */
     public function update($table, $data, $where)
     {
@@ -68,17 +72,16 @@ class Database extends PDO
         foreach ($data as $key => $value) {
             $sth->bindValue(":$key", $value);
         }
-
         $sth->execute();
     }
 
     /**
-     * delete
+     * MySQL DELETE
      *
      * @param string $table
      * @param string $where
      * @param integer $limit
-     * @return integer Affected Rows
+     * @return integer affected rows
      */
     public function delete($table, $where, $limit = 1)
     {

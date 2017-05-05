@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Initialisierung der Anwwendung
+ * und laden aller erforderlichen Komponenten
+ *
+ * @author: Marlon Böhland
+ * @access: public
+ */
 class Bootstrap
 {
     private $_url = null;
@@ -11,9 +18,8 @@ class Bootstrap
     private $_defaultFile = 'index.php';
 
     /**
-     * Starts the Bootstrap
-     *
-     * @return boolean
+     * Bootstrap initialisieren
+     * @return bool
      */
     public function init()
     {
@@ -49,7 +55,7 @@ class Bootstrap
 
     /**
      * (Optional) Custom Pfad für das Error File
-     * @param string $path Use the file name of your controller, eg: error.php
+     * @param string $path
      */
     public function setErrorFile($path)
     {
@@ -57,8 +63,8 @@ class Bootstrap
     }
 
     /**
-     * (Optional) Set a custom path to the error file
-     * @param string $path Use the file name of your controller, eg: index.php
+     * (Optional) Standardpfad setzen
+     * @param string $path
      */
     public function setDefaultFile($path)
     {
@@ -66,7 +72,7 @@ class Bootstrap
     }
 
     /**
-     * Fetches the $_GET from 'url'
+     * 'url' aus $_GET auslesen
      */
     private function _getUrl()
     {
@@ -77,17 +83,19 @@ class Bootstrap
     }
 
     /**
-     * This loads if there is no GET parameter passed
+     * Wenn kein Controller via GET übergeben wird.
      */
     private function _loadDefaultController()
     {
+        // Standardmäßig wird die index.php geladen
         require $this->_controllerPath . $this->_defaultFile;
         $this->_controller = new Index();
         $this->_controller->index();
     }
 
     /**
-     * Load an existing controller if there IS a GET parameter passed
+     * Wenn ein Controller via GET übergeben wird und dieser
+     * existiert, wird er geladen.
      *
      * @return boolean|string
      */
@@ -97,7 +105,9 @@ class Bootstrap
 
         if (file_exists($file)) {
             require $file;
-            $this->_controller = new $this->_url[0];
+
+            $cName = ucfirst($this->_url[0]);
+            $this->_controller = new $cName;
             $this->_controller->loadModel($this->_url[0], $this->_modelPath);
         } else {
             $this->_error();
@@ -106,7 +116,7 @@ class Bootstrap
     }
 
     /**
-     * If a method is passed in the GET url paremter
+     * Falls eine Methode via URL übergeben wurde...
      *
      *  http://localhost/controller/method/(param)/(param)/(param)
      *  url[0] = Controller
@@ -119,14 +129,14 @@ class Bootstrap
     {
         $length = count($this->_url);
 
-        // Make sure the method we are calling exists
+        // Prüfen ob die Methode existiert
         if ($length > 1) {
             if (!method_exists($this->_controller, $this->_url[1])) {
                 $this->_error();
             }
         }
 
-        // Determine what to load
+        // Je nach Anzahl der Parameter werden unterschiedliche Signaturen erzeugt.
         switch ($length) {
             case 5:
                 //Controller->Method(Param1, Param2, Param3)
@@ -155,8 +165,7 @@ class Bootstrap
     }
 
     /**
-     * Display an error page if nothing exists
-     *
+     * Anzeigen der Fehlerseite falls nichts existiert
      * @return boolean
      */
     private function _error()

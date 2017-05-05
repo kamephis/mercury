@@ -10,11 +10,13 @@ class Zuschnitt extends Controller
 
     function index()
     {
-        $this->view->title = 'Auftragsbearbeitung';
+        if (Session::checkAuth()) {
+            $this->view->title = 'Auftragsbearbeitung';
 
-        $this->view->render('header');
-        $this->view->render('mercury/index');
-        $this->view->render('footer');
+            $this->view->render('header');
+            $this->view->render('mobile/index');
+            $this->view->render('footer');
+        }
     }
 
     function run()

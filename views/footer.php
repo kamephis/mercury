@@ -1,17 +1,34 @@
 </div> <!-- END:Container -->
 <?php
 // Individuelle JavaScripte für jede View laden
+/*
 if (isset($this->js)) {
     foreach ($this->js as $js) {
         echo '<script type="text/javascript" src="' . URL . 'views/' . $js . '"></script>';
     }
-}
+}*/
 ?>
-<!--
-<script src="out/lib/js/jquery-3.1.1.min.js"></script>
-<script src="out/lib/js/bootstrap.min.js"></script>-->
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="out/lib/js/ie10-viewport-bug-workaround.js"></script>
 
+<script>
+    $(document).ready(function () {
+        if (~window.location.href.indexOf("artikelinfo")) {
+            $('#nav_Artikelinfo').css("color", "white");
+            $('#nav_Artikelinfo').css("font-weight", "semi-bold");
+        }
+        if (~window.location.href.indexOf("importPixiPickliste")) {
+            $('#nav_Picklistenverwaltung').css("color", "white");
+            $('#nav_Picklistenverwaltung').css("font-weight", "semi-bold");
+        }
+        if (~window.location.href.indexOf("backend")) {
+            $('#nav_Übersicht').css("color", "white");
+            $('#nav_Übersicht').css("font-weight", "semi-bold");
+        }
+
+        /*$(".nav a").on("click", function(){
+         $(".nav").find(".active").removeClass("active");
+         $(this).parent().addClass("active");
+         });*/
+    });
+</script>
 </body>
 </html>

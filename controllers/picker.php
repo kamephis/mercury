@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * Picker Controller
+ *
+ * @author: Marlon Böhland
+ * @access: public
+ */
 class Picker extends Controller
 {
-
     function __construct()
     {
         parent::__construct();
@@ -10,19 +15,23 @@ class Picker extends Controller
 
     function index()
     {
-        $this->view->title = 'Picken';
-        $this->model = new Picker_Model();
-        $this->view->masterPicklist = $this->model->getMasterPicklist();
-        //$this->run();
+        if (Session::checkAuth()) {
+            $this->view->title = 'Picken';
+            $this->model = new Picker_Model();
+            require_once('models/navigation_model.php');
+            $this->view->nav = new Navigation_Model();
+            $this->view->masterPicklist = $this->model->getMasterPicklist(Session::get('UID'));
+            $this->view->PickerModel = $this->model;
 
-        $this->view->render('header');
-        $this->view->render('mercury/topNav');
-        $this->view->render('mercury/picker');
-        $this->view->render('footer');
-
+            $this->view->render('header');
+            $this->view->render('navigation');
+            $this->view->render('mobile/picker');
+            $this->view->render('footer');
+        }
     }
 
-    /*function run() {
-        $this->Model->run();
-    }*/
+    function run()
+    {
+        $this->model->run();
+    }
 }

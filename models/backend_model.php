@@ -15,6 +15,11 @@ class Backend_Model extends Model
         parent::__construct();
     }
 
+    /**
+     * Ausgabe aller Zuschneideauftraege
+     * @param $userID
+     * @return array
+     */
     public function getZuschneideauftaege($userID)
     {
         $sql = "SELECT * FROM stpZuschneideAuftraege WHERE UserID = '{$userID}' GROUP BY ArtEAN";
@@ -60,22 +65,8 @@ class Backend_Model extends Model
      */
     public function getPicklistItems($picklistNr)
     {
-        $sql_alt = "SELECT pitem.*, plist.PLHkey
-                FROM stpPicklistItems pitem
-                RIGHT JOIN stpArtikel2Pickliste a2p
-                ON (pitem.id = a2p.ArtikelID)
-                
-                LEFT JOIN stpPickliste plist
-                ON (a2p.PicklistID = plist.PLHkey)
-                
-                WHERE plist.PLHkey = '{$picklistNr}'
-                /*AND pitem.ItemStatus != 2*/
-                /*GROUP BY pitem.EanUpc*/
-                /*ORDER BY pitem.BinSortNum*/
-                ORDER BY pitem.EanUpc
-                ";
-
-        $sql = "SELECT pitem.*, plist.PLHkey
+        $sql = "SELECT pitem.*, plist.PLHkey,
+                date_format(TimestampUpdateStatus, '%d.%m.%Y') AS 'UpdateDate', date_format(TimestampUpdateStatus, '%H.%i') AS 'UpdateTime'
                 FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
                 WHERE
                 pitem.ID = a2p.ArtikelID AND
@@ -85,13 +76,6 @@ class Backend_Model extends Model
                 
                 GROUP BY pitem.EanUpc
                 ORDER BY pitem.BinSortNum";
-
-        $sql1 = "SELECT pitem.*, plist.PLHkey FROM stpPicklistItems pitem, stpPickliste plist, stpArtikel2Pickliste a2p
-                WHERE pitem.id = a2p.ArtikelID
-                AND a2p.PicklistID = plist.PLHkey
-                AND plist.PLHkey = '{$picklistNr}'
-                ORDER BY pitem.EanUpc";
-
         return $this->db->select($sql);
 
     }
@@ -147,7 +131,7 @@ ORDER BY pitem.BinSortNum";
 
     public function getActivePicklists()
     {
-        $sql = "SELECT picklist.*, user.name, user.vorname FROM stpPickliste picklist
+        $sql = "SELECT picklist.*, user.name, user.vorname, date_format(picklist.createDate, '%d.%m.%Y') as PicklistCreateDate FROM stpPickliste picklist
                 LEFT JOIN iUser user
                 ON picklist.picker = user.UID
                 /*WHERE picklist.Status = 0*/

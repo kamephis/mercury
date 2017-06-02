@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -16,7 +15,7 @@
     <script src="out/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
     <script src="out/css/bootstrap/js/bootstrap.min.js"></script>
-    <script src="out/js/stpFunctions.js"></script>
+    <script src="out/js/stpFunctions.js" async></script>
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

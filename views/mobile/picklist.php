@@ -136,6 +136,15 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                             <h3 class="pick visible-xs"><?php echo $item['EanUpc']; ?></h3>
                         </div>
                         <div class="clearfix"></div>
+
+                        <div class="col-xs-12 col-md-12 small">
+                            <b>SHOP</b>
+                        </div>
+                        <div class="col-xs-12 col-md-12">
+                            <?php echo substr($item['OrderNrExternal'], 0, 3); ?>
+                        </div>
+                        <div class="clearfix"></div>
+                        <small>&nbsp;</small>
                         <div class="col-xs-12 col-md-12 small">
                             <div class="row">
                                 <div class="col-xs-6 text-small"><b>Menge</b></div>

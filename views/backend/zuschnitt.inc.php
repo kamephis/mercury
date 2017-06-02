@@ -2,12 +2,11 @@
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Stoff-Zuschnitt
+                <span class="panel-title">Stoff-Zuschnitt</span>
             </div>
-
+            <form method="post">
             <div class="panel-body">
 
-                <div class="well hidden-print">
                     <div class="row">
                         <div class="col-sm-6">
                             <label>
@@ -16,7 +15,7 @@
                                 <select name="bearbeiter" class="form-control">
                                     <option value="">Alle</option>
                                     <?php foreach ($aPicker as $sPicker) { ?>
-                                        <option value="65"><?php echo utf8_encode($sPicker['vorname'] . ' ' . $sPicker['name']); ?></option>
+                                        <option value="<?php echo $sPicker['UID'] ?>"><?php echo utf8_encode($sPicker['vorname'] . ' ' . $sPicker['name']); ?></option>
                                     <?php } ?>
                                 </select>
                             </label>
@@ -31,57 +30,50 @@
                             </button>
                         </div>
                     </div>
-                </div>
-                <?php if (isset($_REQUEST['auftragsdatum']) || isset($_REQUEST['bearbeiter'])) {
+            </form>
+            <div class="clearfix"></div>
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <?php /* if (isset($_REQUEST['auftragsdatum']) || isset($_REQUEST['bearbeiter'])) {*/
                     $zuschneideAuftraege = $this->mAuftrag->getAuftragsInfos($_REQUEST['bearbeiter'], $_REQUEST['auftragsdatum']); ?>
-                    <br>
-                    <div class="row hidden-print">
-                        <div class="col-xs-3 col-sm-1"><b>Datum</b></div>
-                        <div class="col-xs-5 col-sm-2"><b>Bearbeiter</b></div>
-                        <div class="col-xs-5 col-sm-2"><b>EAN</b></div>
-                        <div class="col-xs-2 col-sm-1"><b>Anzahl (m)</b></div>
-                        <div class="col-xs-2 col-sm-1"><b>Dauer (Min.)</b></div>
-                        <div class="col-xs-2 col-sm-1">
-                            <!--
-                                                    <button type="button" data-toggle="collapse" data-target="#pnlZuschnittInfo_" class="btn btn-default btn-sm">
-                                                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Positionen Ein-/Ausblenden
-                                                    </button>
-                                                    -->
-                        </div>
-                    </div>
 
-                    <?php
-                    foreach ($zuschneideAuftraege as $zAuftrag) {
-                        ?>
-                        <div class="row tableTr">
-                            <div class="col-xs-3 col-sm-1"><?php echo $zAuftrag['datum']; ?></div>
-                            <div class="col-xs-5 col-sm-2"><?php echo $zAuftrag['uname']; ?></div>
-                            <div class="col-xs-5 col-sm-2"><a
-                                        href="<?php echo URL . 'artikelinfo?searchType=ean&artikelnr=' . $zAuftrag['ArtEAN']; ?>"><?php echo $zAuftrag['ArtEAN']; ?></a>
-                            </div>
-                            <div class="col-xs-2 col-sm-1"><?php echo $zAuftrag['Anzahl']; ?></div>
+                    <table class="table table-responsive table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Bearbeiter</th>
+                            <th>EAN</th>
+                            <th>Anzahl (m)</th>
+                            <th>Dauer (Minuten)</th>
+                        </tr>
+                        </thead>
 
-                            <div class="col-xs-2 col-sm-1"><?php echo number_format(($zAuftrag['dauer'] / 60), 2, ',', ' '); ?></div>
-                        </div>
+                        <tbody>
+                        <?php foreach ($zuschneideAuftraege as $zAuftrag) { ?>
+                            <tr>
+                                <td>
+                                        <span style="font-size:0.8em;"
+                                              class="glyphicon glyphicon-calendar"></span>
+                                    <?php echo $zAuftrag['datum']; ?></td>
+                                <td><?php echo utf8_encode($zAuftrag['uname']); ?></td>
+                                <td><a
+                                            href="<?php echo URL . 'artikelinfo?searchType=ean&artikelnr=' . $zAuftrag['ArtEAN']; ?>"><?php echo $zAuftrag['ArtEAN']; ?></a>
+                                </td>
+                                <td><?php echo $zAuftrag['Anzahl']; ?></td>
+                                <td><?php echo number_format(($zAuftrag['dauer'] / 60), 2, ',', ' '); ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                    <?php /*} */ ?>
+                </div>
 
-
-                        <div class="row" id="pnlZuschnittInfo_<?php echo $zAuftrag['ID']; ?>">
-
-                        </div>
-                    <?php }
-                } else {
-                    /*
-                        if(sizeof($this->mAuftrag->getAuftragsInfos('',date('Y-m-d'))) > 0){
-                        $zuschneideAuftraege = $this->mAuftrag->getAuftragsInfos('',date('Y-m-d'));
-                    } else {
-                        echo '<div class="alert alert-info">Heute wurden noch keine Stoffe zugeschnitten</div>';
-                    }*/
-
-                } ?>
+            </div>
+        </div>
             </div>
         </div>
     </div>
-</div>
 <script>
     $(function () {
         $("#auftragsdatum1").datepicker({

@@ -4,6 +4,8 @@ $app_url = explode('.', $_SERVER['HTTP_HOST']);
 $app = $app_url[0];
 
 // Individuelles setzen der Session-Timeouts
+
+/*
 switch ($app) {
     case 'pick':
         break;
@@ -13,11 +15,10 @@ switch ($app) {
         session_cache_limiter('public');
         $cache_limiter = session_cache_limiter();
 
-        /* setzen der Cache-Verfallszeit auf 30 Minuten */
         session_cache_expire(86400); // 24h
         $cache_expire = session_cache_expire();
         break;
-}
+}*/
 
 ob_start();
 session_start();

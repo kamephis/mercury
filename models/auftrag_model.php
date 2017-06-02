@@ -23,6 +23,16 @@ class Auftrag_Model extends Model
     }
 
     /**
+     * Ausgabe der Auftrags-Daten zur Anzeige in den Panels
+     * @return array
+     */
+    public function getAuftragsDatum()
+    {
+        $sql = "SELECT DISTINCT date_format(TimestampStart, '%d.%m.%Y') AS 'datum' FROM stpZuschneideAuftraege ";
+        return $this->db->select($sql);
+    }
+
+    /**
      * Artikelposition in die Auftragstabelle einfügen
      * Der Status der Position kann hier gesetzt werden.
      * @param $artID
@@ -55,18 +65,28 @@ class Auftrag_Model extends Model
     {
         $filter = null;
 
-        if (isset($userID)) $filter .= "AND UserID ='$userID' ";
-        if (isset($date)) $filter .= "WHERE auftrag.TimestampStart LIKE '{$date}%'";
+        if (isset($userID) && strlen($userID) > 0) $filter .= " AND UserID ='$userID' ";
+        if (isset($date) && strlen($date) > 0) $filter .= " AND auftrag.TimestampStart LIKE '{$date}%'";
 
         $sql = "
-                  SELECT (TimestampEnd - TimestampStart) dauer, DATE_FORMAT(TimeStampStart,'%d.%m.%Y') datum, concat(usr.vorname, ' ',usr.name) uname, auftrag.* FROM stpZuschneideAuftraege as auftrag
-                  LEFT JOIN iUser as usr
-                  ON usr.UID = auftrag.UserID
-                  /*GROUP BY auftrag.userID, auftrag.ArtEAN*/
-                  
-                  {$filter}
-                  ORDER BY datum DESC
-                  ";
+        SELECT 
+        (auftrag.TimestampEnd - auftrag.TimestampStart) dauer,
+        DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y') datum,
+        concat(usr.vorname, ' ',usr.name) uname,
+        count(auftrag.Anzahl) Menge,
+        auftrag.* 
+        
+        FROM stpZuschneideAuftraege as auftrag
+        
+        LEFT JOIN iUser as usr
+        
+        ON usr.UID = auftrag.UserID
+        WHERE auftrag.Status = 1
+        AND Anzahl > 0 
+        {$filter}
+        GROUP BY datum, auftrag.UserID
+        ORDER BY datum DESC";
+
         return $this->db->select($sql);
     }
 

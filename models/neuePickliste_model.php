@@ -104,91 +104,6 @@ class NeuePickliste_Model extends Model
     }
 
     /**
-     * Importieren der zuletzt erstellen Pixi Pickliste
-     * (inaktiv) - Wird nicht verwendet
-     */
-    public function importPixiMasterPicklist()
-    {
-        $aPicklistDetails = $this->getPicklistDetails($this->getNewestPicklist($this->getAllPixiPicklists()));
-
-        // Mit der Datenbank verbinden
-        $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
-        $this->oMySqli->set_charset('utf8_unicode_ci');
-
-        // Pickliste Zeile für Zeile in die stpPicklistItems Tabelle schreiben.
-
-        // Initialisierung
-        $sqlInsertItems = null;
-
-        // Leeren der Tabelle
-        $sqlInsertItems = "TRUNCATE TABLE stpPicklistItems;";
-
-        foreach ($aPicklistDetails as $items) {
-            $sqlInsertItems .= "INSERT INTO 
-                                  stpPicklistItems(
-                                   BinItemRef,
-                                   PicLinkSmall,
-                                   PicLinkLarge,
-                                   PLIheaderRef,
-                                   BinSortNum,
-                                   ItemName,
-                                   BinName,
-                                   BinKey,
-                                   PicklistExpiryDate,
-                                   PicklistCreateDate,
-                                   Qty,
-                                   PicklistComment,
-                                   ItemNrSuppl,
-                                   EanUpc,
-                                   ItemNrInt,
-                                   BinRef,
-                                   BinGroup,
-                                   PLIorderlineRef,
-                                   Location,
-                                   OtherItemsCount,
-                                   PLHfromBox,
-                                   PLHtoBox,
-                                   PLIorderlineRef1
-                                  ) VALUES (
-                                   '" . $items['BinItemRef'] . "',
-                                   '" . $items['PicLinkSmall'] . "',
-                                   '" . (isset($items['PicLinkLarge']) ? $items['PicLinkLarge'] : '') . "',
-                                   '" . $items['PLIheaderRef'] . "',
-                                   '" . $items['BinSortNum'] . "',
-                                   '" . $items['ItemName'] . "',
-                                   '" . $items['BinName'] . "',
-                                   '" . $items['BinKey'] . "',
-                                   '" . $items['PicklistExpiryDate'] . "',
-                                   '" . $items['PicklistCreateDate'] . "',
-                                   '" . $items['Qty'] . "',
-                                   '" . $items['PicklistComment'] . "',
-                                   '" . $items['ItemNrSuppl'] . "',
-                                   '" . $items['EanUpc'] . "',
-                                   '" . $items['ItemNrInt'] . "',
-                                   '" . $items['BinRef'] . "',
-                                   '" . $items['BinGroup'] . "',
-                                   '" . $items['PLIorderlineRef'] . "',
-                                   '" . $items['Location'] . "',
-                                   '" . $items['OtherItemsCount'] . "',
-                                   '" . $items['PLHfromBox'] . "',
-                                   '" . $items['PLHtoBox'] . "',
-                                   '" . $items['PLIorderlineRef1'] . "'
-                                    );";
-        }
-
-        if ($this->oMySqli->multi_query($sqlInsertItems) === TRUE) {
-            echo '<div class="alert alert-success msgFooter">';
-            echo "Alle Eintraege wurden in die stpPicklistItems Tabelle geschrieben.";
-            echo '</div>';
-        } else {
-            echo '<div class="alert alert-danger msgFooter">';
-            echo "Error: " . $sqlInsertItems . "<br>" . $this->oMySqli->error;
-            echo '</div>';
-        }
-        $this->oMySqli->close();
-    }
-
-    /**
      * Pickliste aus Pixi in die interne Datenbank importieren
      * aktiv!
      * @param $picklist
@@ -218,8 +133,6 @@ class NeuePickliste_Model extends Model
             // Initialisierung
             $sqlInsertItems = null;
 
-            // Leeren der Tabelle (falls erforderlich)
-            //$sqlInsertItems = "TRUNCATE TABLE stpPicklistItems;";
 
             // Struktur des Arrays prüfen
             if (is_array($aPicklistDetails[0])) {
@@ -352,6 +265,7 @@ class NeuePickliste_Model extends Model
     public function newPicklist()
     {
         $aPostData = $_POST;
+        $updateFlag = $aPostData['updatePicklist'];
         $PLHkey = $aPostData['plnr'];
         $createDate = date('y.m.d');
         $expDate = $aPostData['expDate'];
@@ -365,8 +279,9 @@ class NeuePickliste_Model extends Model
 
         $sqlNewPicklist = '';
 
-        // Neue Pickliste erstellen
-        $sqlNewPicklist .= "INSERT INTO
+        if ($updateFlag != 'update') {
+            // Neue Pickliste erstellen
+            $sqlNewPicklist .= "INSERT INTO
                                   stpPickliste(
                                    PLHkey,
                                    createDate,
@@ -382,6 +297,7 @@ class NeuePickliste_Model extends Model
                                    '" . $plComment . "',
                                    '" . $picker . "'
                                   );";
+        }
 
         // Artikel der neuen Pickliste zuweisen
         foreach ($aPicklistItems as $item) {

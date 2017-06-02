@@ -1,11 +1,10 @@
 <?php
-error_reporting(E_ERROR);
 /**
  * User: Marlon
  * Date: 17.03.2017
  * Time: 09:40
  */
-if ($_REQUEST['resetTables']) {
+/*if ($_REQUEST['resetTables']) {
     if ($this->pl->resetTables()) {
 
         echo "Tabellen wurden geleert.";
@@ -15,7 +14,7 @@ if ($_REQUEST['resetTables']) {
         echo "Tabellen konnten nicht geleert werden.";
 
     }
-}
+}*/
 
 // Picker aus dem System auslesen
 $aPicker = $this->pl->getPicker();
@@ -25,43 +24,14 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
     $this->pl->newPicklist();
 }
 
-/* Aktivieren wenn autoPicklisten benötigt werden.
-if(isset($_POST['autoPicklist'])){
-    try{
-        $this->pl->newAutoPicklist($_POST['autoPicklist']);
-    } catch(Exception $e){
-        echo $e;
-    }
-}
-*/
-?>
-<!--
-<form method="post">
-<div class="row">
-    <div class="col-sm-1">
-            <select name="autoPicklist" class="form-control">
-                <option value="LX">LX Artikel</option>
-                <option value="Paletten">Palettenware</option>
-            </select>
-    </div>
-    <div class="col-sm-1">
-            <button type="submit" class="btn btn-default">
-                Pickliste erstellen
-            </button>
-    </div>
-</div>
-</form>
 
-<br>-->
+?>
 <div class="row">
     <div class="col-sm-12">
         <a href="importPixiPickliste" class="btn btn-primary" style="float:left;">
             <span class="glyphicon glyphicon-cloud-download"></span>
             &nbsp;Zum pixi* Picklisten-Import
         </a>&nbsp;
-        <!--<button type="submit" name="resetTables" value="1" class="btn btn-info pull-right">
-            <span class="glyphicon glyphicon-trash"></span>&nbsp;
-            Tabellen leeren</button>-->
         <br>
         <br>
         <br>
@@ -163,8 +133,9 @@ if(isset($_POST['autoPicklist'])){
                         <div class="col-xs-12 col-sm-4">
                             <label>Artikel für neue Pickliste auswählen <span class="label label-primary"
                                                                               id="anzPositionenInListe"></span><br><br>
-                                <select class="form-control dataTable" name="picklistItems[]" multiple
-                                        id="picklistItems" style="height: 350px!important; width:600px!important;">
+                                <select id="picklistItems" class="form-control dataTable" name="picklistItems[]"
+                                        multiple
+                                        style="height: 350px!important; width:600px!important;">
                                 </select>
                             </label>
                         </div>
@@ -212,6 +183,15 @@ if(isset($_POST['autoPicklist'])){
                                 <!--<br><code>Tipp: Vorhandene Picklisten-Nr eingegeben,<br>um gewählte Positionen hinzuzufügen.</code><br>-->
                             </label>
 
+                            <div class="clearfix"></div>
+
+                            <!-- Update Flag setzen -->
+                            <div id="msgUpdateMode" class="hidden alert alert-info">
+                                <b>UPDATE MODUS</b> aktiv!
+                                <br>
+                                <b><a href="<?php echo URL . 'neuePickliste' ?>">Aussschalten?</a></b>
+                            </div>
+                            <input type="hidden" name="updatePicklist" value="1">
 
                             <label>Picker zuweisen<br>
                                 <select name="picker" class="form-control" style="width:250px!important;">
@@ -234,7 +214,7 @@ if(isset($_POST['autoPicklist'])){
                             <label>Kommentar:
                                 <br><code>Tipp: Doppelklick in das Textfeld<br> um das Kommentarfeld schnell zu leeren.</code><br>
                                 <textarea name="plKommentar" id="plKommentar" class="form-control"
-                                          style="width:250px!important; margin-top:5px!important;"></textarea>
+                                          style="width:250px!important; margin-top:5px!important;" required></textarea>
                             </label>
 
                             <input type="hidden" name="createPl" value="1">
@@ -285,6 +265,13 @@ if(isset($_POST['autoPicklist'])){
         }
 
         getPicklistItems();
+
+
+        $('input[name="plnr"]').on('keypress', function () {
+            //alert('Die von Ihnen gewählte Pickliste wurde zur Aktualisierung ausgewählt. Bitte laden Sie diese Seite, falls sie dies nicht wünschen.');
+            $('#msgUpdateMode').removeClass("hidden").fadeIn();
+            $('input[name="updatePicklist"]').val("update");
+        });
 
         /**
          * Filtern der Positionen

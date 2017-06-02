@@ -1,6 +1,10 @@
 <?php
-if ($_COOKIE['AutoLogin']) {
+/*if ($_COOKIE['AutoLogin']) {
     header('location: ' . URL . 'login');
+}*/
+
+if ($_REQUEST['msg'] == 'e401') {
+    echo "Ihre Zugangsdaten sind nicht korrekt.";
 }
 ?>
 <div class="panel col-xs-12 col-md-4 col-md-offset-4" id="loginbox">

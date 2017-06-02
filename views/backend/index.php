@@ -28,23 +28,19 @@ if ($_REQUEST['delPicklist']) {
     } catch (Exception $e) {
         echo $e;
     }
-}
-// Löschen einer Pickliste
-if ($_REQUEST['delPicklistItem']) {
-    try {
-        $this->PicklistAdmin->delPicklistItem($_REQUEST['picklistID'], $_REQUEST['delPicklistItem']);
-    } catch (Exception $e) {
-        echo $e;
     }
-}
 ?>
 
 <form method="post" id="frmOptions">
     <div class="row">
         <div class="col-sm-12">
             <a class="btn btn-default hidden-print pull-left" href="<?php echo URL . 'backend'; ?>">
-                <span class="glyphicon glyphicon-refresh"></span>&nbsp;Anischt Aktualisieren
+                <span class="glyphicon glyphicon-refresh"></span>&nbsp;Anischt aktualisieren
             </a>
+            &nbsp;
+            <button type="button" class="btn btn-default btnPrint hidden-print">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;Fehlerliste drucken
+            </button>
 
             <button type="submit" class="btn btn-warning  hidden-print pull-right" name="getPixiBestand" value="1">
                 <span class="glyphicon glyphicon-refresh"></span>&nbsp;Pixi* Bestände prüfen
@@ -86,7 +82,7 @@ if ($_REQUEST['delPicklistItem']) {
         </div>
     </div>
 </form>
-<div class="countdown">
+<div class="countdown hidden-print">
 
 </div>
 

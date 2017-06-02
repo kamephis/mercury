@@ -412,7 +412,7 @@ $title = $auftrag[0]['ItemName'];
                             <input type="hidden" name="item_<?php echo $item['ID']; ?>">
                             <small>&nbsp;</small>
                             <button type="submit" class="btn btn-success btn-block btn-lg btn-lg-modal"
-                                    disabled="disabled" id="btnPosOk_<?php echo $rows; ?>">Position abgeschlossen
+                                    disabled="disabled" id="btnPosOk_<?php echo $rows; ?>">Position abschlie&szlig;en
                                 <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </form>

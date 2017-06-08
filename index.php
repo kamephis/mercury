@@ -19,7 +19,7 @@ switch ($app) {
         $cache_expire = session_cache_expire();
         break;
 }*/
-if (count($_SESSION)) {
+if (isset($_SESSION)) {
     echo "Ihre Sitzung wurde beendet. Bitte melden Sie sich erneut an.";
     session_destroy();
 } else {

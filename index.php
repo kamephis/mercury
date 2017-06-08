@@ -19,9 +19,14 @@ switch ($app) {
         $cache_expire = session_cache_expire();
         break;
 }*/
+if (count($_SESSION)) {
+    echo "Ihre Sitzung wurde beendet. Bitte melden Sie sich erneut an.";
+    session_destroy();
+} else {
+    ob_start();
+    session_start();
+}
 
-ob_start();
-session_start();
 
 //echo "Die Cacheverwaltung ist jetzt auf $cache_limiter gesetzt<br />";
 //echo "Die Session wird für $cache_expire Minuten im Cache gespeichert";

@@ -44,4 +44,16 @@ class ArtikelFehlerMobile_Model extends Model
         // Refresh der Seite
         header('location: ' . URL . 'artikelFehlerMobile');
     }
+
+    /**
+     * Picken einer Position und zurücksetzen des Fehlers
+     * @param $articleID
+     */
+    public function pickItem($articleID)
+    {
+        $aUpdate = array('ItemFehler' => NULL, 'ItemFehlbestand' => NULL, 'ItemStatus' => '2');
+        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
+        // Refresh der Seite
+        header('location: ' . URL . 'artikelFehlerMobile');
+    }
 }

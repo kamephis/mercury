@@ -3,7 +3,6 @@
 $anzPositionen = $this->AnzItems;
 
 // Zwischenspeichern der Picklistennummer
-
 $plist = $_REQUEST['picklistNr'];
 $_SESSION['plist'] = $plist;
 
@@ -13,7 +12,7 @@ $_SESSION['plist'] = $plist;
  * Falls keine Position übergeben wurde auf den Anfang zurückspringen
  */
 
-// FIX: Falls eine andere Pickliste aufgerufen wird, dann wird die gleiche POS in dieser Liste verwendet.
+// Falls eine andere Pickliste aufgerufen wird, dann wird die gleiche POS in dieser Liste verwendet.
 if ($_REQUEST['referer']) {
     unset($_SESSION['pos']);
     $_SESSION['pos'] = 0;
@@ -34,20 +33,23 @@ if ($_SESSION['pos'] < 0) {
     $_SESSION['pos'] = 0;
 }
 
-// TODO: Idee: Zuerst alle Einträge der Pickliste in ein lokales Array schreiben. Dann durch das Array Navigieren
-
 // Picklisten Array
-// 1. Position
-$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
-
+if (!isset($this->Picklist->getApicklist()[$_SESSION['pos']])) {
+    $this->Picklist->setAPicklist($this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']));
+} else {
+    echo "Picklist gesetzt";
+}
+//$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
 
 // Picklistennavigation
 if ($_REQUEST['nav'] == 'n') {
-    $picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
+    //next($picklist);
+    //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
 }
 
 if ($_REQUEST['nav'] == 'p') {
-    $picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
+    //prev($picklist);
+    //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
 }
 
 // Stoff gepickt - via EAN
@@ -55,7 +57,9 @@ if ($_REQUEST['itemPicked']) {
     $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID']);
     // Aktualisieren -> nächste Position - refresh
     header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'] . '&pos=' . $_SESSION['pos']);
-    $picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
+
+    $this->Picklist->getAPicklist();
+    //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
 
 }
 
@@ -87,7 +91,9 @@ if ($_REQUEST['setFehler']) {
 }
 
 if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
-    foreach ($picklist as $item) {
+    //foreach ($picklist as $item) {
+
+    $item = $this->Picklist->getAPicklist()[$_SESSION['pos']];
 
         // Lagerbestände
         if ($_REQUEST['updPixiBestand'] == 1) {
@@ -100,9 +106,11 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
         $imgUrl = str_replace(":/www", "://www", $img);
 
         $pickimage = $imgUrl;
-        $pickimage = URL . '/out/img/placeholder.jpg';
+    //echo $pickimage;
+    //$pickimage = URL . '/out/img/placeholder.jpg';
 
-        strlen($imgUrl) > 0 ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
+    //strlen($imgUrl) > 0 ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
+    file_exists($imgUrl) ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
         ?>
 
         <div class="well-sm">
@@ -379,7 +387,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
 
 
         </div>
-    <?php }
+    <?php /*}*/
 } else {
     echo '<div class="alert alert-success">';
     echo '<center><span style="font-size:7em; display:block; margin-bottom:0.3em;" class="icon icon-happy"></span></center>';

@@ -42,14 +42,16 @@ class Picklist_Model extends Model
                 pitem.ID = a2p.ArtikelID AND
                 a2p.PicklistID = plist.PLHkey AND 
                 plist.PLHkey = '{$picklistNr}' AND
-                pitem.ItemStatus = 1 AND 
-                pitem.ItemFehler = '' AND
+                pitem.ItemStatus = 1 
+                /*pitem.ItemFehler = '' AND
                 pitem.ItemFehlbestand = '' AND 
-                pitem.ItemFehlerKommentar = ''
+                pitem.ItemFehlerKommentar = ''*/
                 
                 GROUP BY pitem.EanUpc
                 ORDER BY pitem.BinSortNum
-                LIMIT 1 OFFSET {$pos}";
+                
+                /*LIMIT 1 OFFSET {$pos}*/
+                ";
 
         $result = $this->db->select($sql);
         return $result;

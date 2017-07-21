@@ -42,7 +42,10 @@ class Picklist_Model extends Model
                 pitem.ID = a2p.ArtikelID AND
                 a2p.PicklistID = plist.PLHkey AND 
                 plist.PLHkey = '{$picklistNr}' AND
-                pitem.ItemStatus = 1 
+                pitem.ItemStatus = 1 AND 
+                pitem.ItemFehler = '' AND
+                pitem.ItemFehlbestand = '' AND 
+                pitem.ItemFehlerKommentar = ''
                 
                 GROUP BY pitem.EanUpc
                 ORDER BY pitem.BinSortNum

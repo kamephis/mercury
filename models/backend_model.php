@@ -146,7 +146,7 @@ ORDER BY pitem.BinSortNum";
      */
     public function getAllPicker()
     {
-        $sql = "SELECT UID, name, vorname FROM iUser WHERE dept = 'picker'";
+        $sql = "SELECT UID, name, vorname FROM iUser WHERE dept = 'picker' ORDER BY vorname ASC";
         $result = $this->db->select($sql);
         return $result;
     }

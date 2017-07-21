@@ -1,3 +1,7 @@
 info.php
-*.bak
-*.log
+**/.bak
+**/.log
+/.backup
+.idea/inspectionProfiles/
+.idea/workspace.xml
+/models/login_model.php.bak

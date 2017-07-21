@@ -20,13 +20,11 @@ switch ($app) {
         break;
 }*/
 if (isset($_SESSION)) {
-    echo "Ihre Sitzung wurde beendet. Bitte melden Sie sich erneut an.";
     session_destroy();
 } else {
     ob_start();
     session_start();
 }
-
 
 //echo "Die Cacheverwaltung ist jetzt auf $cache_limiter gesetzt<br />";
 //echo "Die Session wird für $cache_expire Minuten im Cache gespeichert";

@@ -23,6 +23,7 @@ class Pixi
         // pixi* API Objekt erzeugen
         $this->oProxy = $oSoapClient->getProxy();
     }
+
     public function getAllPicklists()
     {
         $aPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));

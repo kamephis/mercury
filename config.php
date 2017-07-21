@@ -8,27 +8,10 @@ define('PATH_NUSOAP', 'libs/nusoap.php');
 
 // Auslesen der Subdomain (Parameter für Weiterleitung)
 $hostUrl = explode('.', $_SERVER['HTTP_HOST']);
+
 $subdomain = $hostUrl[0];
 define('SUBDOMAIN', $subdomain);
-// Setzen der Redirect-Url
-switch ($subdomain) {
-    case 'pick':
-        // Anmelden an einer Location
-        Session::set('redirectUrl', 'scanLocation');
-        Session::set('appName', 'Picker');
-        break;
-    case 'zuschnitt':
-        // Einscannen der Artikelnummer
-        Session::set('redirectUrl', 'scanArt');
-        Session::set('appName', 'Zuschnitt');
-        break;
-    case 'mercury':
-        // Geschäftsführung - Auswertungen / Statistiken
-        Session::set('redirectUrl', 'backend');
-        Session::set('appName', 'Verwaltung');
 
-        break;
-}
 define('URL', 'http://' . $subdomain . '.stoffpalette.com/');
 
 // Datenbank Zugriff

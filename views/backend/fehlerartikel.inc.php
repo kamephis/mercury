@@ -41,6 +41,10 @@
                             <b>Pixi <br class="visible-print">Bestand</b>
                         </div>
 
+                        <div class="col-xs-1">
+                            <b>Bearbeiter(in)</b>
+                        </div>
+
                         <!--<div class="col-xs-1">
                             <b>Picker</b>
                         </div>-->
@@ -98,6 +102,12 @@
                                 <?php
                                 $pixiLagerbestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
                                 echo $pixiLagerbestand['PhysicalStock'];
+                                ?>
+                            </div>
+
+                            <div class="col-xs-1 col-sm-1">
+                                <?php
+                                echo $fArtikel['ItemFehlerUser'];
                                 ?>
                             </div>
 

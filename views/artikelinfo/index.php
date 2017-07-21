@@ -50,8 +50,18 @@ if ($_REQUEST['searchType']) {
                     <div class="col-xs-12"><?php echo $arrItemResult['ItemNrInt']; ?></div>
                     <div class="clearfix"></div>
 
-                    <div class="col-xs-12"><b>EAN</b></div>
-                    <div class="col-xs-12"><?php echo $arrItemResult['EANUPC']; ?></div>
+                    <div class="hidden-print">
+                        <div class="col-xs-12"><b>EAN</b></div>
+                        <div class="col-xs-12"><?php echo $arrItemResult['EANUPC']; ?></div>
+                    </div>
+
+                    <div class="visible-print">
+                        <div class="col-xs-12">
+                            <img
+                                    src="libs/Barcode_org.php?text=<?php echo $arrItemResult['EANUPC']; ?>&size=80&orientation=horizontal&codetype=code128"><br>
+                            <?php echo $arrItemResult['EANUPC']; ?>
+                        </div>
+                    </div>
                     <div class="clearfix"></div>
 
                     <div class="col-xs-12">

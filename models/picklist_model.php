@@ -173,7 +173,7 @@ class Picklist_Model extends Model
             $fehler = utf8_decode($aFehler);
         }
         //$aUpdate = array('ItemFehler' => $fehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerKommentar' => $ItemFehlerText);
-        $aUpdate = array('ItemFehler' => $fehler, 'ItemFehlbestand' => $intItemFehlbestand);
+        $aUpdate = array('ItemFehler' => $fehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $_SESSION['vorname'] . " " . $_SESSION['name']);
         $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 

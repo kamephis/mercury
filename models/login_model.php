@@ -28,38 +28,7 @@ class Login_Model extends Model
         // Kombinierter String mit Benutzername und Kennwort (Benutzername-Kennwort)
         $userPassword = $_POST['userPasswd'];
 
-        /**        if (isset($userPassword) && strlen($userPassword) > 0 || $_COOKIE['Autologin']) {
-            * // Prüfen ob ein Cookie existiert
-            * if (isset($_COOKIE['Autologin']) && isset($_COOKIE['User'])) {
-                * if (hash('sha256', $_COOKIE['Autologin'])) {
-         * // Zugangsdaten sind korrekt
-         * // pruefen ob der Benutzer berechtigt ist
-         * // Voraussetzung fuer den Zugriff auf das Backend ist ein passendes access_level
-                    * $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = '{$username}'");
-                    * $sql->execute();
-                    * $totalRows = $sql->rowCount();
-                    * $result = $sql->fetch(PDO::FETCH_ASSOC);
- *
-* // Pruefen ob der Benutzername existiert
-                    * if ($totalRows > 0 || ($username == $result['Username'])) {
-                        * // Registrierung der Session Werte
-                        * Session::set('UID', $result['UID']);
-                        * Session::set('vorname', $result['vorname']);
-                        * Session::set('name', $result['name']);
- *
-* // Rechte in die Session schreiben.
-                        * Session::set('access_level', $result['access_level']);
- *
-* header('location: ' . URL . $redirectURL);
- *
-* } else {
-                        * header('location: ' . URL . 'login?msg=e401');
-                    * }
-                * }
-            * }
-        * }**/
-
-            // Zerteilen der Benutzerinformatioenn in Benutzername und Kennwort
+        // Zerteilen der Benutzerinformatioenn in Benutzername und Kennwort
             $cred        = strtolower($userPassword);
         $userAccount = explode('-', $cred);
 
@@ -110,6 +79,7 @@ class Login_Model extends Model
 
                 // Rechte in die Session schreiben.
                 Session::set('access_level', $result['access_level']);
+
 
                 header('location: ' . URL . $redirectURL);
             } else {

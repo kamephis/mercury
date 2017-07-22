@@ -34,22 +34,21 @@ if ($_SESSION['pos'] < 0) {
 }
 
 // Picklisten Array
-if (!isset($this->Picklist->getApicklist()[$_SESSION['pos']])) {
+if (sizeof($this->Picklist->getAPicklist()) == 0) {
     $this->Picklist->setAPicklist($this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']));
 } else {
-    echo "Picklist gesetzt";
+    echo "Keine Pickliste gesetzt";
 }
+
 //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
 
 // Picklistennavigation
 if ($_REQUEST['nav'] == 'n') {
-    //next($picklist);
-    //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
+    next($this->Picklist->getAPicklist());
 }
 
 if ($_REQUEST['nav'] == 'p') {
-    //prev($picklist);
-    //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
+    prev($this->Picklist->getAPicklist());
 }
 
 // Stoff gepickt - via EAN
@@ -58,7 +57,8 @@ if ($_REQUEST['itemPicked']) {
     // Aktualisieren -> nächste Position - refresh
     header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'] . '&pos=' . $_SESSION['pos']);
 
-    $this->Picklist->getAPicklist();
+    // TODO: evtl. via Jquery schneller machen
+    //next($this->Picklist->getAPicklist());
     //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
 
 }
@@ -90,27 +90,23 @@ if ($_REQUEST['setFehler']) {
     header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'] . '&pos=' . ($_SESSION['pos'] + 1));
 }
 
-if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
-    //foreach ($picklist as $item) {
+if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
-    $item = $this->Picklist->getAPicklist()[$_SESSION['pos']];
+    $item = $this->Picklist->getAPicklist();
 
         // Lagerbestände
         if ($_REQUEST['updPixiBestand'] == 1) {
-            $lagerbestand = $this->Pixi->getItemStock($item['EanUpc']);
+            $lagerbestand = $this->Pixi->getItemStock($item[$_SESSION['pos']]['EanUpc']);
             $_SESSION['itemLagerbestand'] = $lagerbestand;
         }
 
-        // Pixi Bug Ausgleich
-        $img = str_replace("//", "/", $item['PicLinkLarge']);
-        $imgUrl = str_replace(":/www", "://www", $img);
-
-        $pickimage = $imgUrl;
-    //echo $pickimage;
+    // Image
+    $path = "http://www.stoff4you.de/out/pictures/generated/product/1/250_200_75/";
+    $pickimage = $path . $item[$_SESSION['pos']]['PicLinkLarge'];
     //$pickimage = URL . '/out/img/placeholder.jpg';
 
     //strlen($imgUrl) > 0 ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
-    file_exists($imgUrl) ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
+    //file_exists($imgUrl) ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
         ?>
 
         <div class="well-sm">
@@ -124,7 +120,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                         </div>
                         <div class="col-sm-12">
                             <h2 class="pick binColor"
-                                style="background: <?php echo $this->binColors['COLOR_' . substr($item['BinName'], -2)]; ?>;"><?php echo $item['BinName']; ?></h2>
+                                style="background: <?php echo $this->binColors['COLOR_' . substr($item['BinName'], -2)]; ?>;"><?php echo $item[$_SESSION['pos']]['BinName']; ?></h2>
                         </div>
                         <div class="clearfix"></div>
 
@@ -132,7 +128,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                             <b>Artikel</b>
                         </div>
                         <div class="col-sm-12">
-                            <h3 class="pick"><?php echo utf8_encode($item['ItemName']); ?></h3>
+                            <h3 class="pick"><?php echo utf8_encode($item[$_SESSION['pos']]['ItemName']); ?></h3>
                         </div>
                         <div class="clearfix"></div>
 
@@ -140,8 +136,8 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                             <b>EAN/GTIN</b>
                         </div>
                         <div class="col-sm-12">
-                            <h2 class="pick hidden-xs"><?php echo $item['EanUpc']; ?></h2>
-                            <h3 class="pick visible-xs"><?php echo $item['EanUpc']; ?></h3>
+                            <h2 class="pick hidden-xs"><?php echo $item[$_SESSION['pos']]['EanUpc']; ?></h2>
+                            <h3 class="pick visible-xs"><?php echo $item[$_SESSION['pos']]['EanUpc']; ?></h3>
                         </div>
                         <div class="clearfix"></div>
 
@@ -149,7 +145,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                             <b>SHOP</b>
                         </div>
                         <div class="col-xs-12 col-md-12">
-                            <?php echo substr($item['OrderNrExternal'], 0, 3); ?>
+                            <?php echo substr($item[$_SESSION['pos']]['OrderNrExternal'], 0, 3); ?>
                         </div>
                         <div class="clearfix"></div>
                         <small>&nbsp;</small>
@@ -160,10 +156,10 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                                 <div class="col-xs-6">
                                     <h2 class="pick">
                                         <?php
-                                        $aPickCnt = $this->Picklist->getItemPickAmount($item['EanUpc'], $_SESSION['plist']);
+                                        $aPickCnt = $this->Picklist->getItemPickAmount($item[$_SESSION['pos']]['EanUpc'], $_SESSION['plist']);
                                         echo $aPickCnt[0]['pSum'];
 
-                                        if ($aPickCnt[0]['pSum'] > $item['Qty']) {
+                                        if ($aPickCnt[0]['pSum'] > $item[$_SESSION['pos']]['Qty']) {
                                             echo ' <small>(';
                                             $outputString = '';
                                             foreach ($aPickCnt as $itemCnt) {
@@ -215,7 +211,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                                 <button type="submit" class="btn btn-danger btn-block btn-lg-touch pull-right"
                                         data-toggle="modal" data-target="#modFehler">
                                     <?php
-                                    if (sizeof($this->Picklist->getItemFehler($item['ID'])) > 0) {
+                                    if (sizeof($this->Picklist->getItemFehler($item[$_SESSION['pos']]['ID'])) > 0) {
                                         echo '<h4><span class="glyphicon glyphicon-info-sign"></span></h4>';
                                     } else {
                                         echo '<span class="glyphicon glyphicon-remove text-glyphicon-lg"></span>';
@@ -294,7 +290,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                                             <label>Größte verf. Menge
                                                 <input type="tel" class="form-control" name="ItemFehlbestand"
                                                        id="ItemFehlbestand"
-                                                       value="<?php echo $item['ItemFehlbestand']; ?>"
+                                                       value="<?php echo $item[$_SESSION['pos']]['ItemFehlbestand']; ?>"
                                                 >
                                             </label>
                                         </div>
@@ -306,7 +302,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                                                 <select multiple name="fehler[]" class="form-control">
                                                     <option value="Fehlbestand" id="optFehlbestand"
                                                         <?php
-                                                        if (preg_match('/Fehlbestand/', $item['ItemFehler'])) {
+                                                        if (preg_match('/Fehlbestand/', $item[$_SESSION['pos']]['ItemFehler'])) {
                                                             echo "selected";
                                                         }
                                                         ?>
@@ -315,7 +311,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                                                     <option value="Farbabweichung" id="optFarbabweichung"
                                                         <?php
 
-                                                        if (preg_match('/Farbabweichung/', $item['ItemFehler'])) {
+                                                        if (preg_match('/Farbabweichung/', $item[$_SESSION['pos']]['ItemFehler'])) {
                                                             echo "selected";
                                                         }
                                                         ?>
@@ -323,7 +319,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                                                     </option>
                                                     <option value="Stoff beschädigt" id="optStoffBeschaedigt"
                                                         <?php
-                                                        if (preg_match('/Stoff beschädigt/', $item['ItemFehler'])) {
+                                                        if (preg_match('/Stoff beschädigt/', $item[$_SESSION['pos']]['ItemFehler'])) {
                                                             echo "selected";
                                                         }
                                                         ?>
@@ -340,7 +336,7 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                                     Schließen
                                 </button>
                                 <small>&nbsp;</small>
-                                <input type="hidden" name="itemID" value="<?php echo $item['ID']; ?>">
+                                <input type="hidden" name="itemID" value="<?php echo $item[$_SESSION['pos']]['ID']; ?>">
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
                                 <button type="submit" class="btn btn-success btn-block btn-lg" id="btnFehler">
                                     Bestätigen
@@ -371,7 +367,8 @@ if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) > 0) {
                             </button>
                             <small>&nbsp;</small>
                             <form method="get" action="<?php echo URL; ?>picklist">
-                                <input type="hidden" name="itemPicked" value="<?php echo $item['EanUpc']; ?>">
+                                <input type="hidden" name="itemPicked"
+                                       value="<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>">
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
                                 <input type="submit" class="btn btn-success btn-block btn-lg" value="JA">
                             </form>

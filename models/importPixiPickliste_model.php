@@ -11,6 +11,7 @@ class ImportPixiPickliste_Model extends Model
 {
     private $oProxy = null;
     private $oMySqli = null;
+    private $oMysqli_oxid = null;
 
     /**
      * StpPixiPicklistImport constructor.
@@ -26,6 +27,8 @@ class ImportPixiPickliste_Model extends Model
 
         // pixi* API Objekt erzeugen
         $this->setOProxy($oSoapClient->getProxy());
+
+        // MySQL Verbiundung
         $this->oMySqli = new mysqli();
     }
 
@@ -60,6 +63,25 @@ class ImportPixiPickliste_Model extends Model
     }
 
     /**
+     * Zusatzdaten aus OXID auslesen
+     * @param $oxartnum
+     * @return bool|mysqli_result
+     */
+    public function importOxidData($oxartnum)
+    {
+        // Ergänzen der OXID Infos
+        $sqlSelOxidData = "SELECT OXPIC1, OXPIC2, OXPIC3, OXPIC4, OXPIC5, OXTHUMB, OXID FROM oxarticles WHERE OXARTNUM = '{$oxartnum}' LIMIT 1";
+        $this->oMysqli_oxid = new mysqli();
+
+        $this->oMysqli_oxid->real_connect(DB_HOST_OXID, DB_USER_OXID, DB_PASSWD_OXID, DB_NAME_OXID, DB_PORT_OXID);
+        $this->oMysqli_oxid->set_charset('utf8');
+
+        $aOxid = $this->oMysqli_oxid->query($sqlSelOxidData)->fetch_array(MYSQLI_ASSOC);
+        $this->oMysqli_oxid->close();
+        return $aOxid;
+    }
+
+    /**
      * Pickliste aus Pixi in die interne Datenbank importieren
      * aktiv!
      * @param $picklist
@@ -78,11 +100,11 @@ class ImportPixiPickliste_Model extends Model
 
         // Prüfen ob die Pickliste bereits existiert
         if ($rows == 0) {
+            // TODO: unnötig?
             $this->oMySqli = new mysqli();
             $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
 
             $aPicklistDetails = $this->getPicklistDetails($picklist);
-
 
             // Pickliste Zeile für Zeile in die stpPicklistItems Tabelle schreiben.
 
@@ -95,10 +117,7 @@ class ImportPixiPickliste_Model extends Model
             // Struktur des Arrays prüfen
             if (is_array($aPicklistDetails[0])) {
                 foreach ($aPicklistDetails as $items) {
-
-                    // Zusatzinfos abfragen
-                    //$aPicklistOrderItem = $this->oProxy->pixiGetOrderline(array('PLIorderlineRef' => $items['PLIorderlineRef']));
-                    //$aPicklistOrderItem = $aPicklistOrderItem['pixiShippingGetPicklistDetailsResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+                    $aOxid = $this->importOxidData($items['ItemNrSuppl']);
 
 
                     $sqlInsertItems .= "INSERT INTO 
@@ -130,8 +149,9 @@ class ImportPixiPickliste_Model extends Model
                                    PLIorderlineRef1
                                   ) VALUES (
                                    '" . $items['BinItemRef'] . "',
-                                   '" . (isset($items['PicLinkSmall']) ? $items['PicLinkSmall'] : '') . "',
-                                   '" . (isset($items['PicLinkLarge']) ? $items['PicLinkLarge'] : '') . "',
+                                   '" . $aOxid['OXTHUMB'] . "',
+                                   '" . $aOxid['OXPIC1'] . "',
+                                   
                                    '" . $items['PLIheaderRef'] . "',
                                    '" . $items['BinSortNum'] . "',
                                    '" . $items['ItemName'] . "',
@@ -157,6 +177,8 @@ class ImportPixiPickliste_Model extends Model
                                     );";
                 }
             } else {
+                $aOxid = $this->importOxidData($aPicklistDetails['ItemNrSuppl']);
+
                 $sqlInsertItems .= "INSERT INTO 
                                   stpPicklistItems(
                                    BinItemRef,
@@ -185,8 +207,10 @@ class ImportPixiPickliste_Model extends Model
                                    PLIorderlineRef1
                                   ) VALUES (
                                    '" . $aPicklistDetails['BinItemRef'] . "',
-                                   '" . $aPicklistDetails['PicLinkSmall'] . "',
-                                   '" . (isset($aPicklistDetails['PicLinkLarge']) ? $aPicklistDetails['PicLinkLarge'] : '') . "',
+                                   '" . $aOxid['OXTHUMB'] . "',
+                                   '" . $aOxid['OXPIC1'] . "',
+                                   
+                                   
                                    '" . $aPicklistDetails['PLIheaderRef'] . "',
                                    '" . $aPicklistDetails['BinSortNum'] . "',
                                    '" . $aPicklistDetails['ItemName'] . "',
@@ -210,8 +234,12 @@ class ImportPixiPickliste_Model extends Model
                                    '" . $aPicklistDetails['PLIorderlineRef1'] . "'
                                     );";
             }
-
-
+            /*'" . (isset($items['PicLinkSmall']) ? $items['PicLinkSmall'] : '') . "',*/
+            /*'" . (isset($items['PicLinkLarge']) ? $items['PicLinkLarge'] : '') . "',*/
+            /*
+                        '" . $aPicklistDetails['PicLinkSmall'] . "',
+                       '" . (isset($aPicklistDetails['PicLinkLarge']) ? $aPicklistDetails['PicLinkLarge'] : '') . "',
+              */
             // Einfügen der Datensätze in die DB
             if ($this->oMySqli->multi_query($sqlInsertItems) === TRUE) {
                 echo '<div class="alert alert-success msgFooter">';

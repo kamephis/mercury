@@ -7,6 +7,8 @@
  */
 class Picklist_Model extends Model
 {
+    private $aPicklist;
+
     public function __construct()
     {
         parent::__construct();
@@ -223,5 +225,19 @@ class Picklist_Model extends Model
         return $result;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAPicklist()
+    {
+        return $this->aPicklist;
+    }
 
+    /**
+     * @param mixed $aPicklist
+     */
+    public function setAPicklist($aPicklist)
+    {
+        $this->aPicklist = $aPicklist;
+    }
 }

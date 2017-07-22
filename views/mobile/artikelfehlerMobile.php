@@ -1,14 +1,21 @@
 <?php
+// Fehler löschen
 if (isset($_REQUEST['resetFehler'])) {
     $this->ArtikelFehlerMobile->removeArtikelFromFehlerliste($_REQUEST['resetFehler']);
 }
+
+// Picken
+if (isset($_REQUEST['pickItem'])) {
+    $this->ArtikelFehlerMobile->pickItem($_REQUEST['resetFehler']);
+}
+
 ?>
 <div class="panel panel-primary">
     <div class="panel-heading">Artikel mit Fehlern</div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <table class="table table-responsive table-striped table-condensed">
+                <table class="table table-responsive table-striped table-condensed table-bordered">
                     <?php
                     foreach ($this->artikelFehler as $fehlerItem) {
                         ?>
@@ -27,12 +34,20 @@ if (isset($_REQUEST['resetFehler'])) {
                             <td>
                                 <form method="post" action="<?php echo $_SERVER['php_self']; ?>">
                                     <input type="hidden" name="resetFehler" value="<?php echo $fehlerItem['ID']; ?>">
-                                    <input class="btn btn-default btn-block" type="submit" id="btnResetFehler"
+                                    <input class="btn btn-lg btn-default btn-block" type="submit" id="btnResetFehler"
                                            name="btnResetFehler" value="Artikel korrigiert">
                                 </form>
                                 <br>
+                                <form method="post" action="<?php echo $_SERVER['php_self']; ?>">
+                                    <input type="hidden" name="pickItem" value="<?php echo $fehlerItem['ID']; ?>">
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" id="btnPickItem"
+                                           name="btnResetFehler" value="Artikel Picken">
+                                </form>
                             </td>
                         </tr>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
                         </tr>
                     <?php } ?>
 

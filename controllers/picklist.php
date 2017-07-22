@@ -8,8 +8,6 @@
  */
 class Picklist extends Controller
 {
-    private $aPicklist;
-
     function __construct()
     {
         parent::__construct();
@@ -33,22 +31,6 @@ class Picklist extends Controller
             $this->view->render('mobile/picklist');
             $this->view->render('footer');
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAPicklist()
-    {
-        return $this->aPicklist;
-    }
-
-    /**
-     * @param mixed $aPicklist
-     */
-    public function setAPicklist($aPicklist)
-    {
-        $this->aPicklist = $aPicklist;
     }
 
     function run()

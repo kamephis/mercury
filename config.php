@@ -15,12 +15,21 @@ define('SUBDOMAIN', $subdomain);
 define('URL', 'http://' . $subdomain . '.stoffpalette.com/');
 
 // Datenbank Zugriff
+
+// Intern
 define('DB_TYPE', 'mysql');
 define('DB_HOST', '192.168.200.2');
 define('DB_NAME', 'usrdb_stokcgbl5');
 define('DB_USER', 'stokcgbl5');
 define('DB_PASSWD', 'X$9?2IMalDUU');
 define('DB_PORT', '3307');
+
+// OXID
+define('DB_HOST_OXID', '192.168.200.2');
+define('DB_NAME_OXID', 'usrdb_stokcgbl1');
+define('DB_USER_OXID', 'stokcgbl1');
+define('DB_PASSWD_OXID', 'q17qy5uu');
+define('DB_PORT_OXID', '3307');
 
 
 // Pixi Einstellungen
@@ -31,6 +40,7 @@ require_once(PATH_NUSOAP);
 
 // Application Type registrieren
 Session::set('appType', $subdomain);
+
 /**
  * Rechteverwaltung
  *

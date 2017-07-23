@@ -23,22 +23,7 @@ if (!isset($_SESSION['sNavItems'])) {
     <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <?php foreach ($aNavItems as $item) { ?>
-
-                <?php /*
-                switch(SUBDOMAIN){
-                    case 'pick':
-                        if($item['text'] == 'Auftragsbearbeitung') $navShow =  'class="hide"';
-                        break;
-                    case 'zuschnitt':
-                        if($item['text'] == 'Picklisten') $navShow =  'class="hide"';
-                        break;
-                    case 'mercury':
-                        if($item['text'] == 'Picklisten') $navShow =  'class="hide"';
-                        if($item['text'] == 'Auftragsbearbeitung') $navShow =  'class="hide"';
-                        break;
-                }*/
-                ?>
-                <li <?php /* echo $navShow;*/ ?>>
+                <li>
                     <a href="<?php echo $item['url']; ?>" id="nav_<?php echo $item['text']; ?>">
                         <?php echo $item['text']; ?>&nbsp;<span
                                 class="<?php echo $item['css_class']; ?> pull-right text-sm visible-xs"></span>

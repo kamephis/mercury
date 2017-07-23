@@ -1,8 +1,4 @@
 <?php
-/*if ($_COOKIE['AutoLogin']) {
-    header('location: ' . URL . 'login');
-}*/
-
 if ($_REQUEST['msg'] == 'e401') {
     echo "Ihre Zugangsdaten sind nicht korrekt.";
 }

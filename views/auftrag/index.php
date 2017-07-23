@@ -1,3 +1,83 @@
+<?php
+// Aktualisieren des ItemStatus auf 2 - fertig bearbeitet
+if ($_POST['savePos']) {
+    $_SESSION['geschnitteneMeterGesamt'] += $_POST['artMenge'];
+
+    // ItemStatus -> stpPicklistItems
+    $this->auftrag->setAuftragsPositionStatus($_POST['artID'], $aNr[0]['AuftragsNr']);
+    header('location: auftrag');
+}
+
+// Auftrag abschließen - Setzen des Auftragsstatus auf 1
+if ($_POST['finish'] || $listSize == 0) {
+    try {
+        $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
+        header('location: scanArt');
+    } catch (Exception $e) {
+        echo "Fehler: ";
+        echo $e;
+    }
+    // Aktivieren falls benötigt
+    //$this->message = $this->msg_positionen_bearbeitet;
+}
+// Zurücksetzen des Meter Zählers (Session) - Anzeige auf ScanArt
+if ($_GET['eanScanned']) {
+    Session::set('geschnitteneMeterGesamt', 0);
+}
+
+// Anzahl Positinen
+$listSize = sizeof($this->auftrag->getAuftrag(Session::get('artEAN')));
+
+// Benutzer ID
+$userID = null;
+
+// Init
+$aNr = null;
+
+// Gesamtanzahl der bearbeiteten Artikel (m)
+$artCnt = null;
+
+// Beim 1. Aufruf erzeugen - REQUEST wird nur in diesem Schritt verwendet.
+// für alles andere wird der Wert aus der Session gelesen.
+$eanScanned = Session::get('eanScanned');
+
+if ($eanScanned) {
+    // Anlegen eines neuen Auftrags in der Datenbank
+    $userID = Session::get('UID');
+
+    if ($_GET['eanScanned']) {
+        $this->auftrag->newAuftrag($userID, Session::get('artEAN'));
+    }
+    // Auslesen der neuen Auftragsnummer
+    $aNr = $this->auftrag->getAuftragsnummer();
+
+    $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
+    $bestand = $aBestand['PhysicalStock'];
+
+    // Aufruf des neuen Auftrags - falls Positionen dazu existieren
+    if ($this->auftrag->getAuftrag(Session::get('artEAN')) && $listSize > 0) {
+        $auftrag = $this->auftrag->getAuftrag(Session::get('artEAN'));
+    } else {
+        $this->message = $this->msg_keine_positionen;
+    }
+} else {
+    // Wenn keine EAN gescannt wurde, wird zur Scan-Form weitergeleitet
+    header('location: scanArt');
+}
+
+$anz = Session::get('geschnitteneMeterGesamt');
+
+if ($_POST['saveFehler']) {
+    $articleID = $_POST['artID'];
+    $aFehler = $_POST['saveFehler'];
+
+    $this->picklist->setItemFehler($articleID, $aFehler, '');
+}
+
+// Zerteilen des Item-Titels
+$title = $auftrag[0]['ItemName'];
+
+?>
 <style>
     .removeItem {
         display: none;
@@ -27,9 +107,6 @@
         }
 
         .imgEAN {
-            /*display:block;*/
-            /*height:auto;
-            width:4cm;*/
             margin-left: -0.7cm;
             -ms-transform: rotate(90deg); /* IE 9 */
             -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
@@ -81,88 +158,7 @@
         }
     }
 </style>
-<?php
 
-// Zurücksetzen des Meter Zählers (Session) - Anzeige auf ScanArt
-if ($_GET['eanScanned']) {
-    Session::set('geschnitteneMeterGesamt', 0);
-}
-
-// Anzahl Positinen
-$listSize = sizeof($this->auftrag->getAuftrag(Session::get('artEAN')));
-
-// Benutzer ID
-$userID = null;
-
-// Init
-$aNr = null;
-
-// Gesamtanzahl der bearbeiteten Artikel (m)
-$artCnt = null;
-
-// Beim 1. Aufruf erzeugen - REQUEST wird nur in diesem Schritt verwendet.
-// für alles andere wird der Wert aus der Session gelesen.
-$eanScanned = Session::get('eanScanned');
-
-if ($eanScanned) {
-    // Anlegen eines neuen Auftrags in der Datenbank
-    $userID = Session::get('UID');
-
-    if ($_GET['eanScanned']) {
-        $this->auftrag->newAuftrag($userID, Session::get('artEAN'));
-    }
-    // Auslesen der neuen Auftragsnummer
-    $aNr = $this->auftrag->getAuftragsnummer();
-
-    $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
-    $bestand = $aBestand['PhysicalStock'];
-
-    // Aufruf des neuen Auftrags - falls Positionen dazu existieren
-    if ($this->auftrag->getAuftrag(Session::get('artEAN')) && $listSize > 0) {
-        $auftrag = $this->auftrag->getAuftrag(Session::get('artEAN'));
-    } else {
-        $this->message = $this->msg_keine_positionen;
-    }
-} else {
-    // Wenn keine EAN gescannt wurde, wird zur Scan-Form weitergeleitet
-    header('location: scanArt');
-}
-
-$anz = Session::get('geschnitteneMeterGesamt');
-
-// Auftrag abschließen - Setzen des Auftragsstatus auf 1
-if ($_POST['finish'] || $listSize == 0) {
-    try {
-        $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
-        header('location: scanArt');
-    } catch (Exception $e) {
-        echo "Fehler: ";
-        echo $e;
-    }
-    // Aktivieren falls benötigt
-    //$this->message = $this->msg_positionen_bearbeitet;
-}
-
-if ($_POST['saveFehler']) {
-    $articleID = $_POST['artID'];
-    $aFehler = $_POST['saveFehler'];
-
-    $this->picklist->setItemFehler($articleID, $aFehler, '');
-}
-
-// Aktualisieren des ItemStatus auf 2 - fertig bearbeitet
-if ($_POST['savePos']) {
-    $_SESSION['geschnitteneMeterGesamt'] += $_POST['artMenge'];
-
-    // ItemStatus -> stpPicklistItems
-    $this->auftrag->setAuftragsPositionStatus($_POST['artID'], $aNr[0]['AuftragsNr']);
-    header('location: auftrag');
-}
-
-// Zerteilen des Item-Titels
-$title = $auftrag[0]['ItemName'];
-
-?>
 <!-- Statusmeldungen -->
 <?php if (strlen($this->message) > 0) { ?>
     <div class="clearfix"></div>
@@ -176,7 +172,7 @@ $title = $auftrag[0]['ItemName'];
 <div class="row text-mobile-large hidden-print">
     <?php if ($listSize > 0) { ?>
         <div class="col-sm-2"><img
-                    src="<?php echo $auftrag[0]['PicLinkLarge']; ?>"
+                    src="<?php echo IMG_ART_PATH . $auftrag[0]['PicLinkLarge']; ?>"
                     width="100%"
                     class="img img-responsive img-square img-thumbnail">
         </div>

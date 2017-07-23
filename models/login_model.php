@@ -1,14 +1,22 @@
 <?php
+
 /**
- * Steuerung des Benutzerlogins, Prüfung der Zugangsdaten
- * Weiterleitung der Benutzer auf die jeweiligen Bereiche der Software
- *
- * @author: Marlon Böhland
- * @date:   01.12.2016
- * @access: public
+ * Login Model
+ * User: Marlon
+ * Date: 22.07.2017
+ * Time: 23:50
  */
 class Login_Model extends Model
 {
+
+    private $_sUsername = null;
+    private $_sPassword = null;
+    private $_sTargetApp = null;
+    private $_sRedirectURL = null;
+
+    /**
+     * login2 constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -16,78 +24,66 @@ class Login_Model extends Model
 
     public function run()
     {
-        // Session starten
-        Session::init();
+        $this->checkAuth($_POST['userPasswd']);
+    }
 
-        $artNr = null;
-        $username = null;
-        $password = null;
-        $targetApp = null;
-        $redirectURL = null;
-
-        // Kombinierter String mit Benutzername und Kennwort (Benutzername-Kennwort)
-        $userPassword = $_POST['userPasswd'];
-
-        // Zerteilen der Benutzerinformatioenn in Benutzername und Kennwort
-            $cred        = strtolower($userPassword);
-        $userAccount = explode('-', $cred);
-
-        // Benuztername und Kennwort getrennt
-            $username = $userAccount[0];
-            $password = $userAccount[1];
-
-        /**
-         * Setzen der Weiterleitungs-URL (Schritt 2)
-         * Je nach Art der Anwendung
-         * Via URL-Parameter (Subdomain)
-         */
-        if (Session::get('redirectUrl')) {
-            $redirectURL = Session::get('redirectUrl');
-        } else {
-            $redirectURL = 'login'; // TODO: evtl. Anzeige einer Meldung
-        }
+    private function checkAuth($sUserAccount)
+    {
+        $sUserAccount = explode('-', $sUserAccount);
+        $sUserName = strtolower($sUserAccount[0]); // Unterstützung der Anwender, falls Groß/Kleinschreibung verwendet wird
+        $password = $sUserAccount[1];
 
         /**
          * pruefen ob der Benutzer berechtigt ist
          * Voraussetzung fuer den Zugriff auf das Backend ist ein passendes access_level
          */
-        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = '{$username}'");
+        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = '{$sUserName}'");
         $sql->execute();
         $totalRows = $sql->rowCount();
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
         // Pruefen ob der Benutzername existiert
-        if ($totalRows > 0 || ($username == $result['Username'])) {
             // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
-            if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate'])) {
+        if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate']) && $totalRows > 0) {
 
                 // Registrierung der Session Werte
                 Session::set('UID', $result['UID']);
                 Session::set('vorname', $result['vorname']);
                 Session::set('name', $result['name']);
 
-                /**
-                if (isset($_POST['AutoLogin'])) {
-                    // Cookie für 8h setzen
-                    // Zugangsdaten verschlüsseln
-                    $cryptAuth = hash('sha256', $result['UID'] . '-' . $result['Passwd']);
-                    setcookie('Autologin', $cryptAuth, time() + 3600 * 8);
-                    setcookie('User', $username, time() + 3600 * 8);
-
-                    //setcookie('Passwd',$result['Passwd'],time()+3600*8);
-                }**/
-
                 // Rechte in die Session schreiben.
                 Session::set('access_level', $result['access_level']);
 
-
-                header('location: ' . URL . $redirectURL);
+            // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
+            $this->redirect2TargetLocation();
+            header('location: ' . $this->getSRedirectURL());
             } else {
-                header('location: ' . URL . 'login?msg=e401');
+            // Zugriff verweigert
+            $this->view->showAlert("test");
+            header('location: ' . URL . $this->getSRedirectURL());
             }
-        } else {
-            header('location: ' . URL . 'login?msg=e401');
+    }
+
+    private function redirect2TargetLocation()
+    {
+        // Auslesen der Subdomain (Parameter für Weiterleitung)
+        $hostUrl = explode('.', $_SERVER['HTTP_HOST']);
+        $sSubdomain = $hostUrl[0];
+
+        $sUrl = "http://" . $sSubdomain . ".stoffpalette.com/";
+
+        switch ($sSubdomain) {
+            case 'pick':
+                $this->setSRedirectURL($sUrl . 'scanLocation');
+                break;
+            case 'mercury':
+                $this->setSRedirectURL($sUrl . 'backend');
+                break;
+            case 'zuschnitt':
+                $this->setSRedirectURL($sUrl . 'scanArt');
+                break;
         }
+        $_SESSION['redirectUrl'] = $this->getSRedirectURL();
     }
 
     /**
@@ -98,7 +94,6 @@ class Login_Model extends Model
     public function encryptPassword($password)
     {
         $myDate = new MyDateTime();
-
         /**
          * Aktueller Timestamp wird beim Aufruf der Funktion eingelesen und
          * dann als Salt-Value in der Session Variablen regDate gespeichert.
@@ -127,16 +122,77 @@ class Login_Model extends Model
         return $decrypt;
     }
 
+    /******************************************************
+     * Setter / Getter
+     *****************************************************/
+
     /**
-     * Setter: Redirect URL
-     * @param $url
+     * @return null
      */
-    public function setRedirectUrl($url)
+    public function getSUsername()
     {
-        $this->redirectURL = $url;
-        Session::set('redirectUrl', $url);
+        return $this->_sUsername;
     }
+
+    /**
+     * @param null $sUsername
+     */
+    public function setSUsername($sUsername)
+    {
+        $this->_sUsername = $sUsername;
+    }
+
+    /**
+     * @return null
+     */
+    public function getSPassword()
+    {
+        return $this->_sPassword;
+    }
+
+    /**
+     * @param null $sPassword
+     */
+    public function setSPassword($sPassword)
+    {
+        $this->_sPassword = $sPassword;
+    }
+
+    /**
+     * @return null
+     */
+    public function getSTargetApp()
+    {
+        return $this->_sTargetApp;
+    }
+
+    /**
+     * @param null $sTargetApp
+     */
+    public function setSTargetApp($sTargetApp)
+    {
+        $this->_sTargetApp = $sTargetApp;
+    }
+
+    /**
+     * @return null
+     */
+    public function getSRedirectURL()
+    {
+        return $this->_sRedirectURL;
+    }
+
+    /**
+     * @param null $sRedirectURL
+     */
+    public function setSRedirectURL($sRedirectURL)
+    {
+        $this->_sRedirectURL = $sRedirectURL;
+    }
+
+
 }
+
 /**
  * Class MyDateTime
  *

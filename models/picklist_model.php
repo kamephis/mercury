@@ -22,37 +22,17 @@ class Picklist_Model extends Model
      */
     public function getPicklistItems($picklistNr, $pos)
     {
-        /**   $sql_fehler = "SELECT pitem.*, plist.PLHkey
-                * FROM stpPicklistItems pitem
-                * RIGHT JOIN stpArtikel2Pickliste a2p
-                * ON (pitem.id = a2p.ArtikelID)
- *
-* LEFT JOIN stpPickliste plist
-                * ON (a2p.PicklistID = plist.PLHkey)
- *
-* WHERE plist.PLHkey = '{$picklistNr}'
-         * AND pitem.ItemStatus != 2
-         * GROUP BY pitem.EanUpc
-         * ORDER BY pitem.BinSortNum
-         *
-         * LIMIT 1 OFFSET {$pos}
-         * ";**/
-
         $sql = "SELECT pitem.*, plist.PLHkey
                 FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
                 WHERE
                 pitem.ID = a2p.ArtikelID AND
                 a2p.PicklistID = plist.PLHkey AND 
                 plist.PLHkey = '{$picklistNr}' AND
-                pitem.ItemStatus = 1 
-                /*pitem.ItemFehler = '' AND
-                pitem.ItemFehlbestand = '' AND 
-                pitem.ItemFehlerKommentar = ''*/
+                pitem.ItemStatus = 1 AND 
+                LENGTH(pitem.ItemFehlerUser) = 0
                 
                 GROUP BY pitem.EanUpc
                 ORDER BY pitem.BinSortNum
-                
-                /*LIMIT 1 OFFSET {$pos}*/
                 ";
 
         $result = $this->db->select($sql);
@@ -90,16 +70,6 @@ class Picklist_Model extends Model
      */
     public function getPicklistItemCount($PLHkey)
     {
-        /**$sql_fehler = "SELECT count(*) as anzahl FROM (SELECT count(*) FROM stpArtikel2Pickliste a2p
-         * RIGHT JOIN stpPicklistItems pitem
-         * ON a2p.ArtikelID = pitem.ID
-         *
-         * WHERE a2p.PicklistID = '{$PLHkey}'
-         * AND pitem.ItemStatus != 2
-         * GROUP BY EanUpc
-         * ) as cnt";
-         **/
-
         $sql = "SELECT count(*) as anzahl FROM (SELECT pitem.*, plist.PLHkey
                 FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
                 WHERE

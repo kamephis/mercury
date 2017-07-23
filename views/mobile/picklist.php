@@ -1,4 +1,39 @@
 <?php
+// Stoff gepickt - via EAN
+if ($_REQUEST['itemPicked']) {
+    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID']);
+    // Aktualisieren -> nächste Position - refresh
+    header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'], true, 301);
+}
+
+// Fehler erfasst
+if ($_REQUEST['setFehler']) {
+
+    $aFehler = $_REQUEST['fehler'];
+    $intFehlbestand = $_REQUEST['ItemFehlbestand'];
+
+    Session::set('fehler', $aFehler);
+    Session::set('sItemFehlbestand', $intFehlbestand);
+
+    $fehlerText = '';
+
+// Auslesen des jeweiligen Fehlers aus dem Fehler Array
+    if (sizeof($aFehler) == 1) {
+        $fehlerText = $aFehler[0];
+    }
+    if (sizeof($aFehler) == 2) {
+        $fehlerText = $aFehler[0] . ', ' . $aFehler[1];
+    }
+    if (sizeof($aFehler) == 3) {
+        $fehlerText = $aFehler[0] . ', ' . $aFehler[1] . ', ' . $aFehler[2];
+    }
+
+    $this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
+    // Mit der nächsten Position fortfahren
+    //next($this->Picklist->getAPicklist());
+    //header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'] . '&pos=' . ($_SESSION['pos']));
+}
+
 // Anzahl der Picklistenpositionen aus dem Controller
 $anzPositionen = $this->AnzItems;
 
@@ -50,48 +85,7 @@ if ($_REQUEST['nav'] == 'n') {
 if ($_REQUEST['nav'] == 'p') {
     prev($this->Picklist->getAPicklist());
 }
-
-// Stoff gepickt - via EAN
-if ($_REQUEST['itemPicked']) {
-    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID']);
-    // Aktualisieren -> nächste Position - refresh
-    header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'] . '&pos=' . $_SESSION['pos']);
-
-    // TODO: evtl. via Jquery schneller machen
-    //next($this->Picklist->getAPicklist());
-    //$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
-
-}
-
-// Fehler erfasst
-if ($_REQUEST['setFehler']) {
-
-    $aFehler = $_REQUEST['fehler'];
-    $intFehlbestand = $_REQUEST['ItemFehlbestand'];
-
-    Session::set('fehler', $aFehler);
-    Session::set('sItemFehlbestand', $intFehlbestand);
-
-    $fehlerText = '';
-
-// Auslesen des jeweiligen Fehlers aus dem Fehler Array
-    if (sizeof($aFehler) == 1) {
-        $fehlerText = $aFehler[0];
-    }
-    if (sizeof($aFehler) == 2) {
-        $fehlerText = $aFehler[0] . ', ' . $aFehler[1];
-    }
-    if (sizeof($aFehler) == 3) {
-        $fehlerText = $aFehler[0] . ', ' . $aFehler[1] . ', ' . $aFehler[2];
-    }
-
-    $this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
-    // Mit der nächsten Position fortfahren
-    header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'] . '&pos=' . ($_SESSION['pos'] + 1));
-}
-
 if (sizeof($this->Picklist->getAPicklist()) > 0) {
-
     $item = $this->Picklist->getAPicklist();
 
         // Lagerbestände
@@ -101,8 +95,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
         }
 
     // Image
-    $path = "http://www.stoff4you.de/out/pictures/generated/product/1/250_200_75/";
-    $pickimage = $path . $item[$_SESSION['pos']]['PicLinkLarge'];
+
+    $pickimage = IMG_ART_PATH . $item[$_SESSION['pos']]['PicLinkLarge'];
     //$pickimage = URL . '/out/img/placeholder.jpg';
 
     //strlen($imgUrl) > 0 ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
@@ -366,7 +360,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">NEIN
                             </button>
                             <small>&nbsp;</small>
-                            <form method="get" action="<?php echo URL; ?>picklist">
+                            <form method="post" action="<?php echo URL; ?>picklist">
                                 <input type="hidden" name="itemPicked"
                                        value="<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>">
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">

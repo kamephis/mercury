@@ -4,6 +4,7 @@
 // Pfade
 define('LIBS', 'libs/');
 define('IMG_PATH', 'out/img/');
+define('IMG_ART_PATH', 'http://www.stoff4you.de/out/pictures/generated/product/1/250_200_75/');
 define('PATH_NUSOAP', 'libs/nusoap.php');
 
 // Auslesen der Subdomain (Parameter für Weiterleitung)
@@ -13,6 +14,17 @@ $subdomain = $hostUrl[0];
 define('SUBDOMAIN', $subdomain);
 
 define('URL', 'http://' . $subdomain . '.stoffpalette.com/');
+switch (URL) {
+    case 'pick':
+        $_SESSION['redirectUrl'] = 'scanLocation';
+        break;
+    case 'mercury':
+        $_SESSION['redirectUrl'] = 'backend';
+        break;
+    case 'zuschnitt':
+        $_SESSION['redirectUrl'] = 'scanArt';
+        break;
+}
 
 // Datenbank Zugriff
 

@@ -1,11 +1,11 @@
 <?php
+error_reporting(E_ERROR);
 $app_url = explode('.', $_SERVER['HTTP_HOST']);
 $app = $app_url[0];
 
 if (isset($_SESSION)) {
     session_destroy();
 } else {
-    ob_start();
     session_start();
 }
 

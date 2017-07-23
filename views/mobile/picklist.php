@@ -129,10 +129,18 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                         <div class="col-xs-12 col-md-12 small">
                             <b>EAN/GTIN</b>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 hidden-print">
                             <h2 class="pick hidden-xs"><?php echo $item[$_SESSION['pos']]['EanUpc']; ?></h2>
                             <h3 class="pick visible-xs"><?php echo $item[$_SESSION['pos']]['EanUpc']; ?></h3>
                         </div>
+                        <div class="clearfix"></div>
+
+                        <div class="col-sm-2 visible-print">
+                            <img src="libs/imgEAN.php?code=<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>"
+                                 style="width:4cm!important;">
+                        </div>
+
+
                         <div class="clearfix"></div>
 
                         <div class="col-xs-12 col-md-12 small">
@@ -146,7 +154,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                         <div class="col-xs-12 col-md-12 small">
                             <div class="row">
                                 <div class="col-xs-6 text-small"><b>Menge</b></div>
-                                <div class="col-xs-6 text-small"><b>Lagerbestand</b></div>
+                                <div class="col-xs-6 text-small hidden-print"><b>Lagerbestand</b></div>
                                 <div class="col-xs-6">
                                     <h2 class="pick">
                                         <?php
@@ -179,7 +187,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                             <input type="hidden" name="plist" value="<?php echo $_SESSION['plist']; ?>">
                                             <input type="hidden" name="picklistNr"
                                                    value="<?php echo $_REQUEST['picklistNr']; ?>">
-                                            <button type="submit" class="btn btn-warning btn-xs">prüfen</button>
+                                            <button type="submit" class="btn btn-warning btn-xs hidden-print">prüfen
+                                            </button>
                                         </form>
                                     <?php } ?>
                                 </div>
@@ -191,7 +200,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                     <div class="row">
                         <div class="col-md-4">
                             <img src="<?php echo $pickimage; ?>"
-                                 width="100%" class="img img-responsive img-thumbnail">
+                                 width="100%" class="img img-responsive img-thumbnail hidden-print">
                         </div>
                     </div>
                 </div>
@@ -259,6 +268,15 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                 </form>
                             </div>
                             <div class="clearfix"></div>
+                            <small>&nbsp;</small>
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-info btn-block btn-lg-touch pull-right"
+                                        data-toggle="modal" data-target="#modPrintMobile">
+                                    <h4><span class="glyphicon glyphicon-print"></span></h4>
+                                </button>
+                            </div>
+                            <div class="clearfix"></div>
+                            <small>&nbsp;</small>
                         </div>
                     </div>
                 </div>
@@ -343,6 +361,39 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                 </div>
             </div>
 
+            <div id="modPrintMobile" class="modal fade hidden-print" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Artikelinfomation Drucken</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Infos</p>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">
+                                Schließen
+                            </button>
+                            <small>&nbsp;</small>
+                            <form method="post">
+                                <button type="button" class="btn btn-success btn-block btn-lg" id="btnModalPrint">
+                                    Drucken
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="modPicked" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
@@ -372,8 +423,6 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
             </div>
         </div>
-        <!-- ./ modal test -_>
-
        <!-- ./ Pickliste -->
 
 
@@ -401,7 +450,11 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
     $(document).ready(function () {
         $("#ItemFehlbestand").on('input', function () {
             $('#optFehlbestand').attr('selected', true);
-            console.log("selected...");
+        });
+
+        $("#btnModalPrint").on('click', function () {
+            window.print();
+            $("#modPrintMobile").modal('toggle');
         });
     });
 

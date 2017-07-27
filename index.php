@@ -3,11 +3,10 @@ error_reporting(E_ERROR);
 $app_url = explode('.', $_SERVER['HTTP_HOST']);
 $app = $app_url[0];
 
-if (isset($_SESSION)) {
-    session_destroy();
-} else {
-    session_start();
-}
+ini_set('session.gc_probability', 1);
+ini_set('session.gc_divisor', 1);
+ini_set('session.gc_maxlifetime', 36000);
+session_start();
 
 // Konfiguration
 require 'config.php';

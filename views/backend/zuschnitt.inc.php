@@ -6,6 +6,9 @@
             </div>
             <form method="post">
             <div class="panel-body">
+                <?php
+                if (isset($_REQUEST['showAuftraege'])){
+                ?>
 
                     <div class="row">
                         <div class="col-sm-6">
@@ -29,7 +32,6 @@
                                 Zuschneideaufträge Anzeigen
                             </button>
                         </div>
-                    </div>
             </form>
             <div class="clearfix"></div>
             <br>
@@ -70,7 +72,16 @@
                 </div>
 
             </div>
+            <?php } else {
+                echo '<div class="alert alert-info">Zum Anzeigen der Aufträge den Anzeigen Button betätigen</div>';
+                echo '<form method="post">';
+                echo '<input type="hidden" name="showAuftraege" value="1">';
+                echo '<input type="submit" class="btn btn-default" value="Aufträge anzeigen">';
+                echo '</form>';
+            } ?>
+
         </div>
+    </div>
             </div>
         </div>
     </div>

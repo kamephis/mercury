@@ -16,7 +16,7 @@ if (isset($_REQUEST['itemPicked'])) {
                     <table class="table table-responsive table-striped table-condensed table-bordered">
                         <tr>
                             <td>
-                                <h4><?php echo utf8_encode($fehlerItem['ItemName']); ?></h4>
+                                <h4><strong><?php echo utf8_encode($fehlerItem['ItemName']); ?></strong></h4>
                                 Art.Nr: <?php echo $fehlerItem['ItemNrSuppl']; ?><br>
                                 EAN: <?php echo $fehlerItem['EanUpc']; ?><br>
                                 Pickliste: <?php echo $fehlerItem['PLIheaderRef']; ?><br>

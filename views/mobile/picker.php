@@ -109,8 +109,9 @@ if (isset($_REQUEST['locationBarcode'])) {
         </div>
         </div><?php } ?>
 </div>
-
+<!--
 <script>
+
     $('body').append('<div style="background:black;" id="loadingDiv">' +
         '<div class="loader" style="background:red; color:white; width:250px; height:250px;"><b>Daten werden geladen...</b></div>' +
         '</div>');
@@ -122,4 +123,4 @@ if (isset($_REQUEST['locationBarcode'])) {
             $("#loadingDiv").remove();
         });
     }
-</script>
+</script>-->

@@ -143,14 +143,24 @@ class Picklist_Model extends Model
      * Setzen des ItemFehler / ItemFehlmenge auf den gewählten Wert aus dem Form-Array
      * @param $articleID
      */
-    public function setItemFehler($articleID, $aFehler, $intItemFehlbestand)
+    public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
     {
         // charset fix
         if ($aFehler != Null) {
-            $fehler = utf8_decode($aFehler);
+            $aFehler = utf8_decode($aFehler);
         }
-        //$aUpdate = array('ItemFehler' => $fehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerKommentar' => $ItemFehlerText);
-        $aUpdate = array('ItemFehler' => $fehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $_SESSION['vorname'] . " " . $_SESSION['name']);
+        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $_SESSION['vorname'] . " " . $_SESSION['name'], "geprueft" => true, "pruefer" => $pruefer);
+        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
+    }
+
+    /**
+     * Position geprueft
+     * @param $articleID
+     * @param $sUser
+     */
+    public function setItemChecked($articleID, $sUser, $chkState)
+    {
+        $aUpdate = array('geprueft' => $chkState, 'pruefer' => $sUser);
         $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 

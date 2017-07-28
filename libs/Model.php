@@ -8,7 +8,7 @@
  */
 class Model
 {
-    private $db = null;
+    public $db = null;
 
     function __construct()
     {

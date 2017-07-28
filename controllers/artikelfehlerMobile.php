@@ -21,11 +21,11 @@ class ArtikelFehlerMobile extends Controller
             $this->view->nav = new Navigation_Model();
 
             $this->view->artikelFehler = $this->model->getFehlerhafteArtikel();
-            $this->view->ArtikelFehlerMobile = $this->model;
+            $this->view->artikelFehlerMobile = $this->model;
 
             $this->view->render('header');
             $this->view->render('navigation');
-            $this->view->render('mobile/artikelFehlerMobile');
+            $this->view->render('mobile/artikelfehlerMobile');
             $this->view->render('footer');
         }
     }

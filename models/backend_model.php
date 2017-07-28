@@ -49,11 +49,6 @@ class Backend_Model extends Model
      */
     public function getAuftragsuebersicht()
     {
-        $sql = "SELECT pitem.ItemName, SUM(Qty) as GesMenge, pitem.ItemNrInt, pitem.EanUpc, pitem.AuftragID, za.UserID, za.TimeStampStart, za.TimeStampEnd FROM stpPicklistItems pitem
-                LEFT JOIN stpZuschneideAuftraege za
-                ON  za.AuftragsID = pitem.AuftragID
-                WHERE pitem.ItemStatus = '3' GROUP BY pitem.EanUpc";
-
         return $this->db->select($sql);
     }
 

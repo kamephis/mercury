@@ -7,6 +7,14 @@ if (isset($_REQUEST['updPicklist'])) {
 if (isset($_REQUEST['itemFehlerUpdate'])) {
     $this->mPicklist->setItemFehler($_REQUEST['itemID'], NULL, NULL);
 }
+// Item geprüft
+
+if (isset($_REQUEST['itemCheckUpdate'])) {
+    if ($_REQUEST['chkFehler'] == 'on') $chkState = '1';
+    if ($_REQUEST['chkFehler'] == 'off') $chkState = '0';
+
+    $this->mPicklist->setItemChecked($_REQUEST['itemID'], $_REQUEST['setUser'], $chkState);
+}
 // Leeren der Picklisten, Picklistenpositionen etc.
 if ($_REQUEST['resetTab']) {
     if ($this->PicklistAdmin->resetTables()) {

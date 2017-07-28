@@ -10,7 +10,6 @@ if (isset($_REQUEST['pickItem'])) {
 }
 
 ?>
-
 <div class="panel panel-primary">
     <div class="panel-heading">Artikel mit Fehlern</div>
     <div class="panel-body">
@@ -57,3 +56,17 @@ if (isset($_REQUEST['pickItem'])) {
         </div>
     </div>
 </div>
+<!--
+<script>
+    $('body').append('<div style="background:black;" id="loadingDiv">' +
+        '<div class="loader" style="background:red; color:white; width:250px; height:250px;"><b>Daten werden geladen...</b></div>' +
+        '</div>');
+    $(window).on('load', function () {
+        setTimeout(removeLoader, 0);
+    });
+    function removeLoader() {
+        $("#loadingDiv").fadeOut(350, function () {
+            $("#loadingDiv").remove();
+        });
+    }
+</script>-->

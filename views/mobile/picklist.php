@@ -457,17 +457,4 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
             $("#modPrintMobile").modal('toggle');
         });
     });
-
-
-    '<div class="loader" style="background:red; color:white; width:250px; height:250px;"><b>Daten werden geladen...</b></div>' +
-
-    $(window).on('load', function () {
-        setTimeout(removeLoader, 0);
-    });
-
-    function removeLoader() {
-        $("#loadingDiv").fadeOut(300, function () {
-            $("#loadingDiv").remove();
-        });
-    }
 </script>

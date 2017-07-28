@@ -85,7 +85,7 @@ class Auftrag_Model extends Model
         AND Anzahl > 0 
         {$filter}
         GROUP BY datum, auftrag.UserID
-        ORDER BY datum DESC";
+        ORDER BY auftrag.TimeStampStart DESC";
 
         return $this->db->select($sql);
     }

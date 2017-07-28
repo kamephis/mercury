@@ -1,32 +1,7 @@
 <?php
-// Aktualisieren des ItemStatus auf 2 - fertig bearbeitet
-if ($_POST['savePos']) {
-    $_SESSION['geschnitteneMeterGesamt'] += $_POST['artMenge'];
-
-    // ItemStatus -> stpPicklistItems
-    $this->auftrag->setAuftragsPositionStatus($_POST['artID'], $aNr[0]['AuftragsNr']);
-    header('location: auftrag');
-}
-
-// Auftrag abschließen - Setzen des Auftragsstatus auf 1
-if ($_POST['finish'] || $listSize == 0) {
-    try {
-        $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
-        header('location: scanArt');
-    } catch (Exception $e) {
-        echo "Fehler: ";
-        echo $e;
-    }
-    // Aktivieren falls benötigt
-    //$this->message = $this->msg_positionen_bearbeitet;
-}
-// Zurücksetzen des Meter Zählers (Session) - Anzeige auf ScanArt
-if ($_GET['eanScanned']) {
-    Session::set('geschnitteneMeterGesamt', 0);
-}
-
-// Anzahl Positinen
-$listSize = sizeof($this->auftrag->getAuftrag(Session::get('artEAN')));
+// Beim 1. Aufruf erzeugen - REQUEST wird nur in diesem Schritt verwendet.
+// für alles andere wird der Wert aus der Session gelesen.
+$eanScanned = Session::get('eanScanned');
 
 // Benutzer ID
 $userID = null;
@@ -37,32 +12,63 @@ $aNr = null;
 // Gesamtanzahl der bearbeiteten Artikel (m)
 $artCnt = null;
 
-// Beim 1. Aufruf erzeugen - REQUEST wird nur in diesem Schritt verwendet.
-// für alles andere wird der Wert aus der Session gelesen.
-$eanScanned = Session::get('eanScanned');
+// Aktualisieren des ItemStatus auf 2 - fertig bearbeitet
+if ($_POST['savePos']) {
+    $_SESSION['geschnitteneMeterGesamt'] += $_POST['artMenge'];
 
-if ($eanScanned) {
+    // ItemStatus -> stpPicklistItems
+    $this->auftrag->setAuftragsPositionStatus($_POST['artID'], $aNr[0]['AuftragsNr']);
+    //header('location: auftrag');
+    echo "<script>location.replace('auftrag');</script>";
+}
+
+// Zurücksetzen des Meter Zählers (Session) - Anzeige auf ScanArt
+if ($_GET['eanScanned']) {
+    Session::set('geschnitteneMeterGesamt', 0);
+}
+
+// Anzahl Positionen
+$listSize = sizeof($this->auftrag->getAuftrag(Session::get('artEAN')));
+// Auftrag abschließen - Setzen des Auftragsstatus auf 1
+if ($_POST['finish'] || $listSize == 0) {
+    try {
+        $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
+        echo "<script>location.replace('scanArt');</script>";
+        //header('location: scanArt');
+    } catch (Exception $e) {
+        echo "Fehler: ";
+        echo $e;
+    }
+    // Aktivieren falls benötigt
+    //$this->message = $this->msg_positionen_bearbeitet;
+}
+
+if ($_GET['eanScanned'] = 1) {
     // Anlegen eines neuen Auftrags in der Datenbank
     $userID = Session::get('UID');
 
+    // TODO: Eleganter lösen
     if ($_GET['eanScanned']) {
         $this->auftrag->newAuftrag($userID, Session::get('artEAN'));
     }
     // Auslesen der neuen Auftragsnummer
     $aNr = $this->auftrag->getAuftragsnummer();
 
+    // Pixi Bestand abrufen
     $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
     $bestand = $aBestand['PhysicalStock'];
 
     // Aufruf des neuen Auftrags - falls Positionen dazu existieren
     if ($this->auftrag->getAuftrag(Session::get('artEAN')) && $listSize > 0) {
+        // Aktualisierung der Auftragsliste
         $auftrag = $this->auftrag->getAuftrag(Session::get('artEAN'));
     } else {
         $this->message = $this->msg_keine_positionen;
     }
 } else {
     // Wenn keine EAN gescannt wurde, wird zur Scan-Form weitergeleitet
-    header('location: scanArt');
+    echo "<script>location.replace('scanArt');</script>";
+    //header('location: scanArt');
 }
 
 $anz = Session::get('geschnitteneMeterGesamt');
@@ -70,8 +76,9 @@ $anz = Session::get('geschnitteneMeterGesamt');
 if ($_POST['saveFehler']) {
     $articleID = $_POST['artID'];
     $aFehler = $_POST['saveFehler'];
+    $sItemVerfMenge = $_POST['sItemVerfMenge'];
 
-    $this->picklist->setItemFehler($articleID, $aFehler, '');
+    $this->picklist->setItemFehler($articleID, $aFehler, $sItemVerfMenge);
 }
 
 // Zerteilen des Item-Titels
@@ -274,22 +281,16 @@ $title = $auftrag[0]['ItemName'];
         $OrderDate = null;
         $showPixiInfo = false;
 
-        // TODO: Abfrage der Pixi Order Nr kostet viele Ressourcen bei ca. 10 Positionen
         // Zwischenspeichern der Bestellnr in der Session. Abfruf nur beim 1. Aufruf
-        /*if($_REQUEST['getPixiInfo'] || $listSize <= 10){*/
         if ($this->Pixi->getOrderLine($item['PLIorderlineRef'])) {
             $aOrderLine = $this->Pixi->getOrderLine($item['PLIorderlineRef']);
             $OrderNrExternal = $aOrderLine['OrderNrExternal'];
             $OrderDate = date_format(date_create($aOrderLine['OrderDate']), "d.m.Y H:i");
             $showPixiInfo = true;
         } else {
-            //$showPixiInfo = false;
             $OrderNrExternal = 'k. A.';
             $OrderDate = 'k. A.';
         }
-        /*} else {
-            echo "Pixi Bestellinfos müssen manuell abgefragt werden.";
-        }*/
 
         ?>
         <!-- start foreach -->
@@ -297,7 +298,8 @@ $title = $auftrag[0]['ItemName'];
             <div class="col-sm-1"><?php echo $rows; ?></div>
 
             <div class="col-sm-7">
-                Pixi-Pickliste: <?php echo $item['PLIheaderRef']; ?> | Ablaufdatum: <?php echo $item['expDate']; ?> <br>
+                Pixi-Pickliste: <?php echo $item['PLIheaderRef']; ?>
+                <!--| Ablaufdatum: <?php echo $item['expDate']; ?> --><br>
 
                 <?php /* if($showPixiInfo === true){  */ ?>
                 Bestell-Nr: <?php echo $OrderNrExternal; ?> | Bestellt am: <?php echo $OrderDate; ?>
@@ -334,18 +336,17 @@ $title = $auftrag[0]['ItemName'];
 
                     <div class="modal-body">
                         <div class="row fehlerText">
-                            <!--<div class="alert alert-info">
-                                <p>Wählen Sie einen Grund für das Fehleretikett aus.</p>
-                            </div>-->
                             <div class="boxFehlerauswahl">
                                 <label><input type="radio" name="fehlergrund" value="Zu wenig Stoff"
-                                              class="druckFehler form-control">Fehlmenge</label>&nbsp;&nbsp;
+                                              class="druckFehler form-control">Fehlmenge
+                                    <input type="number" name="sItemVerfMenge" id="sItemVerfMenge" style="width:50px;">
+                                </label>&nbsp;&nbsp;
 
                                 <label><input type="radio" name="fehlergrund" value="Farbabweichung"
-                                              class="druckFehler form-control">Farbabweichung</label>&nbsp;&nbsp;
+                                              class="druckFehler form-control">Farbabweichung&nbsp;</label>&nbsp;&nbsp;
 
                                 <label><input type="radio" name="fehlergrund" value="Stoff beschädigt"
-                                              class="druckFehler form-control">Stoff beschädigt</label>
+                                              class="druckFehler form-control">Stoff beschädigt&nbsp;</label>
                             </div>
                         </div>
                         <div class="screenLabel">
@@ -490,7 +491,8 @@ $title = $auftrag[0]['ItemName'];
     <?php } ?>
 <?php } ?>
 
-<!-- Mod Auftrag abschließen -->
+<!-- Mod Auftrag abschließen / Wird derzeit nicht verwendet -->
+<!--
 <div id="modFinish" class="modal fade hidden-print" role="dialog">
     <form action="auftrag" method="post">
         <input type="hidden" name="finish" value="1">
@@ -526,7 +528,6 @@ $title = $auftrag[0]['ItemName'];
         </div>
     </form>
 </div>
-
-
+-->
 
 

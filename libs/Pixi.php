@@ -24,6 +24,25 @@ class Pixi
         $this->oProxy = $oSoapClient->getProxy();
     }
 
+    /**
+     * Lagerbestand korrigieren
+     * @param $eanUpc
+     * @param $username
+     * @param $stock
+     * @param $binName
+     * @return bool
+     */
+    public function setStock($eanUpc, $username, $stock, $binName)
+    {
+        $aSetStock = $this->oProxy->pixiShippingGetPicklistHeaders(array('EanUpc' => $eanUpc, 'Username' => $username, 'NewStockQty' => $stock, 'BinName' => $binName));
+        $aSetStock = $aSetStock['pixiShippingGetPicklistHeadersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+        if ($aSetStock) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getAllPicklists()
     {
         $aPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));

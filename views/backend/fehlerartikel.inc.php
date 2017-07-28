@@ -9,125 +9,123 @@
                 <?php
                 if (sizeof($this->backend->getFehlerhafteArtikel()) > 0) {
                     ?>
-                    <div class="row">
-                        <div class="col-xs-1">
-                            <b>Lagerplatz</b>
-                        </div>
-                        <div class="col-xs-2 col-sm-2">
-                            <b>Artikelbez.</b>
-                        </div>
-                        <div class="col-xs-1">
-                            <b>Artikelnr.</b>
-                        </div>
-                        <div class="col-xs-3 col-sm-1 hidden-print">
-                            <b>EAN</b>
-                        </div>
-                        <div class="col-xs-3 col-sm-3 visible-print">
-                            <b>EAN</b>
-                        </div>
-                        <div class="col-xs-1 col-sm-1">
-                            <b>Artikelfehler</b>
-                        </div>
 
-                        <div class="col-xs-1">
-                            <b>Max.verf. <br class="visible-print">Bestand</b>
-                        </div>
+                    <table class="table table-bordered table-striped table-hover table-condensed table-responsive">
+                        <thead>
+                        <tr>
+                            <th>
+                                Lagerplatz
+                            </th>
+                            <th>
+                                Artikelbez.
+                            </th>
+                            <th>
+                                Artikelnr.
+                            </th>
+                            <th>
+                                EAN
+                            </th>
+                            <th>
+                                Fehlertext
+                            </th>
+                            <th>
+                                Max. verf.<br>Bestand
+                            </th>
+                            <th>
+                                Pixi-<br>Pickliste
+                            </th>
+                            <th>
+                                Pixi-<br>Bestand
+                            </th>
+                            <th>
+                                Bearbeiter(in)
+                            </th>
+                            <th>
+                                Geprüft
+                            </th>
+                            <th class="hidden-print">
+                                Aktion
+                            </th>
+                        </tr>
+                        </thead>
 
-                        <div class="col-xs-1">
-                            <b>Pixi-Pickliste</b>
-                        </div>
-
-                        <div class="col-xs-1">
-                            <b>Pixi <br class="visible-print">Bestand</b>
-                        </div>
-
-                        <div class="col-xs-1">
-                            <b>Bearbeiter(in)</b>
-                        </div>
-
-                        <!--<div class="col-xs-1">
-                            <b>Picker</b>
-                        </div>-->
-                        <div class="col-xs-1 hidden-print">
-                            <b>Aktion</b>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <br>
+                        <tbody>
                     <?php
                     $aFehlerArtikel = $this->backend->getFehlerhafteArtikel();
                     foreach ($aFehlerArtikel as $fArtikel) {
                         ?>
-
-                        <div class="row tableTr">
-                            <div class="col-xs-1 col-sm-1">
+                        <tr>
+                            <td>
                                 <?php echo utf8_encode($fArtikel['BinName']); ?>
-                            </div>
-
-                            <div class="col-xs-2 col-sm-2">
+                            </td>
+                            <td>
                                 <?php echo utf8_encode($fArtikel['ItemName']); ?>
-                            </div>
-
-                            <div class="col-xs-1 col-sm-1">
+                            </td>
+                            <td>
                                 <?php echo utf8_encode($fArtikel['ItemNrSuppl']); ?>
-                            </div>
-
-                            <div class="col-xs-4 col-sm-1 hidden-print">
+                            </td>
+                            <td class="hidden-print">
                                 <?php echo $fArtikel['EanUpc']; ?>
-                            </div>
-
-                            <div class="col-xs-3 col-sm-3 visible-print">
-                                <div class="visible-print-block" style="width:100%;">
+                            </td>
+                            <td class="visible-print-block">
                                     <img src="libs/Barcode_org.php?text=<?php echo $fArtikel['EanUpc']; ?>&size=60&orientation=horizontal&codetype=code128"
                                          style="width:7cm!important;">
-                                </div>
                                 <?php echo $fArtikel['EanUpc']; ?>
-                            </div>
-
-                            <div class="col-xs-1 col-sm-1">
+                            </td>
+                            <td>
                                 <?php echo $fArtikel['ItemFehler']; ?>
-                            </div>
-
-                            <div class="col-xs-1 col-sm-1">
+                            </td>
+                            <td>
+                                <center>
                                 <?php echo $fArtikel['ItemFehlbestand']; ?>
-                            </div>
-
-                            <div class="col-xs-1 col-sm-1">
+                                </center>
+                            </td>
+                            <td>
                                 <?php
                                 echo $fArtikel['PLIheaderRef'];
                                 ?>
-                            </div>
-
-                            <div class="col-xs-1 col-sm-1">
+                            </td>
+                            <td>
+                                <center>
                                 <?php
                                 $pixiLagerbestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
                                 echo $pixiLagerbestand['PhysicalStock'];
-                                ?>
-                            </div>
-
-                            <div class="col-xs-1 col-sm-1">
+                                ?></center>
+                            </td>
+                            <td>
                                 <?php
-                                echo $fArtikel['ItemFehlerUser'];
+                                echo utf8_encode($fArtikel['ItemFehlerUser']);
                                 ?>
-                            </div>
+                            </td>
 
-                            <!--<div class="col-sm-1">
-                                <?php /*echo $fArtikel['vorname'];?> <?php echo $fArtikel['name'];*/
-                            ?>
-                            </div>-->
-                            <div class="col-sm-1 hidden-print">
-                                <form method="post">
+                            <td>
+                                <!--<center>
+                                    <form method="post" id="frmChk">
+                                        <?php if ((bool)isset($fArtikel['geprueft']) == true) {
+                                    $bChecked = 'checked';
+                                } ?>
+                                        <input type="hidden" name="itemCheckUpdate" value="1" <?php echo $fArtikel['geprueft']; ?>>
+                                        <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
+                                        <input type="hidden" value="<?php echo $_SESSION['name']; ?>" name="setUser">
+
+                                        <input type="checkbox" name="chkFehler" id="chkFehler" <?php echo $bChecked; ?>>
+                                    </form>
+                                </center>-->
+                            </td>
+                            <td class="hidden-print">
+                                <form method="post" id="frmDelete">
                                     <input type="hidden" name="itemFehlerUpdate" value="1">
                                     <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
-
                                     <button type="submit" class="btn btn-danger btn-xs hidden-print">
                                         <span class="glyphicon glyphicon-remove"></span> l&ouml;schen
                                     </button>
                                 </form>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
+                            </td>
+                        </tr>
                     <?php } ?>
+                        </tbody>
+                    </table>
+
                 <?php } else {
                     echo '<div class="alert alert-info">';
                     echo 'Es wurden noch keine Fehlerhaften Artikel gemeldet.';
@@ -138,3 +136,9 @@
     </div>
 </div><!-- ./row-->
 <div class="clearfix"></div>
+
+<script>
+    $("#chkFehler").on("click", function () {
+        $("#frmChk").submit();
+    })
+</script>

@@ -9,14 +9,21 @@
  */
 class Auftrag extends Controller
 {
+    private $size = 1;
     function __construct()
     {
         parent::__construct();
     }
 
+    public function testMe()
+    {
+        echo "Blubb";
+    }
+
     function index()
     {
         if (Session::checkAuth()) {
+            $this->view->size = $this->getSize();
             // Nachrichten
             $this->view->msg_positionen_bearbeitet = 'Alle Auftragspositionen bearbeitet. Bitte schließen Sie den Auftrag ab.';
             $this->view->msg_keine_positionen = 'Für diesen Auftrag existieren keine Artikel.';
@@ -45,6 +52,7 @@ class Auftrag extends Controller
             $this->view->render('header');
             $this->view->render('navigation');
             $this->view->render('auftrag/index');
+            //$this->view->render('auftrag/auftragsbearbeitung');
             $this->view->render('footer');
         }
     }
@@ -52,6 +60,14 @@ class Auftrag extends Controller
     function run()
     {
         $this->model->run();
+    }
+
+    /*
+     * @return int
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }
 

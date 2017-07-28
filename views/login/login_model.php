@@ -43,27 +43,27 @@ class Login_Model extends Model
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
         // Pruefen ob der Benutzername existiert
-            // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
+        // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
         if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate']) && $totalRows > 0) {
 
-                // Registrierung der Session Werte
-                Session::set('UID', $result['UID']);
-                Session::set('vorname', $result['vorname']);
-                Session::set('name', $result['name']);
+            // Registrierung der Session Werte
+            Session::set('UID', $result['UID']);
+            Session::set('vorname', $result['vorname']);
+            Session::set('name', $result['name']);
 
-                // Rechte in die Session schreiben.
-                Session::set('access_level', $result['access_level']);
+            // Rechte in die Session schreiben.
+            Session::set('access_level', $result['access_level']);
 
             // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
             $this->redirect2TargetLocation();
             //header('location: ' . $this->getSRedirectURL());
             echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
-            } else {
+        } else {
             // Zugriff verweigert
-            $this->view->showAlert("test");
+            //$this->view->showAlert("test");
             echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
             //header('location: ' . URL . $this->getSRedirectURL());
-            }
+        }
     }
 
     private function redirect2TargetLocation()

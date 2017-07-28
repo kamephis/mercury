@@ -10,10 +10,10 @@ if (isset($_REQUEST['itemPicked'])) {
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <table class="table table-responsive table-striped table-condensed table-bordered">
-                    <?php
-                    foreach ($this->artikelFehler as $fehlerItem) {
-                        ?>
+                <?php
+                foreach ($this->artikelFehler as $fehlerItem) {
+                    ?>
+                    <table class="table table-responsive table-striped table-condensed table-bordered">
                         <tr>
                             <td>
                                 <b><?php echo utf8_encode($fehlerItem['ItemName']); ?></b><br>
@@ -35,12 +35,9 @@ if (isset($_REQUEST['itemPicked'])) {
                                 </form>
                             </td>
                         </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                        </tr>
-                    <?php } ?>
-
-                </table>
+                    </table>
+                    <br>
+                <?php } ?>
             </div>
         </div>
     </div>

@@ -22,6 +22,7 @@ class ArtikelFehlerMobile extends Controller
 
             $this->view->artikelFehler = $this->model->getFehlerhafteArtikel();
             $this->view->artikelFehlerMobile = $this->model;
+            $this->view->Picklist = new Picklist_Model();
 
             $this->view->render('header');
             $this->view->render('navigation');

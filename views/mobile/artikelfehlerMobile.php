@@ -1,14 +1,8 @@
 <?php
-// Fehler löschen
-if (isset($_REQUEST['resetFehler'])) {
-    $this->ArtikelFehlerMobile->removeArtikelFromFehlerliste($_REQUEST['resetFehler']);
-}
-
 // Picken
-if (isset($_REQUEST['pickItem'])) {
-    $this->ArtikelFehlerMobile->pickItem($_REQUEST['resetFehler']);
+if (isset($_REQUEST['itemPicked'])) {
+    $this->Picklist->setItemStatus($_REQUEST['EanUpc'], '');
 }
-
 ?>
 
 <div class="panel panel-primary">
@@ -34,18 +28,12 @@ if (isset($_REQUEST['pickItem'])) {
                         <tr>
                             <td>
                                 <form method="post" action="<?php echo $_SERVER['php_self']; ?>">
-                                    <input type="hidden" name="resetFehler" value="<?php echo $fehlerItem['ID']; ?>">
-                                    <input class="btn btn-lg btn-default btn-block" type="submit" id="btnResetFehler"
-                                           name="btnResetFehler" value="Artikel korrigiert">
-                                </form>
-                                <br>
-                                <form method="post" action="<?php echo $_SERVER['php_self']; ?>">
-                                    <input type="hidden" name="pickItem" value="<?php echo $fehlerItem['ID']; ?>">
+                                    <input type="hidden" name="itemPicked" value="1">
+                                    <input type="hidden" name="EanUpc" value="<?php echo $fehlerItem['EanUpc']; ?>">
                                     <input class="btn btn-lg btn-success btn-block" type="submit" id="btnPickItem"
-                                           name="btnResetFehler" value="Artikel Picken">
+                                           name="btnPickItem" value="Artikel Picken">
                                 </form>
                             </td>
-                        </tr>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>

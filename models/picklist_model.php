@@ -1,9 +1,8 @@
 <?php
-
 /**
  * Class Picklist_Model
  * User: Marlon Böhland
- * Date:
+ * Update: 28.07.2017
  */
 class Picklist_Model extends Model
 {
@@ -118,7 +117,6 @@ class Picklist_Model extends Model
         $result = $this->db->select($sql);
         return $result[0]['anz'];
     }
-
     /**
      * @param $articleID
      */
@@ -130,12 +128,13 @@ class Picklist_Model extends Model
 
     /**
      * Setzen des ItemStatus auf bei allen Artikeln mit dieser EAN auf 2 (gepickt)
+     * Zurücksetzen des Item Fehlers (da korrigiert)
      * @param $articleEan
      * @param $locationID
      */
     public function setItemStatus($articleEan, $locationID)
     {
-        $aUpdate = array('ItemStatus' => '2', 'CurrentItemLocation' => $locationID);
+        $aUpdate = array('ItemStatus' => '2', 'CurrentItemLocation' => $locationID, 'ItemFehler' => '', 'ItemFehlbestand' => '', 'ItemFehlerUser' => '');
         $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleEan);
     }
 

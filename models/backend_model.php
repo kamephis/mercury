@@ -34,8 +34,8 @@ class Backend_Model extends Model
         $sql = "
             SELECT items.* FROM stpPicklistItems items
             WHERE
-            (items.ItemFehler IS NOT NULL OR
-            items.ItemFehlbestand IS NOT NULL )
+            (items.ItemFehler != '' OR
+            items.ItemFehlbestand != '' )
             
             ORDER BY items.BinName
         ";

@@ -25,9 +25,8 @@ class ArtikelFehlerMobile_Model extends Model
             WHERE
             (items.ItemFehler IS NOT NULL OR
             items.ItemFehlbestand IS NOT NULL )
-            
-            
-            ORDER BY items.BinName";
+            ORDER BY items.BinSortNum
+            ";
         $result = $this->db->select($sql);
         return $result;
     }

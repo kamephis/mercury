@@ -29,9 +29,6 @@ if ($_REQUEST['setFehler']) {
     }
 
     $this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
-    // Mit der nächsten Position fortfahren
-    //next($this->Picklist->getAPicklist());
-    //header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'] . '&pos=' . ($_SESSION['pos']));
 }
 
 // Anzahl der Picklistenpositionen aus dem Controller
@@ -75,8 +72,6 @@ if (sizeof($this->Picklist->getAPicklist()) == 0) {
     echo "Keine Pickliste gesetzt";
 }
 
-//$picklist = $this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']);
-
 // Picklistennavigation
 if ($_REQUEST['nav'] == 'n') {
     next($this->Picklist->getAPicklist());
@@ -95,10 +90,10 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
         }
 
     // Image
-
     $pickimage = IMG_ART_PATH . $item[$_SESSION['pos']]['PicLinkLarge'];
-    //$pickimage = URL . '/out/img/placeholder.jpg';
 
+    // TODO: Aktivieren für Artikel ohne Bild
+    //$pickimage = URL . '/out/img/placeholder.jpg';
     //strlen($imgUrl) > 0 ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
     //file_exists($imgUrl) ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
         ?>
@@ -270,8 +265,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <div class="clearfix"></div>
                             <small>&nbsp;</small>
                             <div class="col-xs-12">
-                                <button type="submit" class="btn btn-info btn-block btn-lg-touch pull-right"
-                                        data-toggle="modal" data-target="#modPrintMobile">
+                                <button type="button" class="btn btn-info btn-block btn-lg-touch pull-right"
+                                        id="btnPrint">
                                     <h4><span class="glyphicon glyphicon-print"></span></h4>
                                 </button>
                             </div>
@@ -356,44 +351,42 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
+            <!--
+                        <div id="modPrintMobile" class="modal fade hidden-print" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Artikelinfomation Drucken</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Infos</p>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-12">
 
-            <div id="modPrintMobile" class="modal fade hidden-print" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Artikelinfomation Drucken</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Infos</p>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="col-xs-12">
-
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">
+                                            Schließen
+                                        </button>
+                                        <small>&nbsp;</small>
+                                        <form method="post">
+                                            <button type="button" class="btn btn-success btn-block btn-lg" id="btnModalPrint">
+                                                Drucken
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">
-                                Schließen
-                            </button>
-                            <small>&nbsp;</small>
-                            <form method="post">
-                                <button type="button" class="btn btn-success btn-block btn-lg" id="btnModalPrint">
-                                    Drucken
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            -->
             <div id="modPicked" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
@@ -452,9 +445,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
             $('#optFehlbestand').attr('selected', true);
         });
 
-        $("#btnModalPrint").on('click', function () {
+        $("#btnPrint").on('click', function () {
             window.print();
-            $("#modPrintMobile").modal('toggle');
         });
     });
 </script>

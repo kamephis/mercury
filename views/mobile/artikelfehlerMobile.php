@@ -1,7 +1,7 @@
 <?php
 // Picken
 if (isset($_REQUEST['itemPicked'])) {
-    $this->Picklist->setItemStatus($_REQUEST['EanUpc'], '');
+    $this->Plist->setItemStatus($_REQUEST['EanUpc'], 'Teamleiter');
 }
 ?>
 
@@ -20,13 +20,6 @@ if (isset($_REQUEST['itemPicked'])) {
                         <tr>
                             <td colspan="2"><h4>
                                     <strong><code>Lagerplatz: <?php echo $fehlerItem['BinName']; ?></code></strong></h4>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2">
-                                <img src="<?php echo $fehlerItem['ItemNrSuppl']; ?>"
-                                     class="img img-thumbnail img-responsive">
                             </td>
                         </tr>
 

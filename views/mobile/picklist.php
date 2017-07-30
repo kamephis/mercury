@@ -133,8 +133,9 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                         <div class="col-sm-2 visible-print">
                             <img src="libs/imgEAN.php?code=<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>"
                                  style="width:4cm!important;">
+                            <br>
+                            <br>
                         </div>
-
 
                         <div class="clearfix"></div>
 
@@ -148,12 +149,12 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                         <small>&nbsp;</small>
                         <div class="col-xs-12 col-md-12 small">
                             <div class="row">
-                                <div class="col-xs-6 text-small"><b>Menge</b></div>
+                                <div class="col-xs-6 text-small hidden-print"><b>Menge</b></div>
                                 <div class="col-xs-6 text-small hidden-print"><b>Lagerbestand</b></div>
-                                <div class="col-xs-6">
+                                <?php $aPickCnt = $this->Picklist->getItemPickAmount($item[$_SESSION['pos']]['EanUpc'], $_SESSION['plist']); ?>
+                                <div class="col-xs-6 hidden-print">
                                     <h2 class="pick">
                                         <?php
-                                        $aPickCnt = $this->Picklist->getItemPickAmount($item[$_SESSION['pos']]['EanUpc'], $_SESSION['plist']);
                                         echo $aPickCnt[0]['pSum'];
 
                                         if ($aPickCnt[0]['pSum'] > $item[$_SESSION['pos']]['Qty']) {
@@ -166,7 +167,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                             echo ')</small>';
                                         }
                                         ?>
-                                    </h2></div>
+                                    </h2>
+                                </div>
                                 <div class="col-xs-6">
                                     <?php
                                     if ($_REQUEST['updPixiBestand']) {
@@ -186,6 +188,32 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                             </button>
                                         </form>
                                     <?php } ?>
+                                </div>
+
+                                <div class="col-xs-12 visible-print">
+                                    <h3>Bestellungen</h3>
+                                    <div class="row">
+                                        <?php
+                                        $aOrders = $this->Picklist->getOrders($item[$_SESSION['pos']]['EanUpc']);
+                                        foreach ($aOrders as $order) {
+                                            echo '<div class="col-xs-4">';
+                                            echo "<h4>Bestellnr: " . $order['OrderNrExternal'] . "</h4>";
+                                            echo '</div>';
+
+                                            echo '<div class="col-xs-4">';
+                                            echo '<h4>Menge: ' . $order['Qty'] . '</h4>';
+                                            echo '</div>';
+
+                                            echo '<div class="col-xs-4">';
+                                            echo '<h4>Pixi PL: ' . $order['PLIheaderRef'] . '</h4>';
+                                            echo '</div>';
+
+                                            echo '<div class="clearfix"></div>';
+                                        }
+                                        ?>
+                                        <div class="clearfix"></div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

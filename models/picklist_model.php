@@ -173,6 +173,11 @@ class Picklist_Model extends Model
         $this->db->update('stpPickliste', $aUpdate, 'PLHKEY = ' . $plistNr);
     }
 
+    /**
+     * @param $articleEAN
+     * @param $PLHkey
+     * @return array
+     */
     public function getItemPickAmount($articleEAN, $PLHkey)
     {
         $sql = "SELECT Qty,(SELECT sum(Qty) FROM stpArtikel2Pickliste a2p 
@@ -188,6 +193,18 @@ class Picklist_Model extends Model
                 
                 WHERE a2p.PicklistID = '{$PLHkey}'
                 AND pitem.EanUpc = '{$articleEAN}'";
+        $result = $this->db->select($sql);
+        return $result;
+    }
+
+    /**
+     * Abfrage der Bestellungen / Artikel
+     * @param $articleEAN
+     * @return array
+     */
+    public function getOrders($articleEAN)
+    {
+        $sql = "SELECT OrderNrExternal, Qty, PLIheaderRef FROM stpPicklistItems WHERE EanUpc = '{$articleEAN}'";
         $result = $this->db->select($sql);
         return $result;
     }

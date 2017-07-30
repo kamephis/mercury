@@ -11,8 +11,10 @@ class Session
     // Initialisieren der Session
     public static function init()
     {
-        //    ob_start();
-        //    session_start();
+        ini_set('session.gc_probability', 1);
+        ini_set('session.gc_divisor', 1);
+        ini_set('session.gc_maxlifetime', 36000);
+        session_start();
         //    echo "Session Timeout: ".session_cache_expire();
     }
 

@@ -22,6 +22,7 @@ class Login_Model extends Model
         parent::__construct();
     }
 
+    // Login
     public function run()
     {
         $this->checkAuth($_POST['userPasswd']);
@@ -37,15 +38,17 @@ class Login_Model extends Model
          * pruefen ob der Benutzer berechtigt ist
          * Voraussetzung fuer den Zugriff auf das Backend ist ein passendes access_level
          */
-        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = '{$sUserName}'");
-        $sql->execute();
+        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = :sUserName");
+
+        // Pruefen ob der Benutzername existiert
+        $sql->execute(array('sUserName' => $sUserName));
         $totalRows = $sql->rowCount();
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
-        // Pruefen ob der Benutzername existiert
-            // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
+        // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
         if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate']) && $totalRows > 0) {
 
+            Session::init();
                 // Registrierung der Session Werte
                 Session::set('UID', $result['UID']);
                 Session::set('vorname', $result['vorname']);
@@ -56,13 +59,10 @@ class Login_Model extends Model
 
             // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
             $this->redirect2TargetLocation();
-            //header('location: ' . $this->getSRedirectURL());
             echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
             } else {
             // Zugriff verweigert
-            $this->view->showAlert("test");
-            echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
-            //header('location: ' . URL . $this->getSRedirectURL());
+            echo "<script>location.replace('" . $this->getSRedirectURL() . "/error');</script>";
             }
     }
 
@@ -191,8 +191,6 @@ class Login_Model extends Model
     {
         $this->_sRedirectURL = $sRedirectURL;
     }
-
-
 }
 
 /**

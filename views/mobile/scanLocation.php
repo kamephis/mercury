@@ -4,14 +4,15 @@
     </div>
 
     <div class="panel-body loginPanel">
-        <p>Alle Artikel die gepickt werden, sind diesem Wagen zugewiesen.</p>
+        <p>Alle Artikel die gepickt werden, sind diesem Wagen zugewiesen. Melden Sie sich ab um sich an einem neuen
+            Pickwagen anzumelden.</p>
         <div class="alert alert-info">
-            <p>Scannen Sie den Barcode an Ihrem Pickwagen.</p>
+            Scannen Sie den Barcode an Ihrem Pickwagen.
         </div>
         <form id="loginform" class="form-horizontal" role="form" method="post" action="picker">
             <div class="input-group inputLogin">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                <input id="locationBarcode" id="locationBarcode" type="text" class="form-control" name="locationBarcode"
+                <input id="locationBarcode" type="text" class="form-control" name="locationBarcode"
                        placeholder=" Barcode..." required
                        autofocus>
             </div>

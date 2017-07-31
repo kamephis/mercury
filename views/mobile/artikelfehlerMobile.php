@@ -1,7 +1,7 @@
 <?php
 // Picken
 if (isset($_REQUEST['itemPicked'])) {
-    $this->Plist->setItemStatus($_REQUEST['EanUpc'], 'Teamleiter');
+    $this->Picklist->setItemStatus($_REQUEST['EanUpc'], 'Teamleiter');
 }
 ?>
 

@@ -23,8 +23,10 @@ class ArtikelFehlerMobile_Model extends Model
     {
         $sql = "SELECT items.* FROM stpPicklistItems items
             WHERE
-            (items.ItemFehler IS NOT NULL OR
-            items.ItemFehlbestand IS NOT NULL )
+            (/*items.ItemFehler IS NOT NULL OR
+            items.ItemFehlbestand IS NOT NULL*/
+             items.ItemFehler != ''
+             OR items.ItemFehlbestand != '')
             ORDER BY items.BinSortNum
             ";
         $result = $this->db->select($sql);
@@ -34,7 +36,6 @@ class ArtikelFehlerMobile_Model extends Model
     /**
      * Entfernen des korrgierten Fehler-Artikels (RESET)
      * @param $articleID
-     * TODO: auslagern
      */
     public function removeArtikelFromFehlerliste($articleID)
     {

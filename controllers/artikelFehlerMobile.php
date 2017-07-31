@@ -16,22 +16,24 @@ class ArtikelFehlerMobile extends Controller
 
     function index()
     {
-        if (Session::checkAuth()) {
+        //if (Session::checkAuth()) {
             $this->view->title = 'Artikelfehler';
             require_once('models/navigation_model.php');
             $this->view->nav = new Navigation_Model();
 
             $this->view->artikelFehler = $this->model->getFehlerhafteArtikel();
             $this->view->artikelFehlerMobile = $this->model;
+
+        require_once('models/picklist_model.php');
             $this->view->Picklist = new Picklist_Model();
 
             $this->view->render('header');
             $this->view->render('navigation');
-            $this->view->render('mobile/picker');
+        $this->view->render('mobile/artikelfehlerMobile');
             $this->view->render('footer');
-        } else {
-            Error::getError('401');
-        }
+        //} else {
+        //    Error::getError('401');
+        //}
     }
 
     function run()

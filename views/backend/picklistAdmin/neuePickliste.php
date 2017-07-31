@@ -1,21 +1,4 @@
 <?php
-/**
- * User: Marlon
- * Date: 17.03.2017
- * Time: 09:40
- */
-/*if ($_REQUEST['resetTables']) {
-    if ($this->pl->resetTables()) {
-
-        echo "Tabellen wurden geleert.";
-
-    } else {
-
-        echo "Tabellen konnten nicht geleert werden.";
-
-    }
-}*/
-
 // Picker aus dem System auslesen
 $aPicker = $this->pl->getPicker();
 
@@ -23,7 +6,6 @@ $aPicker = $this->pl->getPicker();
 if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
     $this->pl->newPicklist();
 }
-
 
 ?>
 <div class="row">

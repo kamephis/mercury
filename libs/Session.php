@@ -14,8 +14,10 @@ class Session
         ini_set('session.gc_probability', 1);
         ini_set('session.gc_divisor', 1);
         ini_set('session.gc_maxlifetime', 36000);
+        ini_set('session.cache_expire', 36000);
+        ini_set('session.cookie_lifetime', 36000);
+        ini_set('session.save_path', 'sessions');
         session_start();
-        //    echo "Session Timeout: ".session_cache_expire();
     }
 
     // Setzen von Session Variablen
@@ -33,7 +35,7 @@ class Session
     // Session zerstören
     public static function destroy()
     {
-        session_unset();
+        session_unset('userName');
         session_destroy();
     }
 

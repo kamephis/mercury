@@ -9,6 +9,7 @@
  */
 class Index extends Controller
 {
+    public $msg = null;
     function __construct()
     {
         parent::__construct();

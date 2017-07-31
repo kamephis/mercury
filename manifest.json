@@ -1,5 +1,6 @@
 {
-  "name": "Mercury Mobile",
+  "short_name": "Mercury Mobile",
+  "name": "Mercury Mobile Picksystem",
   "icons": [
     {
       "src": "feather_lg.png",

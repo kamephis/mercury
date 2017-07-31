@@ -42,16 +42,6 @@ class PicklistAdmin_Model extends Model
         return false;
     }
 
-    public function createDefaultPicklists()
-    {
-        // leeren der Tabellen
-        $this->resetTables();
-
-        // Wenn Länge > 6m => alle Artikel mit dieser Art Nr an Rollenmaschine
-        $sql = "SELECT * FROM stpPicklistItems WHERE Qty > '6'";
-
-    }
-
     /**
      * Verfügbare Picklistennummer ermitteln
      * @return mixed
@@ -171,7 +161,7 @@ class PicklistAdmin_Model extends Model
      */
     private function getPickerInfo($pickerID)
     {
-        $sqlPickerInfo = "SELECT vorname, name FROM iUser WHERE UID = '{$pickerID}'";
+        $sqlPickerInfo = "SELECT vorname, name FROM iUser WHERE UID = '{$pickerID}' ODER BY vorname ASC";
         $this->oMySqli = new mysqli();
         $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
         $query = $this->oMySqli->query($sqlPickerInfo);
@@ -499,7 +489,7 @@ class PicklistAdmin_Model extends Model
      */
     public function getPicker()
     {
-        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker'";
+        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' ORDER BY vorname ASC";
         $result = $this->db->select($sqlPicker);
 
         return $result;

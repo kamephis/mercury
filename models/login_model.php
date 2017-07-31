@@ -60,10 +60,13 @@ class Login_Model extends Model
             // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
             $this->redirect2TargetLocation();
             echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
-            } else {
+        } else {
+            $this->redirect2TargetLocation();
             // Zugriff verweigert
-            echo "<script>location.replace('" . $this->getSRedirectURL() . "/error');</script>";
+            header('Location: ' . URL . 'login?msg=401');
+            //echo "<script>location.replace('" . $this->getSRedirectURL() . "?msg=401');</script>";
             }
+
     }
 
     private function redirect2TargetLocation()

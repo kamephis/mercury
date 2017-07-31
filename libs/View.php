@@ -32,7 +32,7 @@ class View
     {
         echo '<div class="alert alert-' . $alertType . ' ' . $option . '">';
         echo '<div class="col-sm-4"></div>';
-        echo '<div class="col-sm-4">' . $message . '</div>';
+        echo '<div class="col-sm-4"><strong><center>' . $message . '</center></strong></div>';
         echo '<div class="clearfix"></div>';
         echo '<div class="col-sm-4"></div>';
         echo '</div>';

@@ -27,8 +27,10 @@ class ArtikelFehlerMobile extends Controller
 
             $this->view->render('header');
             $this->view->render('navigation');
-            $this->view->render('mobile/artikelfehlerMobile');
+            $this->view->render('mobile/picker');
             $this->view->render('footer');
+        } else {
+            Error::getError('401');
         }
     }
 

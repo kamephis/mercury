@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Vereinfachung des Session handlings.
+ * Session Management
  *
  * @author: Marlon Böhland
  * @access: public

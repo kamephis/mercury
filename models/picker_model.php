@@ -39,6 +39,7 @@ class Picker_Model extends Model
                 
                 WHERE a2p.PicklistID = '{$PLHkey}'
                 AND pitem.ItemStatus != 2
+                AND pitem.ItemFehlerUser = ''
                 GROUP BY EanUpc
                 ) as cnt";
         $result = $this->db->select($sql);

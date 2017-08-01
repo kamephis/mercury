@@ -31,14 +31,21 @@ class Backend_Model extends Model
      */
     public function getFehlerhafteArtikel()
     {
-        $sql = "
+        $sql_alt = "
             SELECT items.* FROM stpPicklistItems items
             WHERE
             (items.ItemFehler != '' OR
             items.ItemFehlbestand != '' )
-            
+            GROUP BY items.EanUpc
             ORDER BY items.BinName
         ";
+
+        $sql = "SELECT items.*, items.EanUpc, SUM(items.Qty) as BestMenge FROM stpPicklistItems items
+            WHERE
+            (items.ItemFehler != '' OR
+            items.ItemFehlbestand != '' )
+            GROUP BY items.EanUpc
+            ORDER BY items.BinName";
         return $this->db->select($sql);
 
     }

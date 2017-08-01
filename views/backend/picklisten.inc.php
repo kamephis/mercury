@@ -172,7 +172,7 @@
                                         <th>Lagerplatz</th>
                                         <th>Pixi Pickliste</th>
                                         <th>Pixi Bestellnr.</th>
-                                        <th>Pixi Bestand</th>
+                                        <!--<th>Pixi Bestand</th>-->
                                         <th>Aktion</th>
                                     </tr>
                                     </thead>
@@ -225,7 +225,7 @@
                                             <td><?php echo $pItem['BinName']; ?></td>
                                             <td><?php echo $pItem['PLIheaderRef']; ?></td>
                                             <td><?php echo $pItem['OrderNrExternal']; ?></td>
-                                            <td><?php
+                                            <!--<td><?php /*
                                                 if ($_REQUEST['getPixiBestand']) {
                                                     if ($this->Pixi->getItemStock($pItem['EanUpc'])) {
                                                         $pBestand = $this->Pixi->getItemStock($pItem['EanUpc']);
@@ -235,9 +235,9 @@
                                                     }
                                                 } else {
                                                     echo "--";
-                                                }
+                                                }*/
                                                 ?>
-                                            </td>
+                                            </td>-->
                                             <td>
                                                 <?php if ($pItem['ItemStatus'] <= 1) { ?>
                                                     <form method="post">

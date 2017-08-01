@@ -7,14 +7,15 @@ if (isset($_REQUEST['updPicklist'])) {
 if (isset($_REQUEST['itemFehlerUpdate'])) {
     $this->mPicklist->setItemFehler($_REQUEST['itemID'], NULL, NULL);
 }
-// Item geprüft
 
-if (isset($_REQUEST['itemCheckUpdate'])) {
+// Item geprüft
+/*if (isset($_REQUEST['itemCheckUpdate'])) {
     if ($_REQUEST['chkFehler'] == 'on') $chkState = '1';
     if ($_REQUEST['chkFehler'] == 'off') $chkState = '0';
 
     $this->mPicklist->setItemChecked($_REQUEST['itemID'], $_REQUEST['setUser'], $chkState);
-}
+}*/
+
 // Leeren der Picklisten, Picklistenpositionen etc.
 if ($_REQUEST['resetTab']) {
     if ($this->PicklistAdmin->resetTables()) {
@@ -49,8 +50,8 @@ if ($_REQUEST['delPicklist']) {
             <button type="button" class="btn btn-default btnPrint hidden-print">
                 <span class="glyphicon glyphicon-print"></span>&nbsp;Fehlerliste drucken
             </button>
-
-            <button type="submit" class="btn btn-warning  hidden-print pull-right" name="getPixiBestand" value="1">
+            <input type="hidden" id="getPixiBestand" name="getPixiBestand" value="1">
+            <button type="submit" class="btn btn-warning  hidden-print pull-right">
                 <span class="glyphicon glyphicon-refresh"></span>&nbsp;Pixi* Bestände prüfen
             </button>
 
@@ -100,6 +101,11 @@ if ($_REQUEST['delPicklist']) {
 
 <script>
     $(document).ready(function () {
+
+        $('#btnGetPixiStock').on('click', function () {
+            $('#frmOptions').submit();
+        });
+
         $.fn.countdown = function (callback, duration, message) {
             // Wenn keine Nachricht übergeben...
             message = message || "";
@@ -135,5 +141,28 @@ if ($_REQUEST['delPicklist']) {
         $(".btnPrint").on("click", function () {
             window.print();
         });
-    });
+
+        $(".chkFehler").on("click", function () {
+
+            var artID = this.value;
+            var itemStatus;
+
+            if (this.checked) {
+                itemStatus = 1;
+            } else {
+                itemStatus = 0;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "index.php?url=setFehlerStatusBackend",
+                data: {"articleID": artID, "iStatus": itemStatus, "sUser": "Marlon", "itemFehlerUpdate": "1"},
+                dataType: "json",
+
+                success: function (data) {
+                    alert(data);
+                }
+            });
+        });
+    })
 </script>

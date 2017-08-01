@@ -1,9 +1,15 @@
+
 <!-- fehlerartikel -->
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <span class="panel-title"><?php echo $this->tFehler; ?></span>
+                <span class="pull-right">
+                <button type="button" class="btn btn-xs btn-warning btn-block" id="btnGetPixiStock">
+                    <span class="glyphicon glyphicon-refresh"></span> Pixi* Bestände prüfen
+                </button>
+                    </span>
             </div>
             <div class="panel-body">
                 <?php
@@ -13,6 +19,9 @@
                     <table class="table table-bordered table-striped table-hover table-condensed table-responsive">
                         <thead>
                         <tr>
+                            <th>
+                                <center>#</center>
+                            </th>
                             <th>
                                 Lagerplatz
                             </th>
@@ -30,6 +39,10 @@
                             </th>
                             <th>
                                 Max. verf.<br>Bestand
+                            </th>
+
+                            <th>
+                                Best.Menge<br>Gesamt
                             </th>
                             <th>
                                 Pixi-<br>Pickliste
@@ -51,10 +64,15 @@
 
                         <tbody>
                     <?php
+                    $cntRow = 0;
                     $aFehlerArtikel = $this->backend->getFehlerhafteArtikel();
                     foreach ($aFehlerArtikel as $fArtikel) {
+                        $cntRow++;
                         ?>
                         <tr>
+                            <td>
+                                <center><?php echo $cntRow; ?></center>
+                            </td>
                             <td>
                                 <?php echo utf8_encode($fArtikel['BinName']); ?>
                             </td>
@@ -72,12 +90,23 @@
                                          style="width:7cm!important;">
                                 <?php echo $fArtikel['EanUpc']; ?>
                             </td>
+
+
                             <td>
                                 <?php echo $fArtikel['ItemFehler']; ?>
                             </td>
+
                             <td>
                                 <center>
                                 <?php echo $fArtikel['ItemFehlbestand']; ?>
+                                </center>
+                            </td>
+
+                            <td>
+                                <center>
+                                    <?php
+                                    echo $fArtikel['BestMenge'];
+                                    ?>
                                 </center>
                             </td>
                             <td>
@@ -85,11 +114,23 @@
                                 echo $fArtikel['PLIheaderRef'];
                                 ?>
                             </td>
+
                             <td>
                                 <center>
+                                    <?php
+                                    if ($_REQUEST['getPixiBestand']) {
+                                        if ($this->Pixi->getItemStock($fArtikel['EanUpc'])) {
+                                            $pBestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
+                                            echo $pBestand['PhysicalStock'];
+                                        } else {
+                                            echo 'k. A.';
+                                        }
+                                    } else {
+                                        echo '---';
+                                    }
+                                    ?>
+
                                 <?php
-                                $pixiLagerbestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
-                                echo $pixiLagerbestand['PhysicalStock'];
                                 ?></center>
                             </td>
                             <td>
@@ -99,24 +140,30 @@
                             </td>
 
                             <td>
-                                <!--<center>
-                                    <form method="post" id="frmChk">
-                                        <?php if ((bool)isset($fArtikel['geprueft']) == true) {
+                                <center>
+                                    <form method="post" id="frmChk" name="frmChk">
+                                        <?php if ($fArtikel['geprueft'] == '1') {
                                     $bChecked = 'checked';
-                                } ?>
-                                        <input type="hidden" name="itemCheckUpdate" value="1" <?php echo $fArtikel['geprueft']; ?>>
+                                        } else {
+                                            $bChecked = '';
+                                        }
+                                        ?>
+                                        <input type="hidden" name="itemCheckUpdate" value="1">
                                         <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
                                         <input type="hidden" value="<?php echo $_SESSION['name']; ?>" name="setUser">
 
-                                        <input type="checkbox" name="chkFehler" id="chkFehler" <?php echo $bChecked; ?>>
+                                        <input type="checkbox" class="chkFehler"
+                                               name="chkFehler_<?php echo $fArtikel['ID']; ?>"
+                                               id="chkFehler_<?php echo $fArtikel['ID']; ?>" <?php echo $bChecked; ?>
+                                               value="<?php echo $fArtikel['EanUpc']; ?>">
                                     </form>
-                                </center>-->
+                                </center>
                             </td>
                             <td class="hidden-print">
                                 <form method="post" id="frmDelete">
                                     <input type="hidden" name="itemFehlerUpdate" value="1">
                                     <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
-                                    <button type="submit" class="btn btn-danger btn-xs hidden-print">
+                                    <button type="submit" class="btn btn-danger btn-xs hidden-print btn-block">
                                         <span class="glyphicon glyphicon-remove"></span> l&ouml;schen
                                     </button>
                                 </form>
@@ -136,9 +183,3 @@
     </div>
 </div><!-- ./row-->
 <div class="clearfix"></div>
-
-<script>
-    $("#chkFehler").on("click", function () {
-        $("#frmChk").submit();
-    })
-</script>

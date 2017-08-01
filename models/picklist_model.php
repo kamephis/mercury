@@ -148,18 +148,7 @@ class Picklist_Model extends Model
         if ($aFehler != Null) {
             $aFehler = utf8_decode($aFehler);
         }
-        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $_SESSION['vorname'] . " " . $_SESSION['name'], "geprueft" => true, "pruefer" => $pruefer);
-        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
-    }
-
-    /**
-     * Position geprueft
-     * @param $articleID
-     * @param $sUser
-     */
-    public function setItemChecked($articleID, $sUser, $chkState)
-    {
-        $aUpdate = array('geprueft' => $chkState, 'pruefer' => $sUser);
+        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $_SESSION['vorname'] . " " . $_SESSION['name'], "geprueft" => $checked, "pruefer" => $pruefer);
         $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 

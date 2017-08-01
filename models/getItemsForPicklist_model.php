@@ -111,7 +111,7 @@ class GetItemsForPicklist_Model extends Model
                                         FROM stpPicklistItems a2 
                                         WHERE a2.EanUpc = a.EanUpc 
                                         AND a2.Qty > 6
-                                        OR a2.ItemName LIKE '%ackfolie%'
+                                        /*OR a2.ItemName LIKE '%ackfolie%'*/
                                         ) >= 1 
                                 THEN 'RM'
                                 ELSE 'TI' 

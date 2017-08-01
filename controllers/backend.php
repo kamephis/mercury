@@ -40,6 +40,11 @@ class Backend extends Controller
             $this->view->render('navigation');
             $this->view->render('backend/index');
             $this->view->render('footer');
+
+            // Formularhandling - Fehlerartikelprüfung
+            if ($_REQUEST['itemID']) {
+
+            }
         } else {
             echo "Unbekannter Sessionfehler.";
         }

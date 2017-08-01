@@ -75,7 +75,8 @@ class Picklist_Model extends Model
                 pitem.ID = a2p.ArtikelID AND
                 a2p.PicklistID = plist.PLHkey AND 
                 plist.PLHkey = '{$PLHkey}' AND
-                pitem.ItemStatus != 2
+                pitem.ItemStatus != 2 AND 
+                LENGTH(pitem.ItemFehlerUser) = 0
                 GROUP BY pitem.EanUpc
                 ) as cnt";
         $result = $this->db->select($sql);
@@ -144,11 +145,18 @@ class Picklist_Model extends Model
      */
     public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
     {
+        // Einfügen des Fehler Users, wenn Fehler vorhanden
+        if (strlen($intItemFehlbestand) > 0 || sizeof($aFehler) > 0) {
+            $itemFehlerUser = $_SESSION['vorname'] . " " . $_SESSION['name'];
+        } else {
+            $itemFehlerUser = '';
+        }
+
         // charset fix
         if ($aFehler != Null) {
             $aFehler = utf8_decode($aFehler);
         }
-        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $_SESSION['vorname'] . " " . $_SESSION['name'], "geprueft" => $checked, "pruefer" => $pruefer);
+        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
         $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 

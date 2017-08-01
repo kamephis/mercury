@@ -16,7 +16,7 @@ if (!isset($_SESSION['sNavItems'])) {
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#" style="margin-right:4em;"><span class="glyphicon glyphicon-leaf small"></span>&nbsp;Mercury
-            <small style="color:red;">beta</small>
+            <small style="color:red;"><?php echo MERCURY_VERSION; ?></small>
         </a>
     </div>
     <!-- ./ Header -->

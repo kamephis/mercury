@@ -167,7 +167,7 @@
                                             <center>Menge</center>
                                         </th>
                                         <th>Bezeichnung</th>
-                                        <th>Pickwagen</th>
+                                        <th>Standort</th>
                                         <th>Letzte Aktualisierung</th>
                                         <th>Lagerplatz</th>
                                         <th>Pixi Pickliste</th>
@@ -209,7 +209,7 @@
                                 </span>
                                             </td>
                                             <td>
-                                                <center><?php echo $pItem['Qty']; ?></center>
+                                                <center><?php echo $pItem['BestMenge']; ?></center>
                                             </td>
                                             <td><?php echo utf8_encode($pItem['ItemName']); ?></td>
                                             <td><?php echo $pItem['CurrentItemLocation']; ?></td>

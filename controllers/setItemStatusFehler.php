@@ -1,12 +1,6 @@
 <?php
 
-/**
- * Update Fehler Status Controller
- *
- * @author: Marlon Böhland
- * @access: public
- */
-class SetFehlerStatusBackend extends Controller
+class SetItemStatusFehler extends Controller
 {
     function __construct()
     {
@@ -16,7 +10,7 @@ class SetFehlerStatusBackend extends Controller
 
     function index()
     {
-        $this->model = new SetFehlerStatusBackend_Model();
+        $this->model = new SetItemStatusFehler_Model();
     }
 
     function run()

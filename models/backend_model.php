@@ -40,11 +40,17 @@ class Backend_Model extends Model
             ORDER BY items.BinName
         ";
 
-        $sql = "SELECT items.*, items.EanUpc, SUM(items.Qty) as BestMenge FROM stpPicklistItems items
+        $sql_gruppiert = "SELECT items.*, items.EanUpc, SUM(items.Qty) as BestMenge FROM stpPicklistItems items
             WHERE
             (items.ItemFehler != '' OR
             items.ItemFehlbestand != '' )
             GROUP BY items.EanUpc
+            ORDER BY items.BinName";
+
+        $sql = "SELECT items.*, items.EanUpc, items.Qty as BestMenge FROM stpPicklistItems items
+            WHERE
+            (items.ItemFehler != '' OR
+            items.ItemFehlbestand != '' )
             ORDER BY items.BinName";
         return $this->db->select($sql);
 
@@ -67,8 +73,18 @@ class Backend_Model extends Model
      */
     public function getPicklistItems($picklistNr)
     {
+        /*
+        $sql = "SELECT items.*, items.EanUpc, SUM(items.Qty) as BestMenge FROM stpPicklistItems items
+            WHERE
+            (items.ItemFehler != '' OR
+            items.ItemFehlbestand != '' )
+            GROUP BY items.EanUpc
+            ORDER BY items.BinName";
+        return $this->db->select($sql);
+*/
         $sql = "SELECT pitem.*, plist.PLHkey,
-                date_format(TimestampUpdateStatus, '%d.%m.%Y') AS 'UpdateDate', date_format(TimestampUpdateStatus, '%H.%i') AS 'UpdateTime'
+                date_format(TimestampUpdateStatus, '%d.%m.%Y') AS 'UpdateDate', date_format(TimestampUpdateStatus, '%H.%i') AS 'UpdateTime',
+                SUM(pitem.Qty) as BestMenge  
                 FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
                 WHERE
                 pitem.ID = a2p.ArtikelID AND

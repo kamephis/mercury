@@ -41,6 +41,7 @@ if ($_REQUEST['delPicklist']) {
 ?>
 
 <form method="post" id="frmOptions">
+
     <div class="row">
         <div class="col-sm-12">
             <a class="btn btn-default hidden-print pull-left" href="<?php echo URL . 'backend'; ?>">
@@ -146,6 +147,7 @@ if ($_REQUEST['delPicklist']) {
 
             var artID = this.value;
             var itemStatus;
+            var username = "<?php echo $_SESSION['vorname'] . ' ' . $_SESSION['name'];?>";
 
             if (this.checked) {
                 itemStatus = 1;
@@ -156,7 +158,7 @@ if ($_REQUEST['delPicklist']) {
             $.ajax({
                 type: "POST",
                 url: "index.php?url=setFehlerStatusBackend",
-                data: {"articleID": artID, "iStatus": itemStatus, "sUser": "Marlon", "itemFehlerUpdate": "1"},
+                data: {"articleID": artID, "iStatus": itemStatus, "sUser": username, "itemFehlerUpdate": "1"},
                 dataType: "json",
 
                 success: function (data) {

@@ -52,17 +52,41 @@ if (isset($_REQUEST['itemPicked'])) {
                             <td>Größte verf. Menge</td>
                             <td><?php echo $fehlerItem['ItemFehlbestand']; ?></td>
                         </tr>
-
+                        <tr>
                         <td colspan="2">
-                            <form method="post" action="<?php echo $_SERVER['php_self']; ?>">
-                                <input type="hidden" name="itemPicked" value="1">
-                                <input type="hidden" name="EanUpc" value="<?php echo $fehlerItem['EanUpc']; ?>">
-                                <input class="btn btn-lg btn-success btn-block" type="submit" id="btnPickItem"
-                                       name="btnPickItem" value="Artikel Picken">
-                            </form>
+                            <button class="btn btn-lg btn-success btn-block pickItem" type="button"
+                                    id="btnPickItem_<?php echo $fehlerItem['ID']; ?>"
+                                    data-id="<?php echo $fehlerItem['ID']; ?>"
+                                    name="btnPickItem_<?php echo $fehlerItem['ID']; ?>">Artikel Picken
+                            </button>
                         </td>
+                        </tr>
                     </table>
                     <br>
                 <?php } ?>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".pickItem").on("click", function () {
+
+            var artID = $(this).data("id");
+            var itemStatus = '2';
+            $.ajax({
+                type: "POST",
+                url: "index.php?url=setItemStatusFehler",
+                data: {"articleID": artID, "ItemStatus": itemStatus},
+                dataType: "json",
+                success: function (data) {
+                    if (data.success === true) {
+                        setTimeout(function () {
+                            location.reload();
+                        }, 0);
+                    }
+                }
+            });
+            location.reload();
+        });
+    })
+</script>

@@ -60,13 +60,6 @@ if (isset($_REQUEST['locationBarcode'])) {
                     </div>
                     <div class="clearfix"></div>
 
-                    <!--<div class="col-xs-5 col-md-2 text-left">
-                        Verfällt am:
-                    </div>
-                    <div class="col-xs-7 text-left">
-                        <?php // echo $pickList['expDate']; ?>
-                    </div>-->
-
                     <div class="col-xs-5 col-md-2 text-left">
                         Positionen:
                     </div>
@@ -109,18 +102,3 @@ if (isset($_REQUEST['locationBarcode'])) {
         </div>
         </div><?php } ?>
 </div>
-<!--
-<script>
-
-    $('body').append('<div style="background:black;" id="loadingDiv">' +
-        '<div class="loader" style="background:red; color:white; width:250px; height:250px;"><b>Daten werden geladen...</b></div>' +
-        '</div>');
-    $(window).on('load', function () {
-        setTimeout(removeLoader, 0);
-    });
-    function removeLoader() {
-        $("#loadingDiv").fadeOut(350, function () {
-            $("#loadingDiv").remove();
-        });
-    }
-</script>-->

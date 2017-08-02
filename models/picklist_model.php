@@ -19,7 +19,7 @@ class Picklist_Model extends Model
      * @param $pos
      * @return array
      */
-    public function getPicklistItems($picklistNr, $pos)
+    public function getPicklistItems($picklistNr)
     {
         $sql = "SELECT pitem.*, plist.PLHkey
                 FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
@@ -143,6 +143,23 @@ class Picklist_Model extends Model
      * Setzen des ItemFehler / ItemFehlmenge auf den gewählten Wert aus dem Form-Array
      * @param $articleID
      */
+    /* TODO: Bei Artikeln mit mehr als 2 Positionen sollte mit der EAN gearbeitet werden ?!*/
+    /*    public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
+    {
+        // Einfügen des Fehler Users, wenn Fehler vorhanden
+        if (strlen($intItemFehlbestand) > 0 || sizeof($aFehler) > 0) {
+            $itemFehlerUser = $_SESSION['vorname'] . " " . $_SESSION['name'];
+        } else {
+            $itemFehlerUser = '';
+        }
+
+        // charset fix
+        if ($aFehler != Null) {
+            $aFehler = utf8_decode($aFehler);
+        }
+        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
+        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
+    }*/
     public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
     {
         // Einfügen des Fehler Users, wenn Fehler vorhanden

@@ -118,16 +118,17 @@
                             <td>
                                 <center>
                                     <?php
-                                    if ($_REQUEST['getPixiBestand']) {
+                                    // aktivieren falls onDemand Abfrage gewünscht
+                                    //if ($_REQUEST['getPixiBestand']) {
                                         if ($this->Pixi->getItemStock($fArtikel['EanUpc'])) {
                                             $pBestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
                                             echo $pBestand['PhysicalStock'];
                                         } else {
                                             echo 'k. A.';
                                         }
-                                    } else {
-                                        echo '---';
-                                    }
+                                    //} else {
+                                    //    echo '---';
+                                    //}
                                     ?>
 
                                 <?php

@@ -27,7 +27,7 @@ class ArtikelFehlerMobile_Model extends Model
             items.ItemFehlbestand IS NOT NULL*/
              items.ItemFehler != ''
              OR items.ItemFehlbestand != '')
-            ORDER BY items.BinSortNum
+            ORDER BY items.BinSortNum ASC
             ";
         $result = $this->db->select($sql);
         return $result;

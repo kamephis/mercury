@@ -162,7 +162,11 @@ if ($_REQUEST['delPicklist']) {
                 dataType: "json",
 
                 success: function (data) {
-                    alert(data);
+                    if (data.success === true) {
+                        setTimeout(function () {
+                            location.reload();
+                        }, 0);
+                    }
                 }
             });
         });

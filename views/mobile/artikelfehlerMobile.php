@@ -6,9 +6,16 @@ if (isset($_REQUEST['itemPicked'])) {
 ?>
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Artikel mit Fehlern</div>
+    <div class="panel-heading">Artikel mit Fehlern
+
+        <button type="button" id="btnShowImages" class="btn btn-xs btn-default pull-right">
+            Artikelbilder (Ein/Aus)
+        </button>
+    </div>
     <div class="panel-body">
-                <?php
+
+
+        <?php
                 foreach ($this->artikelFehler as $fehlerItem) {
                     ?>
                     <table class="table table-responsive table-striped table-condensed table-bordered"
@@ -23,7 +30,15 @@ if (isset($_REQUEST['itemPicked'])) {
                                     <strong><code>Lagerplatz: <?php echo $fehlerItem['BinName']; ?></code></strong></h4>
                             </td>
                         </tr>
-
+                        <tr class="showThmb">
+                            <td colspan="2">
+                                <?php
+                                $pickimage = IMG_ART_PATH . $fehlerItem['PicLinkLarge'];
+                                ?>
+                                <img src="<?php echo $pickimage; ?>"
+                                     width="100%" class="img img-responsive img-thumbnail hidden-print">
+                            </td>
+                        </tr>
                         <tr>
                             <td>Art.Nr:</td>
                             <td><?php echo $fehlerItem['ItemNrSuppl']; ?></td>
@@ -60,7 +75,8 @@ if (isset($_REQUEST['itemPicked'])) {
                             <button class="btn btn-lg btn-success btn-block pickItem" type="button"
                                     id="btnPickItem_<?php echo $fehlerItem['ID']; ?>"
                                     data-id="<?php echo $fehlerItem['ID']; ?>"
-                                    name="btnPickItem_<?php echo $fehlerItem['ID']; ?>">Artikel Picken
+                                    name="btnPickItem_<?php echo $fehlerItem['ID']; ?>"><?php echo $fehlerItem['Qty']; ?>
+                                Stk. Picken
                             </button>
                         </td>
                         </tr>
@@ -69,13 +85,26 @@ if (isset($_REQUEST['itemPicked'])) {
                 <?php } ?>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
+        /*
+         $('#loading-image').bind('ajaxStart', function(){
+         $(this).show();
+         }).bind('ajaxStop', function(){
+         $(this).hide();
+         });
+         */
+        $(".showThmb").hide();
 
+        $("#btnShowImages").on("click", function () {
+            $(".showThmb").toggle("slow", function () {
+
+            });
+        });
         /**
          * Schnellpicken von Positionen
          */
+        $('#statusMessage').show();
         $(".pickItem").on("click", function () {
             var artID = $(this).data("id");
             var itemStatus = '2';
@@ -87,6 +116,9 @@ if (isset($_REQUEST['itemPicked'])) {
                 success: function (data) {
                     $("#tbl_" + artID).remove();
                     $("#br_" + artID).remove();
+                },
+                complete: function () {
+
                 }
             })
         });

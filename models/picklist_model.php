@@ -180,6 +180,7 @@ class Picklist_Model extends Model
         //$this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 
+
     /**
      * @param $plistNr
      * @param $status

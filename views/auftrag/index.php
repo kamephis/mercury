@@ -72,14 +72,13 @@ if ($_GET['eanScanned'] = 1) {
 }
 
 $anz = Session::get('geschnitteneMeterGesamt');
-
 if ($_POST['saveFehler']) {
-    echo "hallo";
+
     $articleID = $_POST['artID'];
     $aFehler = $_POST['saveFehler'];
     $sItemVerfMenge = $_POST['verfMenge'];
 
-    $this->picklist->setItemFehler($articleID, $aFehler, $sItemVerfMenge);
+    $this->auftrag->setItemFehlerAuftrag($articleID, $aFehler, $sItemVerfMenge);
 }
 
 // Zerteilen des Item-Titels
@@ -338,9 +337,10 @@ $title = $auftrag[0]['ItemName'];
                     <div class="modal-body">
                         <div class="row fehlerText">
                             <div class="boxFehlerauswahl">
-                                <label><input type="radio" name="fehlergrund" value="Zu wenig Stoff"
+                                <label><input type="radio" name="fehlergrund" id="radNumStoff" value="Max. Menge"
                                               class="druckFehler form-control">Größte verf. Menge
-                                    <input type="number" name="sItemVerfMenge" id="sItemVerfMenge" style="width:60px;">
+                                    <input type="number" name="sItemVerfMenge" id="sItemVerfMenge" style="width:70px;"
+                                           min="0">
                                 </label>&nbsp;&nbsp;
 
                                 <label><input type="radio" name="fehlergrund" value="Farbabweichung"
@@ -450,6 +450,16 @@ $title = $auftrag[0]['ItemName'];
         <!-- ./ label -->
         <script>
             $(document).ready(function () {
+                $('#sItemVerfMenge').hide();
+
+                $('input:radio').on("click", function () {
+                    $('#sItemVerfMenge').val('');
+                    $('#sItemVerfMenge').hide();
+                });
+
+                $('#radNumStoff').on("click", function () {
+                    $('#sItemVerfMenge').show();
+                });
 
                 $("#btnPrint_<?php echo $rows;?>").click(function () {
                     $("#btnPosOk_<?php echo $rows; ?>").removeAttr('disabled');
@@ -457,10 +467,15 @@ $title = $auftrag[0]['ItemName'];
                     $("#printEtikett_<?php echo $rows; ?>").removeClass('visible-print-block');
                     //this.form.submit();
                     if ($("#saveFehler").val() != "") {
-                        //$("#verfMenge").val($('#sItemVerfMenge').val());
+                        $("#verfMenge").val($('#sItemVerfMenge').val());
                         this.form.submit();
                     }
 
+                });
+
+
+                $('#sItemVerfMenge').on('input', function () {
+                    $(".fehlergrund").text("Fehler: Max. Verf. Menge = " + this.value);
                 });
 
                 $(".druckFehler").click(function () {

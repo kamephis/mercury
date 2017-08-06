@@ -13,6 +13,24 @@ class Auftrag_Model extends Model
         parent::__construct();
     }
 
+    public function setItemFehlerAuftrag($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
+    {
+        // Einfügen des Fehler Users, wenn Fehler vorhanden
+        if (strlen($intItemFehlbestand) > 0 || sizeof($aFehler) > 0) {
+            $itemFehlerUser = $_SESSION['vorname'] . " " . $_SESSION['name'];
+        } else {
+            $itemFehlerUser = '';
+        }
+
+        // charset fix
+        if ($aFehler != Null) {
+            $aFehler = utf8_decode($aFehler);
+        }
+        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
+
+        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
+    }
+
     /**
      * Neuer Zuschneideauftrag erstellen
      * @param $userID

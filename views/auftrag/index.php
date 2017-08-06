@@ -1,8 +1,8 @@
 <?php
+
 // Beim 1. Aufruf erzeugen - REQUEST wird nur in diesem Schritt verwendet.
 // für alles andere wird der Wert aus der Session gelesen.
 $eanScanned = Session::get('eanScanned');
-
 // Benutzer ID
 $userID = null;
 
@@ -74,9 +74,10 @@ if ($_GET['eanScanned'] = 1) {
 $anz = Session::get('geschnitteneMeterGesamt');
 
 if ($_POST['saveFehler']) {
+    echo "hallo";
     $articleID = $_POST['artID'];
     $aFehler = $_POST['saveFehler'];
-    $sItemVerfMenge = $_POST['sItemVerfMenge'];
+    $sItemVerfMenge = $_POST['verfMenge'];
 
     $this->picklist->setItemFehler($articleID, $aFehler, $sItemVerfMenge);
 }
@@ -338,8 +339,8 @@ $title = $auftrag[0]['ItemName'];
                         <div class="row fehlerText">
                             <div class="boxFehlerauswahl">
                                 <label><input type="radio" name="fehlergrund" value="Zu wenig Stoff"
-                                              class="druckFehler form-control">Fehlmenge
-                                    <input type="number" name="sItemVerfMenge" id="sItemVerfMenge" style="width:50px;">
+                                              class="druckFehler form-control">Größte verf. Menge
+                                    <input type="number" name="sItemVerfMenge" id="sItemVerfMenge" style="width:60px;">
                                 </label>&nbsp;&nbsp;
 
                                 <label><input type="radio" name="fehlergrund" value="Farbabweichung"
@@ -393,7 +394,8 @@ $title = $auftrag[0]['ItemName'];
                         <small>&nbsp;</small>
 
                         <form action="auftrag" method="post">
-                            <input type="hidden" name="saveFehler" id="saveFehler" value="">
+                            <input type="hidden" name="saveFehler" id="saveFehler" value="1">
+                            <input type="hidden" name="verfMenge" id="verfMenge" value="">
                             <input type="hidden" name="artID" id="artID" value="<?php echo $item['ID']; ?>">
 
                             <button type="button" class="btn btn-primary btn-block btn-lg btn-lg-modal"
@@ -455,6 +457,7 @@ $title = $auftrag[0]['ItemName'];
                     $("#printEtikett_<?php echo $rows; ?>").removeClass('visible-print-block');
                     //this.form.submit();
                     if ($("#saveFehler").val() != "") {
+                        //$("#verfMenge").val($('#sItemVerfMenge').val());
                         this.form.submit();
                     }
 

@@ -103,6 +103,27 @@ if ($_REQUEST['delPicklist']) {
 <script>
     $(document).ready(function () {
 
+        $(".btnDelItem").on("click", function () {
+            var itemID = $(this).data("id");
+            var picklistID = $(this).data("picklist");
+
+            $.ajax({
+                type: "POST",
+                url: "index.php?url=delPicklistArticleBackend",
+                data: {"picklistID": picklistID, "itemID": itemID},
+                dataType: "json",
+                success: function (data) {
+                    if (data.success === true) {
+                        setTimeout(function () {
+                            location.reload();
+                        }, 0);
+                    }
+                }
+            });
+
+            location.reload();
+        });
+
         $('#btnGetPixiStock').on('click', function () {
             $('#frmOptions').submit();
         });

@@ -38,7 +38,7 @@
                                 Fehlertext
                             </th>
                             <th>
-                                Max. verf.<br>Bestand
+                                Max. verf.<br>Menge
                             </th>
 
                             <th>

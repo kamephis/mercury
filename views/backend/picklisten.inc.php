@@ -243,8 +243,11 @@
                                                     <form method="post">
                                                         <input type="hidden" name="delPicklistItem"
                                                                value="<?php echo $pItem['ID'] ?>">
-                                                        <button type="submit" name="btnDelItem"
-                                                                class="btn btn-xs btn-danger">
+                                                        <button type="submit"
+                                                                name="btnDelItem_<?php echo $pItem['ID'] ?>"
+                                                                data-picklist="<?php echo $pItem['PLHkey'] ?>"
+                                                                data-id="<?php echo $pItem['ID'] ?>"
+                                                                class="btn btn-xs btn-danger btnDelItem">
                                                             <span class="glyphicon glyphicon-trash"></span> Löschen
                                                         </button>
                                                     </form>

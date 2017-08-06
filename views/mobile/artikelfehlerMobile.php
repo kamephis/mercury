@@ -41,7 +41,9 @@ if (isset($_REQUEST['itemPicked'])) {
 
                         <tr>
                             <td>Best.Menge</td>
-                            <td><?php echo $fehlerItem['Qty']; ?></td>
+                            <td><strong><?php echo $fehlerItem['Qty']; ?></strong>
+
+                            </td>
                         </tr>
 
                         <tr>
@@ -72,7 +74,6 @@ if (isset($_REQUEST['itemPicked'])) {
     $(document).ready(function () {
 
         /**
-         *
          * Schnellpicken von Positionen
          */
         $(".pickItem").on("click", function () {

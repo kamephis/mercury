@@ -174,7 +174,10 @@ class Picklist_Model extends Model
             $aFehler = utf8_decode($aFehler);
         }
         $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
-        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
+
+        $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleID);
+        // Jeder Fehler muss einzeln bestätigt werden
+        //$this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 
     /**

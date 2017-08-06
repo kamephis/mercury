@@ -28,7 +28,9 @@ if ($_REQUEST['setFehler']) {
         $fehlerText = $aFehler[0] . ', ' . $aFehler[1] . ', ' . $aFehler[2];
     }
 
-    $this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
+    $this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand);
+    // Org: Jeder Fehler muss einzeln bestätigt werden.
+    //$this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
 }
 
 // Anzahl der Picklistenpositionen aus dem Controller
@@ -372,6 +374,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                 </button>
                                 <small>&nbsp;</small>
                                 <input type="hidden" name="itemID" value="<?php echo $item[$_SESSION['pos']]['ID']; ?>">
+                                <input type="hidden" name="EanUpc"
+                                       value="<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>">
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
                                 <button type="submit" class="btn btn-success btn-block btn-lg" id="btnFehler">
                                     Bestätigen

@@ -1,6 +1,6 @@
 <?php
 
-class DelPicklistArticle_Model extends Model
+class DelPicklistArticleBackend_Model extends Model
 {
     public function __construct()
     {

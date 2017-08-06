@@ -108,20 +108,14 @@ if ($_REQUEST['delPicklist']) {
             var picklistID = $(this).data("picklist");
 
             $.ajax({
-                type: "POST",
-                url: "index.php?url=delPicklistArticleBackend",
+                type: 'POST',
+                url: 'index.php?url=delPicklistArticleBackend',
                 data: {"picklistID": picklistID, "itemID": itemID},
-                dataType: "json",
                 success: function (data) {
-                    if (data.success === true) {
-                        setTimeout(function () {
-                            location.reload();
-                        }, 0);
-                    }
+                    $("#row_" + itemID).fadeOut().remove();
                 }
-            });
 
-            location.reload();
+            })
         });
 
         $('#btnGetPixiStock').on('click', function () {
@@ -185,6 +179,7 @@ if ($_REQUEST['delPicklist']) {
                 success: function (data) {
                     if (data.success === true) {
                         setTimeout(function () {
+
                             location.reload();
                         }, 0);
                     }

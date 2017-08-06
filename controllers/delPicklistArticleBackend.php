@@ -6,7 +6,7 @@
  * @author: Marlon Böhland
  * @access: public
  */
-class DelPicklistArticle extends Controller
+class DelPicklistArticleBackend extends Controller
 {
     function __construct()
     {

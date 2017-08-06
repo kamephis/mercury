@@ -181,7 +181,7 @@
                                     $aPicklistItems = $this->backend->getPicklistItems($picklist['PLHkey']);
                                     foreach ($aPicklistItems as $pItem) {
                                         ?>
-                                        <tr>
+                                        <tr id="row_<?php echo $pItem['ID'] ?>">
                                             <td>
                                                 <center>
                                                     <?php
@@ -240,17 +240,17 @@
                                             </td>-->
                                             <td>
                                                 <?php if ($pItem['ItemStatus'] <= 1) { ?>
-                                                    <form method="post">
-                                                        <input type="hidden" name="delPicklistItem"
-                                                               value="<?php echo $pItem['ID'] ?>">
-                                                        <button type="submit"
+                                                    <!--<form method="post">-->
+                                                    <!--<input type="hidden" name="delPicklistItem"
+                                                               value="<?php echo $pItem['ID'] ?>">-->
+                                                    <button type="button"
                                                                 name="btnDelItem_<?php echo $pItem['ID'] ?>"
                                                                 data-picklist="<?php echo $pItem['PLHkey'] ?>"
                                                                 data-id="<?php echo $pItem['ID'] ?>"
                                                                 class="btn btn-xs btn-danger btnDelItem">
                                                             <span class="glyphicon glyphicon-trash"></span> Löschen
                                                         </button>
-                                                    </form>
+                                                    <!--</form>-->
                                                 <?php } ?>
 
                                             </td>

@@ -11,7 +11,8 @@ if (isset($_REQUEST['itemPicked'])) {
                 <?php
                 foreach ($this->artikelFehler as $fehlerItem) {
                     ?>
-                    <table class="table table-responsive table-striped table-condensed table-bordered">
+                    <table class="table table-responsive table-striped table-condensed table-bordered"
+                           id="tbl_<?php echo $fehlerItem['ID']; ?>">
                         <tr>
                             <td colspan="2"><h4><strong><?php echo utf8_encode($fehlerItem['ItemName']); ?></strong>
                                 </h4></td>
@@ -62,31 +63,30 @@ if (isset($_REQUEST['itemPicked'])) {
                         </td>
                         </tr>
                     </table>
-                    <br>
+                    <br id="br_<?php echo $fehlerItem['ID']; ?>">
                 <?php } ?>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $(".pickItem").on("click", function () {
 
+        /**
+         * Schnellpicken von Positionen
+         */
+        $(".pickItem").on("click", function () {
             var artID = $(this).data("id");
             var itemStatus = '2';
+
             $.ajax({
-                type: "POST",
+                type: 'POST',
                 url: "index.php?url=setItemStatusFehler",
                 data: {"articleID": artID, "ItemStatus": itemStatus},
-                dataType: "json",
                 success: function (data) {
-                    if (data.success === true) {
-                        setTimeout(function () {
-                            location.reload();
-                        }, 0);
-                    }
+                    $("#tbl_" + artID).remove();
+                    $("#br_" + artID).remove();
                 }
-            });
-            location.reload();
+            })
         });
     })
 </script>

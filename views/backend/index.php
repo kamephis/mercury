@@ -112,7 +112,7 @@ if ($_REQUEST['delPicklist']) {
                 url: 'index.php?url=delPicklistArticleBackend',
                 data: {"picklistID": picklistID, "itemID": itemID},
                 success: function (data) {
-                    $("#row_" + itemID).fadeOut().remove();
+                    $("#row_" + itemID).remove();
                 }
 
             })

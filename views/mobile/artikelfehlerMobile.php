@@ -72,6 +72,7 @@ if (isset($_REQUEST['itemPicked'])) {
     $(document).ready(function () {
 
         /**
+         *
          * Schnellpicken von Positionen
          */
         $(".pickItem").on("click", function () {

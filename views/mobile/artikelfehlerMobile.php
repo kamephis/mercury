@@ -104,7 +104,6 @@ if (isset($_REQUEST['itemPicked'])) {
         /**
          * Schnellpicken von Positionen
          */
-        $('#statusMessage').show();
         $(".pickItem").on("click", function () {
             var artID = $(this).data("id");
             var itemStatus = '2';

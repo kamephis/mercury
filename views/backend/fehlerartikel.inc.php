@@ -69,7 +69,7 @@
                     foreach ($aFehlerArtikel as $fArtikel) {
                         $cntRow++;
                         ?>
-                        <tr>
+                        <tr id="rowError_<?php echo $fArtikel['ID']; ?>">
                             <td>
                                 <center><?php echo $cntRow; ?></center>
                             </td>
@@ -164,7 +164,11 @@
                                 <form method="post" id="frmDelete">
                                     <input type="hidden" name="itemFehlerUpdate" value="1">
                                     <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
-                                    <button type="submit" class="btn btn-danger btn-xs hidden-print btn-block">
+
+                                    <button type="button"
+                                            class="btn btn-danger btn-xs hidden-print btn-block btnDelError"
+                                            id="btnError_<?php echo $fArtikel['ID']; ?>"
+                                            data-id="<?php echo $fArtikel['ID']; ?>">
                                         <span class="glyphicon glyphicon-remove"></span> l&ouml;schen
                                     </button>
                                 </form>

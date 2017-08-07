@@ -158,6 +158,7 @@ if ($_REQUEST['delPicklist']) {
             window.print();
         });
 
+        // geprueft Status
         $(".chkFehler").on("click", function () {
 
             var artID = this.value;
@@ -186,5 +187,25 @@ if ($_REQUEST['delPicklist']) {
                 }
             });
         });
+
+        // Entfernen eines Artikelfehlers
+        $(".btnDelError").on("click", function () {
+            var artID = $(this).data("id");
+            var itemStatus = '2';
+
+            $.ajax({
+                type: 'POST',
+                url: "index.php?url=setItemStatusFehler",
+                data: {"articleID": artID, "ItemStatus": itemStatus},
+                success: function (data) {
+                    $("#rowError_" + artID).remove();
+                },
+                complete: function () {
+
+                }
+            })
+        });
+
+
     })
 </script>

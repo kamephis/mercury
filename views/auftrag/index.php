@@ -394,7 +394,7 @@ $title = $auftrag[0]['ItemName'];
                         <small>&nbsp;</small>
 
                         <form action="auftrag" method="post">
-                            <input type="hidden" name="saveFehler" id="saveFehler" value="1">
+                            <input type="hidden" name="saveFehler" id="saveFehler" value="">
                             <input type="hidden" name="verfMenge" id="verfMenge" value="">
                             <input type="hidden" name="artID" id="artID" value="<?php echo $item['ID']; ?>">
 

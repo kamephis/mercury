@@ -31,15 +31,6 @@ class Backend_Model extends Model
      */
     public function getFehlerhafteArtikel()
     {
-        $sql_alt = "
-            SELECT items.* FROM stpPicklistItems items
-            WHERE
-            (items.ItemFehler != '' OR
-            items.ItemFehlbestand != '' )
-            GROUP BY items.EanUpc
-            ORDER BY items.BinName
-        ";
-
         $sql_gruppiert = "SELECT items.*, items.EanUpc, SUM(items.Qty) as BestMenge FROM stpPicklistItems items
             WHERE
             (items.ItemFehler != '' OR
@@ -51,7 +42,7 @@ class Backend_Model extends Model
             WHERE
             (items.ItemFehler != '' OR
             items.ItemFehlbestand != '' )
-            ORDER BY items.BinName";
+            ORDER BY items.BinSortNum";
         return $this->db->select($sql);
 
     }

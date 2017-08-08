@@ -21,6 +21,17 @@
         <tbody>
         <tr>
             <td>
+                e4d56a2
+            </td>
+            <td>
+                1.0.8.1
+            </td>
+            <td>
+                ~ Bugfix: Vergleich Picklistengröße mit aktueller Position korrigiert
+            </td>
+        </tr>
+        <tr>
+            <td>
                 fa3163a
             </td>
             <td>

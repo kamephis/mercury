@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Abfragen der Picklisteninformationen aus der Intranet Datenbank
  * Datenbasis für die Auflistung der Picklisten für den Benutzer dem
@@ -16,7 +15,8 @@ class Picker_Model extends Model
     }
 
     /**
-     * Alle Artikelpositionen der importierten Pixi Picklisten abfragen
+     * Anzeige der Picklisten-Infos eines Pickers im Mobile Startbildschirm
+     *
      * @param $picker
      * @return array
      */
@@ -38,7 +38,7 @@ class Picker_Model extends Model
                 ON a2p.ArtikelID = pitem.ID
                 
                 WHERE a2p.PicklistID = '{$PLHkey}'
-                AND pitem.ItemStatus != 2
+                AND pitem.ItemStatus != '2'
                 AND LENGTH(pitem.ItemFehlerUser) = 0
                 GROUP BY EanUpc
                 ) as cnt";
@@ -46,9 +46,13 @@ class Picker_Model extends Model
         return $result[0]['anzahl'];
     }
 
+    /**
+     * Ausgabe der Fehlerhaften Artikel
+     * @return array
+     */
     public function getFehlerhafteArtikel()
     {
-        $sql = "SELECT * FROM stpPicklistItems WHERE ItemFehler <> ''";
+        $sql = "SELECT * FROM stpPicklistItems WHERE LENGTH(ItemFehlerUser) > 0";
         $result = $this->db->select($sql);
         return $result;
     }

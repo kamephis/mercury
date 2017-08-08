@@ -343,7 +343,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                                             echo "selected";
                                                         }
                                                         ?>
-                                                    >Fehlbestand
+                                                    >Größte verf. Menge
                                                     </option>
                                                     <option value="Farbabweichung" id="optFarbabweichung"
                                                         <?php

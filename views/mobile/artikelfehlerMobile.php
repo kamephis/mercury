@@ -50,15 +50,8 @@ if (isset($_REQUEST['itemPicked'])) {
                         </tr>
 
                         <tr>
-                            <td>Pickliste</td>
-                            <td><?php echo $fehlerItem['PLIheaderRef']; ?><br></td>
-                        </tr>
-
-                        <tr>
-                            <td>Best.Menge</td>
-                            <td><strong><?php echo $fehlerItem['Qty']; ?></strong>
-
-                            </td>
+                            <td><span style="color:blue;">Pixi Pickliste</span></td>
+                            <td><span style="color:blue;"><?php echo $fehlerItem['PLIheaderRef']; ?></span><br></td>
                         </tr>
 
                         <tr>
@@ -67,10 +60,29 @@ if (isset($_REQUEST['itemPicked'])) {
                         </tr>
 
                         <tr>
+                            <td>Best.Menge</td>
+                            <td><?php echo $fehlerItem['Qty']; ?>
+
+                            </td>
+                        </tr>
+
+                        <tr>
                             <td>Größte verf. Menge</td>
                             <td><?php echo $fehlerItem['ItemFehlbestand']; ?></td>
                         </tr>
                         <tr>
+
+                        <tr>
+                            <td><span style="color:blue;">Pixi Bestand</span></td>
+                            <td><span style="color:blue;">
+                                <?php
+                                $pBestand = $this->Pixi->getItemStock($fehlerItem['EanUpc']);
+                                echo $pBestand['PhysicalStock']
+                                ?></span>
+                            </td>
+                        </tr>
+
+
                         <td colspan="2">
                             <button class="btn btn-lg btn-success btn-block pickItem" type="button"
                                     id="btnPickItem_<?php echo $fehlerItem['ID']; ?>"

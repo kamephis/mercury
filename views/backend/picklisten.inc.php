@@ -16,7 +16,10 @@
                             <div class="col-sm-1"><b>Fortschritt</b></div>
                             <div class="col-sm-1"><b>Datum</b></div>
                             <div class="col-sm-1"><b>Pickliste #</b></div>
-                            <div class="col-sm-1"><b>Gesamt</b></div>
+                            <div class="col-sm-1"><b>Gesamt</b> <a href="#" data-toggle="tooltip"
+                                                                   title="Artikel mit dem selben EAN werden in dieser Ansicht als eine Position dargestellt (gruppiert)."><span
+                                            class="glyphicon glyphicon-question-sign"></span></a>
+                            </div>
                             <div class="col-sm-1"><b>Offen</b></div>
                             <div class="col-sm-2"><b>Kommentar</b></div>
                             <div class="col-sm-2"><b>Picker</b></div>
@@ -159,6 +162,9 @@
                                     <thead>
                                     <tr>
                                         <th>
+                                            <center>#</center>
+                                        </th>
+                                        <th>
                                             <center>Status</center>
                                         </th>
                                         <th>Art.Nr</th>
@@ -178,10 +184,15 @@
                                     </thead>
                                     <tbody>
                                     <?php
+                                    $cRow = 0;
                                     $aPicklistItems = $this->backend->getPicklistItems($picklist['PLHkey']);
                                     foreach ($aPicklistItems as $pItem) {
+                                        $cRow++;
                                         ?>
                                         <tr id="row_<?php echo $pItem['ID'] ?>">
+                                            <td>
+                                                <center><?php echo $cRow; ?></center>
+                                            </td>
                                             <td>
                                                 <center>
                                                     <?php

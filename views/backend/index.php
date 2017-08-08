@@ -102,7 +102,7 @@ if ($_REQUEST['delPicklist']) {
 
 <script>
     $(document).ready(function () {
-
+        $('[data-toggle="tooltip"]').tooltip();
         $(".btnDelItem").on("click", function () {
             var itemID = $(this).data("id");
             var picklistID = $(this).data("picklist");

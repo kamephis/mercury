@@ -27,14 +27,14 @@ class Picker_Model extends Model
     }
 
     /**
-     * Anzahl der erzeugten Picklisten abrufen
+     * Anzahl der Items / Pickliste abrufen
      * @param $PLHkey
      * @return mixed
      */
     public function getPicklistItemCount($PLHkey)
     {
-        $sql = "SELECT count(*) as anzahl FROM (SELECT count(*) FROM stpArtikel2Pickliste a2p 
-                RIGHT JOIN stpPicklistItems pitem
+        $sql = "SELECT *, count(*) as anzahl FROM (SELECT count(*) FROM stpArtikel2Pickliste a2p 
+                LEFT JOIN stpPicklistItems pitem
                 ON a2p.ArtikelID = pitem.ID
                 
                 WHERE a2p.PicklistID = '{$PLHkey}'

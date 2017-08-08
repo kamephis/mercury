@@ -27,6 +27,9 @@ class ArtikelFehlerMobile extends Controller
         require_once('models/picklist_model.php');
             $this->view->Picklist = new Picklist_Model();
 
+        require_once('libs/Pixi.php');
+        $this->view->Pixi = new Pixi();
+
             $this->view->render('header');
             $this->view->render('navigation');
         $this->view->render('mobile/artikelfehlerMobile');

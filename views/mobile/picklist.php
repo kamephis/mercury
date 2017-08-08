@@ -1,5 +1,5 @@
 <?php
-// Stoff gepickt - via EAN
+// Stoff gepickt - via EAN (itemPicked = Ean der Position)
 if ($_REQUEST['itemPicked']) {
     $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID']);
     // Aktualisieren -> nächste Position - refresh
@@ -17,7 +17,7 @@ if ($_REQUEST['setFehler']) {
 
     $fehlerText = '';
 
-// Auslesen des jeweiligen Fehlers aus dem Fehler Array
+    // Auslesen des jeweiligen Fehlers aus dem Fehler Array
     if (sizeof($aFehler) == 1) {
         $fehlerText = $aFehler[0];
     }

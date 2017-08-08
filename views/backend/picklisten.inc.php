@@ -209,6 +209,9 @@
                                                         case '3':
                                                             echo '<b><span class="glyphicon glyphicon-scissors" style="font-size:110%;" title="zugeschnitten"></span></b>';
                                                             break;
+                                                        case '4':
+                                                            echo '<b><span class="glyphicon glyphicon-flash" style="font-size:110%;" title="fehlerhaft"></span></b>';
+                                                            break;
                                                     }
                                                     ?></center>
                                             </td>
@@ -270,9 +273,10 @@
                                     </tbody>
                                 </table>
                                 <div class="well well-sm">
-                                    <span class="glyphicon glyphicon-ban-circle"></span> offen&nbsp;&nbsp;<span
-                                            class="glyphicon glyphicon-ok-circle"></span> gepickt&nbsp;&nbsp;<span
-                                            class="glyphicon glyphicon-scissors"></span> zugeschnitten
+                                    <span class="glyphicon glyphicon-ban-circle"></span> offen&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-ok-circle"></span> gepickt&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-flash"></span> fehlerhaft&nbsp;
+                                    <span class="glyphicon glyphicon-scissors"></span> zugeschnitten
                                 </div>
                             </div>
                             <!-- end picklistitems -->

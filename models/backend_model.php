@@ -90,7 +90,7 @@ class Backend_Model extends Model
                 pitem.ID = a2p.ArtikelID AND
                 a2p.PicklistID = plist.PLHkey AND 
                 plist.PLHkey = '{$picklistNr}' AND
-                pitem.ItemStatus <> 0 
+                pitem.ItemStatus != '0' 
                 
                 GROUP BY pitem.EanUpc
                 ORDER BY pitem.BinSortNum";
@@ -131,7 +131,7 @@ ON a2p.PicklistID = plist.PLHkey
                 
 WHERE plist.PLHkey = {$picklistNr}
 AND a2p.PicklistID = {$picklistNr}
-AND (pitem.ItemStatus = 2 OR pitem.ItemStatus = 3)
+AND (pitem.ItemStatus = 2 OR pitem.ItemStatus = 3 OR pitem.ItemStatus = 4)
 /*GROUP BY pitem.EanUpc*/
 ORDER BY pitem.BinSortNum";
 

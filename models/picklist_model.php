@@ -75,7 +75,9 @@ class Picklist_Model extends Model
                 pitem.ID = a2p.ArtikelID AND
                 a2p.PicklistID = plist.PLHkey AND 
                 plist.PLHkey = '{$PLHkey}' AND
+                
                 pitem.ItemStatus != 2 AND 
+                
                 LENGTH(pitem.ItemFehlerUser) = 0
                 GROUP BY pitem.EanUpc
                 ) as cnt";
@@ -164,7 +166,7 @@ class Picklist_Model extends Model
         if ($aFehler != Null) {
             $aFehler = utf8_decode($aFehler);
         }
-        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
+        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer, 'ItemStatus' => '4');
 
         $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleID);
 

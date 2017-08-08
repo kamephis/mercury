@@ -337,9 +337,9 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                             <label>Kommentar
 
                                                 <select multiple name="fehler[]" class="form-control">
-                                                    <option value="Fehlbestand" id="optFehlbestand"
+                                                    <option value="Max. Menge" id="optFehlbestand"
                                                         <?php
-                                                        if (preg_match('/Fehlbestand/', $item[$_SESSION['pos']]['ItemFehler'])) {
+                                                        if (preg_match('/Max. Menge/', $item[$_SESSION['pos']]['ItemFehler'])) {
                                                             echo "selected";
                                                         }
                                                         ?>

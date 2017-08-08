@@ -11,6 +11,7 @@ if (isset($this->js)) {
 
 <script>
     $(document).ready(function () {
+
         if (~window.location.href.indexOf("artikelinfo")) {
             $('#nav_Artikelinfo').css("color", "white");
             $('#nav_Artikelinfo').css("font-weight", "semi-bold");
@@ -23,11 +24,6 @@ if (isset($this->js)) {
             $('#nav_Übersicht').css("color", "white");
             $('#nav_Übersicht').css("font-weight", "semi-bold");
         }
-
-        /*$(".nav a").on("click", function(){
-         $(".nav").find(".active").removeClass("active");
-         $(this).parent().addClass("active");
-         });*/
     });
 </script>
 </body>

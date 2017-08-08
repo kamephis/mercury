@@ -33,12 +33,19 @@ if ($_REQUEST['setFehler']) {
     //$this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
 }
 
-// Anzahl der Picklistenpositionen aus dem Controller
-$anzPositionen = $this->AnzItems;
-
 // Zwischenspeichern der Picklistennummer
 $plist = $_REQUEST['picklistNr'];
 $_SESSION['plist'] = $plist;
+
+// Picklisten Array - wenn das Picklisten-Array leer ist, werden die Positionen aus der DB geladen.
+if (sizeof($this->Picklist->getAPicklist()) == 0) {
+    $this->Picklist->setAPicklist($this->Picklist->getPicklistItems($_SESSION['plist']));
+} else {
+    echo "Keine Pickliste gesetzt";
+}
+
+// Anzahl der Picklistenpositionen
+$anzPositionen = sizeof($this->Picklist->getAPicklist());
 
 /**
  * Übergabe der Picklistennummer an die getPickListItems zum
@@ -55,23 +62,11 @@ if ($_REQUEST['referer']) {
 if (isset($_REQUEST['pos'])) {
     $_SESSION['pos'] = $_REQUEST['pos'];
 
-    if ($_SESSION['pos'] == $anzPositionen || $_SESSION['pos'] > $anzPositionen) {
+    if ((int)$_SESSION['pos'] > $anzPositionen || (int)$_SESSION['pos'] < 0 || (int)$_SESSION['pos'] == $anzPositionen) {
         $_SESSION['pos'] = 0;
     }
 } else {
-    if (!isset($_SESSION['pos'])) {
         $_SESSION['pos'] = 0;
-    }
-}
-if ($_SESSION['pos'] < 0) {
-    $_SESSION['pos'] = 0;
-}
-
-// Picklisten Array
-if (sizeof($this->Picklist->getAPicklist()) == 0) {
-    $this->Picklist->setAPicklist($this->Picklist->getPicklistItems($_SESSION['plist'], $_SESSION['pos']));
-} else {
-    echo "Keine Pickliste gesetzt";
 }
 
 // Picklistennavigation
@@ -82,6 +77,7 @@ if ($_REQUEST['nav'] == 'n') {
 if ($_REQUEST['nav'] == 'p') {
     prev($this->Picklist->getAPicklist());
 }
+
 if (sizeof($this->Picklist->getAPicklist()) > 0) {
     $item = $this->Picklist->getAPicklist();
 

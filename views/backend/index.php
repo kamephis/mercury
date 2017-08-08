@@ -102,6 +102,18 @@ if ($_REQUEST['delPicklist']) {
 
 <script>
     $(document).ready(function () {
+
+        $('#btnTogglePicklistArea').on('click', function () {
+            $("#pnlPicklist").toggle("slow", function () {
+                //icon = $(this).find("i");
+                //$('#icoPicklist').toggleClass("glyphicon-plus");
+            });
+        });
+        $('#btnToggleFehlerArea').on('click', function () {
+            $("#pnlFehler").toggle("slow", function () {
+            });
+        });
+
         $('[data-toggle="tooltip"]').tooltip();
         $(".btnDelItem").on("click", function () {
             var itemID = $(this).data("id");

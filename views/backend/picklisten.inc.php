@@ -2,6 +2,11 @@
     <div class="col-sm-12">
         <div class="panel panel-primary hidden-print">
             <div class="panel-heading">
+                <span class="hidden-print">
+                <button type="button" class="btn btn-xs btn-primary pull-right" id="btnTogglePicklistArea">
+                    <i id="icoPicklist" class="glyphicon glyphicon-minus"></i>
+                </button>
+                    </span>
     <span class="hidden-print panel-title">
         Aktive Picklisten
     </span>
@@ -9,7 +14,7 @@
             Pickliste
         </span>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="pnlPicklist">
                 <div class="hidden-print">
                     <?php if (sizeof($this->backend->getActivePicklists()) > 0) { ?>
                         <div class="row">
@@ -176,8 +181,8 @@
                                         <th>Standort</th>
                                         <th>Letzte Aktualisierung</th>
                                         <th>Lagerplatz</th>
-                                        <th>Pixi Pickliste</th>
-                                        <th>Pixi Bestellnr.</th>
+                                        <th class="alert-warning"><strong>Pixi Pickliste</strong></th>
+                                        <th class="alert-warning"><strong>Pixi Bestell-Nr.</strong></th>
                                         <!--<th>Pixi Bestand</th>-->
                                         <th>Aktion</th>
                                     </tr>
@@ -237,8 +242,12 @@
 
                                             </td>
                                             <td><?php echo $pItem['BinName']; ?></td>
-                                            <td><?php echo $pItem['PLIheaderRef']; ?></td>
-                                            <td><?php echo $pItem['OrderNrExternal']; ?></td>
+                                            <td class="alert-warning"><span
+                                                        class="text-pixi"><?php echo $pItem['PLIheaderRef']; ?></span>
+                                            </td>
+                                            <td class="alert-warning"><span
+                                                        class="text-pixi"><?php echo $pItem['OrderNrExternal']; ?></span>
+                                            </td>
                                             <!--<td><?php /*
                                                 if ($_REQUEST['getPixiBestand']) {
                                                     if ($this->Pixi->getItemStock($pItem['EanUpc'])) {

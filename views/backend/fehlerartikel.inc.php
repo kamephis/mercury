@@ -4,14 +4,20 @@
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
+<span class="hidden-print">
+                <button type="button" class="btn btn-xs btn-primary pull-right" id="btnToggleFehlerArea">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
+</span>
                 <span class="panel-title"><?php echo $this->tFehler; ?></span>
-                <span class="pull-right">
+                <!--
+                <span class="pull-right hidden-print">
                 <button type="button" class="btn btn-xs btn-warning btn-block" id="btnGetPixiStock">
                     <span class="glyphicon glyphicon-refresh"></span> Pixi* Bestände prüfen
                 </button>
-                    </span>
+                    </span>-->
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="pnlFehler">
                 <?php
                 if (sizeof($this->backend->getFehlerhafteArtikel()) > 0) {
                     ?>
@@ -44,12 +50,17 @@
                             <th>
                                 Best.Menge<br>Gesamt
                             </th>
-                            <th>
+                            <th class="alert-warning">
+                                <strong>
+                                    Pixi-<br>Bestand
+                                </strong>
+                            </th>
+                            <th class="alert-warning">
+                                <strong>
                                 Pixi-<br>Pickliste
+                                </strong>
                             </th>
-                            <th>
-                                Pixi-<br>Bestand
-                            </th>
+
                             <th>
                                 Bearbeiter(in)
                             </th>
@@ -109,31 +120,35 @@
                                     ?>
                                 </center>
                             </td>
-                            <td>
-                                <?php
-                                echo $fArtikel['PLIheaderRef'];
-                                ?>
-                            </td>
-
-                            <td>
+                            <td class="alert-warning">
+                                <span class="text-pixi">
                                 <center>
                                     <?php
                                     // aktivieren falls onDemand Abfrage gewünscht
                                     //if ($_REQUEST['getPixiBestand']) {
-                                        if ($this->Pixi->getItemStock($fArtikel['EanUpc'])) {
-                                            $pBestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
-                                            echo $pBestand['PhysicalStock'];
-                                        } else {
-                                            echo 'k. A.';
-                                        }
+                                    if ($this->Pixi->getItemStock($fArtikel['EanUpc'])) {
+                                        $pBestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
+                                        echo $pBestand['PhysicalStock'];
+                                    } else {
+                                        echo 'k. A.';
+                                    }
                                     //} else {
                                     //    echo '---';
                                     //}
                                     ?>
 
-                                <?php
-                                ?></center>
+                                    <?php
+                                    ?></center></span>
                             </td>
+                            <td class="alert-warning">
+                                <span class="text-pixi">
+                                <?php
+                                echo $fArtikel['PLIheaderRef'];
+                                ?>
+                                    </span>
+                            </td>
+
+
                             <td>
                                 <?php
                                 echo utf8_encode($fArtikel['ItemFehlerUser']);

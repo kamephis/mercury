@@ -301,8 +301,28 @@ h4.modal-title {
     box-sizing: border-box;
 }
 
+.text-pixi {
+    text-align: center !important;
+    font-weight: 200;
+    color: black;
+}
+
+.pixi_cell {
+    background: orange;
+    color: black;
+}
 /*
 .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
 
     background-color: #57daff !important;
 }*/
+
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('loading.gif') 50% 50% no-repeat rgb(249, 249, 249);
+}

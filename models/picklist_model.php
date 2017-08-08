@@ -85,7 +85,7 @@ class Picklist_Model extends Model
 
     /**
      * Anzahl der Picklistenpositionen die tatsächlich gepickt werden müssen
-     * (immer aktuell, welche noch zu picken sind)
+     * (immer aktuell, welche noch zu picken sind) - nicht in Verwendung!
      * @param $PLHkey
      * @return mixed
      */
@@ -104,6 +104,7 @@ class Picklist_Model extends Model
 
     /**
      * Groesse der Pickliste ausgeben
+     *
      * @param $PLHkey
      * @return mixed
      */
@@ -118,7 +119,10 @@ class Picklist_Model extends Model
         $result = $this->db->select($sql);
         return $result[0]['anz'];
     }
+
     /**
+     * Picken einer einzelnen Position
+     *
      * @param $articleID
      */
     public function setItemStatusArt($articleID)
@@ -128,7 +132,9 @@ class Picklist_Model extends Model
     }
 
     /**
-     * Setzen des ItemStatus auf bei allen Artikeln mit dieser EAN auf 2 (gepickt)
+     * Picken von Positionen (bei Aufträgen mit mehreren Längen)
+     *
+     * Setzen des ItemStatus bei allen Artikeln mit dieser EAN auf 2 (gepickt)
      * Zurücksetzen des Item Fehlers (da korrigiert)
      * @param $articleEan
      * @param $locationID
@@ -140,26 +146,11 @@ class Picklist_Model extends Model
     }
 
     /**
+     * Fehlerhafte Position speichern
+     *
      * Setzen des ItemFehler / ItemFehlmenge auf den gewählten Wert aus dem Form-Array
      * @param $articleID
      */
-    /* TODO: Bei Artikeln mit mehr als 2 Positionen sollte mit der EAN gearbeitet werden ?!*/
-    /*    public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
-    {
-        // Einfügen des Fehler Users, wenn Fehler vorhanden
-        if (strlen($intItemFehlbestand) > 0 || sizeof($aFehler) > 0) {
-            $itemFehlerUser = $_SESSION['vorname'] . " " . $_SESSION['name'];
-        } else {
-            $itemFehlerUser = '';
-        }
-
-        // charset fix
-        if ($aFehler != Null) {
-            $aFehler = utf8_decode($aFehler);
-        }
-        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
-        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
-    }*/
     public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
     {
         // Einfügen des Fehler Users, wenn Fehler vorhanden
@@ -176,7 +167,8 @@ class Picklist_Model extends Model
         $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
 
         $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleID);
-        // Jeder Fehler muss einzeln bestätigt werden
+
+        // Aktivieren, wenn jede Position einzeln als Fehler bestätigt werden soll
         //$this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 

@@ -46,7 +46,7 @@ class Controller
     {
         switch ($msgID) {
             case '401':
-                $this->view->showAlert('danger', $option = null, "Ihre Zugangsdaten sind falsch.");
+                $this->view->showAlert('danger', $option = null, "Ihre Zugangsdaten sind nicht korrekt oder Sie verfögen nicht über die Berechtigung für diesen Bereich.");
                 break;
             case 'logout':
                 $this->view->showAlert('success', $option = null, "Sie wurden erfoglreich abgemeldet.");

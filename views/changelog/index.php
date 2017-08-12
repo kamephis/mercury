@@ -21,6 +21,17 @@
         <tbody>
         <tr>
             <td>
+                90071a8
+            </td>
+            <td>
+                1.0.8.2
+            </td>
+            <td>
+                ~ Bugfix: Sortiertung der Fehlerliste von BinName in BinSortNum geändert
+            </td>
+        </tr>
+        <tr>
+            <td>
                 e4d56a2
             </td>
             <td>

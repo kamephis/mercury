@@ -38,7 +38,7 @@ class Login_Model extends Model
          * pruefen ob der Benutzer berechtigt ist
          * Voraussetzung fuer den Zugriff auf das Backend ist ein passendes access_level
          */
-        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = :sUserName");
+        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname,iUser.kuerzel, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = :sUserName");
 
         // Pruefen ob der Benutzername existiert
         $sql->execute(array('sUserName' => $sUserName));
@@ -53,6 +53,7 @@ class Login_Model extends Model
                 Session::set('UID', $result['UID']);
                 Session::set('vorname', $result['vorname']);
                 Session::set('name', $result['name']);
+            Session::set('kuerzel', $result['kuerzel']);
 
                 // Rechte in die Session schreiben.
                 Session::set('access_level', $result['access_level']);

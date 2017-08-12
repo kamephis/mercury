@@ -326,3 +326,9 @@ h4.modal-title {
     z-index: 9999;
     background: url('loading.gif') 50% 50% no-repeat rgb(249, 249, 249);
 }
+
+@media print {
+    @page {
+        margin: 1cm !important;
+    }
+}

@@ -204,9 +204,13 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
                                             echo '<div class="col-xs-4">';
                                             echo '<h4>Pixi PL: ' . $order['PLIheaderRef'] . '</h4>';
+
+                                            echo '<img src="libs/Barcode_org.php?text=PIC' . $order['PLIheaderRef'] . '&size=80&orientation=horizontal&codetype=code128">';
+
                                             echo '</div>';
 
                                             echo '<div class="clearfix"></div>';
+                                            echo '<br><br><br>';
                                         }
                                         ?>
                                         <div class="clearfix"></div>
@@ -430,9 +434,9 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
     // Pickliste als abgeschlossen markieren
     // Nur abschließen, wenn tatsächlich keine offenen Positionen mehr vorhanden sind.
-    if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) == 0) {
+    //if ($this->Picklist->getPicklistItemCount($_SESSION['plist']) == 0) {
         $this->Picklist->setPicklistStatus($_SESSION['plist'], '1');
-    }
+    //}
 }
 ?>
 <script>

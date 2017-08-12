@@ -6,7 +6,7 @@ if (!isset($_SESSION['sNavItems'])) {
     $aNavItems = $_SESSION['sNavItems'];
 }
 ?>
-<nav class="navbar navbar-inverse navbar-fixed-top" id="mainNav">
+<nav class="navbar navbar-inverse navbar-fixed-top hidden-print" id="mainNav">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                 aria-expanded="false" aria-controls="navbar">
@@ -44,6 +44,6 @@ if (!isset($_SESSION['sNavItems'])) {
     </div>
     <!--/.nav-collapse -->
 </nav>
-<br>
-<br>
-<br>
+<br class="hidden-print">
+<br class="hidden-print">
+<br class="hidden-print">

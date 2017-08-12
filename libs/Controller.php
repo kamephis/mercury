@@ -7,11 +7,18 @@
  */
 class Controller
 {
+    public $msg = null;
+
     function __construct()
     {
         $this->view = new View();
         $this->view->binColors = Session::get('binColors');
         $this->model = new Model();
+
+        // Zugriff prüfen
+        if (isset($_GET['msg'])) {
+            $this->_showMessages($_GET['msg']);
+        }
     }
 
     /**
@@ -28,5 +35,23 @@ class Controller
             $modelName = ucfirst($name) . '_Model';
             $this->model = new $modelName();
         }
+    }
+
+    /**
+     * Ausgabe von Meldungen
+     * @param $msgID
+     * @return bool
+     */
+    private function _showMessages($msgID)
+    {
+        switch ($msgID) {
+            case '401':
+                $this->view->showAlert('danger', $option = null, "Ihre Zugangsdaten sind falsch.");
+                break;
+            case 'logout':
+                $this->view->showAlert('success', $option = null, "Sie wurden erfoglreich abgemeldet.");
+                break;
+        }
+        return false;
     }
 }

@@ -48,7 +48,7 @@
                             </th>
 
                             <th>
-                                Best.Menge<br>Gesamt
+                                Best.<br class="visible-print">Menge<br>Gesamt
                             </th>
                             <th class="alert-warning">
                                 <strong>
@@ -62,10 +62,12 @@
                             </th>
 
                             <th>
-                                Bearbeiter(in)
+                                <span class="hidden-print">Bearbeiter(in)</span>
+                                <span class="visible-print">Bearb.</span>
                             </th>
                             <th>
-                                Geprüft
+                                <span class="hidden-print">Geprüft</span>
+                                <span class="visible-print">Gep.</span>
                             </th>
                             <th class="hidden-print">
                                 Aktion

@@ -11,7 +11,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <span class="panel-title">Neue interne Pickliste erstellen</span>
+                <span class="panel-title">Schritt 2 &ndash; Neue interne Pickliste erstellen</span>
                 <a href="importPixiPickliste" class="btn btn-warning pull-right">
                     <span class="glyphicon glyphicon-cloud-download"></span>
                     &nbsp;Zum pixi* Picklisten-Import

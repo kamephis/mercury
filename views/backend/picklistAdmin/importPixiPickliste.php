@@ -32,7 +32,7 @@ if (isset($_REQUEST['selectedPicklist'])) {
             individuellen Stoff Palette Picklisten.
         </div>
 
-        <form method="post">
+        <form method="post" id="frmImportPixiPl">
             <div class="form-group">
                 <div class="col-sm-5">
 
@@ -77,3 +77,11 @@ if (isset($_REQUEST['selectedPicklist'])) {
     </div>
 </div>
 </div>
+<script>
+    $(document).ready(function () {
+        // Button deaktivieren und Statusmeldung anzeigen
+        $('#frmImportPixiPl').submit(function () {
+            $(this).find('button[type=submit]').prop('disabled', true).html('<span class="glyphicon glyphicon-refresh"></span> Pixi Pickliste wird importiert...');
+        });
+    });
+</script>

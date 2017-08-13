@@ -87,7 +87,7 @@ if (isset($_REQUEST['selectedPicklist'])) {
     $(document).ready(function () {
         // Button deaktivieren und Statusmeldung anzeigen
         $('#frmImportPixiPl').submit(function () {
-            $(this).find('button[type=submit]').prop('disabled', true).html('<span class="glyphicon glyphicon-refresh"></span> Pixi Pickliste wird importiert...');
+            $(this).find('button[type=submit]').prop('disabled', true).html('<span class="glyphicon fast-right-spinner glyphicon-refresh glyphicon-refresh"></span> Pixi Pickliste wird importiert...');
         });
     });
 </script>

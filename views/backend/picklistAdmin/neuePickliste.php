@@ -241,7 +241,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
 
         // Button deaktivieren und Statusmeldung anzeigen
         $('#frmNewPicklist').submit(function () {
-            $(this).find('button[type=submit]').prop('disabled', true).html('<span class="glyphicon glyphicon-refresh"></span> Pickliste wird erstellt...');
+            $(this).find('button[type=submit]').prop('disabled', true).html('<span class="glyphicon glyphicon-repeat fast-right-spinner glyphicon-refresh"></span> Pickliste wird erstellt...');
         });
 
         /**

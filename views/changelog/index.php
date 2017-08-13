@@ -8,7 +8,7 @@
         <thead>
         <tr>
             <th>
-                Rev.
+                ID
             </th>
             <th>
                 Version
@@ -19,6 +19,18 @@
         </tr>
         </thead>
         <tbody>
+        <tr>
+            <td>
+                d0513e1
+            </td>
+            <td>
+                1.0.8.4
+            </td>
+            <td>
+                ~ Message-Handling läuft nun exklusiv über den Main Controller<br>
+                ~ Optimierung der Picklistenerstellung (GUI)
+            </td>
+        </tr>
         <tr>
             <td>
                 53d2ea6
@@ -74,17 +86,6 @@
                 + Neuer Status "fehlerhaft = 4" zur schnellen Identifizierung von Fehlerhaften Positionen -->
                 Fehlerhafte Artikel werden in Picklisten und im Backend als bearbeitet betrachtet, Picklisten erreichen
                 auch mit fehlerhaften Positionen 100%
-            </td>
-        </tr>
-        <tr>
-            <td>
-                8addf16
-            </td>
-            <td>
-                1.0.7.8.1
-            </td>
-            <td>
-                ~ Kommentare der Methoden aktualisiert
             </td>
         </tr>
         <tr>

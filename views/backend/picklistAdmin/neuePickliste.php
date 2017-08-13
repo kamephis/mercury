@@ -111,7 +111,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
                                     <b>UPDATE MODUS</b> aktiv!
                                     <p>
                                         In diesem Modus können neue Positionen einer Pickliste hinzugefügt, Picker
-                                        geändert und der Picklistenkommentar geändert werden.<br>
+                                        zugewiesen und der Picklistenkommentar geändert werden.<br>
                                         Es werden nur geänderte Felder aktualisiert. Soll z. B. nur der <strong>Kommentar</strong>
                                         geändert werden, dann reicht es, den Text
                                         in diesem Feld zu aktualiseren.

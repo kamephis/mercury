@@ -8,25 +8,12 @@ if (isset($_REQUEST['itemFehlerUpdate'])) {
     $this->mPicklist->setItemFehler($_REQUEST['itemID'], NULL, NULL);
 }
 
-// Item geprüft
-/*if (isset($_REQUEST['itemCheckUpdate'])) {
-    if ($_REQUEST['chkFehler'] == 'on') $chkState = '1';
-    if ($_REQUEST['chkFehler'] == 'off') $chkState = '0';
-
-    $this->mPicklist->setItemChecked($_REQUEST['itemID'], $_REQUEST['setUser'], $chkState);
-}*/
-
 // Leeren der Picklisten, Picklistenpositionen etc.
 if ($_REQUEST['resetTab']) {
     if ($this->PicklistAdmin->resetTables()) {
-        echo '<div class="alert alert-success msgFooter">';
-        echo "Die Mercury Tabellen wurden erfolgreich geleert.";
-        echo '</div>';
-
+        Controller::showMessages('MercuryTablesCleared');
     } else {
-        echo '<div class="alert alert-danger msgFooter">';
-        echo "Die Mercury Tabellen konnten nicht geleert werden. Bitte benachrichtigen Sie die Technik.";
-        echo '</div>';
+        Controller::showMessages('MercuryTablesClearFailed');
     }
 }
 

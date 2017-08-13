@@ -21,6 +21,17 @@
         <tbody>
         <tr>
             <td>
+                53d2ea6
+            </td>
+            <td>
+                1.0.8.3
+            </td>
+            <td>
+                ~ Verschieben des Error Message Handlings in den Main Controller
+            </td>
+        </tr>
+        <tr>
+            <td>
                 90071a8
             </td>
             <td>

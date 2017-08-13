@@ -17,7 +17,7 @@ class Controller
 
         // Zugriff prüfen
         if (isset($_GET['msg'])) {
-            $this->_showMessages($_GET['msg']);
+            $this->showMessages($_GET['msg']);
         }
     }
 
@@ -42,14 +42,35 @@ class Controller
      * @param $msgID
      * @return bool
      */
-    private function _showMessages($msgID)
+    static function showMessages($msgID)
     {
         switch ($msgID) {
             case '401':
-                $this->view->showAlert('danger', $option = null, "Ihre Zugangsdaten sind nicht korrekt oder Sie verfügen nicht über die Berechtigung für diesen Bereich.");
+                View::showAlert('danger', $option = null, "Ihre Zugangsdaten sind nicht korrekt oder Sie verfügen nicht über die Berechtigung für diesen Bereich.");
                 break;
             case 'logout':
-                $this->view->showAlert('success', $option = null, "Sie wurden erfoglreich abgemeldet.");
+                View::showAlert('success', $option = null, "Sie wurden erfoglreich abgemeldet.");
+                break;
+
+            case 'pixiImpCheck':
+                View::showAlert('warning', $option = null, "Diese Pixi Pickliste wurde bereits importiert.");
+                break;
+
+            case 'pixiImpSuccess':
+                View::showAlert('success', $option = null, "Die Pixi Pickliste wurde erfolgreich importiert.");
+                break;
+
+            case 'picklistInternCreated':
+                View::showAlert('success', $option = null, "Die neue Pickliste wurde erfolgreich erstellt.");
+                break;
+            case 'picklistInternCreateFailed':
+                View::showAlert('danger', $option = null, "Die neue Pickliste konnte <strong>nicht</strong> erstellt werden.");
+                break;
+            case 'MercuryTablesCleared':
+                View::showAlert('success', $option = null, "Die Mercury Tabellen wurden erfolgreich geleert.");
+                break;
+            case 'MercuryTablesClearFailed':
+                View::showAlert('danger', $option = null, "Die Mercury Tabellen konnten <strong>nicht</strong> geleert werden.");
                 break;
         }
         return false;

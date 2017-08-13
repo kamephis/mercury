@@ -100,7 +100,6 @@ class ImportPixiPickliste_Model extends Model
 
         // Prüfen ob die Pickliste bereits existiert
         if ($rows == 0) {
-            // TODO: unnötig?
             $this->oMySqli = new mysqli();
             $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
 
@@ -118,7 +117,6 @@ class ImportPixiPickliste_Model extends Model
             if (is_array($aPicklistDetails[0])) {
                 foreach ($aPicklistDetails as $items) {
                     $aOxid = $this->importOxidData($items['ItemNrSuppl']);
-
 
                     $sqlInsertItems .= "INSERT INTO 
                                   stpPicklistItems(
@@ -234,25 +232,16 @@ class ImportPixiPickliste_Model extends Model
                                    '" . $aPicklistDetails['PLIorderlineRef1'] . "'
                                     );";
             }
-            /*'" . (isset($items['PicLinkSmall']) ? $items['PicLinkSmall'] : '') . "',*/
-            /*'" . (isset($items['PicLinkLarge']) ? $items['PicLinkLarge'] : '') . "',*/
-            /*
-                        '" . $aPicklistDetails['PicLinkSmall'] . "',
-                       '" . (isset($aPicklistDetails['PicLinkLarge']) ? $aPicklistDetails['PicLinkLarge'] : '') . "',
-              */
+
             // Einfügen der Datensätze in die DB
             if ($this->oMySqli->multi_query($sqlInsertItems) === TRUE) {
-                echo '<div class="alert alert-success msgFooter">';
-                echo "Alle Eintraege wurden erfolgreich importiert.";
-                echo '</div>';
+                Controller::showMessages('pixiImpSuccess');
             } else {
-                echo "Error: " . $sqlInsertItems . "<br>" . $this->oMySqli->error;
+                View::showAlert('danger', null, "Error: " . $sqlInsertItems . "<br>" . $this->oMySqli->error);
             }
             $this->oMySqli->close();
         } else {
-            echo '<div class="alert alert-warning msgFooter">';
-            echo "Diese Pickliste wurde bereits importiert.";
-            echo '</div>';
+            Controller::showMessages('pixiImpCheck');
         }
     }
 

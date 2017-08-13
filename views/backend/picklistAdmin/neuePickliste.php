@@ -6,21 +6,17 @@ $aPicker = $this->pl->getPicker();
 if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
     $this->pl->newPicklist();
 }
-
 ?>
 <div class="row">
     <div class="col-sm-12">
-        <a href="importPixiPickliste" class="btn btn-primary" style="float:left;">
-            <span class="glyphicon glyphicon-cloud-download"></span>
-            &nbsp;Zum pixi* Picklisten-Import
-        </a>&nbsp;
-        <br>
-        <br>
-        <br>
-
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Neue interne Pickliste erstellen
+                <span class="panel-title">Neue interne Pickliste erstellen</span>
+                <a href="importPixiPickliste" class="btn btn-warning pull-right">
+                    <span class="glyphicon glyphicon-cloud-download"></span>
+                    &nbsp;Zum pixi* Picklisten-Import
+                </a>
+                <div class="clearfix"></div>
             </div>
             <div class="panel-body">
                 <form method="post" role="form" action="neuePickliste">
@@ -110,6 +106,23 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
+                            <div class="col-sm-6 col-sm-offset-1">
+                                <div id="msgUpdateMode" class="hidden alert alert-info">
+                                    <b>UPDATE MODUS</b> aktiv!
+                                    <p>
+                                        In diesem Modus können neue Positionen einer Pickliste hinzugefügt, Picker
+                                        geändert und der Picklistenkommentar geändert werden.<br>
+                                        Es werden nur geänderte Felder aktualisiert. Soll z. B. nur der <strong>Kommentar</strong>
+                                        geändert werden, dann reicht es, den Text
+                                        in diesem Feld zu aktualiseren.
+                                    </p>
+                                    <br>
+                                    <b>
+                                        <a href="<?php echo URL . 'neuePickliste' ?>" class="btn btn-primary">
+                                            Update Modus Aussschalten
+                                        </a></b>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-4">
@@ -168,11 +181,6 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
                             <div class="clearfix"></div>
 
                             <!-- Update Flag setzen -->
-                            <div id="msgUpdateMode" class="hidden alert alert-info">
-                                <b>UPDATE MODUS</b> aktiv!
-                                <br>
-                                <b><a href="<?php echo URL . 'neuePickliste' ?>">Aussschalten?</a></b>
-                            </div>
                             <input type="hidden" name="updatePicklist" value="1">
 
                             <label>Picker zuweisen<br>
@@ -248,9 +256,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
 
         getPicklistItems();
 
-
         $('input[name="plnr"]').on('keypress', function () {
-            //alert('Die von Ihnen gewählte Pickliste wurde zur Aktualisierung ausgewählt. Bitte laden Sie diese Seite, falls sie dies nicht wünschen.');
             $('#msgUpdateMode').removeClass("hidden").fadeIn();
             $('input[name="updatePicklist"]').val("update");
         });

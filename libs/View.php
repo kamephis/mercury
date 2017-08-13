@@ -28,7 +28,7 @@ class View
      * @param $option = Spezielle CSS Klasse z. B. zur Anzeige einer Nachricht am unteren Bildschirmrand (fixed)
      * @param $message = Nachricht
      */
-    public function showAlert($alertType, $option = null, $message)
+    static function showAlert($alertType, $option = null, $message)
     {
         echo '<div class="alert alert-' . $alertType . ' ' . $option . '">';
         echo '<div class="col-sm-4"></div>';
@@ -36,6 +36,6 @@ class View
         echo '<div class="clearfix"></div>';
         echo '<div class="col-sm-4"></div>';
         echo '</div>';
-        echo '<div class="clearfix"></div><br><br><br>';
+        echo '<div class="clearfix"></div>';
     }
 }

@@ -241,20 +241,15 @@ class NeuePickliste_Model extends Model
                                     );";
             }
 
-
             // Einfügen der Datensätze in die DB
             if ($this->oMySqli->multi_query($sqlInsertItems) === TRUE) {
-                echo '<div class="alert alert-success msgFooter">';
-                echo "Alle Eintraege wurden erfolgreich importiert.";
-                echo '</div>';
+                Controller::showMessages('pixiImpSuccess');
             } else {
-                echo "Error: " . $sqlInsertItems . "<br>" . $this->oMySqli->error;
+                View::showAlert('danger', null, "Error: " . $sqlInsertItems . "<br>" . $this->oMySqli->error);
             }
             $this->oMySqli->close();
         } else {
-            echo '<div class="alert alert-warning msgFooter">';
-            echo "Diese Pickliste wurde bereits importiert.";
-            echo '</div>';
+            Controller::showMessages('pixiImpCheck');
         }
     }
 
@@ -316,8 +311,6 @@ class NeuePickliste_Model extends Model
              * damit er aus dem zuweisebaren Pool der Artikel herausfällt.
              */
             $sqlNewPicklist .= "UPDATE stpPicklistItems SET ItemStatus = '1' WHERE ID = '{$item}';";
-
-
         }
 
         $this->oMySqli = new mysqli();
@@ -325,13 +318,9 @@ class NeuePickliste_Model extends Model
 
         // Einfügen der Datensätze in die DB
         if ($this->oMySqli->multi_query($sqlNewPicklist) === TRUE) {
-            echo '<div class="alert alert-success msgFooter">';
-            echo "Die Pickliste <b>" . $PLHkey . "</b> wurde erfolgreich erstellt und <b>" . $this->getPickerInfo($picker) . "</b> zugewiesen.";
-            echo '</div>';
+            View::showAlert('success', null, "Die Pickliste <b>" . $PLHkey . "</b> wurde erfolgreich erstellt und <b>" . $this->getPickerInfo($picker) . "</b> zugewiesen.");
         } else {
-            echo '<div class="alert alert-danger msgFooter">';
-            echo "Error: " . $sqlNewPicklist . "<br>" . $this->oMySqli->error;
-            echo '</div>';
+            View::showAlert('danger', null, "Error: " . $sqlNewPicklist . "<br>" . $this->oMySqli->error);
         }
         $this->oMySqli->close();
     }
@@ -442,8 +431,6 @@ class NeuePickliste_Model extends Model
              * damit er aus dem zuweisebaren Pool der Artikel herausfällt.
              */
             $sqlNewPicklist .= "UPDATE stpPicklistItems SET ItemStatus = '1' WHERE ID = '{$item}';";
-
-
         }
 
         $this->oMySqli = new mysqli();
@@ -451,13 +438,9 @@ class NeuePickliste_Model extends Model
 
         // Einfügen der Datensätze in die DB
         if ($this->oMySqli->multi_query($sqlNewPicklist) === TRUE) {
-            echo '<div class="alert alert-success msgFooter">';
-            echo "Die Pickliste <b>" . $PLHkey . "</b> wurde erfolgreich erstellt und <b>" . $this->getPickerInfo($picker) . "</b> zugewiesen.";
-            echo '</div>';
+            View::showAlert('success', null, "Die Pickliste <b>" . $PLHkey . "</b> wurde erfolgreich erstellt und <b>" . $this->getPickerInfo($picker) . "</b> zugewiesen.");
         } else {
-            echo '<div class="alert alert-danger msgFooter">';
-            echo "Error: " . $sqlNewPicklist . "<br>" . $this->oMySqli->error;
-            echo '</div>';
+            View::showAlert('danger', null, "Error: " . $sqlNewPicklist . "<br>" . $this->oMySqli->error);
         }
         $this->oMySqli->close();
     }

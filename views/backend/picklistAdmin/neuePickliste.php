@@ -19,7 +19,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
                 <div class="clearfix"></div>
             </div>
             <div class="panel-body">
-                <form method="post" role="form" action="neuePickliste">
+                <form method="post" role="form" action="neuePickliste" id="frmNewPicklist">
                     <div class="row">
                         <div class="col-sm-12">
 
@@ -224,6 +224,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
 </div><!-- end panel-->
 
 <script>
+
     $('body').append('<div style="background:black;" id="loadingDiv">' +
         '<div class="loader" style="background:red; color:white; width:250px; height:250px;"><b>Daten werden geladen...</b></div>' +
         '</div>');
@@ -237,6 +238,12 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
     }
 
     $(document).ready(function () {
+
+        // Button deaktivieren und Statusmeldung anzeigen
+        $('#frmNewPicklist').submit(function () {
+            $(this).find('button[type=submit]').prop('disabled', true).html('<span class="glyphicon glyphicon-refresh"></span> Pickliste wird erstellt...');
+        });
+
         /**
          * Laden der Positionen wenn die Seite geladen wurde.
          */

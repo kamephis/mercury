@@ -30,11 +30,16 @@ class View
      */
     static function showAlert($alertType, $option = null, $message)
     {
+        switch ($alertType) {
+            case 'success':
+                $icon = "glyphicon-ok";
+                break;
+        }
         echo '<div class="alert alert-' . $alertType . ' ' . $option . '">';
-        echo '<div class="col-sm-4"></div>';
-        echo '<div class="col-sm-4"><strong><center>' . $message . '</center></strong></div>';
+        echo '<div class="col-sm-3"></div>';
+        echo '<div class="col-sm-5"><strong><center>' . $message . '</center></strong></div>';
         echo '<div class="clearfix"></div>';
-        echo '<div class="col-sm-4"></div>';
+        echo '<div class="col-sm-3"></div>';
         echo '</div>';
         echo '<div class="clearfix"></div>';
     }

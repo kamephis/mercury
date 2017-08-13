@@ -224,7 +224,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
 </div><!-- end panel-->
 
 <script>
-
+    /**
     $('body').append('<div style="background:black;" id="loadingDiv">' +
         '<div class="loader" style="background:red; color:white; width:250px; height:250px;"><b>Daten werden geladen...</b></div>' +
         '</div>');
@@ -236,7 +236,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
             $("#loadingDiv").remove();
         });
     }
-
+     **/
     $(document).ready(function () {
 
         // Button deaktivieren und Statusmeldung anzeigen

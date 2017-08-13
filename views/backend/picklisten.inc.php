@@ -149,7 +149,8 @@
                                         }
                                         ?>
                                         <?php if ($statusCheck == 0) { ?>
-                                            <button type="submit" class="btn btn-danger btn-sm" name="delPicklist"
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                    data-class="btnDelPicklist" name="delPicklist"
                                                     value="1" data-toggle="modal" data-target="#modDelPickItem">
                                                 <span class="glyphicon glyphicon-trash"></span>&nbsp;Löschen
                                             </button>

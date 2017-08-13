@@ -89,6 +89,10 @@ if ($_REQUEST['delPicklist']) {
 
 <script>
     $(document).ready(function () {
+        $('.frmDel').submit(function () {
+            $(this).find('button[data-class=btnDelPicklist]').prop('disabled', true).html('<span class="glyphicon fast-right-spinner glyphicon-trash glyphicon-refresh"></span> löschen...');
+            $(this).submit();
+        });
 
         $('#btnTogglePicklistArea').on('click', function () {
             $("#pnlPicklist").toggle("slow", function () {

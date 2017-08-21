@@ -65,6 +65,15 @@ if ($_GET['eanScanned'] = 1) {
     } else {
         $this->message = $this->msg_keine_positionen;
     }
+
+    // gemeldete Fehler auslesen
+    $aItemFehler = $this->picklist->getItemFehler(Session::get('artEAN'));
+
+    if (in_array('Max. Menge', $aItemFehler['ItemFehler'])) {
+        $sArtError = 'REST';
+    }
+
+
 } else {
     // Wenn keine EAN gescannt wurde, wird zur Scan-Form weitergeleitet
     echo "<script>location.replace('scanArt');</script>";
@@ -91,7 +100,13 @@ $title = $auftrag[0]['ItemName'];
     }
 
     .txt-lg {
-        font-size: 24px;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .txt-bin {
+        font-size: 14px;
+        font-family: Courier;
         font-weight: bold;
     }
 
@@ -205,6 +220,15 @@ $title = $auftrag[0]['ItemName'];
 
                 <div class="col-sm-4">Bestand:</div>
                 <div class="col-sm-8"><?php echo $bestand; ?> m</div>
+
+                <div class="col-sm-4">Info:</div>
+                <div class="col-sm-8">
+                    <?php if (!empty($sArtError)) {
+                        echo $sArtError;
+                    } ?>
+                </div>
+
+
             </div>
         </div>
 
@@ -433,8 +457,11 @@ $title = $auftrag[0]['ItemName'];
                     <?php echo utf8_encode($auftrag[0]['ItemName']); ?><br>
                     Art.Nr: <?php echo $item['ItemNrSuppl']; ?><br>
                     Best.Nr: <?php echo $aOrderLine['OrderNrExternal']; ?><br>
-                    <span class="fehlerText"><code><b><?php echo $auftrag[0]['BinName']; ?></b></code> | <?php echo $bestand; ?>
-                        m | <?php echo date('d.m.y'); ?><br></span>
+                    <span class="fehlerText">
+                        <span class="txt-bin"><b><?php echo $auftrag[0]['BinName']; ?></b></span><br>
+                        Pixi: <?php echo $bestand; ?> m / Druck: <?php echo date('d.m.y'); ?>
+                    </span>
+                    <?php echo(isset($_SESSION['kuerzel']) ? 'ID: ' . strtoupper($_SESSION['kuerzel']) : '') ?><br>
                     <b>
                         <div class="fehlergrund fehlerText">&nbsp;</div>
                     </b>
@@ -506,8 +533,8 @@ $title = $auftrag[0]['ItemName'];
 
             });
         </script>
-    <?php } ?>
-<?php } ?>
+    <?php }
+} ?>
 
 <!-- Mod Auftrag abschließen / Wird derzeit nicht verwendet -->
 <!--

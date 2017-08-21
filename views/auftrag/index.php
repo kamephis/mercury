@@ -67,11 +67,7 @@ if ($_GET['eanScanned'] = 1) {
     }
 
     // gemeldete Fehler auslesen
-    $aItemFehler = $this->picklist->getItemFehler(Session::get('artEAN'));
-
-    if (in_array('Max. Menge', $aItemFehler['ItemFehler'])) {
-        $sArtError = 'REST';
-    }
+    $sItemFehler = $this->auftrag->getItemFehlerMax(Session::get('artEAN'));
 
 
 } else {
@@ -223,9 +219,9 @@ $title = $auftrag[0]['ItemName'];
 
                 <div class="col-sm-4">Info:</div>
                 <div class="col-sm-8">
-                    <?php if (!empty($sArtError)) {
-                        echo $sArtError;
-                    } ?>
+                    <?php
+                    echo $sItemFehler;
+                    ?>
                 </div>
 
 

@@ -13,6 +13,25 @@ class Auftrag_Model extends Model
         parent::__construct();
     }
 
+    /**
+     * Prüfen ob Max Bestand
+     * @param $sEanUpc
+     * @return string
+     */
+    public function getItemFehlerMax($sEanUpc)
+    {
+        $sql = "SELECT ItemFehler FROM stpPicklistItems WHERE EanUpc = '{$sEanUpc}' AND ItemFehler = 'Max. Menge'";
+        $result = $this->db->select($sql);
+        $msg = null;
+
+        if (sizeof($result) > 0) {
+            $msg = 'REST';
+        } else {
+            $msg = '';
+        }
+        return $msg;
+    }
+
     public function setItemFehlerAuftrag($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
     {
         // Einfügen des Fehler Users, wenn Fehler vorhanden

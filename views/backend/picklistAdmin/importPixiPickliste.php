@@ -58,22 +58,23 @@ if (isset($_REQUEST['selectedPicklist'])) {
                                     &nbsp;pixi* Pickliste Importieren</button>
                                 </span>
                     </div>
+                        <div class="clearfix"></div>
+                        <br>
+                        <div class="alert alert-warning alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <b>ACHTUNG!</b> Beim Import einer pixi* Pickliste, wird immer der in diesem Moment, aktuelle
+                            Stand der Pickliste importiert. Im parallel Betrieb (gedruckte / digitale Pickliste)
+                            muss ganz besonders darauf geachtetet werden. Möchte man den Stand der pixi* Picklisten
+                            aktualisieren, müssen zuerst die Tabellen (die Aufträge) aus der
+                            internen Datenbank geleert werden. So ist sichergestellt, dass Veränderungen auch auf die
+                            interne Pickliste übertragen werden.
+                        </div>
+                        <div class="clearfix"></div>
                     <?php } else {
                         View::showAlert('danger', null, '<h4>Keine Pixi Pickliste gefunden</h4><p>Bitte erstellen Sie zuerst eine <strong>Pickliste im PIXI Versandmodul</strong>.</p>');
                     } ?>
 
-                    <div class="clearfix"></div>
-                    <br>
-                    <div class="alert alert-warning alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <b>ACHTUNG!</b> Beim Import einer pixi* Pickliste, wird immer der in diesem Moment, aktuelle
-                        Stand der Pickliste importiert. Im parallel Betrieb (gedruckte / digitale Pickliste)
-                        muss ganz besonders darauf geachtetet werden. Möchte man den Stand der pixi* Picklisten
-                        aktualisieren, müssen zuerst die Tabellen (die Aufträge) aus der
-                        internen Datenbank geleert werden. So ist sichergestellt, dass Veränderungen auch auf die
-                        interne Pickliste übertragen werden.
-                    </div>
-                    <div class="clearfix"></div>
+
                     <a href="neuePickliste" class="btn btn-default">
                         <span class="glyphicon glyphicon-plus-sign"></span>
                         &nbsp;Neue interne Pickliste erstellen
@@ -85,6 +86,10 @@ if (isset($_REQUEST['selectedPicklist'])) {
 </div>
 <script>
     $(document).ready(function () {
+
+        $('#frmImportPixiPl').on('submit', function () {
+            $(".loginfields").show();
+        });
         // Button deaktivieren und Statusmeldung anzeigen
         $('#frmImportPixiPl').submit(function () {
             $(this).find('button[type=submit]').prop('disabled', true).html('<span class="glyphicon fast-right-spinner glyphicon-refresh glyphicon-refresh"></span> Pixi Pickliste wird importiert...');

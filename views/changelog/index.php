@@ -19,6 +19,61 @@
         </tr>
         </thead>
         <tbody>
+
+        <tr>
+            <td>
+                132a386
+            </td>
+            <td>
+                1.0.8.8
+            </td>
+            <td>
+                + Anzeiger aller Lagerplätze eines Artikels
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                160bcfd
+            </td>
+            <td>
+                1.0.8.7
+            </td>
+            <td>
+                + Anzeige das RESTSTOFF im Zuschnitt
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                9c1c3ce
+            </td>
+            <td>
+                1.0.8.6
+            </td>
+            <td>
+                + Spinning Icon in der Picklistenerstellung / Pixi Picklistenimport zeigt nun die Aktivität an, solange
+                ein Formular versendet wird.
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                c0096e4
+            </td>
+            <td>
+                1.0.8.5
+            </td>
+            <td>
+                + Deaktivieren des Buttons innerhalb der Picklistenerstellung, solange das Formular übermittelt wird.
+                Verhindert das mehrmalige Absenden des Formulars.
+                <br>
+                + Deaktivieren des Buttons innerhalb des Pixi Picklistenimports, solange das Formular übermittelt wird.
+                Verhindert das mehrmalige Absenden des Formulars.
+            </td>
+        </tr>
+
         <tr>
             <td>
                 d0513e1

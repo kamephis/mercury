@@ -12,6 +12,9 @@ class Pixi
 {
     private $oProxy;
 
+    /**
+     * Pixi constructor.
+     */
     public function __construct()
     {
         require_once('nusoap.php');
@@ -43,6 +46,23 @@ class Pixi
         }
     }
 
+    /**
+     * Ausgabe aller Lagerplätze eines Artikels
+     * @param $eanUpc
+     * @return mixed
+     */
+    public function getAllBins($eanUpc)
+    {
+        $aBins = $this->oProxy->pixiGetItemStockBins(array('EAN' => $eanUpc));
+        $aBins = $aBins['pixiGetItemStockBinsResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+
+        return $aBins;
+
+    }
+
+    /**
+     * @return mixed
+     */
     public function getAllPicklists()
     {
         $aPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));
@@ -61,6 +81,12 @@ class Pixi
             return false;
         }
     }
+
+
+    /**
+     * @param $orderNr
+     * @return mixed
+     */
     function getOrderHeader($orderNr)
     {
         $aOrderHeader = $this->oProxy->pixiGetOrderHeader(array('OrderNrExternal' => $orderNr));
@@ -69,6 +95,10 @@ class Pixi
         return $aOrderHeader;
     }
 
+    /**
+     * @param $orderLineKey
+     * @return bool
+     */
     function getOrderLine($orderLineKey)
     {
         $aOrderline = $this->oProxy->pixiGetOrderline(array('OrderlineKey' => $orderLineKey));
@@ -80,6 +110,11 @@ class Pixi
         }
 
     }
+
+    /**
+     * @param $picklistID
+     * @return mixed
+     */
     function getPicklistDetails($picklistID)
     {
         $stock = $this->oProxy->pixiShippingGetPicklistDetails(array('PicklistKey' => $picklistID, 'FilterBinGroup' => '060 Standard', 'FilterLocation' => '001'));
@@ -87,6 +122,11 @@ class Pixi
         return $stock;
     }
 
+    /**
+     * @param $ean
+     * @param $ItemNrSuppl
+     * @return array|string
+     */
     function getItemInfo($ean, $ItemNrSuppl)
     {
         $stock = $this->oProxy->pixiGetItemInfo(array('EANUPC' => $ean, 'ItemNrSuppl' => $ItemNrSuppl));

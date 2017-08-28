@@ -106,8 +106,29 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <b>Lagerplatz</b>
                         </div>
                         <div class="col-sm-12">
-                            <h2 class="pick binColor"
-                                style="background: <?php echo $this->binColors['COLOR_' . substr($item['BinName'], -2)]; ?>;"><?php echo $item[$_SESSION['pos']]['BinName']; ?></h2>
+                            <?php
+                            $pixiBins = $this->Pixi->getAllBins($item[$_SESSION['pos']]['EanUpc']);
+                            if (is_array($pixiBins[0])) {
+                                echo "Lagerplätze: ";
+                                foreach ($pixiBins as $bin) {
+                                    ?>
+                                    <h2 class="pick binColor"
+                                        style="background: <?php echo $this->binColors['COLOR_' . substr($bin['BinName'], -2)]; ?>;">
+                                        <?php echo $bin['BinName'] . " "; ?>
+                                    </h2>
+                                    <?
+                                }
+                            } else {
+                                ?>
+                                <h2 class="pick binColor"
+                                    style="background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
+                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
+                                </h2>
+                                <?php
+                                //echo "Lagerplatz: ".$fehlerItem['BinName'];
+                            }
+                            ?>
+
                         </div>
                         <div class="clearfix"></div>
 

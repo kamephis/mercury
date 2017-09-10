@@ -183,10 +183,17 @@
                                     <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
 
                                     <button type="button"
+                                            class="btn btn-warning btn-xs hidden-print btn-block btnEscalate"
+                                            id="btnEscalate_<?php echo $fArtikel['ID']; ?>"
+                                            data-id="<?php echo $fArtikel['ID']; ?>">
+                                        <i class="glyphicon glyphicon-user"></i> Service
+                                    </button>
+
+                                    <button type="button"
                                             class="btn btn-danger btn-xs hidden-print btn-block btnDelError"
                                             id="btnError_<?php echo $fArtikel['ID']; ?>"
                                             data-id="<?php echo $fArtikel['ID']; ?>">
-                                        <span class="glyphicon glyphicon-remove"></span> l&ouml;schen
+                                        <i class="glyphicon glyphicon-remove"></i> l&ouml;schen
                                     </button>
                                 </form>
                             </td>

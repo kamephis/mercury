@@ -209,6 +209,23 @@ if ($_REQUEST['delPicklist']) {
             })
         });
 
+        // Eskalation
+        $(".btnEscalate").on("click", function () {
+            var artID = $(this).data("id");
+            var itemStatus = '5';
+
+            $.ajax({
+                type: 'POST',
+                url: "index.php?url=setItemStatus",
+                data: {"articleID": artID, "ItemStatus": itemStatus},
+                success: function (data) {
+                    $("#rowError_" + artID).remove();
+                },
+                complete: function () {
+                    //alert('Der Artikel wurde an den Kundenservice zur Bearbeitung gemeldet.');
+                }
+            })
+        });
 
     })
 </script>

@@ -63,7 +63,7 @@ class ImportPixiPickliste_Model extends Model
     }
 
     /**
-     * Zusatzdaten aus OXID auslesen
+     * Zusatzdaten aus OXID auslesen und als Array zurückgeben.
      * @param $oxartnum
      * @return bool|mysqli_result
      */

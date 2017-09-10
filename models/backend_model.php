@@ -38,13 +38,29 @@ class Backend_Model extends Model
             GROUP BY items.EanUpc
             ORDER BY items.BinName";
 
-        $sql = "SELECT items.*, items.EanUpc, items.Qty as BestMenge FROM stpPicklistItems items
+        $sql_ohne_Itemstatus5 = "SELECT items.*, items.EanUpc, items.Qty as BestMenge FROM stpPicklistItems items
             WHERE
             (items.ItemFehler != '' OR
             items.ItemFehlbestand != '' )
             ORDER BY items.BinSortNum";
+
+        $sql = "SELECT items.*, items.EanUpc, items.Qty as BestMenge FROM stpPicklistItems items
+            WHERE
+            items.ItemStatus = 4
+            ORDER BY items.BinSortNum";
+
         return $this->db->select($sql);
 
+    }
+
+    /**
+     * Liste für den Kundenservice bei Problemartikeln
+     * @return array
+     */
+    public function getKusInfo()
+    {
+        $sql = "SELECT * FROM stpEscalateList ORDER BY items.BinSortNum";
+        return $this->db->select($sql);
     }
 
     /**
@@ -97,34 +113,35 @@ class Backend_Model extends Model
     public function getPicklistStatusProzent($picklistNr)
     {
         $sql1 = "SELECT *
-FROM stpPicklistItems pitem
-RIGHT JOIN stpArtikel2Pickliste a2p
-ON pitem.id = a2p.ArtikelID
-                
-LEFT JOIN stpPickliste plist
-ON a2p.PicklistID = plist.PLHkey
-                
-WHERE plist.PLHkey = {$picklistNr}
-AND a2p.PicklistID = {$picklistNr}
-/*AND pitem.ItemStatus != 0*/
-/*GROUP BY pitem.EanUpc*/
-ORDER BY pitem.BinSortNum";
-
+                    FROM stpPicklistItems pitem
+                    RIGHT JOIN stpArtikel2Pickliste a2p
+                    ON pitem.id = a2p.ArtikelID
+                                    
+                    LEFT JOIN stpPickliste plist
+                    ON a2p.PicklistID = plist.PLHkey
+                                    
+                    WHERE plist.PLHkey = {$picklistNr}
+                    AND a2p.PicklistID = {$picklistNr}
+                    /*AND pitem.ItemStatus != 0*/
+                    /*GROUP BY pitem.EanUpc*/
+                    ORDER BY pitem.BinSortNum
+                ";
         $status_eins = $this->db->select($sql1);
 
         $sql2 = "SELECT *
-FROM stpPicklistItems pitem
-RIGHT JOIN stpArtikel2Pickliste a2p
-ON pitem.id = a2p.ArtikelID
-                
-LEFT JOIN stpPickliste plist
-ON a2p.PicklistID = plist.PLHkey
-                
-WHERE plist.PLHkey = {$picklistNr}
-AND a2p.PicklistID = {$picklistNr}
-AND (pitem.ItemStatus = 2 OR pitem.ItemStatus = 3 OR pitem.ItemStatus = 4)
-/*GROUP BY pitem.EanUpc*/
-ORDER BY pitem.BinSortNum";
+                    FROM stpPicklistItems pitem
+                    RIGHT JOIN stpArtikel2Pickliste a2p
+                    ON pitem.id = a2p.ArtikelID
+                                    
+                    LEFT JOIN stpPickliste plist
+                    ON a2p.PicklistID = plist.PLHkey
+                                    
+                    WHERE plist.PLHkey = {$picklistNr}
+                    AND a2p.PicklistID = {$picklistNr}
+                    AND (pitem.ItemStatus = 2 OR pitem.ItemStatus = 3 OR pitem.ItemStatus = 4)
+                    /*GROUP BY pitem.EanUpc*/
+                    ORDER BY pitem.BinSortNum
+                ";
 
         $status_zwei = $this->db->select($sql2);
         $gesamt = sizeof($status_eins);

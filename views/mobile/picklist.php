@@ -103,13 +103,21 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
                     <div class="row">
                         <div class="col-xs-12 col-md-12 small">
-                            <b>Lagerplatz</b>
+                            <?php
+
+                            $pixiBins = $this->Pixi->getAllBins($item[$_SESSION['pos']]['EanUpc']);
+
+                            if (is_array($pixiBins[0])) {
+                                echo '<b>Lagerplätze</b>';
+                            } else {
+                                echo '<b>Lagerplatz</b>';
+                            }
+                            ?>
                         </div>
                         <div class="col-sm-12">
                             <?php
-                            $pixiBins = $this->Pixi->getAllBins($item[$_SESSION['pos']]['EanUpc']);
+
                             if (is_array($pixiBins[0])) {
-                                echo "Lagerplätze: ";
                                 foreach ($pixiBins as $bin) {
                                     ?>
                                     <h2 class="pick binColor"

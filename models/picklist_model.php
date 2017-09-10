@@ -134,6 +134,24 @@ class Picklist_Model extends Model
     }
 
     /**
+     * Setzt den ItemStatus auf einen bestimmten Wert
+     * 0 = importiert
+     * 1 = einer Pickliste zugewiesen
+     * 2 = gepickt
+     * 3 = zugeschnitten
+     * 4 = Fehler
+     * 5 = eskaliert -> KuS
+     *
+     * @param $status
+     * @param $articleID
+     */
+    public function setArticleItemStatus($status, $articleID)
+    {
+        $aUpdate = array('ItemStatus' => $status);
+        $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
+    }
+
+    /**
      * Picken von Positionen (bei Aufträgen mit mehreren Längen)
      *
      * Setzen des ItemStatus bei allen Artikeln mit dieser EAN auf 2 (gepickt)

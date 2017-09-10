@@ -25,6 +25,18 @@
                 132a386
             </td>
             <td>
+                1.0.8.9
+            </td>
+            <td>
+                + Eskalation für Kundenservice
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                132a386
+            </td>
+            <td>
                 1.0.8.8
             </td>
             <td>

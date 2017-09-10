@@ -218,6 +218,9 @@
                                                         case '4':
                                                             echo '<b><span class="glyphicon glyphicon-flash" style="font-size:110%;" title="fehlerhaft"></span></b>';
                                                             break;
+                                                        case '5':
+                                                            echo '<b><span class="glyphicon glyphicon-bullhorn" style="font-size:110%;" title="eskaliert"></span></b>';
+                                                            break;
                                                     }
                                                     ?></center>
                                             </td>
@@ -287,6 +290,7 @@
                                     <span class="glyphicon glyphicon-ok-circle"></span> gepickt&nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-flash"></span> fehlerhaft&nbsp;
                                     <span class="glyphicon glyphicon-scissors"></span> zugeschnitten
+                                    <span class="glyphicon glyphicon-bullhorn"></span> eskaliert
                                 </div>
                             </div>
                             <!-- end picklistitems -->

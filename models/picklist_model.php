@@ -124,7 +124,7 @@ class Picklist_Model extends Model
 
     /**
      * Picken einer einzelnen Position
-     *
+     * an einem Lagerplatz
      * @param $articleID
      */
     public function setItemStatusArt($articleID)

@@ -103,49 +103,11 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
                     <div class="row">
                         <div class="col-xs-12 col-md-12 small">
-                            <?php
-
-                            $pixiBins = $this->Pixi->getAllBins($item[$_SESSION['pos']]['EanUpc']);
-
-                            if (is_array($pixiBins[0])) {
-                                echo '<b>Lagerplätze</b>';
-                            } else {
-                                echo '<b>Lagerplatz</b>';
-                            }
-
-                            ?>
+                            <b>Lagerplatz</b>
                         </div>
                         <div class="col-sm-12">
-                            <?php
-
-                            if (is_array($pixiBins[0])) {
-                                /*
-                                foreach ($pixiBins as $bin) {*/
-                                    ?>
-                                <!--<h2 class="pick binColor"
-                                        style="background: <?php /*echo $this->binColors['COLOR_' . substr($bin['BinName'], -2)];*/ ?>;">
-                                        <?php /* echo $bin['BinName'] . " "; */ ?>
-                                    </h2>-->
-
-                                <h2 class="pick binColor"
-                                    style="text-decoration:underline; background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
-                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
-                                </h2>
-                                    <?
-                                /*}*/
-
-
-                            } else {
-                                ?>
-                                <h2 class="pick binColor"
-                                    style="background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
-                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
-                                </h2>
-                                <?php
-                                //echo "Lagerplatz: ".$fehlerItem['BinName'];
-                            }
-                            ?>
-
+                            <h2 class="pick binColor"
+                                style="background: <?php echo $this->binColors['COLOR_' . substr($item['BinName'], -2)]; ?>;"><?php echo $item[$_SESSION['pos']]['BinName']; ?></h2>
                         </div>
                         <div class="clearfix"></div>
 

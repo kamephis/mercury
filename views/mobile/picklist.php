@@ -149,10 +149,12 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <div class="row">
                                 <div class="col-xs-6 text-small hidden-print"><b>Menge</b></div>
                                 <div class="col-xs-6 text-small hidden-print"><b>Lagerbestand</b></div>
-                                <?php $aPickCnt = $this->Picklist->getItemPickAmount($item[$_SESSION['pos']]['EanUpc'], $_SESSION['plist']); ?>
+                                <?php // $aPickCnt = $this->Picklist->getItemPickAmount($item[$_SESSION['pos']]['EanUpc'], $_SESSION['plist']); ?>
                                 <div class="col-xs-6 hidden-print">
                                     <h2 class="pick">
+                                        <?php echo $item[$_SESSION['pos']]['Qty']; ?>
                                         <?php
+                                        /*
                                         echo $aPickCnt[0]['pSum'];
 
                                         if ($aPickCnt[0]['pSum'] > $item[$_SESSION['pos']]['Qty']) {
@@ -164,6 +166,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                             echo rtrim($outputString, ',');
                                             echo ')</small>';
                                         }
+                                        */
                                         ?>
                                     </h2>
                                 </div>
@@ -399,7 +402,10 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <h4 class="modal-title">Pick bestätigen</h4>
                         </div>
                         <div class="modal-body">
-                            <h1 class="text-center"><b><?php echo $aPickCnt[0]['pSum']; ?> ME</b></h1>
+                            <h1 class="text-center"><b>
+                                    <?php echo $item[$_SESSION['pos']]['Qty']; ?>
+                                    <?php // echo $aPickCnt[0]['pSum']; ?>
+                                    ME</b></h1>
                             <h2 class="text-center"><b>gepickt?</b></h2>
                         </div>
                         <div class="modal-footer">

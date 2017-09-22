@@ -25,6 +25,18 @@
                 132a386
             </td>
             <td>
+                1.0.9.0
+            </td>
+            <td>
+                + Positionen werden nur noch an einem Lagerplatz gepickt, nicht mehr über alle Lagerplätze hinweg
+                + Fehler werden nur noch an einem Lagerplatz erfasst, nicht mehr über alle Lagerplätze hinweg
+            </td>
+        </tr>
+        <tr>
+            <td>
+                132a386
+            </td>
+            <td>
                 1.0.8.9
             </td>
             <td>

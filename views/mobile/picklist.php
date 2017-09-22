@@ -1,7 +1,7 @@
 <?php
-// Stoff gepickt - via EAN (itemPicked = Ean der Position)
+// Stoff gepickt - via EAN (itemPicked = Ean der Position, und BinKey (Lagerplatz))
 if ($_REQUEST['itemPicked']) {
-    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID']);
+    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID'], $_REQUEST['BinKey']);
     // Aktualisieren -> nächste Position - refresh
     header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'], true, 301);
 }
@@ -28,7 +28,7 @@ if ($_REQUEST['setFehler']) {
         $fehlerText = $aFehler[0] . ', ' . $aFehler[1] . ', ' . $aFehler[2];
     }
 
-    $this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand);
+    $this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand, $_REQUEST['BinKey']);
     // Org: Jeder Fehler muss einzeln bestätigt werden.
     //$this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
 }
@@ -377,6 +377,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                 <input type="hidden" name="EanUpc"
                                        value="<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>">
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
+                                <input type="hidden" name="BinKey"
+                                       value="<?php echo $item[$_SESSION['pos']]['BinKey']; ?>">
                                 <button type="submit" class="btn btn-success btn-block btn-lg" id="btnFehler">
                                     Bestätigen
                                 </button>
@@ -408,6 +410,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                 <input type="hidden" name="itemPicked"
                                        value="<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>">
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
+                                <input type="hidden" name="BinKey"
+                                       value="<?php echo $item[$_SESSION['pos']]['BinKey']; ?>">
                                 <input type="submit" class="btn btn-success btn-block btn-lg" value="JA">
                             </form>
                         </div>

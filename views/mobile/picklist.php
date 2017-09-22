@@ -112,20 +112,29 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             } else {
                                 echo '<b>Lagerplatz</b>';
                             }
+
                             ?>
                         </div>
                         <div class="col-sm-12">
                             <?php
 
                             if (is_array($pixiBins[0])) {
-                                foreach ($pixiBins as $bin) {
+                                /*
+                                foreach ($pixiBins as $bin) {*/
                                     ?>
-                                    <h2 class="pick binColor"
-                                        style="background: <?php echo $this->binColors['COLOR_' . substr($bin['BinName'], -2)]; ?>;">
-                                        <?php echo $bin['BinName'] . " "; ?>
-                                    </h2>
+                                <!--<h2 class="pick binColor"
+                                        style="background: <?php /*echo $this->binColors['COLOR_' . substr($bin['BinName'], -2)];*/ ?>;">
+                                        <?php /* echo $bin['BinName'] . " "; */ ?>
+                                    </h2>-->
+
+                                <h2 class="pick binColor"
+                                    style="text-decoration:underline; background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
+                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
+                                </h2>
                                     <?
-                                }
+                                /*}*/
+
+
                             } else {
                                 ?>
                                 <h2 class="pick binColor"

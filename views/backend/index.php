@@ -212,12 +212,11 @@ if ($_REQUEST['delPicklist']) {
         // Eskalation
         $(".btnEscalate").on("click", function () {
             var artID = $(this).data("id");
-            var itemStatus = '5';
 
             $.ajax({
                 type: 'POST',
                 url: "index.php?url=setItemStatus",
-                data: {"articleID": artID, "ItemStatus": itemStatus},
+                data: {"articleID": artID},
                 success: function (data) {
                     $("#rowError_" + artID).remove();
                 },

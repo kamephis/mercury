@@ -32,6 +32,15 @@ class Auftrag_Model extends Model
         return $msg;
     }
 
+    /**
+     * Fehlerartikel erfassen
+     * TODO: mit Funktion aus dem Picklist Model ersetzen
+     * @param $articleID
+     * @param $aFehler
+     * @param $intItemFehlbestand
+     * @param null $checked
+     * @param null $pruefer #
+     */
     public function setItemFehlerAuftrag($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
     {
         // Einfügen des Fehler Users, wenn Fehler vorhanden
@@ -45,7 +54,7 @@ class Auftrag_Model extends Model
         if ($aFehler != Null) {
             $aFehler = utf8_decode($aFehler);
         }
-        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer);
+        $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer, 'ItemStatus' => '4');
 
         $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }

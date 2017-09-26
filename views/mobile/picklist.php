@@ -28,7 +28,8 @@ if ($_REQUEST['setFehler']) {
         $fehlerText = $aFehler[0] . ', ' . $aFehler[1] . ', ' . $aFehler[2];
     }
 
-    $this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand, $_REQUEST['BinKey']);
+    $this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand);
+    //$this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand, $_REQUEST['BinKey']);
     // Org: Jeder Fehler muss einzeln bestätigt werden.
     //$this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
 }
@@ -103,11 +104,49 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
                     <div class="row">
                         <div class="col-xs-12 col-md-12 small">
-                            <b>Lagerplatz</b>
+                            <?php
+
+                            $pixiBins = $this->Pixi->getAllBins($item[$_SESSION['pos']]['EanUpc']);
+
+                            if (is_array($pixiBins[0])) {
+                                echo '<b>Lagerplätze</b>';
+                            } else {
+                                echo '<b>Lagerplatz</b>';
+                            }
+
+                            ?>
                         </div>
                         <div class="col-sm-12">
-                            <h2 class="pick binColor"
-                                style="background: <?php echo $this->binColors['COLOR_' . substr($item['BinName'], -2)]; ?>;"><?php echo $item[$_SESSION['pos']]['BinName']; ?></h2>
+                            <?php
+
+                            if (is_array($pixiBins[0])) {
+                                /*
+                                foreach ($pixiBins as $bin) {*/
+                                ?>
+                                <!--<h2 class="pick binColor"
+                                        style="background: <?php /*echo $this->binColors['COLOR_' . substr($bin['BinName'], -2)];*/ ?>;">
+                                        <?php /* echo $bin['BinName'] . " "; */ ?>
+                                    </h2>-->
+
+                                <h2 class="pick binColor"
+                                    style="text-decoration:underline; background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
+                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
+                                </h2>
+                                <?
+                                /*}*/
+
+
+                            } else {
+                                ?>
+                                <h2 class="pick binColor"
+                                    style="background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
+                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
+                                </h2>
+                                <?php
+                                //echo "Lagerplatz: ".$fehlerItem['BinName'];
+                            }
+                            ?>
+
                         </div>
                         <div class="clearfix"></div>
 
@@ -149,12 +188,10 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <div class="row">
                                 <div class="col-xs-6 text-small hidden-print"><b>Menge</b></div>
                                 <div class="col-xs-6 text-small hidden-print"><b>Lagerbestand</b></div>
-                                <?php // $aPickCnt = $this->Picklist->getItemPickAmount($item[$_SESSION['pos']]['EanUpc'], $_SESSION['plist']); ?>
+                                <?php $aPickCnt = $this->Picklist->getItemPickAmount($item[$_SESSION['pos']]['EanUpc'], $_SESSION['plist']); ?>
                                 <div class="col-xs-6 hidden-print">
                                     <h2 class="pick">
-                                        <?php echo $item[$_SESSION['pos']]['Qty']; ?>
                                         <?php
-                                        /*
                                         echo $aPickCnt[0]['pSum'];
 
                                         if ($aPickCnt[0]['pSum'] > $item[$_SESSION['pos']]['Qty']) {
@@ -166,7 +203,6 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                             echo rtrim($outputString, ',');
                                             echo ')</small>';
                                         }
-                                        */
                                         ?>
                                     </h2>
                                 </div>
@@ -402,10 +438,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <h4 class="modal-title">Pick bestätigen</h4>
                         </div>
                         <div class="modal-body">
-                            <h1 class="text-center"><b>
-                                    <?php echo $item[$_SESSION['pos']]['Qty']; ?>
-                                    <?php // echo $aPickCnt[0]['pSum']; ?>
-                                    ME</b></h1>
+                            <h1 class="text-center"><b><?php echo $aPickCnt[0]['pSum']; ?> ME</b></h1>
                             <h2 class="text-center"><b>gepickt?</b></h2>
                         </div>
                         <div class="modal-footer">
@@ -416,8 +449,6 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                 <input type="hidden" name="itemPicked"
                                        value="<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>">
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
-                                <input type="hidden" name="BinKey"
-                                       value="<?php echo $item[$_SESSION['pos']]['BinKey']; ?>">
                                 <input type="submit" class="btn btn-success btn-block btn-lg" value="JA">
                             </form>
                         </div>

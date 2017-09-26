@@ -8,11 +8,11 @@
                     <span class="glyphicon glyphicon-minus"></span>
                 </button>
 </span>
-                <span class="panel-title"><?php echo $this->tFehler; ?></span>
+                <span class="panel-title"><?php echo $this->title; ?></span>
             </div>
             <div class="panel-body" id="pnlFehler">
                 <?php
-                if (sizeof($this->backend->getFehlerhafteArtikel()) > 0) {
+                if (sizeof($this->back->getKusInfo()) > 0) {
                     ?>
 
                     <table class="table table-bordered table-striped table-hover table-condensed table-responsive">
@@ -30,6 +30,11 @@
                             <th>
                                 Artikelnr.
                             </th>
+
+                            <th>
+                                Lieferanteninfo
+                            </th>
+
                             <th>
                                 EAN
                             </th>
@@ -58,10 +63,10 @@
                                 <span class="hidden-print">Bearbeiter(in)</span>
                                 <span class="visible-print">Bearb.</span>
                             </th>
-                            <th>
+                            <!--<th>
                                 <span class="hidden-print">Geprüft</span>
                                 <span class="visible-print">Gep.</span>
-                            </th>
+                            </th>-->
                             <th class="hidden-print">
                                 Aktion
                             </th>
@@ -71,8 +76,9 @@
                         <tbody>
                         <?php
                         $cntRow = 0;
-                        $aFehlerArtikel = $this->backend->getFehlerhafteArtikel();
+                        $aFehlerArtikel = $this->back->getKusInfo();
                         foreach ($aFehlerArtikel as $fArtikel) {
+                            $aSuppliers = $this->Pixi->getItemSuppliers($fArtikel['ItemNrSuppl']);
                             $cntRow++;
                             ?>
                             <tr id="rowError_<?php echo $fArtikel['ID']; ?>">
@@ -87,6 +93,31 @@
                                 </td>
                                 <td>
                                     <?php echo utf8_encode($fArtikel['ItemNrSuppl']); ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    echo '<table class="table table-condensed table-bordered table-striped">';
+                                    foreach ($aSuppliers as $supplier) {
+                                        $sup = $this->Pixi->getSuppliers($supplier['SupplNr']);
+
+                                        echo '<tr>';
+                                        echo '<td>';
+                                        echo '<span title="Lf.Nr: ' . $supplier['SupplNr'] . '">' . $sup['SupplName'] . '</span>';
+                                        echo "<br>";
+                                        echo '</td>';
+
+                                        echo '<td>';
+                                        echo 'Art.Nr: ' . $supplier['ItemNrSuppl'];
+                                        echo '</td>';
+                                        echo '</tr>';
+
+                                        /**echo '<td>';
+                                         * echo 'EK: '.$supplier['SupplPrice'];
+                                         * echo '</td>';
+                                         * echo '</tr>';**/
+                                    }
+                                    echo '</table>';
+                                    ?>
                                 </td>
                                 <td class="hidden-print">
                                     <?php echo $fArtikel['EanUpc']; ?>
@@ -149,7 +180,7 @@
                                     echo utf8_encode($fArtikel['ItemFehlerUser']);
                                     ?>
                                 </td>
-
+                                <!--
                                 <td>
                                     <center>
                                         <form method="post" id="frmChk" name="frmChk">
@@ -170,19 +201,12 @@
                                                    value="<?php echo $fArtikel['EanUpc']; ?>">
                                         </form>
                                     </center>
-                                </td>
+                                </td>-->
                                 <td class="hidden-print">
                                     <form method="post" id="frmDelete">
                                         <input type="hidden" name="itemFehlerUpdate" value="1">
                                         <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
-                                        <!--
-                                    <button type="button"
-                                        class="btn btn-warning btn-xs hidden-print btn-block btnEscalate"
-                                        id="btnEscalate_<?php echo $fArtikel['ID']; ?>"
-                                        data-escalateID="<?php echo $fArtikel['ID']; ?>">
-                                        <i class="glyphicon glyphicon-info-sign"></i> eskaliert
-                                    </button>
--->
+
                                         <button type="button"
                                                 class="btn btn-danger btn-xs hidden-print btn-block btnDelError"
                                                 id="btnError_<?php echo $fArtikel['ID']; ?>"
@@ -198,7 +222,7 @@
 
                 <?php } else {
                     echo '<div class="alert alert-info">';
-                    echo 'Es wurden noch keine Fehlerhaften Artikel gemeldet.';
+                    echo 'Es wurden derzeit noch keine Problemartikel gemeldet.';
                     echo '</div>';
                 } ?>
             </div>
@@ -206,3 +230,24 @@
     </div>
 </div><!-- ./row-->
 <div class="clearfix"></div>
+
+<script>
+    // Entfernen eines Artikelfehlers
+    $(".btnDelError").on("click", function () {
+        var artID = $(this).data("id");
+        var itemStatus = '2';
+
+        $.ajax({
+            type: 'POST',
+            url: "index.php?url=setItemStatusFehler",
+            data: {"articleID": artID, "ItemStatus": itemStatus},
+            success: function (data) {
+                $("#rowError_" + artID).remove();
+            },
+            complete: function () {
+
+            }
+        })
+    });
+
+</script>

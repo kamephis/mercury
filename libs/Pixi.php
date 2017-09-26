@@ -28,6 +28,33 @@ class Pixi
     }
 
     /**
+     * Lieferanten eines Artikels
+     * @param $ItemNrInt
+     * @return mixed
+     */
+    public function getItemSuppliers($ItemNrInt)
+    {
+        $aItemSuppl = $this->oProxy->pixiGetItemSuppliers(array('ItemNrInt' => $ItemNrInt));
+        $aItemSuppl = $aItemSuppl['pixiGetItemSuppliersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+
+        return $aItemSuppl;
+    }
+
+    /**
+     * Lieferanteninfos
+     * @param $supplNr
+     * @return mixed
+     */
+    public function getSuppliers($supplNr)
+    {
+        $aSuppl = $this->oProxy->pixiGetSuppliers(array('SupplNr' => $supplNr));
+        $aSuppl = $aSuppl['pixiGetSuppliersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+
+        return $aSuppl;
+    }
+
+
+    /**
      * Lagerbestand korrigieren
      * @param $eanUpc
      * @param $username

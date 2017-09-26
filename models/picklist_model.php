@@ -30,7 +30,7 @@ class Picklist_Model extends Model
                 pitem.ItemStatus = 1 AND 
                 LENGTH(pitem.ItemFehlerUser) = 0
                 
-                /*GROUP BY pitem.EanUpc*/
+                GROUP BY pitem.EanUpc
                 ORDER BY pitem.BinSortNum
                 ";
 
@@ -123,9 +123,10 @@ class Picklist_Model extends Model
     }
 
     /**
-     * Picken einer einzelnen Position anhand der Artikelnummer
+     * Picken einer einzelnen Position
+     *
      * @param $articleID
-     **/
+     */
     public function setItemStatusArt($articleID)
     {
         $aUpdate = array('ItemStatus' => '2');
@@ -152,30 +153,25 @@ class Picklist_Model extends Model
 
     /**
      * Picken von Positionen (bei Aufträgen mit mehreren Längen)
-     * an einem Lagerplatz - BinKey
      *
      * Setzen des ItemStatus bei allen Artikeln mit dieser EAN auf 2 (gepickt)
      * Zurücksetzen des Item Fehlers (da korrigiert)
-     *
      * @param $articleEan
      * @param $locationID
-     * @param $binkey
      */
-    public function setItemStatus($articleEan, $locationID, $binkey)
+    public function setItemStatus($articleEan, $locationID)
     {
         $aUpdate = array('ItemStatus' => '2', 'CurrentItemLocation' => $locationID, 'ItemFehler' => '', 'ItemFehlbestand' => '', 'ItemFehlerUser' => '');
-        $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleEan . ' AND BinKey = ' . $binkey);
+        $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleEan);
     }
 
     /**
      * Fehlerhafte Position speichern
      *
      * Setzen des ItemFehler / ItemFehlmenge auf den gewählten Wert aus dem Form-Array
-     * an einem bestimmten Lagerplatz
      * @param $articleID
-     * @param $binkey
      */
-    public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $binkey, $checked = null, $pruefer = null)
+    public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
     {
         // Einfügen des Fehler Users, wenn Fehler vorhanden
         if (strlen($intItemFehlbestand) > 0 || sizeof($aFehler) > 0) {
@@ -190,7 +186,7 @@ class Picklist_Model extends Model
         }
         $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer, 'ItemStatus' => '4');
 
-        $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleID . ' AND BinKey = ' . $binkey);
+        $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleID);
 
         // Aktivieren, wenn jede Position einzeln als Fehler bestätigt werden soll
         //$this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);

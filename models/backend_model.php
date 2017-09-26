@@ -59,9 +59,47 @@ class Backend_Model extends Model
      */
     public function getKusInfo()
     {
-        $sql = "SELECT * FROM stpEscalateList ORDER BY items.BinSortNum";
+        $sql = "SELECT * FROM stpEscalateList ORDER BY BinSortNum";
         return $this->db->select($sql);
     }
+
+    /**
+     * Extraktion von Sonderartikelnummern (LZ)
+     * @param $oxartnum
+     * @return bool|string
+     * (nicht verwendet, da EAN)
+     */
+    public function extractArtNum($oxartnum)
+    {
+        if ($this->_left($oxartnum, 2) == 'LZ') {
+            return substr($oxartnum, 2, strlen($oxartnum) - 3);
+        } else {
+            return $oxartnum;
+        }
+    }
+
+    /**
+     * Helper - Left
+     * @param $str
+     * @param $length
+     * @return bool|string
+     */
+    private function _left($str, $length)
+    {
+        return substr($str, 0, $length);
+    }
+
+    /**
+     * Helper - Right
+     * @param $str
+     * @param $length
+     * @return bool|string
+     */
+    private function _right($str, $length)
+    {
+        return substr($str, -$length);
+    }
+
 
     /**
      * Auslesen der bearbeiteten Aufträge

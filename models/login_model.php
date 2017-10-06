@@ -38,7 +38,7 @@ class Login_Model extends Model
          * pruefen ob der Benutzer berechtigt ist
          * Voraussetzung fuer den Zugriff auf das Backend ist ein passendes access_level
          */
-        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname,iUser.kuerzel, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level FROM iUser WHERE Username = :sUserName");
+        $sql = $this->db->prepare("SELECT iUser.UID, iUser.Username, iUser.name, iUser.vorname,iUser.kuerzel, iUser.Passwd, iUser.RegDate, iUser.kuerzel, iUser.access_level, iUser.dept FROM iUser WHERE Username = :sUserName");
 
         // Pruefen ob der Benutzername existiert
         $sql->execute(array('sUserName' => $sUserName));
@@ -59,10 +59,10 @@ class Login_Model extends Model
                 Session::set('access_level', $result['access_level']);
 
             // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
-            $this->redirect2TargetLocation();
+            $this->redirect2TargetLocation($result['dept']);
             echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
         } else {
-            $this->redirect2TargetLocation();
+            //$this->redirect2TargetLocation($result['dept']);
             // Zugriff verweigert
             header('Location: ' . URL . 'login?msg=401');
             //echo "<script>location.replace('" . $this->getSRedirectURL() . "?msg=401');</script>";
@@ -70,7 +70,11 @@ class Login_Model extends Model
 
     }
 
-    private function redirect2TargetLocation()
+    /**
+     * Weiterleitung, je nachdem wer sich anmeldet.
+     * @param $dept
+     */
+    private function redirect2TargetLocation($dept)
     {
         // Auslesen der Subdomain (Parameter für Weiterleitung)
         $hostUrl = explode('.', $_SERVER['HTTP_HOST']);
@@ -78,15 +82,32 @@ class Login_Model extends Model
 
         $sUrl = "http://" . $sSubdomain . ".stoffpalette.com/";
 
+        // Unterscheidung nach Subdomain. Wichtig, wenn ein User gleichzeitig Picker und Zuschnitt ist.
         switch ($sSubdomain) {
-            case 'pick':
-                $this->setSRedirectURL($sUrl . 'scanLocation');
-                break;
             case 'mercury':
-                $this->setSRedirectURL($sUrl . 'backend');
+                switch ($dept) {
+                    case 'teamleiter':
+                        $this->setSRedirectURL($sUrl . 'backend');
+                        break;
+                    case 'kus':
+                        $this->setSRedirectURL($sUrl . 'kundenservice');
+                        break;
+                }
                 break;
+
             case 'zuschnitt':
-                $this->setSRedirectURL($sUrl . 'scanArt');
+            case 'pick':
+                if ($dept == 'picker') {
+                    switch ($sSubdomain) {
+                        case 'zuschnitt':
+                            echo "<h1>Zuschnitt!!!</h1>";
+                            $this->setSRedirectURL($sUrl . 'scanArt');
+                            break;
+                        case 'pick':
+                            $this->setSRedirectURL($sUrl . 'scanLocation');
+                            break;
+                    }
+                }
                 break;
         }
         $_SESSION['redirectUrl'] = $this->getSRedirectURL();

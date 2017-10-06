@@ -25,6 +25,17 @@
                 132a386
             </td>
             <td>
+                1.1.0.0
+            </td>
+            <td>
+                + Berechtigung nach Benutzergruppen eingeführt (picker, kus, teamleiter)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                132a386
+            </td>
+            <td>
                 1.0.9.0
             </td>
             <td>

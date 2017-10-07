@@ -213,6 +213,7 @@ if ($_REQUEST['delPicklist']) {
         $(".btnEscalate").on("click", function () {
             var artID = $(this).data("id");
 
+
             $.ajax({
                 type: 'POST',
                 url: "index.php?url=setItemStatus",
@@ -221,6 +222,7 @@ if ($_REQUEST['delPicklist']) {
                     $("#rowError_" + artID).remove();
                 },
                 complete: function () {
+                    console.log('Der Artikel ' + artID + ' wurde an den Kundenservice zur Bearbeitung gemeldet.');
                     //alert('Der Artikel wurde an den Kundenservice zur Bearbeitung gemeldet.');
                 }
             })

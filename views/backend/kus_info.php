@@ -31,7 +31,7 @@
                                 Artikelnr.
                             </th>
 
-                            <th>
+                            <th class="alert-warning">
                                 Lieferanteninfo
                             </th>
 
@@ -77,8 +77,11 @@
                         <?php
                         $cntRow = 0;
                         $aFehlerArtikel = $this->back->getKusInfo();
+
                         foreach ($aFehlerArtikel as $fArtikel) {
+                            // Auslesen der Liefereantenartikelnummern aus Pixi
                             $aSuppliers = $this->Pixi->getItemSuppliers($fArtikel['ItemNrSuppl']);
+
                             $cntRow++;
                             ?>
                             <tr id="rowError_<?php echo $fArtikel['ID']; ?>">
@@ -94,7 +97,7 @@
                                 <td>
                                     <?php echo utf8_encode($fArtikel['ItemNrSuppl']); ?>
                                 </td>
-                                <td>
+                                <td class="alert-warning">
                                     <?php
                                     echo '<table class="table table-condensed table-bordered table-striped">';
                                     foreach ($aSuppliers as $supplier) {
@@ -230,7 +233,6 @@
     </div>
 </div><!-- ./row-->
 <div class="clearfix"></div>
-
 <script>
     // Entfernen eines Artikelfehlers
     $(".btnDelError").on("click", function () {
@@ -249,5 +251,4 @@
             }
         })
     });
-
 </script>

@@ -5,6 +5,7 @@ class SetItemStatus_Model extends Model
     public function __construct()
     {
         parent::__construct();
+        $this->_setItemStatus($_POST['articleID'], '5');
         $this->_moveArticleToEscalateList($_POST['articleID']);
     }
 
@@ -34,8 +35,6 @@ class SetItemStatus_Model extends Model
      */
     private function _moveArticleToEscalateList($articleID)
     {
-        $this->_setItemStatus($articleID, '5');
-
         $sql = "INSERT INTO stpEscalateList
                 SELECT '' as EID, pl.*
                 FROM stpPicklistItems pl

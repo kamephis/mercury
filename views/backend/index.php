@@ -212,21 +212,22 @@ if ($_REQUEST['delPicklist']) {
         // Eskalation
         $(".btnEscalate").on("click", function () {
             var artID = $(this).data("id");
-
+            var escComment = $("#txtaServiceInfoText_" + artID).val();
 
             $.ajax({
                 type: 'POST',
                 url: "index.php?url=setItemStatus",
-                data: {"articleID": artID},
+                data: {"articleID": artID, "EscComment": escComment},
                 success: function (data) {
                     $("#rowError_" + artID).remove();
                 },
                 complete: function () {
-                    console.log('Der Artikel ' + artID + ' wurde an den Kundenservice zur Bearbeitung gemeldet.');
-                    //alert('Der Artikel wurde an den Kundenservice zur Bearbeitung gemeldet.');
+                    console.log('Der Artikel ' + artID + ' wurde an den Kundenservice zur Bearbeitung gemeldet.\n');
+                    console.log('Kommentar ' + escComment);
+
+                    // TODO: schließen des Modals
                 }
             })
         });
-
     })
 </script>

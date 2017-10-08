@@ -25,7 +25,7 @@
                 132a386
             </td>
             <td>
-                1.1.0.0
+                1.0.1.0
             </td>
             <td>
                 + Berechtigung nach Benutzergruppen eingeführt (picker, kus, teamleiter)

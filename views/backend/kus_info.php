@@ -63,10 +63,9 @@
                                 <span class="hidden-print">Bearbeiter(in)</span>
                                 <span class="visible-print">Bearb.</span>
                             </th>
-                            <!--<th>
-                                <span class="hidden-print">Geprüft</span>
-                                <span class="visible-print">Gep.</span>
-                            </th>-->
+                            <th>
+                                Nachricht
+                            </th>
                             <th class="hidden-print">
                                 Aktion
                             </th>
@@ -181,6 +180,12 @@
                                 <td>
                                     <?php
                                     echo utf8_encode($fArtikel['ItemFehlerUser']);
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                    echo utf8_encode($fArtikel['EscComment']);
                                     ?>
                                 </td>
                                 <!--

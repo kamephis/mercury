@@ -6,7 +6,7 @@ define('LIBS', 'libs/');
 define('IMG_PATH', 'out/img/');
 define('IMG_ART_PATH', 'http://www.stoff4you.de/out/pictures/generated/product/1/250_200_75/');
 define('PATH_NUSOAP', 'libs/nusoap.php');
-define('MERCURY_VERSION', 'v1.1.0.0');
+define('MERCURY_VERSION', 'v1.0.1.0');
 
 // Auslesen der Subdomain (Parameter für Weiterleitung)
 $hostUrl = explode('.', $_SERVER['HTTP_HOST']);

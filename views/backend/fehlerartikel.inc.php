@@ -66,11 +66,14 @@
                                 <span class="visible-print">Bearb.</span>
                             </th>
                             <th>
-                                <span class="hidden-print">Geprüft</span>
+                                <center>
+                                <span class="hidden-print">
+                                    Geprüft
+                                </span></center>
                                 <span class="visible-print">Gep.</span>
                             </th>
                             <th class="hidden-print">
-                                Aktion
+                                <center>Aktion</center>
                             </th>
                         </tr>
                         </thead>
@@ -183,9 +186,9 @@
                                     <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
 
                                     <button type="button"
-                                            class="btn btn-warning btn-xs hidden-print btn-block btnEscalate"
-                                            id="btnEscalate_<?php echo $fArtikel['ID']; ?>"
-                                            data-id="<?php echo $fArtikel['ID']; ?>">
+                                            class="btn btn-warning btn-xs hidden-print btn-block"
+                                            data-toggle="modal"
+                                            data-target="#modEscalateItem_<?php echo $fArtikel['ID']; ?>">
                                         <i class="glyphicon glyphicon-user"></i> Service
                                     </button>
 
@@ -198,6 +201,62 @@
                                 </form>
                             </td>
                         </tr>
+                        <!-- Modal Escalate Item-->
+                        <div id="modEscalateItem_<?php echo $fArtikel['ID']; ?>" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header alert-info">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Artikel an Kundenservice melden</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <img src="<?php echo IMG_ART_PATH . $fArtikel['PicLinkLarge']; ?>"
+                                                     class="img-responsive">
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="row">
+                                                    <div class="col-lg-2"><b>Artikel:</b></div>
+                                                    <div class="col-lg-10"><?php echo utf8_encode($fArtikel['ItemName']); ?></div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="col-lg-2"><b>Art.Nr:</b></div>
+                                                    <div class="col-lg-10"><?php echo $fArtikel['OrderNrExternal']; ?></div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="col-lg-2"><b>EAN:</b></div>
+                                                    <div class="col-lg-10"><?php echo $fArtikel['EanUpc']; ?></div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br>
+                                            <div class="col-lg-12">
+                                                <label>Nachricht an den Kundenservice<br>
+                                                    <textarea id="txtaServiceInfoText_<?php echo $fArtikel['ID']; ?>"
+                                                              class="form-control" cols="60" rows="7"></textarea>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-success hidden-print btnEscalate"
+                                                id="btnEscalate_<?php echo $fArtikel['ID']; ?>"
+                                                data-id="<?php echo $fArtikel['ID']; ?>"
+                                                data-toggle="modal"
+                                                data-target="#modEscalateItem"
+                                        >
+                                            <i class="glyphicon glyphicon-user"></i> Artikel Melden
+                                        </button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Abbrechen
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./ Modal Escalate Item -->
                     <?php } ?>
                         </tbody>
                     </table>
@@ -212,3 +271,4 @@
     </div>
 </div><!-- ./row-->
 <div class="clearfix"></div>
+

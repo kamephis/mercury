@@ -5,8 +5,10 @@ class SetItemStatus_Model extends Model
     public function __construct()
     {
         parent::__construct();
-        $this->_setItemStatus($_POST['articleID'], '5');
-        $this->_moveArticleToEscalateList($_POST['articleID']);
+        $article_id = $_POST['articleID'];
+        $esc_comment = utf8_encode($_POST['EscComment']);
+        $this->_setItemStatus($article_id, '5', $esc_comment);
+        $this->_moveArticleToEscalateList($article_id);
     }
 
     /**
@@ -17,13 +19,15 @@ class SetItemStatus_Model extends Model
      * 3 = zugeschnitten
      * 4 = Fehler
      * 5 = eskaliert -> KuS
+     * 6 = Eskalation bearbeitet -> KuS
      *
      * @param $articleID
      * @param $itemStatus
+     * @param $escComment
      */
-    private function _setItemStatus($articleID, $itemStatus)
+    private function _setItemStatus($articleID, $itemStatus, $escComment)
     {
-        $aUpdate = array('ItemStatus' => $itemStatus);
+        $aUpdate = array('ItemStatus' => $itemStatus, 'EscComment' => $escComment);
         $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 

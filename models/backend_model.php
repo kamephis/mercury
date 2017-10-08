@@ -59,7 +59,7 @@ class Backend_Model extends Model
      */
     public function getKusInfo()
     {
-        $sql = "SELECT * FROM stpEscalateList ORDER BY BinSortNum";
+        $sql = "SELECT * FROM stpEscalateList WHERE ItemStatus = 5 ORDER BY BinSortNum";
         return $this->db->select($sql);
     }
 

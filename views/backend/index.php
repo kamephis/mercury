@@ -220,6 +220,7 @@ if ($_REQUEST['delPicklist']) {
                 data: {"articleID": artID, "EscComment": escComment},
                 success: function (data) {
                     $("#rowError_" + artID).remove();
+                    $('#modEscalateItem_' + artID).modal('toggle');
                 },
                 complete: function () {
                     console.log('Der Artikel ' + artID + ' wurde an den Kundenservice zur Bearbeitung gemeldet.\n');

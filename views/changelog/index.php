@@ -25,12 +25,37 @@
                 132a386
             </td>
             <td>
+                1.0.1.2
+            </td>
+            <td>
+                + Neuer ItemStatus 6 (für Statistik) eingeführt
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                132a386
+            </td>
+            <td>
+                1.0.1.1
+            </td>
+            <td>
+                + Teamleiter können eine Nachricht für den Kundenservice beim Melden von Artikeln hinterlassen.
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                132a386
+            </td>
+            <td>
                 1.0.1.0
             </td>
             <td>
                 + Berechtigung nach Benutzergruppen eingeführt (picker, kus, teamleiter)
             </td>
         </tr>
+
         <tr>
             <td>
                 132a386

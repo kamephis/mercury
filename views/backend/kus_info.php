@@ -219,7 +219,7 @@
                                                 class="btn btn-danger btn-xs hidden-print btn-block btnDelError"
                                                 id="btnError_<?php echo $fArtikel['ID']; ?>"
                                                 data-id="<?php echo $fArtikel['ID']; ?>">
-                                            <span class="glyphicon glyphicon-remove"></span> l&ouml;schen
+                                            <span class="glyphicon glyphicon-remove"></span> Kunde kontaktiert
                                         </button>
                                     </form>
                                 </td>
@@ -242,7 +242,7 @@
     // Entfernen eines Artikelfehlers
     $(".btnDelError").on("click", function () {
         var artID = $(this).data("id");
-        var itemStatus = '2';
+        var itemStatus = '6';
 
         $.ajax({
             type: 'POST',

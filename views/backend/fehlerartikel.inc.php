@@ -109,7 +109,7 @@
 
 
                             <td>
-                                <?php echo $fArtikel['ItemFehler']; ?>
+                                <?php echo utf8_encode($fArtikel['ItemFehler']); ?>
                             </td>
 
                             <td>

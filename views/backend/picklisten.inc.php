@@ -221,6 +221,9 @@
                                                         case '5':
                                                             echo '<b><span class="glyphicon glyphicon-bullhorn" style="font-size:110%;" title="eskaliert"></span></b>';
                                                             break;
+                                                        case '6':
+                                                            echo '<b><span class="glyphicon glyphicon-send" style="font-size:110%;" title="Kunde wurde benachrichtigt"></span></b>';
+                                                            break;
                                                     }
                                                     ?></center>
                                             </td>
@@ -290,7 +293,8 @@
                                     <span class="glyphicon glyphicon-ok-circle"></span> gepickt&nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-flash"></span> fehlerhaft&nbsp;
                                     <span class="glyphicon glyphicon-scissors"></span> zugeschnitten
-                                    <span class="glyphicon glyphicon-bullhorn"></span> eskaliert
+                                    <span class="glyphicon glyphicon-bullhorn"></span> An KuS gemeldet
+                                    <span class="glyphicon glyphicon-send"></span> Kunde benachrichtigt
                                 </div>
                             </div>
                             <!-- end picklistitems -->

@@ -130,10 +130,8 @@ if ($_REQUEST['delPicklist']) {
             message = message || "";
 
             var container = $(this[0]).html('');
-            //var container = $(this[0]).html(duration + message);
 
             var countdown = setInterval(function () {
-                //container.html("Test Session: " + duration + message);
 
                 if (--duration) {
                     // 5 Minuten zuvor warnen
@@ -225,8 +223,24 @@ if ($_REQUEST['delPicklist']) {
                 complete: function () {
                     console.log('Der Artikel ' + artID + ' wurde an den Kundenservice zur Bearbeitung gemeldet.\n');
                     console.log('Kommentar ' + escComment);
+                }
+            })
+        });
 
-                    // TODO: schließen des Modals
+        // Eskalation
+        $(".btnSaveFehlerKommentar").on("click", function () {
+            var artID = $(this).data("id");
+            var sUser = "<?php echo $_SESSION['vorname'] . ' ' . $_SESSION['name'];?>";
+            var escComment = $("textarea#txtInfoText_" + artID).val();
+
+            $.ajax({
+                type: 'POST',
+                url: "index.php?url=setFehlerTextKus",
+                data: {"articleID": artID, "EscComment": escComment, "ItemFehlerUser": sUser},
+                success: function (data) {
+                    $('textarea#txtaServiceInfoText_' + artID).val(escComment);
+                },
+                complete: function () {
                 }
             })
         });

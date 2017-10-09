@@ -65,12 +65,18 @@
                                 <span class="hidden-print">Bearbeiter(in)</span>
                                 <span class="visible-print">Bearb.</span>
                             </th>
+
                             <th>
                                 <center>
                                 <span class="hidden-print">
                                     Geprüft
                                 </span></center>
                                 <span class="visible-print">Gep.</span>
+                            </th>
+
+                            <th>
+                                Kommentar
+
                             </th>
                             <th class="hidden-print">
                                 <center>Aktion</center>
@@ -180,14 +186,30 @@
                                     </form>
                                 </center>
                             </td>
+                            <td>
+                                    <textarea name="txtInfoText_<?php echo $fArtikel['ID']; ?>"
+                                              id="txtInfoText_<?php echo $fArtikel['ID']; ?>"><?php if (isset($fArtikel['EscComment'])) {
+                                            echo $fArtikel['EscComment'];
+                                        } ?></textarea>
+                                <button
+                                        type="button"
+                                        class="btn-xs btn-default btnSaveFehlerKommentar"
+                                        style="vertical-align: top;"
+                                        title="Kommentar speichern"
+                                        data-id= <?php echo $fArtikel['ID']; ?>
+                                >
+                                    <i class="glyphicon glyphicon-check"></i>
+                                </button>
+                            </td>
                             <td class="hidden-print">
                                 <form method="post" id="frmDelete">
                                     <input type="hidden" name="itemFehlerUpdate" value="1">
                                     <input type="hidden" name="itemID" value="<?php echo $fArtikel['ID']; ?>">
 
                                     <button type="button"
-                                            class="btn btn-warning btn-xs hidden-print btn-block"
+                                            class="btn btn-warning btn-xs hidden-print btn-block btnSaveFehlerKommentar"
                                             data-toggle="modal"
+                                            data-id="<?php echo $fArtikel['ID']; ?>"
                                             data-target="#modEscalateItem_<?php echo $fArtikel['ID']; ?>">
                                         <i class="glyphicon glyphicon-user"></i> Service
                                     </button>
@@ -195,7 +217,9 @@
                                     <button type="button"
                                             class="btn btn-danger btn-xs hidden-print btn-block btnDelError"
                                             id="btnError_<?php echo $fArtikel['ID']; ?>"
-                                            data-id="<?php echo $fArtikel['ID']; ?>">
+                                            data-id="<?php echo $fArtikel['ID']; ?>"
+                                            data-sUser="<?php echo $_SESSION['vorname'] . " " . $_SESSION['name']; ?>"
+                                    >
                                         <i class="glyphicon glyphicon-remove"></i> l&ouml;schen
                                     </button>
                                 </form>
@@ -235,7 +259,12 @@
                                             <div class="col-lg-12">
                                                 <label>Nachricht an den Kundenservice<br>
                                                     <textarea id="txtaServiceInfoText_<?php echo $fArtikel['ID']; ?>"
-                                                              class="form-control" cols="60" rows="7"></textarea>
+                                                              class="form-control" cols="60" rows="7"><?php
+                                                        if (isset($fArtikel['EscComment'])) {
+                                                            echo $fArtikel['EscComment'];
+                                                        }
+                                                        ?></textarea>
+
                                                 </label>
                                             </div>
                                         </div>

@@ -374,7 +374,7 @@ class PicklistAdmin_Model extends Model
      */
     public function getPicker()
     {
-        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' ORDER BY vorname ASC";
+        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname ASC";
         $result = $this->db->select($sqlPicker);
 
         return $result;

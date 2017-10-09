@@ -82,7 +82,8 @@ class Login_Model extends Model
 
         $sUrl = "http://" . $sSubdomain . ".stoffpalette.com/";
 
-        // Unterscheidung nach Subdomain. Wichtig, wenn ein User gleichzeitig Picker und Zuschnitt ist.
+        // Unterscheidung nach Subdomain.
+        // Wichtig, wenn ein User gleichzeitig Picker und Zuschnitt ist.
         switch ($sSubdomain) {
             case 'mercury':
                 switch ($dept) {
@@ -97,10 +98,9 @@ class Login_Model extends Model
 
             case 'zuschnitt':
             case 'pick':
-                if ($dept == 'picker') {
+                if ($dept == 'picker' || $dept == 'teamleiter') {
                     switch ($sSubdomain) {
                         case 'zuschnitt':
-                            echo "<h1>Zuschnitt!!!</h1>";
                             $this->setSRedirectURL($sUrl . 'scanArt');
                             break;
                         case 'pick':

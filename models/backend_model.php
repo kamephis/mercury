@@ -64,6 +64,16 @@ class Backend_Model extends Model
     }
 
     /**
+     * Liste für den Kundenservice bei Problemartikeln - Archiviert
+     * @return array
+     */
+    public function getKusInfoArchiv()
+    {
+        $sql = "SELECT * FROM stpEscalateList WHERE ItemStatus = 6 ORDER BY PicklistCreateDate";
+        return $this->db->select($sql);
+    }
+
+    /**
      * Extraktion von Sonderartikelnummern (LZ)
      * @param $oxartnum
      * @return bool|string
@@ -210,7 +220,7 @@ class Backend_Model extends Model
      */
     public function getAllPicker()
     {
-        $sql = "SELECT UID, name, vorname FROM iUser WHERE dept = 'picker' ORDER BY vorname ASC";
+        $sql = "SELECT UID, name, vorname FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname ASC";
         $result = $this->db->select($sql);
         return $result;
     }

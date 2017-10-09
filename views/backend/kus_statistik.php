@@ -1,21 +1,3 @@
-<div class="row">
-    <div class="col-sm-12">
-        <a class="btn btn-default hidden-print pull-left" href="<?php echo URL . 'kundenservice'; ?>">
-            <span class="glyphicon glyphicon-refresh"></span>&nbsp;Anischt aktualisieren
-        </a>
-        &nbsp;
-        <button type="button" class="btn btn-default btnPrint hidden-print">
-            <span class="glyphicon glyphicon-print"></span>&nbsp;Drucken
-        </button>
-        <input type="hidden" id="getPixiBestand" name="getPixiBestand" value="1">
-        <button type="submit" class="btn btn-warning  hidden-print pull-right">
-            <span class="glyphicon glyphicon-refresh"></span>&nbsp;Pixi* Daten abrufen
-        </button>
-        <div class="clearfix"></div>
-        <br>
-    </div>
-</div>
-
 <!-- Kundenservice Info -->
 <div class="row">
     <div class="col-sm-12">
@@ -29,7 +11,9 @@
                 <span class="panel-title"><?php echo $this->title; ?></span>
             </div>
             <div class="panel-body" id="pnlFehler">
-                <?php if (sizeof($this->back->getKusInfo()) > 0) { ?>
+                <?php
+                if (sizeof($this->back->getKusInfoArchiv()) > 0) {
+                    ?>
 
                     <table class="table table-bordered table-striped table-hover table-condensed table-responsive">
                         <thead>
@@ -91,12 +75,12 @@
                         <tbody>
                         <?php
                         $cntRow = 0;
-
-                        $aFehlerArtikel = $this->back->getKusInfo();
+                        $aFehlerArtikel = $this->back->getKusInfoArchiv();
 
                         foreach ($aFehlerArtikel as $fArtikel) {
                             // Auslesen der Liefereantenartikelnummern aus Pixi
                             $aSuppliers = $this->Pixi->getItemSuppliers($fArtikel['ItemNrSuppl']);
+
                             $cntRow++;
                             ?>
                             <tr id="rowError_<?php echo $fArtikel['ID']; ?>">
@@ -115,20 +99,25 @@
                                 <td class="alert-warning">
                                     <?php
                                     echo '<table class="table table-condensed table-bordered table-striped">';
-                                    echo '<tr>';
-                                    echo '<td><b>Bez.</b></td>';
-                                    echo '<td><b>Art.Nr</b></td>';
-                                    echo '</tr>';
+                                    foreach ($aSuppliers as $supplier) {
+                                        $sup = $this->Pixi->getSuppliers($supplier['SupplNr']);
 
+                                        echo '<tr>';
+                                        echo '<td>';
+                                        echo '<span title="Lf.Nr: ' . $supplier['SupplNr'] . '">' . $sup['SupplName'] . '</span>';
+                                        echo "<br>";
+                                        echo '</td>';
 
-                                    //$sup = $this->Pixi->getSuppliers($supplier['SupplNr']);
+                                        echo '<td>';
+                                        echo 'Art.Nr: ' . $supplier['ItemNrSuppl'];
+                                        echo '</td>';
+                                        echo '</tr>';
 
-                                    /*
-                                                                                echo '<td>';
-                                                                                  echo 'EK: '.$supplier['SupplPrice'];
-                                                                                  echo '</td>';
-                                                                                  echo '</tr>';
-                                    */
+                                        /**echo '<td>';
+                                         * echo 'EK: '.$supplier['SupplPrice'];
+                                         * echo '</td>';
+                                         * echo '</tr>';**/
+                                    }
                                     echo '</table>';
                                     ?>
                                 </td>
@@ -164,16 +153,16 @@
                                 <center>
                                     <?php
                                     // aktivieren falls onDemand Abfrage gewünscht
-                                    if ($_REQUEST['getPixiBestand']) {
-                                        if ($this->Pixi->getItemStock($fArtikel['EanUpc'])) {
-                                            $pBestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
-                                            echo $pBestand['PhysicalStock'];
-                                        } else {
-                                            echo 'k. A.';
-                                        }
+                                    //if ($_REQUEST['getPixiBestand']) {
+                                    if ($this->Pixi->getItemStock($fArtikel['EanUpc'])) {
+                                        $pBestand = $this->Pixi->getItemStock($fArtikel['EanUpc']);
+                                        echo $pBestand['PhysicalStock'];
                                     } else {
-                                        echo '---';
+                                        echo 'k. A.';
                                     }
+                                    //} else {
+                                    //    echo '---';
+                                    //}
                                     ?>
 
                                     <?php

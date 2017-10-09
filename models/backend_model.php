@@ -186,7 +186,7 @@ class Backend_Model extends Model
                                     
                     WHERE plist.PLHkey = {$picklistNr}
                     AND a2p.PicklistID = {$picklistNr}
-                    AND (pitem.ItemStatus = 2 OR pitem.ItemStatus = 3 OR pitem.ItemStatus = 4)
+                    AND (pitem.ItemStatus BETWEEN 2 AND 6)
                     /*GROUP BY pitem.EanUpc*/
                     ORDER BY pitem.BinSortNum
                 ";

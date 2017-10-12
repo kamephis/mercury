@@ -332,7 +332,7 @@ class NeuePickliste_Model extends Model
     public function getPicker()
     {
         $aPicker = array();
-        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker'";
+        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC";
         $this->oMySqli = new mysqli();
         $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
         $this->oMySqli->set_charset('utf8');

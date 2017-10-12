@@ -16,6 +16,11 @@
     </div>
 </div>
 
+
+<div class="alert alert-danger">
+    <b>Bitte überprüfen ob bei Artikeln mit mehreren Lieferanten auch mehrere Lieferanten angezeigt werden.</b>
+</div>
+
 <!-- Kundenservice Info -->
 <div class="row">
     <div class="col-sm-12">
@@ -95,8 +100,10 @@
                         $aFehlerArtikel = $this->back->getKusInfo();
 
                         foreach ($aFehlerArtikel as $fArtikel) {
-                            // Auslesen der Liefereantenartikelnummern aus Pixi
+                            // Auslesen des Lieferanten des aktuellen Artikels
                             $aSuppliers = $this->Pixi->getItemSuppliers($fArtikel['ItemNrSuppl']);
+                            $aSupplier = $this->Pixi->getSuppliers($aSuppliers['SupplNr']);
+
                             $cntRow++;
                             ?>
                             <tr id="rowError_<?php echo $fArtikel['ID']; ?>">
@@ -116,19 +123,26 @@
                                     <?php
                                     echo '<table class="table table-condensed table-bordered table-striped">';
                                     echo '<tr>';
-                                    echo '<td><b>Bez.</b></td>';
+                                    echo '<td><b>Lieferant</b></td>';
                                     echo '<td><b>Art.Nr</b></td>';
+                                    echo '<td><b>EK</b></td>';
+                                    echo '</tr>';
+
+                                    echo '<tr>';
+                                    echo '<td>';
+                                    echo '<span title="' . $aSupplier['SupplNr'] . '">' . $aSupplier['SupplName'] . '</span>';
+                                    echo '</td>';
+
+                                    echo '<td>';
+                                    echo $aSuppliers['ItemNrSuppl'];
+                                    echo '</td>';
+
+                                    echo '<td>';
+                                    echo $aSuppliers['SupplPrice'] . '&nbsp;&euro;';
+                                    echo '</td>';
                                     echo '</tr>';
 
 
-                                    //$sup = $this->Pixi->getSuppliers($supplier['SupplNr']);
-
-                                    /*
-                                                                                echo '<td>';
-                                                                                  echo 'EK: '.$supplier['SupplPrice'];
-                                                                                  echo '</td>';
-                                                                                  echo '</tr>';
-                                    */
                                     echo '</table>';
                                     ?>
                                 </td>

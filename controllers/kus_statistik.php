@@ -30,7 +30,7 @@ class Kus_statistik extends Controller
             $this->view->title = 'Mercury Kundenservice Statistik';
             $this->view->render('header');
             $this->view->render('navigation');
-            $this->view->render('backend/kus_statistik');
+            $this->view->render('backend/kundenservice/kus_statistik');
             $this->view->render('footer');
         }
     }

@@ -34,10 +34,13 @@ class Pixi
      */
     public function getItemSuppliers($ItemNrInt)
     {
-        $aItemSuppl = $this->oProxy->pixiGetItemSuppliers(array('ItemNrInt' => $ItemNrInt));
+        $aItemSuppl = $this->oProxy->pixiGetItemSuppliers(array('ItemNrInt' => $ItemNrInt, 'OnlyActiveSuppliers' => 0));
         $aItemSuppl = $aItemSuppl['pixiGetItemSuppliersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
-
-        return $aItemSuppl;
+        if (is_array($aItemSuppl[0])) {
+            return $aItemSuppl[0];
+        } else {
+            return $aItemSuppl;
+        }
     }
 
     /**

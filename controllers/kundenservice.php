@@ -30,7 +30,7 @@ class Kundenservice extends Controller
             $this->view->title = 'Mercury Kundenservice';
             $this->view->render('header');
             $this->view->render('navigation');
-            $this->view->render('backend/kus_info');
+            $this->view->render('backend/kundenservice/kus_info');
             $this->view->render('footer');
         }
     }

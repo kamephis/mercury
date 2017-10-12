@@ -220,7 +220,7 @@ class Backend_Model extends Model
      */
     public function getAllPicker()
     {
-        $sql = "SELECT UID, name, vorname FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname ASC";
+        $sql = "SELECT UID, name, vorname FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC";
         $result = $this->db->select($sql);
         return $result;
     }

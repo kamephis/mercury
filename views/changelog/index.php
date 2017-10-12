@@ -25,6 +25,17 @@
                 132a386
             </td>
             <td>
+                1.0.1.3
+            </td>
+            <td>
+                + Zusatzfeld Kommentar bei Fehlerartikeln hinzugefügt (synchron mit Modal)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                132a386
+            </td>
+            <td>
                 1.0.1.2
             </td>
             <td>

@@ -6,7 +6,7 @@ $app = $app_url[0];
 //session_start();
 
 // Konfiguration
-require 'config.php';
+require 'conf.php';
 
 // Klassen Auto-Loader
 function __autoload($class)

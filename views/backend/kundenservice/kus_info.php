@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <div class="row">
     <div class="col-sm-12">
         <a class="btn btn-default hidden-print pull-left" href="<?php echo URL . 'kundenservice'; ?>">
@@ -24,13 +28,69 @@
 <!-- Kundenservice Info -->
 <div class="row">
     <div class="col-sm-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-<span class="hidden-print">
-                <button type="button" class="btn btn-xs btn-primary pull-right" id="btnToggleFehlerArea">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="hidden-print">
+                <button type="button" class="btn btn-xs btn-default pull-right" id="btnToggleFilter">
                     <span class="glyphicon glyphicon-minus"></span>
                 </button>
 </span>
+
+                        Filter
+                    </div>
+                    <div class="panel-body">
+                        <form name="frmFilterKusListe" method="POST">
+                            <input type="hidden" name="filterList" value="1">
+                            <div class="col-lg-3">
+                                <label>Von
+                                    <input type="date" id="dateVon" name="dateVon" class="form-control"
+                                           value="<?php if (isset($_POST['dateVon'])) {
+                                               echo $_POST['dateVon'];
+                                           } else {
+                                               echo date("Y-m-d");
+                                           } ?>">
+                                </label>
+                                <label>Bis
+                                    <input type="date" id="dateBis" name="dateBis" class="form-control"
+                                           value="<?php if (isset($_POST['dateBis'])) {
+                                               echo $_POST['dateBis'];
+                                           } else {
+                                               echo date("Y-m-d");
+                                           } ?>">
+                                </label>
+                            </div>
+                            <div class="col-lg-1">
+                                <label>Archiv
+                                    <input type="checkbox" name="chkStatus" id="chkStatus" class="form-control"
+                                        <?php
+                                        if (isset($_POST['chkStatus'])) {
+                                            echo 'checked';
+                                        }
+                                        ?>
+                                    >
+                                </label>
+                            </div>
+                            <div class="col-lg-1">
+                                <label>&nbsp;
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-filter"></i> Filter anwenden
+                                    </button>
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="hidden-print">
+                    <button type="button" class="btn btn-xs btn-primary pull-right" id="btnToggleFehlerArea">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
                 <span class="panel-title"><?php echo $this->title; ?></span>
             </div>
             <div class="panel-body" id="pnlFehler">
@@ -97,7 +157,31 @@
                         <?php
                         $cntRow = 0;
 
-                        $aFehlerArtikel = $this->back->getKusInfo();
+                        if (isset($_POST['filterList'])) {
+                            $sFilter = '';
+
+                            if (isset($_POST['dateBis'])) {
+                                $dateBis = $_POST['dateBis'];
+                            } else {
+                                // heutiges Datum
+
+                                $dateBis = date("Y-m-d");
+                            }
+
+                            // Datumsfilter
+                            if (isset($_POST['dateVon'])) {
+                                $sFilter .= "AND TimestampUpdateStatus BETWEEN '{$_POST['dateVon']}' AND '{$_POST['dateBis']}'";
+                            }
+
+                            // Archivierte Anzeigen
+                            if (isset($_POST['chkArchiv'])) {
+                                $sFilter .= 'AND ItemStatus = 6';
+                            }
+
+                            $aFehlerArtikel = $this->back->getKusInfoArchiv($sFilter);
+                        } else {
+                            $aFehlerArtikel = $this->back->getKusInfo();
+                        }
 
                         foreach ($aFehlerArtikel as $fArtikel) {
                             // Auslesen des Lieferanten des aktuellen Artikels

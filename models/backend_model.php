@@ -65,11 +65,16 @@ class Backend_Model extends Model
 
     /**
      * Liste für den Kundenservice bei Problemartikeln - Archiviert
+     * @param null $sFilter
      * @return array
      */
-    public function getKusInfoArchiv()
+    public function getKusInfoArchiv($sFilter = null)
     {
-        $sql = "SELECT * FROM stpEscalateList WHERE ItemStatus = 6 ORDER BY PicklistCreateDate";
+        if (isset($sFilter)) {
+            $filter = $sFilter;
+        }
+
+        $sql = "SELECT * FROM stpEscalateList WHERE 1=1 {$filter} ORDER BY PicklistCreateDate";
         return $this->db->select($sql);
     }
 

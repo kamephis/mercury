@@ -6,3 +6,4 @@ info.php
 .idea/workspace.xml
 /models/login_model.php.bak
 /new/
+/config.php

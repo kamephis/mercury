@@ -15,7 +15,7 @@ class Login_Model extends Model
     private $_sRedirectURL = null;
 
     /**
-     * login2 constructor.
+     * login constructor.
      */
     public function __construct()
     {
@@ -49,23 +49,21 @@ class Login_Model extends Model
         if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate']) && $totalRows > 0) {
 
             Session::init();
-                // Registrierung der Session Werte
-                Session::set('UID', $result['UID']);
-                Session::set('vorname', $result['vorname']);
-                Session::set('name', $result['name']);
+            // Registrierung der Session Werte
+            Session::set('UID', $result['UID']);
+            Session::set('vorname', $result['vorname']);
+            Session::set('name', $result['name']);
             Session::set('kuerzel', $result['kuerzel']);
 
-                // Rechte in die Session schreiben.
-                Session::set('access_level', $result['access_level']);
+            // Rechte in die Session schreiben.
+            Session::set('access_level', $result['access_level']);
 
             // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
             $this->redirect2TargetLocation($result['dept']);
             echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
         } else {
-            //$this->redirect2TargetLocation($result['dept']);
             // Zugriff verweigert
             header('Location: ' . URL . 'login?msg=401');
-            //echo "<script>location.replace('" . $this->getSRedirectURL() . "?msg=401');</script>";
             }
 
     }
@@ -118,7 +116,7 @@ class Login_Model extends Model
      * @param $password
      * @return string
      */
-    public function encryptPassword($password)
+    protected function encryptPassword($password)
     {
         $myDate = new MyDateTime();
         /**
@@ -142,7 +140,7 @@ class Login_Model extends Model
      * @param $regDate
      * @return string
      */
-    public function decryptPassword($password, $regDate)
+    protected function decryptPassword($password, $regDate)
     {
         // Pruefung des eingegebenen Kennworts auf dessen Richtigkeit
         $decrypt = hash('sha256', $password . $regDate);

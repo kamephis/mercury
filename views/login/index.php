@@ -18,10 +18,6 @@ if ($_REQUEST['msg'] == 'e401') {
                 <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
                 <input id="login-username" type="password" class="form-control" name="userPasswd" value=""
                        placeholder="Login Barcode scannen..." required autofocus>
-
-                <!--<span class="input-group-addon">
-                    <input type="checkbox" name="AutoLogin" aria-label="Auto Login">
-                </span>-->
             </div>
 
             <button type="submit" class="btn btn-success btn-block">

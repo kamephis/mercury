@@ -100,157 +100,6 @@ class NeuePickliste_Model extends Model
         return $result['vorname'] . ' ' . $result['name'];
     }
 
-
-    /**
-     * Pickliste aus Pixi in die interne Datenbank importieren
-     * aktiv!
-     * @param $picklist
-     */
-    public function importPicklist($picklist)
-    {
-        $sqlCheckPl = "SELECT PLIheaderRef FROM stpPicklistItems WHERE PLIheaderRef = '{$picklist}'";
-        $this->oMySqli = new mysqli();
-
-        $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
-        $this->oMySqli->set_charset('utf8');
-
-        $result = $this->oMySqli->query($sqlCheckPl);
-        $rows = $result->num_rows;
-        $this->oMySqli->close();
-
-        // Prüfen ob die Pickliste bereits existiert
-        if ($rows == 0) {
-            $this->oMySqli = new mysqli();
-            $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
-
-            $aPicklistDetails = $this->getPicklistDetails($picklist);
-
-
-            // Pickliste Zeile für Zeile in die stpPicklistItems Tabelle schreiben.
-
-            // Initialisierung
-            $sqlInsertItems = null;
-
-
-            // Struktur des Arrays prüfen
-            if (is_array($aPicklistDetails[0])) {
-                foreach ($aPicklistDetails as $items) {
-                    $sqlInsertItems .= "INSERT INTO 
-                                  stpPicklistItems(
-                                   BinItemRef,
-                                   PicLinkSmall,
-                                   PicLinkLarge,
-                                   PLIheaderRef,
-                                   BinSortNum,
-                                   ItemName,
-                                   BinName,
-                                   BinKey,
-                                   PicklistExpiryDate,
-                                   PicklistCreateDate,
-                                   Qty,
-                                   PicklistComment,
-                                   ItemNrSuppl,
-                                   EanUpc,
-                                   ItemNrInt,
-                                   BinRef,
-                                   BinGroup,
-                                   PLIorderlineRef,
-                                   Location,
-                                   OtherItemsCount,
-                                   PLHfromBox,
-                                   PLHtoBox,
-                                   PLIorderlineRef1
-                                  ) VALUES (
-                                   '" . $items['BinItemRef'] . "',
-                                   '" . $items['PicLinkSmall'] . "',
-                                   '" . (isset($items['PicLinkLarge']) ? $items['PicLinkLarge'] : '') . "',
-                                   '" . $items['PLIheaderRef'] . "',
-                                   '" . $items['BinSortNum'] . "',
-                                   '" . $items['ItemName'] . "',
-                                   '" . $items['BinName'] . "',
-                                   '" . $items['BinKey'] . "',
-                                   '" . $items['PicklistExpiryDate'] . "',
-                                   '" . $items['PicklistCreateDate'] . "',
-                                   '" . $items['Qty'] . "',
-                                   '" . $items['PicklistComment'] . "',
-                                   '" . $items['ItemNrSuppl'] . "',
-                                   '" . $items['EanUpc'] . "',
-                                   '" . $items['ItemNrInt'] . "',
-                                   '" . $items['BinRef'] . "',
-                                   '" . $items['BinGroup'] . "',
-                                   '" . $items['PLIorderlineRef'] . "',
-                                   '" . $items['Location'] . "',
-                                   '" . $items['OtherItemsCount'] . "',
-                                   '" . $items['PLHfromBox'] . "',
-                                   '" . $items['PLHtoBox'] . "',
-                                   '" . $items['PLIorderlineRef1'] . "'
-                                    );";
-                }
-            } else {
-                $sqlInsertItems .= "INSERT INTO 
-                                  stpPicklistItems(
-                                   BinItemRef,
-                                   PicLinkSmall,
-                                   PicLinkLarge,
-                                   PLIheaderRef,
-                                   BinSortNum,
-                                   ItemName,
-                                   BinName,
-                                   BinKey,
-                                   PicklistExpiryDate,
-                                   PicklistCreateDate,
-                                   Qty,
-                                   PicklistComment,
-                                   ItemNrSuppl,
-                                   EanUpc,
-                                   ItemNrInt,
-                                   BinRef,
-                                   BinGroup,
-                                   PLIorderlineRef,
-                                   Location,
-                                   OtherItemsCount,
-                                   PLHfromBox,
-                                   PLHtoBox,
-                                   PLIorderlineRef1
-                                  ) VALUES (
-                                   '" . $aPicklistDetails['BinItemRef'] . "',
-                                   '" . $aPicklistDetails['PicLinkSmall'] . "',
-                                   '" . (isset($aPicklistDetails['PicLinkLarge']) ? $aPicklistDetails['PicLinkLarge'] : '') . "',
-                                   '" . $aPicklistDetails['PLIheaderRef'] . "',
-                                   '" . $aPicklistDetails['BinSortNum'] . "',
-                                   '" . $aPicklistDetails['ItemName'] . "',
-                                   '" . $aPicklistDetails['BinName'] . "',
-                                   '" . $aPicklistDetails['BinKey'] . "',
-                                   '" . $aPicklistDetails['PicklistExpiryDate'] . "',
-                                   '" . $aPicklistDetails['PicklistCreateDate'] . "',
-                                   '" . $aPicklistDetails['Qty'] . "',
-                                   '" . $aPicklistDetails['PicklistComment'] . "',
-                                   '" . $aPicklistDetails['ItemNrSuppl'] . "',
-                                   '" . $aPicklistDetails['EanUpc'] . "',
-                                   '" . $aPicklistDetails['ItemNrInt'] . "',
-                                   '" . $aPicklistDetails['BinRef'] . "',
-                                   '" . $aPicklistDetails['BinGroup'] . "',
-                                   '" . $aPicklistDetails['PLIorderlineRef'] . "',
-                                   '" . $aPicklistDetails['Location'] . "',
-                                   '" . $aPicklistDetails['OtherItemsCount'] . "',
-                                   '" . $aPicklistDetails['PLHfromBox'] . "',
-                                   '" . $aPicklistDetails['PLHtoBox'] . "',
-                                   '" . $aPicklistDetails['PLIorderlineRef1'] . "'
-                                    );";
-            }
-
-            // Einfügen der Datensätze in die DB
-            if ($this->oMySqli->multi_query($sqlInsertItems) === TRUE) {
-                Controller::showMessages('pixiImpSuccess');
-            } else {
-                View::showAlert('danger', null, "Error: " . $sqlInsertItems . "<br>" . $this->oMySqli->error);
-            }
-            $this->oMySqli->close();
-        } else {
-            Controller::showMessages('pixiImpCheck');
-        }
-    }
-
     /**
      * Erstellen einer neuen Pickliste und
      * zuweisen von Artikeln zu einer Pickliste
@@ -323,23 +172,19 @@ class NeuePickliste_Model extends Model
         $this->oMySqli->close();
     }
 
-    /**
-     * Auflistung aller Picker im System
-     * @return bool|mysqli_result
+    /** Auflistung aller Picker im System
+     * @return array
      */
     public function getPicker()
     {
         $aPicker = array();
-        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC";
-        $this->oMySqli = new mysqli();
-        $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
-        $this->oMySqli->set_charset('utf8');
-        $result = $this->oMySqli->query($sqlPicker);
+        $sql = $this->db->prepare("SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC");
+        $sql->execute();
 
-        while ($row = mysqli_fetch_assoc($result)) {
+        while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
             $aPicker[] = array('vorname' => $row['vorname'], 'name' => $row['name'], 'UID' => $row['UID']);
         }
-        $this->oMySqli->close();
+        $sql->closeCursor();
 
         return $aPicker;
     }
@@ -351,6 +196,8 @@ class NeuePickliste_Model extends Model
      * Erstellen einer neuen Pickliste und
      * Übergabe der Picklisteninhalte als Array
      * zuweisen von Artikeln zu einer Pickliste
+     *
+     * INFO: nicht verwendet
      */
     public function newAutoPicklist($picklistType)
     {

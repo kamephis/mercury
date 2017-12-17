@@ -28,7 +28,6 @@ class NeuePickliste_Model extends Model
         $this->setOProxy($oSoapClient->getProxy());
 
         // MySQL Objekt erzeugen
-        // TODO: mysqli durch PDO ersetzen
         $this->oMySqli = new mysqli();
     }
 
@@ -37,10 +36,14 @@ class NeuePickliste_Model extends Model
      */
     public function resetTables_unused()
     {
-        $sql = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
-        if ($this->db->query($sql)) return true;
+        try {
+            $sql = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
+            if ($this->db->query($sql)) return true;
+            return false;
 
-        return false;
+        } catch (PDOException $e) {
+            die("Fehler beim leeren der Mercury Tabellen.<br>" . $e->getMessage() . "<br>" . $e->errorInfo);
+        }
     }
 
     /**
@@ -50,18 +53,24 @@ class NeuePickliste_Model extends Model
      */
     public function getNewPicklistNr()
     {
-        $sql = $this->db->prepare("SELECT MAX(PLHkey) as PLN FROM stpPickliste");
-        $sql->execute();
+        try {
+            $sql = $this->db->prepare("SELECT MAX(PLHkey) as PLN FROM stpPickliste");
+            $sql->execute();
 
-        $result = $sql->fetch(PDO::FETCH_ASSOC);
-        $sql->closeCursor();
+            $result = $sql->fetch(PDO::FETCH_ASSOC);
+            $sql->closeCursor();
 
-        return $result['PLN'] + 1;
+            return $result['PLN'] + 1;
+        } catch (PDOException $e) {
+            die("Es konnte keine Picklistennummer erzeugt werden" . "<br>Fehler: " . $e->errorInfo);
+        }
     }
 
     /**
      * Alle Picklisten aus dem Pixi Pool abrufen (zur Anzeige in der Picklistenerstellung)
      * @return mixed
+     *
+     * TODO: in PIXI Model auslagern
      */
     public function getAllPixiPicklists()
     {
@@ -75,6 +84,8 @@ class NeuePickliste_Model extends Model
      * Artikel einer Pixi Pickliste abrufen
      * @param $picklistNr
      * @return mixed
+     *
+     * TODO: in PIXI Model auslagern
      */
     public function getPicklistDetails($picklistNr)
     {
@@ -93,11 +104,18 @@ class NeuePickliste_Model extends Model
      */
     private function getPickerInfo($pickerID)
     {
-        $sql = $this->db->prepare("SELECT vorname, name FROM iUser WHERE UID = :pickerID");
-        $sql->execute(array('pickerID' => $pickerID));
-        $result = $sql->fetch(PDO::FETCH_ASSOC);
+        try {
+            $sql = $this->db->prepare("SELECT vorname, name FROM iUser WHERE UID = :pickerID");
+            $sql->execute(array('pickerID' => $pickerID));
+            $result = $sql->fetch(PDO::FETCH_ASSOC);
 
-        return $result['vorname'] . ' ' . $result['name'];
+            $sql->closeCursor();
+
+            return $result['vorname'] . ' ' . $result['name'];
+        } catch (PDOException $e) {
+            die("Fehler beim abrufen der Picker Informationen.<br>" . $e->errorInfo . "<br>" . $e->getMessage());
+        }
+
     }
 
     /**

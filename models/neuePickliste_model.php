@@ -28,6 +28,7 @@ class NeuePickliste_Model extends Model
         $this->setOProxy($oSoapClient->getProxy());
 
         // MySQL Objekt erzeugen
+        // TODO: mysqli durch PDO ersetzen
         $this->oMySqli = new mysqli();
     }
 
@@ -44,21 +45,18 @@ class NeuePickliste_Model extends Model
 
     /**
      * Verfügbare Picklistennummer ermitteln
+     * PDO-Version
      * @return mixed
      */
     public function getNewPicklistNr()
     {
-        $sqlGetLastPicklistNumber = 'SELECT MAX(PLHkey) as PLN FROM stpPickliste';
-        $this->oMySqli = new mysqli();
-        $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
-        $oResult = $this->oMySqli->query($sqlGetLastPicklistNumber);
-        $aResult = $oResult->fetch_assoc();
-        $this->oMySqli->close();
+        $sql = $this->db->prepare("SELECT MAX(PLHkey) as PLN FROM stpPickliste");
+        $sql->execute();
 
-        // Neue Picklistennummer
-        $newPLHkey = $aResult['PLN'] + 1;
+        $result = $sql->fetch(PDO::FETCH_ASSOC);
+        $sql->closeCursor();
 
-        return $newPLHkey;
+        return $result['PLN'] + 1;
     }
 
     /**

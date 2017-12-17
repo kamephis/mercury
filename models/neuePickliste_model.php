@@ -21,29 +21,14 @@ class NeuePickliste_Model extends Model
         parent::__construct();
 
         // Pixi API-Verbindung herstellen
-        $oSoapClient = new nusoap_client(PIXI_WSDL_PATH, true);
-        $oSoapClient->setCredentials(PIXI_USERNAME, PIXI_PASSWORD);
+        //$oSoapClient = new nusoap_client(PIXI_WSDL_PATH, true);
+        //$oSoapClient->setCredentials(PIXI_USERNAME, PIXI_PASSWORD);
 
         // pixi* API Objekt erzeugen
-        $this->setOProxy($oSoapClient->getProxy());
+        //$this->setOProxy($oSoapClient->getProxy());
 
         // MySQL Objekt erzeugen
         $this->oMySqli = new mysqli();
-    }
-
-    /**
-     * Leert alle Tabellen welche mit den Picklisten zu tun haben.
-     */
-    public function resetTables_unused()
-    {
-        try {
-            $sql = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
-            if ($this->db->query($sql)) return true;
-            return false;
-
-        } catch (PDOException $e) {
-            die("Fehler beim leeren der Mercury Tabellen.<br>" . $e->getMessage() . "<br>" . $e->errorInfo);
-        }
     }
 
     /**
@@ -65,36 +50,6 @@ class NeuePickliste_Model extends Model
             die("Es konnte keine Picklistennummer erzeugt werden" . "<br>Fehler: " . $e->errorInfo);
         }
     }
-
-    /**
-     * Alle Picklisten aus dem Pixi Pool abrufen (zur Anzeige in der Picklistenerstellung)
-     * @return mixed
-     *
-     * TODO: in PIXI Model auslagern
-     */
-    public function getAllPixiPicklists()
-    {
-        $aAllPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));
-        $aAllPicklists = $aAllPicklists['pixiShippingGetPicklistHeadersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
-
-        return $aAllPicklists;
-    }
-
-    /**
-     * Artikel einer Pixi Pickliste abrufen
-     * @param $picklistNr
-     * @return mixed
-     *
-     * TODO: in PIXI Model auslagern
-     */
-    public function getPicklistDetails($picklistNr)
-    {
-        $aPicklistDetails = $this->oProxy->pixiShippingGetPicklistDetails(array('PicklistKey' => $picklistNr));
-        $aPicklistDetails = $aPicklistDetails['pixiShippingGetPicklistDetailsResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
-
-        return $aPicklistDetails;
-    }
-
 
     /** Informationen über den Picker abfragen (vollständiger Name)
      * @param $pickerID

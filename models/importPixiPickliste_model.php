@@ -83,25 +83,19 @@ class ImportPixiPickliste_Model extends Model
 
     /**
      * Pickliste aus Pixi in die interne Datenbank importieren
-     * aktiv!
+     * aktiv! - PDO Version
      * @param $picklist
      */
     public function importPicklist($picklist)
     {
-        $sqlCheckPl = "SELECT PLIheaderRef FROM stpPicklistItems WHERE PLIheaderRef = '{$picklist}'";
-        $this->oMySqli = new mysqli();
+        $sqlCheckPl = $this->db->prepare("SELECT PLIheaderRef FROM stpPicklistItems WHERE PLIheaderRef = :picklist");
 
-        $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
-        $this->oMySqli->set_charset('utf8');
-
-        $result = $this->oMySqli->query($sqlCheckPl);
-        $rows = $result->num_rows;
-        $this->oMySqli->close();
+        $sqlCheckPl->execute(array('picklist' => $picklist));
+        $rows = $sqlCheckPl->rowCount();
+        $sqlCheckPl->closeCursor();
 
         // Prüfen ob die Pickliste bereits existiert
         if ($rows == 0) {
-            $this->oMySqli = new mysqli();
-            $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
 
             $aPicklistDetails = $this->getPicklistDetails($picklist);
 
@@ -115,10 +109,12 @@ class ImportPixiPickliste_Model extends Model
 
             // Struktur des Arrays prüfen
             if (is_array($aPicklistDetails[0])) {
-                foreach ($aPicklistDetails as $items) {
-                    $aOxid = $this->importOxidData($items['ItemNrSuppl']);
 
-                    $sqlInsertItems .= "INSERT INTO 
+                try {
+                    foreach ($aPicklistDetails as $items) {
+                        $aOxid = $this->importOxidData($items['ItemNrSuppl']);
+
+                        $sqlInsertItems = $this->db->prepare("INSERT INTO 
                                   stpPicklistItems(
                                    BinItemRef,
                                    PicLinkSmall,
@@ -146,38 +142,80 @@ class ImportPixiPickliste_Model extends Model
                                    PLHtoBox,
                                    PLIorderlineRef1
                                   ) VALUES (
-                                   '" . $items['BinItemRef'] . "',
-                                   '" . $aOxid['OXTHUMB'] . "',
-                                   '" . $aOxid['OXPIC1'] . "',
+                                   :BinItemRef,
+                                   :OXTHUMB,
+                                   :OXPIC1,
+                                   :PLIheaderRef,
+                                   :BinSortNum,
+                                   :ItemName,
+                                   :BinName,
+                                   :BinKey,
+                                   :PicklistExpiryDate,
+                                   :PicklistCreateDate,
+                                   :ItemOrderDate,
+                                   :Qty,
+                                   :PicklistComment,
+                                   :ItemNrSuppl,
+                                   :OrderNrExternal,
+                                   :EanUpc,
+                                   :ItemNrInt,
+                                   :BinRef,
+                                   :BinGroup,
+                                   :PLIorderlineRef,
+                                   :Location,
+                                   :OtherItemsCount,
+                                   :PLHfromBox,
+                                   :PLHtoBox,
+                                   :PLIorderlineRef1
                                    
-                                   '" . $items['PLIheaderRef'] . "',
-                                   '" . $items['BinSortNum'] . "',
-                                   '" . $items['ItemName'] . "',
-                                   '" . $items['BinName'] . "',
-                                   '" . $items['BinKey'] . "',
-                                   '" . $items['PicklistExpiryDate'] . "',
-                                   '" . $items['PicklistCreateDate'] . "',
-                                   '',
-                                   '" . $items['Qty'] . "',
-                                   '" . $items['PicklistComment'] . "',
-                                   '" . $items['ItemNrSuppl'] . "',
-                                   '" . $items['OrderNrExternal'] . "',
-                                   '" . $items['EanUpc'] . "',
-                                   '" . $items['ItemNrInt'] . "',
-                                   '" . $items['BinRef'] . "',
-                                   '" . $items['BinGroup'] . "',
-                                   '" . $items['PLIorderlineRef'] . "',
-                                   '" . $items['Location'] . "',
-                                   '" . $items['OtherItemsCount'] . "',
-                                   '" . $items['PLHfromBox'] . "',
-                                   '" . $items['PLHtoBox'] . "',
-                                   '" . $items['PLIorderlineRef1'] . "'
-                                    );";
+                                    );");
+
+                        $sqlInsertItems->execute(
+                            array(
+
+                                'BinItemRef' => $items['BinItemRef'],
+                                'OXTHUMB' => $aOxid['OXTHUMB'],
+                                'OXPIC1' => $aOxid['OXPIC1'],
+
+                                'PLIheaderRef' => $items['PLIheaderRef'],
+                                'BinSortNum' => $items['BinSortNum'],
+                                'ItemName' => $items['ItemName'],
+                                'BinName' => $items['BinName'],
+                                'BinKey' => $items['BinKey'],
+
+                                'PicklistExpiryDate' => $items['PicklistExpiryDate'],
+                                'PicklistCreateDate' => $items['PicklistCreateDate'],
+                                'ItemOrderDate' => '',
+
+                                'Qty' => $items['Qty'],
+                                'PicklistComment' => $items['PicklistComment'],
+                                'ItemNrSuppl' => $items['ItemNrSuppl'],
+                                'OrderNrExternal' => $items['OrderNrExternal'],
+                                'EanUpc' => $items['EanUpc'],
+                                'ItemNrInt' => $items['ItemNrInt'],
+                                'BinRef' => $items['BinRef'],
+                                'BinGroup' => $items['BinGroup'],
+                                'PLIorderlineRef' => $items['PLIorderlineRef'],
+                                'Location' => $items['Location'],
+                                'OtherItemsCount' => $items['OtherItemsCount'],
+                                'PLHfromBox' => $items['PLHfromBox'],
+                                'PLHtoBox' => $items['PLHtoBox'],
+                                'PLIorderlineRef1' => $items['PLIorderlineRef1']
+
+                            )
+                        );
+                    }
+                    Controller::showMessages('pixiImpSuccess');
+                    $sqlInsertItems->closeCursor();
+                } catch (PDOException $e) {
+                    View::showAlert('danger', null, "Error: " . $e->getMessage() . "<br>" . $e->errorInfo);
                 }
+
             } else {
                 $aOxid = $this->importOxidData($aPicklistDetails['ItemNrSuppl']);
 
-                $sqlInsertItems .= "INSERT INTO 
+                try {
+                    $sqlInsertItems = $this->db->prepare("INSERT INTO 
                                   stpPicklistItems(
                                    BinItemRef,
                                    PicLinkSmall,
@@ -189,6 +227,7 @@ class ImportPixiPickliste_Model extends Model
                                    BinKey,
                                    PicklistExpiryDate,
                                    PicklistCreateDate,
+                                   ItemOrderDate,
                                    Qty,
                                    PicklistComment,
                                    ItemNrSuppl,
@@ -204,47 +243,80 @@ class ImportPixiPickliste_Model extends Model
                                    PLHtoBox,
                                    PLIorderlineRef1
                                   ) VALUES (
-                                   '" . $aPicklistDetails['BinItemRef'] . "',
-                                   '" . $aOxid['OXTHUMB'] . "',
-                                   '" . $aOxid['OXPIC1'] . "',
+                                   :BinItemRef,
+                                   :OXTHUMB,
+                                   :OXPIC1,
+                                   :PLIheaderRef,
+                                   :BinSortNum,
+                                   :ItemName,
+                                   :BinName,
+                                   :BinKey,
+                                   :PicklistExpiryDate,
+                                   :PicklistCreateDate,
+                                   :ItemOrderDate,
+                                   :Qty,
+                                   :PicklistComment,
+                                   :ItemNrSuppl,
+                                   :OrderNrExternal,
+                                   :EanUpc,
+                                   :ItemNrInt,
+                                   :BinRef,
+                                   :BinGroup,
+                                   :PLIorderlineRef,
+                                   :Location,
+                                   :OtherItemsCount,
+                                   :PLHfromBox,
+                                   :PLHtoBox,
+                                   :PLIorderlineRef1
                                    
-                                   
-                                   '" . $aPicklistDetails['PLIheaderRef'] . "',
-                                   '" . $aPicklistDetails['BinSortNum'] . "',
-                                   '" . $aPicklistDetails['ItemName'] . "',
-                                   '" . $aPicklistDetails['BinName'] . "',
-                                   '" . $aPicklistDetails['BinKey'] . "',
-                                   '" . $aPicklistDetails['PicklistExpiryDate'] . "',
-                                   '" . $aPicklistDetails['PicklistCreateDate'] . "',
-                                   '" . $aPicklistDetails['Qty'] . "',
-                                   '" . $aPicklistDetails['PicklistComment'] . "',
-                                   '" . $aPicklistDetails['ItemNrSuppl'] . "',
-                                   '" . $aPicklistDetails['OrderNrExternal'] . "',
-                                   '" . $aPicklistDetails['EanUpc'] . "',
-                                   '" . $aPicklistDetails['ItemNrInt'] . "',
-                                   '" . $aPicklistDetails['BinRef'] . "',
-                                   '" . $aPicklistDetails['BinGroup'] . "',
-                                   '" . $aPicklistDetails['PLIorderlineRef'] . "',
-                                   '" . $aPicklistDetails['Location'] . "',
-                                   '" . $aPicklistDetails['OtherItemsCount'] . "',
-                                   '" . $aPicklistDetails['PLHfromBox'] . "',
-                                   '" . $aPicklistDetails['PLHtoBox'] . "',
-                                   '" . $aPicklistDetails['PLIorderlineRef1'] . "'
-                                    );";
-            }
+                                    );");
 
-            // Einfügen der Datensätze in die DB
-            if ($this->oMySqli->multi_query($sqlInsertItems) === TRUE) {
-                Controller::showMessages('pixiImpSuccess');
-            } else {
-                View::showAlert('danger', null, "Error: " . $sqlInsertItems . "<br>" . $this->oMySqli->error);
+                    $sqlInsertItems->execute(
+                        array(
+
+                            'BinItemRef' => $aPicklistDetails['BinItemRef'],
+                            'OXTHUMB' => $aPicklistDetails['OXTHUMB'],
+                            'OXPIC1' => $aPicklistDetails['OXPIC1'],
+
+                            'PLIheaderRef' => $aPicklistDetails['PLIheaderRef'],
+                            'BinSortNum' => $aPicklistDetails['BinSortNum'],
+                            'ItemName' => $aPicklistDetails['ItemName'],
+                            'BinName' => $aPicklistDetails['BinName'],
+                            'BinKey' => $aPicklistDetails['BinKey'],
+
+                            'PicklistExpiryDate' => $aPicklistDetails['PicklistExpiryDate'],
+                            'PicklistCreateDate' => $aPicklistDetails['PicklistCreateDate'],
+                            'ItemOrderDate' => '',
+
+                            'Qty' => $aPicklistDetails['Qty'],
+                            'PicklistComment' => $aPicklistDetails['PicklistComment'],
+                            'ItemNrSuppl' => $aPicklistDetails['ItemNrSuppl'],
+                            'OrderNrExternal' => $aPicklistDetails['OrderNrExternal'],
+                            'EanUpc' => $aPicklistDetails['EanUpc'],
+                            'ItemNrInt' => $aPicklistDetails['ItemNrInt'],
+                            'BinRef' => $aPicklistDetails['BinRef'],
+                            'BinGroup' => $aPicklistDetails['BinGroup'],
+                            'PLIorderlineRef' => $aPicklistDetails['PLIorderlineRef'],
+                            'Location' => $aPicklistDetails['Location'],
+                            'OtherItemsCount' => $aPicklistDetails['OtherItemsCount'],
+                            'PLHfromBox' => $aPicklistDetails['PLHfromBox'],
+                            'PLHtoBox' => $aPicklistDetails['PLHtoBox'],
+                            'PLIorderlineRef1' => $aPicklistDetails['PLIorderlineRef1']
+
+                        )
+                    );
+
+                    Controller::showMessages('pixiImpSuccess');
+                    $sqlInsertItems->closeCursor();
+
+                } catch (PDOException $e) {
+                    View::showAlert('danger', null, "Error: " . $e->getMessage() . "<br>" . $e->errorInfo);
+                }
             }
-            $this->oMySqli->close();
         } else {
             Controller::showMessages('pixiImpCheck');
         }
     }
-
     /**
      * Artikel einer Pixi Pickliste abrufen
      * @param $picklistNr

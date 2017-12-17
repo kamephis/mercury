@@ -45,6 +45,8 @@ class PicklistAdmin_Model extends Model
     /**
      * Verfügbare Picklistennummer ermitteln
      * @return mixed
+     *
+     * unused
      */
     public function getNewPicklistNr()
     {
@@ -64,6 +66,8 @@ class PicklistAdmin_Model extends Model
     /**
      * Alle Picklisten aus dem Pixi Pool abrufen (zur Anzeige in der Picklistenerstellung)
      * @return mixed
+     *
+     * unused
      */
     public function getAllPixiPicklists()
     {
@@ -77,6 +81,8 @@ class PicklistAdmin_Model extends Model
      * Artikel einer Pixi Pickliste abrufen
      * @param $picklistNr
      * @return mixed
+     *
+     * unused
      */
     public function getPicklistDetails($picklistNr)
     {

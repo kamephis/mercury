@@ -35,7 +35,7 @@ class NeuePickliste_Model extends Model
     /**
      * Leert alle Tabellen welche mit den Picklisten zu tun haben.
      */
-    public function resetTables()
+    public function resetTables_unused()
     {
         $sql = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
         if ($this->db->query($sql)) return true;

@@ -188,7 +188,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
                                     <?php foreach ($aPicker as $picker) { ?>
                                         <option
                                                 value="<?php echo $picker['UID']; ?>"
-                                                style="width:250px!important;"><?php echo $picker['vorname'] . ' ' . $picker['name']; ?></option>
+                                                style="width:250px!important;"><?php echo utf8_encode($picker['vorname']) . ' ' . utf8_encode($picker['name']); ?></option>
                                     <?php } ?>
                                 </select>
                             </label>

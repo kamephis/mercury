@@ -60,6 +60,10 @@ class Controller
                 View::showAlert('success', $option = null, "Die Pixi Pickliste wurde erfolgreich importiert.");
                 break;
 
+            case 'pixiImpSuccess2':
+                View::showAlert('success', $option = null, "Die Pixi Pickliste wurde erfolgreich importiert!!!!.");
+                break;
+
             case 'picklistInternCreated':
                 View::showAlert('success', $option = null, "Die neue Pickliste wurde erfolgreich erstellt.");
                 break;

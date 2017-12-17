@@ -11,7 +11,6 @@ class ImportPixiPickliste_Model extends Model
 {
     private $oProxy = null;
     private $oMySqli = null;
-    private $oMysqli_oxid = null;
 
     /**
      * StpPixiPicklistImport constructor.
@@ -27,21 +26,6 @@ class ImportPixiPickliste_Model extends Model
 
         // pixi* API Objekt erzeugen
         $this->setOProxy($oSoapClient->getProxy());
-
-        // MySQL Verbiundung
-        $this->oMySqli = new mysqli();
-    }
-
-    /**
-     * Alle Picklisten aus dem Pixi Pool abrufen (zur Anzeige in der Picklistenerstellung)
-     * @return mixed
-     */
-    public function getAllPixiPicklists2()
-    {
-        $aAllPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));
-        $aAllPicklists = $aAllPicklists['pixiShippingGetPicklistHeadersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
-
-        return $aAllPicklists;
     }
 
     /**
@@ -64,21 +48,28 @@ class ImportPixiPickliste_Model extends Model
 
     /**
      * Zusatzdaten aus OXID auslesen und als Array zurückgeben.
+     *
      * @param $oxartnum
-     * @return bool|mysqli_result
+     * @return mixed
+     *
+     * PDO-Version
      */
     public function importOxidData($oxartnum)
     {
-        // Ergänzen der OXID Infos
-        $sqlSelOxidData = "SELECT OXPIC1, OXPIC2, OXPIC3, OXPIC4, OXPIC5, OXTHUMB, OXID FROM oxarticles WHERE OXARTNUM = '{$oxartnum}' LIMIT 1";
-        $this->oMysqli_oxid = new mysqli();
+        try {
+            // Ergänzen der OXID Infos
+            $sqlSelOxidData = $this->db->prepare("SELECT OXPIC1, OXPIC2, OXPIC3, OXPIC4, OXPIC5, OXTHUMB, OXID FROM oxarticles WHERE OXARTNUM = :oxartnum LIMIT 1");
 
-        $this->oMysqli_oxid->real_connect(DB_HOST_OXID, DB_USER_OXID, DB_PASSWD_OXID, DB_NAME_OXID, DB_PORT_OXID);
-        $this->oMysqli_oxid->set_charset('utf8');
+            $sqlSelOxidData->execute(array(
+                'oxartnum' => $oxartnum
+            ));
+            $sqlSelOxidData->closeCursor();
 
-        $aOxid = $this->oMysqli_oxid->query($sqlSelOxidData)->fetch_array(MYSQLI_ASSOC);
-        $this->oMysqli_oxid->close();
-        return $aOxid;
+            return $sqlSelOxidData->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            die($e->errorInfo);
+        }
     }
 
     /**

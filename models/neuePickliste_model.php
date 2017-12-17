@@ -85,21 +85,21 @@ class NeuePickliste_Model extends Model
     }
 
 
-    /**
-     * Informationen über den Picker abfragen
+    /** Informationen über den Picker abfragen (vollständiger Name)
      * @param $pickerID
      * @return string
+     *
+     * PDO-Version
      */
     private function getPickerInfo($pickerID)
     {
-        $sqlPickerInfo = "SELECT vorname, name FROM iUser WHERE UID = '{$pickerID}'";
-        $this->oMySqli = new mysqli();
-        $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
-        $query = $this->oMySqli->query($sqlPickerInfo);
-        $result = $query->fetch_assoc();
+        $sql = $this->db->prepare("SELECT vorname, name FROM iUser WHERE UID = :pickerID");
+        $sql->execute(array('pickerID' => $pickerID));
+        $result = $sql->fetch(PDO::FETCH_ASSOC);
 
         return $result['vorname'] . ' ' . $result['name'];
     }
+
 
     /**
      * Pickliste aus Pixi in die interne Datenbank importieren

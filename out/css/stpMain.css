@@ -357,6 +357,15 @@ h4.modal-title {
     animation: glyphicon-spin-l 3s infinite linear;
 }
 
+/* Picklist Table Override */
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #666666 !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #ddd;
+}
+
 @-webkit-keyframes glyphicon-spin-r {
     0% {
         -webkit-transform: rotate(0deg);
@@ -411,3 +420,4 @@ h4.modal-title {
         margin: 1cm !important;
     }
 }
+

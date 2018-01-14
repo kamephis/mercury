@@ -14,14 +14,49 @@ class Picklist_Model extends Model
     }
 
     /**
+     * Picklistentyp Auslesen
+     * @param $picklistNr
+     * @return mixed
+     */
+    public function getPicklistType($picklistNr)
+    {
+        $sql = "SELECT picklistType FROM stpPickliste WHERE PLHkey = '{$picklistNr}' LIMIT 1";
+        $result = $this->db->select($sql);
+        return $result[0]['picklistType'];
+    }
+
+    /**
      * Auslesen der Picklistenpositionen
      * @param $picklistNr
-     * @param $pos
      * @return array
      */
-    public function getPicklistItems($picklistNr)
+    public function getPicklistItems($picklistNr, $picklistType)
     {
-        $sql = "SELECT pitem.*, plist.PLHkey
+        switch ($picklistType) {
+            case 'gruppiert':
+                $ins = "GROUP BY pitem.EanUpc";
+                break;
+            case 'ungruppiert':
+                $ins = "";
+                break;
+        }
+
+        $sql = "SELECT pitem.*, plist.PLHkey, plist.picklistType
+                FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
+                WHERE
+                pitem.ID = a2p.ArtikelID AND
+                a2p.PicklistID = plist.PLHkey AND 
+                plist.PLHkey = '{$picklistNr}' AND
+                pitem.ItemStatus = 1 AND 
+                LENGTH(pitem.ItemFehlerUser) = 0
+                
+                {$ins}
+
+                ORDER BY pitem.BinSortNum
+                ";
+
+
+        $sql_org = "SELECT pitem.*, plist.PLHkey
                 FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
                 WHERE
                 pitem.ID = a2p.ArtikelID AND
@@ -158,20 +193,47 @@ class Picklist_Model extends Model
      * Zurücksetzen des Item Fehlers (da korrigiert)
      * @param $articleEan
      * @param $locationID
+     * @param $ID
+     * @param $picklistType
      */
-    public function setItemStatus($articleEan, $locationID)
+    public function setItemStatus($articleEan = null, $locationID, $ID = null, $picklistType = null)
     {
         $aUpdate = array('ItemStatus' => '2', 'CurrentItemLocation' => $locationID, 'ItemFehler' => '', 'ItemFehlbestand' => '', 'ItemFehlerUser' => '');
-        $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleEan);
+
+        if ($picklistType == "gruppiert") {
+            // Gruppenbearbeitung (Standard)
+            try {
+                $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleEan);
+            } catch (Exception $e) {
+                $e->getMessage();
+            }
+        } else {
+            // Einzelbearbeitung (LX)
+            try {
+                //$this->Picklist->setItemStatus(null, $_SESSION['locationID'], $_REQUEST['itemID'], 'ungruppiert');
+                $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $ID);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
     }
 
     /**
      * Fehlerhafte Position speichern
      *
-     * Setzen des ItemFehler / ItemFehlmenge auf den gewählten Wert aus dem Form-Array
+     * Unterscheidung zwischen gruppierten und ungruppierten Fehlermeldungen
      * @param $articleID
+     * @param $aFehler
+     * @param $intItemFehlbestand
+     * @param null $checked
+     * @param null $pruefer
+     * @param null $id
+     * @param null $picklistType
      */
-    public function setItemFehler($articleID, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null)
+
+// $this->Picklist->setItemFehler(null,       utf8_encode($fehlerText), $intFehlbestand, null, null, null, "ungruppiert");
+
+    public function setItemFehler($articleID = null, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null, $id = null, $picklistType = null)
     {
         // Einfügen des Fehler Users, wenn Fehler vorhanden
         if (strlen($intItemFehlbestand) > 0 || sizeof($aFehler) > 0) {
@@ -181,15 +243,21 @@ class Picklist_Model extends Model
         }
 
         // charset fix
-        if ($aFehler != Null) {
+        if ($aFehler != null) {
             $aFehler = utf8_decode($aFehler);
         }
+
+        // Setzen der Fehlereinträge
         $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer, 'ItemStatus' => '4');
 
-        $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleID);
-
         // Aktivieren, wenn jede Position einzeln als Fehler bestätigt werden soll
-        //$this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
+        if ($picklistType == 'ungruppiert') {
+            // Wenn eine ID übergeben wurde (ungruppiertes Picken)
+            $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $id);
+        } else {
+            // Wenn eine EAN übergeben wurde (gruppiertes Picken)
+            $this->db->update('stpPicklistItems', $aUpdate, 'EanUpc = ' . $articleID);
+        }
     }
 
 

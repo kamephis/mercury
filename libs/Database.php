@@ -11,6 +11,7 @@ class Database extends PDO
 {
     public function __construct()
     {
+        //TODO: Globals verwenden
         parent::__construct('mysql:host=192.168.200.2;port=3307;dbname=usrdb_stokcgbl5;charset=utf8_general_ci', 'stokcgbl5', 'X$9?2IMalDUU');
     }
     /**

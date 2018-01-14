@@ -34,8 +34,7 @@ if ($_REQUEST['delPicklist']) {
             <a class="btn btn-default hidden-print pull-left" href="<?php echo URL . 'backend'; ?>">
                 <span class="glyphicon glyphicon-refresh"></span>&nbsp;Anischt aktualisieren
             </a>
-            &nbsp;
-            <button type="button" class="btn btn-default btnPrint hidden-print">
+            <button type="button" class="btn btn-default btnPrint hidden-print" style="margin-left:1em;">
                 <span class="glyphicon glyphicon-print"></span>&nbsp;Fehlerliste drucken
             </button>
             <input type="hidden" id="getPixiBestand" name="getPixiBestand" value="1">
@@ -53,7 +52,6 @@ if ($_REQUEST['delPicklist']) {
             <br>
         </div>
     </div>
-
     <!-- Reset Table Modal -->
 
     <div id="modResetTab" class="modal fade" role="dialog">
@@ -85,7 +83,7 @@ if ($_REQUEST['delPicklist']) {
 
 <?php include("picklisten.inc.php"); ?>
 <?php include("fehlerartikel.inc.php"); ?>
-<?php include("zuschnitt.inc.php"); ?>
+<?php // include("zuschnitt.inc.php"); ?>
 
 <script>
     $(document).ready(function () {

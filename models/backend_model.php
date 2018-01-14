@@ -98,6 +98,8 @@ class Backend_Model extends Model
      * @param $str
      * @param $length
      * @return bool|string
+     *
+     * TODO: In Helper Klasse auslagern
      */
     private function _left($str, $length)
     {
@@ -109,6 +111,8 @@ class Backend_Model extends Model
      * @param $str
      * @param $length
      * @return bool|string
+     *
+     * TODO: In Helper Klasse auslagern
      */
     private function _right($str, $length)
     {
@@ -119,6 +123,8 @@ class Backend_Model extends Model
     /**
      * Auslesen der bearbeiteten Aufträge
      * @return array
+     *
+     * TODO: prüfen, was das hier soll ^^
      */
     public function getAuftragsuebersicht()
     {
@@ -261,5 +267,40 @@ class Backend_Model extends Model
         $this->db->select($sql_1);
         $this->db->select($sql_2);
         $this->db->select($sql_3);
+    }
+
+    /**
+     * Initialisierung der Requests
+     */
+    public function requestActions()
+    {
+        echo "<h1>Request Fired</h1>";
+        // Aktualisieren der Pickliste
+        if (isset($_REQUEST['updPicklist'])) {
+            $this->updatePicklist($_REQUEST['picklistID'], $_REQUEST['selPicker']);
+        }
+
+        // Löschen einer Pickliste
+        if ($_REQUEST['delPicklist']) {
+            try {
+                $this->delPicklist($_REQUEST['picklistID']);
+            } catch (Exception $e) {
+                echo $e;
+            }
+        }
+    }
+}
+
+// Update der Item Fehler
+if (isset($_REQUEST['itemFehlerUpdate'])) {
+    $this->mPicklist->setItemFehler($_REQUEST['itemID'], NULL, NULL);
+}
+
+// Leeren der Picklisten, Picklistenpositionen etc.
+if ($_REQUEST['resetTab']) {
+    if ($this->PicklistAdmin->resetTables()) {
+        Controller::showMessages('MercuryTablesCleared');
+    } else {
+        Controller::showMessages('MercuryTablesClearFailed');
     }
 }

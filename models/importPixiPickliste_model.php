@@ -11,6 +11,7 @@ class ImportPixiPickliste_Model extends Model
 {
     private $oProxy = null;
     private $oMySqli = null;
+    private $oMysqli_oxid = null;
 
     /**
      * StpPixiPicklistImport constructor.
@@ -32,6 +33,8 @@ class ImportPixiPickliste_Model extends Model
      * Alle Picklisten aus dem Pixi Auftrags-Pool abrufen (zur Anzeige in der Pixklistenerstellung)
      * Neue Version mit Error-Handling
      * @return mixed
+     *
+     * TODO: Refaktor in Pixi Klasse. Hier entfernen
      */
     public function getAllPixiPicklists()
     {
@@ -54,23 +57,41 @@ class ImportPixiPickliste_Model extends Model
      *
      * PDO-Version
      */
-    public function importOxidData($oxartnum)
+    public function importOxidData__($oxartnum)
     {
         try {
             // Ergänzen der OXID Infos
-            $sqlSelOxidData = $this->db->prepare("SELECT OXPIC1, OXPIC2, OXPIC3, OXPIC4, OXPIC5, OXTHUMB, OXID FROM oxarticles WHERE OXARTNUM = :oxartnum LIMIT 1");
+            $sqlSelOxidData = $this->db->prepare("SELECT OXPIC1, OXPIC2, OXPIC3, OXPIC4, OXPIC5, OXTHUMB, OXID FROM oxarticles WHERE OXARTNUM = ':oxartnum' LIMIT 1");
 
             $sqlSelOxidData->execute(array(
                 'oxartnum' => $oxartnum
             ));
+            $result = $sqlSelOxidData->fetch(PDO::FETCH_ASSOC);
+
             $sqlSelOxidData->closeCursor();
 
-            return $sqlSelOxidData->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
 
         } catch (PDOException $e) {
             die($e->errorInfo);
         }
     }
+
+    public function importOxidData($oxartnum)
+    {
+        // Ergänzen der OXID Infos
+        $sqlSelOxidData = "SELECT OXPIC1, OXPIC2, OXPIC3, OXPIC4, OXPIC5, OXTHUMB, OXID FROM oxarticles WHERE OXARTNUM = '{$oxartnum}' LIMIT 1";
+        $this->oMysqli_oxid = new mysqli();
+
+        $this->oMysqli_oxid->real_connect(DB_HOST_OXID, DB_USER_OXID, DB_PASSWD_OXID, DB_NAME_OXID, DB_PORT_OXID);
+        $this->oMysqli_oxid->set_charset('utf8');
+
+        $aOxid = $this->oMysqli_oxid->query($sqlSelOxidData)->fetch_array(MYSQLI_ASSOC);
+        $this->oMysqli_oxid->close();
+        return $aOxid;
+    }
+
 
     /**
      * Pickliste aus Pixi in die interne Datenbank importieren
@@ -87,6 +108,10 @@ class ImportPixiPickliste_Model extends Model
 
         // Prüfen ob die Pickliste bereits existiert
         if ($rows == 0) {
+
+            // TODO: Version aus der Pixi Klasse testen und lokale Kopie entfernen
+            //$cPixi = new Pixi();
+            //$aPicklistDetails =  $cPixi->getPicklistDetails($picklist);
 
             $aPicklistDetails = $this->getPicklistDetails($picklist);
 
@@ -293,7 +318,6 @@ class ImportPixiPickliste_Model extends Model
                             'PLHfromBox' => $aPicklistDetails['PLHfromBox'],
                             'PLHtoBox' => $aPicklistDetails['PLHtoBox'],
                             'PLIorderlineRef1' => $aPicklistDetails['PLIorderlineRef1']
-
                         )
                     );
 
@@ -312,6 +336,8 @@ class ImportPixiPickliste_Model extends Model
      * Artikel einer Pixi Pickliste abrufen
      * @param $picklistNr
      * @return mixed
+     *
+     * TODO: diese Version entfernen (Aufruf über die Pixi Klasse
      */
     public function getPicklistDetails($picklistNr)
     {

@@ -20,13 +20,6 @@ class NeuePickliste_Model extends Model
     {
         parent::__construct();
 
-        // Pixi API-Verbindung herstellen
-        //$oSoapClient = new nusoap_client(PIXI_WSDL_PATH, true);
-        //$oSoapClient->setCredentials(PIXI_USERNAME, PIXI_PASSWORD);
-
-        // pixi* API Objekt erzeugen
-        //$this->setOProxy($oSoapClient->getProxy());
-
         // MySQL Objekt erzeugen
         $this->oMySqli = new mysqli();
     }
@@ -75,6 +68,8 @@ class NeuePickliste_Model extends Model
     /**
      * Erstellen einer neuen Pickliste und
      * zuweisen von Artikeln zu einer Pickliste
+     *
+     * verwendet
      */
     public function newPicklist()
     {
@@ -87,6 +82,8 @@ class NeuePickliste_Model extends Model
         $plComment = $aPostData['plKommentar'];
         $picker = $aPostData['picker'];
         $aPicklistItems = $_POST['newPicklist'];
+        // wichtig zur Unterscheidung von normalen und LX Picklisten (gruppiert / ungruppiert)
+        $picklistType = $_POST['picklistType'];
 
         // Initialisierung - Aufbau der Multiquery
         $sqlInsertItems = null;
@@ -102,14 +99,16 @@ class NeuePickliste_Model extends Model
                                    PLHexpiryDate,
                                    CreatedBy,
                                    plComment,
-                                   picker
+                                   picker,
+                                   picklistType
                                   ) VALUES (
                                    '" . $PLHkey . "',
                                    '" . $createDate . "',
                                    '" . $expDate . "',
                                    '" . $createdBy . "',
                                    '" . $plComment . "',
-                                   '" . $picker . "'
+                                   '" . $picker . "',
+                                   '" . $picklistType . "'
                                   );";
         }
 
@@ -143,6 +142,113 @@ class NeuePickliste_Model extends Model
         }
         $this->oMySqli->close();
     }
+
+
+    public function newPicklist_pdo()
+    {
+        $aPostData = $_POST;
+        $updateFlag = $aPostData['updatePicklist'];
+
+        $PLHkey = $aPostData['plnr'];
+        $createDate = date('y.m.d');
+        $expDate = $aPostData['expDate'];
+        $createdBy = $aPostData['creator'];
+        $plComment = $aPostData['plKommentar'];
+        $picker = $aPostData['picker'];
+        $aPicklistItems = $_POST['newPicklist'];
+
+        //$sqlNewPicklist = '';
+        $iErrorCounter = 0;
+
+        if ($updateFlag != 'update') {
+            try {
+                // Neue Pickliste erstellen
+                $sqlNewPicklist = $this->db->prepare("INSERT INTO
+                                  stpPickliste(
+                                   PLHkey,
+                                   createDate,
+                                   PLHexpiryDate,
+                                   CreatedBy,
+                                   plComment,
+                                   picker
+                                  ) VALUES (
+                                   :PLHkey,
+                                   :createDate,
+                                   :expDate,
+                                   :createdBy,
+                                   :plComment,
+                                   :picker
+                                  );");
+
+                $sqlNewPicklist->execute(
+                    array(
+                        'PLHkey' => $PLHkey,
+                        'createDate' => $createDate,
+                        'expDate' => $expDate,
+                        'createdBy' => $createdBy,
+                        'plComment' => $plComment,
+                        'picker' => $picker
+                    )
+                );
+                $sqlNewPicklist->closeCursor();
+
+            } catch (PDOException $e) {
+                $iErrorCounter++;
+                die("Fehler beim erstellen einer Pickliste.<br>" . $e->getMessage() . "<br>" . $e->errorInfo);
+            }
+        }
+
+        // Artikel der neuen Pickliste zuweisen
+        foreach ($aPicklistItems as $item) {
+            try {
+                $sqlAssignItems = $this->db->prepare("INSERT INTO
+                                    stpArtikel2Pickliste(
+                                      ArtikelID,
+                                      PicklistID
+                                    ) VALUES (
+                                      :item,
+                                      :PLHkey
+                                    );
+                                    ");
+
+                $sqlAssignItems->execute(
+                    array(
+                        'PLHkey' => $PLHkey,
+                        'item' => $item
+                    )
+                );
+                $sqlAssignItems->closeCursor();
+
+            } catch (PDOException $e) {
+                $iErrorCounter++;
+                die($e->errorInfo);
+            }
+            /**
+             * Aktualisieren des Artikelstatus (entfernen von der Master Pickliste)
+             * damit er aus dem zuweisebaren Pool der Artikel herausfällt.
+             */
+            try {
+                $sqlUpdateItemStatus = $this->db->prepare("UPDATE stpPicklistItems SET ItemStatus = '1' WHERE ID = :item;");
+
+                $sqlUpdateItemStatus->execute(
+                    array(
+                        'item' => $item
+                    )
+                );
+            } catch (PDOException $e) {
+                $iErrorCounter++;
+                die($e->errorInfo);
+            }
+        }
+
+        // Einfügen der Datensätze in die DB
+        if ($iErrorCounter == 0) {
+            View::showAlert('success', null, "Die Pickliste <b>" . $PLHkey . "</b> wurde erfolgreich erstellt und <b>" . utf8_encode($this->getPickerInfo($picker)) . "</b> zugewiesen.");
+        } else {
+            View::showAlert('danger', null, "Error: " . $sqlNewPicklist . "<br>" . $this->oMySqli->error);
+        }
+    }
+
 
     /** Auflistung aller Picker im System
      * @return array

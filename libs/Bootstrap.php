@@ -175,5 +175,4 @@ class Bootstrap
         $this->_controller->index();
         exit;
     }
-
 }

@@ -36,6 +36,8 @@ class Backend extends Controller
             $this->view->tPickstatus = 'Aktive Pickaufträge';
 
             $this->view->backend = new Backend_Model();
+
+
             $this->view->render('header');
             $this->view->render('navigation');
             $this->view->render('backend/index');

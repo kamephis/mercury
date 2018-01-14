@@ -1,7 +1,29 @@
 <?php
+// Zwischenspeichern der Picklistennummer
+$plist = $_REQUEST['picklistNr'];
+$_SESSION['plist'] = $plist;
+
+// Auslesen des Picklistentyps
+$plistType = $this->Picklist->getPicklistType($_SESSION['plist']);
+
 // Stoff gepickt - via EAN (itemPicked = Ean der Position, und BinKey (Lagerplatz))
 if ($_REQUEST['itemPicked']) {
-    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID'], $_REQUEST['BinKey']);
+//    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID'], $_REQUEST['BinKey']);
+
+    if ($plistType == "gruppiert") {
+        try {
+            $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID'], null, 'gruppiert');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    } else {
+        try {
+            $this->Picklist->setItemStatus(null, $_SESSION['locationID'], $_REQUEST['itemID'], 'ungruppiert');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
     // Aktualisieren -> nächste Position - refresh
     header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'], true, 301);
 }
@@ -28,19 +50,26 @@ if ($_REQUEST['setFehler']) {
         $fehlerText = $aFehler[0] . ', ' . $aFehler[1] . ', ' . $aFehler[2];
     }
 
-    $this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand);
-    //$this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand, $_REQUEST['BinKey']);
-    // Org: Jeder Fehler muss einzeln bestätigt werden.
-    //$this->Picklist->setItemFehler($_REQUEST['itemID'], utf8_encode($fehlerText), $intFehlbestand);
+    // Erweiterung LX Picklisten
+    if ($plistType == "gruppiert") {
+        try {
+            $this->Picklist->setItemFehler($_REQUEST['EanUpc'], utf8_encode($fehlerText), $intFehlbestand, null, null, null, null);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    } else {
+        try {
+            $this->Picklist->setItemFehler(null, utf8_encode($fehlerText), $intFehlbestand, null, null, $_REQUEST['itemID'], "ungruppiert");
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }
 
-// Zwischenspeichern der Picklistennummer
-$plist = $_REQUEST['picklistNr'];
-$_SESSION['plist'] = $plist;
-
 // Picklisten Array - wenn das Picklisten-Array leer ist, werden die Positionen aus der DB geladen.
+// andernfalls wird das lokale Array verwendet.
 if (sizeof($this->Picklist->getAPicklist()) == 0) {
-    $this->Picklist->setAPicklist($this->Picklist->getPicklistItems($_SESSION['plist']));
+    $this->Picklist->setAPicklist($this->Picklist->getPicklistItems($_SESSION['plist'], $plistType));
 } else {
     echo "Keine Pickliste gesetzt";
 }
@@ -59,25 +88,22 @@ if ($_REQUEST['referer']) {
     unset($_SESSION['pos']);
     $_SESSION['pos'] = 0;
 }
-
 if (isset($_REQUEST['pos'])) {
     $_SESSION['pos'] = $_REQUEST['pos'];
 
-    if ((int)$_SESSION['pos'] > $anzPositionen || (int)$_SESSION['pos'] < 0 || (int)$_SESSION['pos'] == $anzPositionen) {
+    if ((int)$_SESSION['pos'] > $anzPositionen || (int)$_SESSION['pos'] < 0 || (int)$_SESSION['pos'] >= $anzPositionen) {
         $_SESSION['pos'] = 0;
     }
-} else {
-        $_SESSION['pos'] = 0;
 }
 
-// Picklistennavigation
-if ($_REQUEST['nav'] == 'n') {
-    next($this->Picklist->getAPicklist());
-}
+// Picklistennavigation (manuell)
+//if ($_REQUEST['nav'] == 'n') {
+//    next($this->Picklist->getAPicklist());
+//}
 
-if ($_REQUEST['nav'] == 'p') {
-    prev($this->Picklist->getAPicklist());
-}
+//if ($_REQUEST['nav'] == 'p') {
+//    prev($this->Picklist->getAPicklist());
+//}
 
 if (sizeof($this->Picklist->getAPicklist()) > 0) {
     $item = $this->Picklist->getAPicklist();
@@ -105,47 +131,15 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                     <div class="row">
                         <div class="col-xs-12 col-md-12 small">
                             <?php
-
-                            $pixiBins = $this->Pixi->getAllBins($item[$_SESSION['pos']]['EanUpc']);
-
-                            if (is_array($pixiBins[0])) {
-                                echo '<b>Lagerplätze</b>';
-                            } else {
-                                echo '<b>Lagerplatz</b>';
-                            }
-
+                            echo "Lagerplatz";
                             ?>
                         </div>
                         <div class="col-sm-12">
-                            <?php
 
-                            if (is_array($pixiBins[0])) {
-                                /*
-                                foreach ($pixiBins as $bin) {*/
-                                ?>
-                                <!--<h2 class="pick binColor"
-                                        style="background: <?php /*echo $this->binColors['COLOR_' . substr($bin['BinName'], -2)];*/ ?>;">
-                                        <?php /* echo $bin['BinName'] . " "; */ ?>
-                                    </h2>-->
-
-                                <h2 class="pick binColor"
-                                    style="text-decoration:underline; background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
-                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
-                                </h2>
-                                <?
-                                /*}*/
-
-
-                            } else {
-                                ?>
-                                <h2 class="pick binColor"
-                                    style="background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
-                                    <?php echo $item[$_SESSION['pos']]['BinName']; ?>
-                                </h2>
-                                <?php
-                                //echo "Lagerplatz: ".$fehlerItem['BinName'];
-                            }
-                            ?>
+                            <h2 class="pick binColor"
+                                style="background: <?php echo $this->binColors['COLOR_' . substr($item[$_SESSION['pos']]['BinName'], -2)]; ?>;">
+                                <?php echo $item[$_SESSION['pos']]['BinName']; ?>
+                            </h2>
 
                         </div>
                         <div class="clearfix"></div>
@@ -448,6 +442,9 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <form method="post" action="<?php echo URL; ?>picklist">
                                 <input type="hidden" name="itemPicked"
                                        value="<?php echo $item[$_SESSION['pos']]['EanUpc']; ?>">
+                                <input type="hidden" name="itemID"
+                                       value="<?php echo $item[$_SESSION['pos']]['ID']; ?>">
+
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
                                 <input type="submit" class="btn btn-success btn-block btn-lg" value="JA">
                             </form>

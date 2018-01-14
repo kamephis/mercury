@@ -2,7 +2,7 @@
 
 /**
  * Gemeinsam nutzbare Pixi Funktionen
- * Zugriff auf Pixidaten via PIXI NuSoap API
+ * Zugriff auf Pixidaten via NuSoap
  *
  * @author: Marlon Böhland
  * @access: public
@@ -28,6 +28,23 @@ class Pixi
     }
 
     /**
+     * Neuen Lagerbestand setzen
+     * @param $ean
+     * @param $bin
+     * @param $newStock
+     * @param $user
+     */
+    public function setStock($ean, $bin, $newStock, $user)
+    {
+        if (is_soap_fault($this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'NewStockQty' => $newStock, 'Username' => $user)))) {
+            echo "fehler";
+        } else {
+            $this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'NewStockQty' => $newStock, 'Username' => $user));
+        }
+
+    }
+
+    /**
      * Lieferanten eines Artikels
      * @param $ItemNrInt
      * @return mixed
@@ -43,6 +60,7 @@ class Pixi
         }
     }
 
+
     /**
      * Lieferanteninfos
      * @param $supplNr
@@ -56,51 +74,47 @@ class Pixi
         return $aSuppl;
     }
 
-
-    /**
-     * Lagerbestand korrigieren
-     * @param $eanUpc
-     * @param $username
-     * @param $stock
-     * @param $binName
-     * @return bool
-     */
-    public function setStock($eanUpc, $username, $stock, $binName)
-    {
-        $aSetStock = $this->oProxy->pixiShippingGetPicklistHeaders(array('EanUpc' => $eanUpc, 'Username' => $username, 'NewStockQty' => $stock, 'BinName' => $binName));
-        $aSetStock = $aSetStock['pixiShippingGetPicklistHeadersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
-        if ($aSetStock) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Ausgabe aller Lagerplätze eines Artikels
      * @param $eanUpc
      * @return mixed
+     *
+     * Mit Fehlerprüfung
+     *
+     * ACHTUNG: Kann Probleme mit Konfi-Cronjobs hervorrufen.
      */
     public function getAllBins($eanUpc)
     {
-        $aBins = $this->oProxy->pixiGetItemStockBins(array('EAN' => $eanUpc));
-        $aBins = $aBins['pixiGetItemStockBinsResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+        try {
+            $aBins = $this->oProxy->pixiGetItemStockBins(array('EAN' => $eanUpc));
+            $aBins = $aBins['pixiGetItemStockBinsResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+            return $aBins;
 
-        return $aBins;
-
+        } catch (Exception $e) {
+            die($e->getMessage() . "<br>" . $e->getLine());
+        }
     }
 
     /**
+     * Abrufen aller Pixi Picklisten
      * @return mixed
      */
     public function getAllPicklists()
     {
-        $aPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));
-        $aPicklists = $aPicklists['pixiShippingGetPicklistHeadersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
-
-        return $aPicklists;
+        try {
+            $aPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));
+            $aPicklists = $aPicklists['pixiShippingGetPicklistHeadersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
+            return $aPicklists;
+        } catch (Exception $e) {
+            die($e->getMessage() . "<br>" . $e->getLine());
+        }
     }
 
+    /**
+     * Artikellagerbstand abrufen
+     * @param $artEAN
+     * @return bool
+     */
     function getItemStock($artEAN)
     {
         $itemStock = $this->oProxy->pixiGetItemStock(array('EAN' => $artEAN));
@@ -111,7 +125,6 @@ class Pixi
             return false;
         }
     }
-
 
     /**
      * @param $orderNr
@@ -138,7 +151,6 @@ class Pixi
         } else {
             return false;
         }
-
     }
 
     /**
@@ -172,6 +184,5 @@ class Pixi
         } else {
             return "Keine Einträge gefunden.";
         }
-
     }
 }

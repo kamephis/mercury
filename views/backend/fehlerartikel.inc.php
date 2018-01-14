@@ -4,18 +4,21 @@
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-<span class="hidden-print">
-                <button type="button" class="btn btn-xs btn-primary pull-right" id="btnToggleFehlerArea">
-                    <span class="glyphicon glyphicon-minus"></span>
-                </button>
-</span>
                 <span class="panel-title"><?php echo $this->tFehler; ?></span>
-                <!--
-                <span class="pull-right hidden-print">
-                <button type="button" class="btn btn-xs btn-warning btn-block" id="btnGetPixiStock">
-                    <span class="glyphicon glyphicon-refresh"></span> Pixi* Bestände prüfen
-                </button>
-                    </span>-->
+
+                <span class="hidden-print">
+                    <button type="button" class="btn btn-xs btn-primary pull-right" id="btnToggleFehlerArea">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+
+                <span class="pull-right hidden-print" style="margin-right:5px;">
+                    <button type="button" class="btn btn-xs btn-warning btn-block" id="btnGetPixiStock">
+                        <span class="glyphicon glyphicon-refresh"></span> Pixi*
+                    </button>
+                </span>
+
+
             </div>
             <div class="panel-body" id="pnlFehler">
                 <?php
@@ -132,7 +135,8 @@
                                 </center>
                             </td>
                             <td class="alert-warning">
-                                <span class="text-pixi">
+                                <?php if (isset($_REQUEST['getPixiBestand'])) { ?>
+                                    <span class="text-pixi">
                                 <center>
                                     <?php
                                     // aktivieren falls onDemand Abfrage gewünscht
@@ -150,13 +154,18 @@
 
                                     <?php
                                     ?></center></span>
+                                <?php } ?>
                             </td>
                             <td class="alert-warning">
-                                <span class="text-pixi">
+                                <?php if (isset($_REQUEST['getPixiBestand'])) { ?>
+                                    <span class="text-pixi">
                                 <?php
                                 echo $fArtikel['PLIheaderRef'];
                                 ?>
                                     </span>
+                                    <?php
+                                }
+                                ?>
                             </td>
 
 
@@ -193,7 +202,7 @@
                                         } ?></textarea>
                                 <button
                                         type="button"
-                                        class="btn-xs btn-default btnSaveFehlerKommentar"
+                                        class="btn-xs btn-default btnSaveFehlerKommentar hidden-print"
                                         style="vertical-align: top;"
                                         title="Kommentar speichern"
                                         data-id= <?php echo $fArtikel['ID']; ?>

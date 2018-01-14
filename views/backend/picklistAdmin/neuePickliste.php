@@ -175,10 +175,14 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
                                 <input type="text" name="plnr" class="form-control"
                                        value="<?php echo $this->pl->getNewPicklistNr(); ?>"
                                        style="width:250px!important;">
-                                <!--<br><code>Tipp: Vorhandene Picklisten-Nr eingegeben,<br>um gewählte Positionen hinzuzufügen.</code><br>-->
                             </label>
-
                             <div class="clearfix"></div>
+
+                            <label>Typ:</label>
+                            Standard <input type="radio" name="picklistType" value="gruppiert" checked="checked">
+                            LX <input type="radio" name="picklistType" value="ungruppiert">
+                            <div class="clearfix"></div>
+
 
                             <!-- Update Flag setzen -->
                             <input type="hidden" name="updatePicklist" value="1">
@@ -193,14 +197,6 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
                                 </select>
                             </label>
                             <br>
-                            <!--<label>Erstell-Datum:<br>
-                <input type="date" class="form-control" value="<?php //echo date('Y-m-d'); ?>"
-                       name="createDate" style="width:250px!important;"></label>-->
-                            <input type="hidden" value="<?php echo date('Y-m-d'); ?>"
-                                   name="createDate">
-                            <!--<label>Ablauf-Datum:<br>
-                                <input type="date" class="form-control" name="expDate"  style="width:250px!important;"></label>
-                            <br>-->
                             <label>Kommentar:
                                 <br><code>Tipp: Doppelklick in das Textfeld<br> um das Kommentarfeld schnell zu leeren.</code><br>
                                 <textarea name="plKommentar" id="plKommentar" class="form-control"
@@ -224,19 +220,6 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
 </div><!-- end panel-->
 
 <script>
-    /**
-    $('body').append('<div style="background:black;" id="loadingDiv">' +
-        '<div class="loader" style="background:red; color:white; width:250px; height:250px;"><b>Daten werden geladen...</b></div>' +
-        '</div>');
-    $(window).on('load', function () {
-        setTimeout(removeLoader, 0);
-    });
-    function removeLoader() {
-        $("#loadingDiv").fadeOut(350, function () {
-            $("#loadingDiv").remove();
-        });
-    }
-     **/
     $(document).ready(function () {
 
         // Button deaktivieren und Statusmeldung anzeigen

@@ -12,7 +12,7 @@ class Database extends PDO
     public function __construct()
     {
         //TODO: Globals verwenden
-        parent::__construct('mysql:host=192.168.200.2;port=3307;dbname=usrdb_stokcgbl5;charset=utf8', 'stokcgbl5', 'X$9?2IMalDUU', array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+        parent::__construct('mysql:host=192.168.200.2;port=3307;dbname=usrdb_stokcgbl5;charset=utf8_general_ci', 'stokcgbl5', 'X$9?2IMalDUU');
     }
     /**
      * MySQL SELECT
@@ -35,7 +35,7 @@ class Database extends PDO
     /**
      * MySQL INSERT
      * @param string $table Der Tabellenname in welche die Daten eingefügt werden sollen.
-     * @param string $data Ein assoziatives Array.
+     * @param array $data Ein assoziatives Array.
      */
     public function insert($table, $data)
     {
@@ -55,7 +55,7 @@ class Database extends PDO
     /**
      * MySQL UPDATE
      * @param string $table Der Tabellenname in welche die Daten eingefügt werden sollen.
-     * @param string $data Ein assoziatives Array.
+     * @param array $data Ein assoziatives Array.
      * @param string $where WHERE Bedingung
      */
     public function update($table, $data, $where)

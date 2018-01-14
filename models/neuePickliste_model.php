@@ -136,7 +136,7 @@ class NeuePickliste_Model extends Model
 
         // Einfügen der Datensätze in die DB
         if ($this->oMySqli->multi_query($sqlNewPicklist) === TRUE) {
-            View::showAlert('success', null, "Die Pickliste <b>" . $PLHkey . "</b> wurde erfolgreich erstellt und <b>" . utf8_encode($this->getPickerInfo($picker)) . "</b> zugewiesen.");
+            View::showAlert('success', null, "Die Pickliste <b>" . $PLHkey . "</b> wurde erfolgreich erstellt und <b>" . $this->getPickerInfo($picker) . "</b> zugewiesen.");
         } else {
             View::showAlert('danger', null, "Error: " . $sqlNewPicklist . "<br>" . $this->oMySqli->error);
         }
@@ -257,6 +257,7 @@ class NeuePickliste_Model extends Model
     {
         $aPicker = array();
         $sql = $this->db->prepare("SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC");
+        $this->db->exec("set names utf8");
         $sql->execute();
 
         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {

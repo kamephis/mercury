@@ -108,7 +108,7 @@
                                                     <?php
                                                     if ($picker['UID'] == $picklist['picker']) echo 'SELECTED';
                                                     ?>
-                                                        value="<?php echo $picker['UID']; ?>"><?php echo utf8_encode($picker['vorname']) . ' ' . utf8_encode($picker['name']); ?>
+                                                        value="<?php echo $picker['UID']; ?>"><?php echo $picker['vorname'] . ' ' . $picker['name']; ?>
                                                 </option>
                                             <?php } ?>
                                         </select>
@@ -237,7 +237,7 @@
                                             <td>
                                                 <center><?php echo $pItem['BestMenge']; ?></center>
                                             </td>
-                                            <td><?php echo utf8_encode($pItem['ItemName']); ?></td>
+                                            <td><?php echo $pItem['ItemName']; ?></td>
                                             <td><?php echo $pItem['CurrentItemLocation']; ?></td>
                                             <!-- Aktualisierungszeitpunt -->
                                             <td>

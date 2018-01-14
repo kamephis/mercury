@@ -139,15 +139,6 @@ class Backend_Model extends Model
      */
     public function getPicklistItems($picklistNr)
     {
-        /*
-        $sql = "SELECT items.*, items.EanUpc, SUM(items.Qty) as BestMenge FROM stpPicklistItems items
-            WHERE
-            (items.ItemFehler != '' OR
-            items.ItemFehlbestand != '' )
-            GROUP BY items.EanUpc
-            ORDER BY items.BinName";
-        return $this->db->select($sql);
-*/
         $sql = "SELECT pitem.*, plist.PLHkey,
                 date_format(TimestampUpdateStatus, '%d.%m.%Y') AS 'UpdateDate', date_format(TimestampUpdateStatus, '%H.%i') AS 'UpdateTime',
                 SUM(pitem.Qty) as BestMenge  
@@ -160,8 +151,8 @@ class Backend_Model extends Model
                 
                 GROUP BY pitem.EanUpc
                 ORDER BY pitem.BinSortNum";
+        $this->db->exec("set names utf8");
         return $this->db->select($sql);
-
     }
 
     /**
@@ -232,6 +223,7 @@ class Backend_Model extends Model
     public function getAllPicker()
     {
         $sql = "SELECT UID, name, vorname FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC";
+        $this->db->exec("set names utf8");
         $result = $this->db->select($sql);
         return $result;
     }
@@ -271,6 +263,7 @@ class Backend_Model extends Model
 
     /**
      * Initialisierung der Requests
+     * nicht verwendet!
      */
     public function requestActions()
     {
@@ -291,16 +284,3 @@ class Backend_Model extends Model
     }
 }
 
-// Update der Item Fehler
-if (isset($_REQUEST['itemFehlerUpdate'])) {
-    $this->mPicklist->setItemFehler($_REQUEST['itemID'], NULL, NULL);
-}
-
-// Leeren der Picklisten, Picklistenpositionen etc.
-if ($_REQUEST['resetTab']) {
-    if ($this->PicklistAdmin->resetTables()) {
-        Controller::showMessages('MercuryTablesCleared');
-    } else {
-        Controller::showMessages('MercuryTablesClearFailed');
-    }
-}

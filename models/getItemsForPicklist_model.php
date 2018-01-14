@@ -12,6 +12,7 @@ class GetItemsForPicklist_Model extends Model
         if (isset($_REQUEST['fnct'])) {
             switch ($_REQUEST['fnct']) {
                 case 'get_items':
+                    // TODO: Weshalb denn Qty oO?
                     $this->getInternMasterPicklistItems($_REQUEST['Qty']);
                     break;
             }

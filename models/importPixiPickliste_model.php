@@ -85,7 +85,7 @@ class ImportPixiPickliste_Model extends Model
         $this->oMysqli_oxid = new mysqli();
 
         $this->oMysqli_oxid->real_connect(DB_HOST_OXID, DB_USER_OXID, DB_PASSWD_OXID, DB_NAME_OXID, DB_PORT_OXID);
-        $this->oMysqli_oxid->set_charset('utf8');
+        //$this->oMysqli_oxid->set_charset('utf8');
 
         $aOxid = $this->oMysqli_oxid->query($sqlSelOxidData)->fetch_array(MYSQLI_ASSOC);
         $this->oMysqli_oxid->close();

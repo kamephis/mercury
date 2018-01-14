@@ -195,13 +195,13 @@
                                     <center><?php echo $cntRow; ?></center>
                                 </td>
                                 <td>
-                                    <?php echo utf8_encode($fArtikel['BinName']); ?>
+                                    <?php echo $fArtikel['BinName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo utf8_encode($fArtikel['ItemName']); ?>
+                                    <?php echo $fArtikel['ItemName']; ?>
                                 </td>
                                 <td>
-                                    <?php echo utf8_encode($fArtikel['ItemNrSuppl']); ?>
+                                    <?php echo $fArtikel['ItemNrSuppl']; ?>
                                 </td>
                                 <td class="alert-warning">
                                     <?php
@@ -241,7 +241,7 @@
 
 
                                 <td>
-                                    <?php echo utf8_encode($fArtikel['ItemFehler']); ?>
+                                    <?php echo $fArtikel['ItemFehler']; ?>
                                 </td>
 
                                 <td>
@@ -288,13 +288,13 @@
 
                                 <td>
                                     <?php
-                                    echo utf8_encode($fArtikel['ItemFehlerUser']);
+                                    echo $fArtikel['ItemFehlerUser'];
                                     ?>
                                 </td>
 
                                 <td>
                                     <?php
-                                    echo utf8_encode($fArtikel['EscComment']);
+                                    echo $fArtikel['EscComment'];
                                     ?>
                                 </td>
                                 <!--

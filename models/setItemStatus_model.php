@@ -6,7 +6,8 @@ class SetItemStatus_Model extends Model
     {
         parent::__construct();
         $article_id = $_POST['articleID'];
-        $esc_comment = utf8_encode($_POST['EscComment']);
+        //$esc_comment = utf8_encode($_POST['EscComment']);
+        $esc_comment = $_POST['EscComment'];
         $this->_setItemStatus($article_id, '5', $esc_comment);
         $this->_moveArticleToEscalateList($article_id);
     }

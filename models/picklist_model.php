@@ -219,6 +219,36 @@ class Picklist_Model extends Model
     }
 
     /**
+     * Picklisten Start
+     *
+     * @param $picklistNr
+     */
+    public function setPicklistTimer($picklistNr, $mode)
+    {
+        switch ($mode) {
+            case "start":
+                $aUpdateStart = array('pickStart' => date('Y-m-d G:i:s'));
+                $this->db->update('stpPickliste', $aUpdateStart, 'PLHkey = ' . $picklistNr);
+                break;
+            case "end":
+                $aUpdateStart = array('pickEnd' => date('Y-m-d G:i:s'));
+                $this->db->update('stpPickliste', $aUpdateStart, 'PLHkey = ' . $picklistNr);
+                break;
+        }
+    }
+
+    /**
+     * Picklisten End
+     *
+     * @param $picklistNr
+     */
+    public function setPicklistTimeEnd($picklistNr)
+    {
+        $aUpdateEnd = array('pickEnd' => date('Y-m-d G:i:s'));
+        $this->db->update('stpPickliste', $aUpdateEnd, 'PLHkey = ' . $picklistNr);
+    }
+
+    /**
      * Fehlerhafte Position speichern
      *
      * Unterscheidung zwischen gruppierten und ungruppierten Fehlermeldungen
@@ -230,9 +260,6 @@ class Picklist_Model extends Model
      * @param null $id
      * @param null $picklistType
      */
-
-// $this->Picklist->setItemFehler(null,       utf8_encode($fehlerText), $intFehlbestand, null, null, null, "ungruppiert");
-
     public function setItemFehler($articleID = null, $aFehler, $intItemFehlbestand, $checked = null, $pruefer = null, $id = null, $picklistType = null)
     {
         // Einfügen des Fehler Users, wenn Fehler vorhanden

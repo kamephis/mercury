@@ -103,40 +103,6 @@ class Auftrag_Model extends Model
     }
 
     /**
-     * Auslesen der Auftragsinfos
-     *
-     * @return  array       Rückgabe aller Zuschneideaufträge
-     */
-    public function getAuftragsInfos($userID, $date)
-    {
-        $filter = null;
-
-        if (isset($userID) && strlen($userID) > 0) $filter .= " AND UserID ='$userID' ";
-        if (isset($date) && strlen($date) > 0) $filter .= " AND auftrag.TimestampStart LIKE '{$date}%'";
-
-        $sql = "
-        SELECT 
-        (auftrag.TimestampEnd - auftrag.TimestampStart) dauer,
-        DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y') datum,
-        concat(usr.vorname, ' ',usr.name) uname,
-        count(auftrag.Anzahl) Menge,
-        auftrag.* 
-        
-        FROM stpZuschneideAuftraege as auftrag
-        
-        LEFT JOIN iUser as usr
-        
-        ON usr.UID = auftrag.UserID
-        WHERE auftrag.Status = 1
-        AND Anzahl > 0 
-        {$filter}
-        GROUP BY datum, auftrag.UserID
-        ORDER BY auftrag.TimeStampStart DESC";
-
-        return $this->db->select($sql);
-    }
-
-    /**
      * Auftrag abschließen
      * Existiert eigentlich nur zur Erfassung der Endzeit des Auftrags und
      * der bearbeiteten Meteranzahl des Artikels

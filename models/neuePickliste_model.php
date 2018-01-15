@@ -88,6 +88,9 @@ class NeuePickliste_Model extends Model
         // Initialisierung - Aufbau der Multiquery
         $sqlInsertItems = null;
 
+        // Anzahl Picklistenartikel
+        $anzArtikel = sizeof($aPicklistItems);
+
         $sqlNewPicklist = '';
 
         if ($updateFlag != 'update') {
@@ -100,7 +103,8 @@ class NeuePickliste_Model extends Model
                                    CreatedBy,
                                    plComment,
                                    picker,
-                                   picklistType
+                                   picklistType,
+                                   anzArtikel
                                   ) VALUES (
                                    '" . $PLHkey . "',
                                    '" . $createDate . "',
@@ -108,7 +112,8 @@ class NeuePickliste_Model extends Model
                                    '" . $createdBy . "',
                                    '" . $plComment . "',
                                    '" . $picker . "',
-                                   '" . $picklistType . "'
+                                   '" . $picklistType . "',
+                                   '" . $anzArtikel . "'
                                   );";
         }
 

@@ -21,6 +21,8 @@ class statistik extends Controller
             require_once('models/navigation_model.php');
             $this->view->nav = new Navigation_Model();
 
+            $this->view->statistik = $this->model;
+
             // Backend
             require_once('models/backend_model.php');
             $this->view->back = new Backend_Model();

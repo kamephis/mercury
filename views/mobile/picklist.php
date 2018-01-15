@@ -6,6 +6,11 @@ $_SESSION['plist'] = $plist;
 // Auslesen des Picklistentyps
 $plistType = $this->Picklist->getPicklistType($_SESSION['plist']);
 
+//
+if ($_REQUEST['referer'] == "picker") {
+    $this->Picklist->setPicklistTimer($plist, "start");
+}
+
 // Stoff gepickt - via EAN (itemPicked = Ean der Position, und BinKey (Lagerplatz))
 if ($_REQUEST['itemPicked']) {
 //    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID'], $_REQUEST['BinKey']);
@@ -473,6 +478,8 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
         </div>
     <?php /*}*/
 } else {
+    $this->Picklist->setPicklistTimer($plist, "end");
+
     echo '<div class="alert alert-success">';
     echo '<center><span style="font-size:7em; display:block; margin-bottom:0.3em;" class="icon icon-happy"></span></center>';
     echo '<center><h3><b>Juhuu!</b> Geschafft, diese Pickliste enthält nun keine offenen Positionen mehr.</h3></center>';

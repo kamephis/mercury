@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <?php /* if (isset($_REQUEST['auftragsdatum']) || isset($_REQUEST['bearbeiter'])) {*/
-                $zuschneideAuftraege = $this->mAuftrag->getAuftragsInfos($_REQUEST['bearbeiter'], $_REQUEST['auftragsdatum']); ?>
+                $zuschneideAuftraege = $this->statistik->getAuftragsInfos($_REQUEST['bearbeiter'], $_REQUEST['auftragsdatum']); ?>
 
                 <table class="table table-responsive table-bordered table-striped">
                     <thead>

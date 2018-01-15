@@ -126,9 +126,11 @@ class GetItemsForPicklist_Model extends Model
                                 {$filter}
                                 ORDER BY a3.BinGroup, a3.BinSortNum ASC
                                 ";
-        echo '<textarea>';
-        echo $sqlMasterPicklistItems;
-        echo '</textarea>';
+
+        //echo '<textarea>';
+        //echo $sqlMasterPicklistItems;
+        //echo '</textarea>';
+
         $this->oMySqli = new mysqli();
         $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
         $this->oMySqli->set_charset('utf8');

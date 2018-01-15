@@ -186,16 +186,20 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                 <div class="col-xs-6 hidden-print">
                                     <h2 class="pick">
                                         <?php
-                                        echo $aPickCnt[0]['pSum'];
+                                        if ($plistType == "ungruppiert") {
+                                            echo $item[$_SESSION['pos']]['Qty'];
+                                        } else {
+                                            echo $aPickCnt[0]['pSum'];
 
-                                        if ($aPickCnt[0]['pSum'] > $item[$_SESSION['pos']]['Qty']) {
-                                            echo ' <small>(';
-                                            $outputString = '';
-                                            foreach ($aPickCnt as $itemCnt) {
-                                                $outputString .= $itemCnt['Qty'] . ',';
+                                            if ($aPickCnt[0]['pSum'] > $item[$_SESSION['pos']]['Qty']) {
+                                                echo ' <small>(';
+                                                $outputString = '';
+                                                foreach ($aPickCnt as $itemCnt) {
+                                                    $outputString .= $itemCnt['Qty'] . ',';
+                                                }
+                                                echo rtrim($outputString, ',');
+                                                echo ')</small>';
                                             }
-                                            echo rtrim($outputString, ',');
-                                            echo ')</small>';
                                         }
                                         ?>
                                     </h2>
@@ -432,7 +436,16 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <h4 class="modal-title">Pick bestätigen</h4>
                         </div>
                         <div class="modal-body">
-                            <h1 class="text-center"><b><?php echo $aPickCnt[0]['pSum']; ?> ME</b></h1>
+                            <h1 class="text-center">
+                                <b>
+                                    <?php
+                                    if ($plistType == "ungruppiert") {
+                                        echo $item[$_SESSION['pos']]['Qty'];
+                                    } else {
+                                        echo $aPickCnt[0]['pSum'];
+                                    }
+                                    ?> ME
+                                </b></h1>
                             <h2 class="text-center"><b>gepickt?</b></h2>
                         </div>
                         <div class="modal-footer">

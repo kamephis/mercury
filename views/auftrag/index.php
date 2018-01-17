@@ -18,7 +18,6 @@ if ($_POST['savePos']) {
 
     // ItemStatus -> stpPicklistItems
     $this->auftrag->setAuftragsPositionStatus($_POST['artID'], $aNr[0]['AuftragsNr']);
-    //header('location: auftrag');
     echo "<script>location.replace('auftrag');</script>";
 }
 

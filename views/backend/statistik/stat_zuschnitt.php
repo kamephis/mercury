@@ -2,14 +2,13 @@
     <div class="panel panel-default">
         <div class="panel-heading">Zuschnitt-Auswertung</div>
         <div class="panel-body">
-            <div class="row">
                 <form name="frmFilter">
                     <?php $aPicker = $this->back->getAllPicker(); ?>
                     <label>Mitarbeiter
                         <select name="bearbeiter" class="form-control">
                             <option value="">Alle</option>
                             <?php foreach ($aPicker as $sPicker) { ?>
-                                <option value="<?php echo $sPicker['UID'] ?>"><?php echo utf8_encode($sPicker['vorname'] . ' ' . $sPicker['name']); ?></option>
+                                <option value="<?php echo $sPicker['UID'] ?>"><?php echo $sPicker['vorname'] . ' ' . $sPicker['name']; ?></option>
                             <?php } ?>
                         </select>
                     </label>
@@ -23,7 +22,6 @@
                         Auswertung anzeigen
                     </button>
                 </form>
-            </div>
         </div>
         <div class="row">
             <div class="col-lg-12">

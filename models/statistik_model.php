@@ -15,7 +15,19 @@ class Statistik_Model extends Model
 
     public function getPickStatistik()
     {
-        $sql = "";
+        $sql = "SELECT 
+                  sum(picklisten.anzArtikel) as menge,
+                  picklisten.pickStart,
+                  picklisten.pickEnd,
+                  concat(usr.vorname,' ',usr.name) picker,
+                  DATE_FORMAT(picklisten.createDate, '%d.%m.%Y') datum
+                  FROM stpPickliste as picklisten
+                  
+                  LEFT JOIN iUser as usr
+                  
+                  ON usr.UID = picklisten.picker
+                  
+                  GROUP BY picklisten.createDate, picklisten.picker";
 
         return $this->db->select($sql);
     }

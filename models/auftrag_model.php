@@ -55,7 +55,6 @@ class Auftrag_Model extends Model
             $aFehler = utf8_decode($aFehler);
         }
         $aUpdate = array('ItemFehler' => $aFehler, 'ItemFehlbestand' => $intItemFehlbestand, 'ItemFehlerUser' => $itemFehlerUser, "geprueft" => $checked, "pruefer" => $pruefer, 'ItemStatus' => '4');
-
         $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $articleID);
     }
 
@@ -105,7 +104,7 @@ class Auftrag_Model extends Model
     /**
      * Auftrag abschließen
      * Existiert eigentlich nur zur Erfassung der Endzeit des Auftrags und
-     * der bearbeiteten Meteranzahl des Artikels
+     * der bearbeiteten Meteranzahl des Artikels -> Statistik
      *
      * @param $auftragsID int   ID in der Artikel2Auftrag Tabelle
      * @param $kommentar String Kommentar des Anwenders zum Auftrag

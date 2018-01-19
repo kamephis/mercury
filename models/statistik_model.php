@@ -17,8 +17,7 @@ class Statistik_Model extends Model
     {
         $sql = "SELECT 
                   sum(picklisten.anzArtikel) as menge,
-                  picklisten.pickStart,
-                  picklisten.pickEnd,
+                  TIMESTAMPDIFF(MINUTE, picklisten.pickStart, picklisten.pickEnd) as dauer,
                   concat(usr.vorname,' ',usr.name) picker,
                   DATE_FORMAT(picklisten.createDate, '%d.%m.%Y') datum
                   FROM stpPickliste as picklisten

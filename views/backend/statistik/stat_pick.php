@@ -38,10 +38,7 @@
                         </thead>
 
                         <tbody>
-                        <?php foreach ($aPickedLists as $pickedList) {
-                            $dateTimeEnd = new DateTime($pickedList['pickEnd']);
-                            $dateTimeStart = new DateTime($pickedList['pickEnd']);
-                            ?>
+                        <?php foreach ($aPickedLists as $pickedList) { ?>
                             <tr>
                                 <td>
                                         <span style="font-size:0.8em;"
@@ -49,7 +46,7 @@
                                     <?php echo $pickedList['datum']; ?></td>
                                 <td><?php echo utf8_encode($pickedList['picker']); ?></td>
                                 <td><?php echo $pickedList['menge']; ?></td>
-                                <td><?php echo number_format((($dateTimeStart - $dateTimeEnd) / 60), 2, ',', ' '); ?></td>
+                                <td><?php echo number_format($pickedList['dauer'], 2, ',', ' '); ?></td>
                             </tr>
                         <?php } ?>
                         </tbody>

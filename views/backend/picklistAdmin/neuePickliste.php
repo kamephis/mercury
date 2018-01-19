@@ -189,6 +189,7 @@ if (isset($_POST['createPl']) && strlen($_POST['createPl']) > 0) {
 
                             <label>Picker zuweisen<br>
                                 <select name="picker" class="form-control" style="width:250px!important;">
+                                    <option></option>
                                     <?php foreach ($aPicker as $picker) { ?>
                                         <option
                                                 value="<?php echo $picker['UID']; ?>"

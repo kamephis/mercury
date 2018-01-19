@@ -25,14 +25,14 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <?php /* if (isset($_REQUEST['auftragsdatum']) || isset($_REQUEST['bearbeiter'])) {*/
+                    <?php if (isset($_REQUEST['auftragsdatum']) || isset($_REQUEST['bearbeiter'])) {
                     $aPickedLists = $this->statistik->getPickStatistik($_REQUEST['bearbeiter'], $_REQUEST['auftragsdatum']); ?>
                     <table class="table table-responsive table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>Datum</th>
                             <th>Bearbeiter</th>
-                            <th>Anzahl (m)</th>
+                            <th>Picks</th>
                             <th>Dauer (Minuten)</th>
                         </tr>
                         </thead>
@@ -51,7 +51,7 @@
                         <?php } ?>
                         </tbody>
                     </table>
-                    <?php /*} */ ?>
+                    <?php } ?>
                 </div>
             </div>
         </div>

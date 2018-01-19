@@ -36,8 +36,9 @@ class PicklistAdmin_Model extends Model
      */
     public function resetTables()
     {
-        $sql = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
-        //$sql = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
+        $sql = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
+        //$sql_org = "TRUNCATE TABLE `stpArtikel2Pickliste`; TRUNCATE TABLE `stpPickliste`; TRUNCATE TABLE `stpPicklistItems`;TRUNCATE TABLE `stpArtikel2Auftrag`;";
+
         if ($this->db->query($sql)) return true;
 
         return false;

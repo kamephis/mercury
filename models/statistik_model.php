@@ -13,18 +13,30 @@ class Statistik_Model extends Model
         parent::__construct();
     }
 
-    public function getPickStatistik()
+    public function getPickStatistik($picker = null, $auftragsdatum = null)
     {
+        $cond = "";
+
+        if (!empty($picker)) {
+            $cond .= ' AND picker = ' . $picker;
+        }
+
+        if (!empty($auftragsdatum)) {
+            $cond .= " AND DATE_FORMAT(picklisten.CreateDate, '%Y-%m-%d') = '{$auftragsdatum}'";
+        }
+
         $sql = "SELECT 
                   sum(picklisten.anzArtikel) as menge,
-                  TIMESTAMPDIFF(MINUTE, picklisten.pickStart, picklisten.pickEnd) as dauer,
+                  sum(TIMESTAMPDIFF(MINUTE, picklisten.pickStart, picklisten.pickEnd)) as dauer,
                   concat(usr.vorname,' ',usr.name) picker,
                   DATE_FORMAT(picklisten.createDate, '%d.%m.%Y') datum
                   FROM stpPickliste as picklisten
                   
                   LEFT JOIN iUser as usr
-                  
                   ON usr.UID = picklisten.picker
+                  
+                  WHERE 1=1
+                  {$cond}
                   
                   GROUP BY picklisten.createDate, picklisten.picker";
 

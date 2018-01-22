@@ -8,7 +8,7 @@ $eanScanned = Session::get('eanScanned');
 $userID = null;
 
 // Init
-$aNr = null;
+//$aNr = null;
 
 // Gesamtanzahl der bearbeiteten Artikel (m)
 $artCnt = null;
@@ -28,14 +28,8 @@ if ($_POST['savePos']) {
     echo "<script>location.replace('auftrag');</script>";
 }
 
-// Auftrag abschließen - Setzen des Auftragsstatus auf 1
-if ($_POST['finish'] || $listSize == 0) {
-    $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
-    echo "<script>location.replace('scanArt');</script>";
-}
-
+// Erzeugen eines neuen Auftrags
 if ($_GET['eanScanned'] == 1) {
-
     // Zurücksetzen des Meter Zählers (Session) - Anzeige auf ScanArt
     Session::set('geschnitteneMeterGesamt', 0);
 
@@ -46,18 +40,13 @@ if ($_GET['eanScanned'] == 1) {
     $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
     $bestand = $aBestand['PhysicalStock'];
 }
-/*
-else {
-    // Wenn keine EAN gescannt wurde, wird zur Scan-Form weitergeleitet
-    echo "<script>location.replace('scanArt');</script>";
-}
-*/
+
+
+// Auslesen der neuen Auftragsnummer
+$aNr = $this->auftrag->getAuftragsnummer();
 
 // Abruf der Auftragsdaten falls existent
 if ($listSize > 0) {
-    // Auslesen der neuen Auftragsnummer
-    $aNr = $this->auftrag->getAuftragsnummer();
-
     // gemeldete Fehler auslesen
     $sItemFehler = $this->auftrag->getItemFehlerMax(Session::get('artEAN'));
 
@@ -69,6 +58,13 @@ if ($listSize > 0) {
         $this->message = $this->msg_keine_positionen;
     }
 }
+
+// Auftrag abschließen - Setzen des Auftragsstatus auf 1
+if ($_POST['finish'] || $listSize == 0) {
+    $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
+    echo "<script>location.replace('scanArt');</script>";
+}
+
 
 $anz = Session::get('geschnitteneMeterGesamt');
 

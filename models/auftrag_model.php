@@ -124,7 +124,8 @@ class Auftrag_Model extends Model
      */
     public function finishAuftrag($auftragsID, $anzahl)
     {
-        $aUpdate = array('Status' => '1', 'Anzahl' => $anzahl, 'TimestampEnd' => date('Y-m-d G:i:s'));
+        $aUpdate = array('Status' => '1', 'Anzahl' => $anzahl);
+        //$aUpdate = array('Status' => '1', 'Anzahl' => $anzahl, 'TimestampEnd' => date('Y-m-d G:i:s'));
         $this->db->update('stpZuschneideAuftraege', $aUpdate, 'AuftragsID = ' . $auftragsID);
     }
 

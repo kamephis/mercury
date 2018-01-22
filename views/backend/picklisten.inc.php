@@ -100,6 +100,7 @@
                                                 class="form-control" <?php if ($picklist['status'] == '1') {
                                             echo "DISABLED";
                                         } ?>>
+                                            <option></option>
                                             <?php
                                             $aPicker = $this->backend->getAllPicker();
                                             foreach ($aPicker as $picker) {

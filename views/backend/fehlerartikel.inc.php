@@ -18,6 +18,12 @@
                     </button>
                 </span>
 
+                <span class="pull-right hidden-print" style="margin-right:5px;">
+                    <button type="button" class="btn btn-xs btn-default btnPrint hidden-print" style="margin-left:1em;">
+                        <span class="glyphicon glyphicon-print"></span>
+                    </button>
+                </span>
+
 
             </div>
             <div class="panel-body" id="pnlFehler">
@@ -99,13 +105,13 @@
                                 <center><?php echo $cntRow; ?></center>
                             </td>
                             <td>
-                                <?php echo utf8_encode($fArtikel['BinName']); ?>
+                                <?php echo $fArtikel['BinName']; ?>
                             </td>
                             <td>
-                                <?php echo utf8_encode($fArtikel['ItemName']); ?>
+                                <?php echo $fArtikel['ItemName']; ?>
                             </td>
                             <td>
-                                <?php echo utf8_encode($fArtikel['ItemNrSuppl']); ?>
+                                <?php echo $fArtikel['ItemNrSuppl']; ?>
                             </td>
                             <td class="hidden-print">
                                 <?php echo $fArtikel['EanUpc']; ?>
@@ -171,7 +177,7 @@
 
                             <td>
                                 <?php
-                                echo utf8_encode($fArtikel['ItemFehlerUser']);
+                                echo $fArtikel['ItemFehlerUser'];
                                 ?>
                             </td>
 

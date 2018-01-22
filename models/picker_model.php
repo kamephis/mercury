@@ -22,7 +22,7 @@ class Picker_Model extends Model
      */
     public function getMasterPicklist($picker)
     {
-        $sql = "SELECT pl.*, DATE_FORMAT(pl.createDate,'%d.%m.%Y') as createDate, DATE_FORMAT(pl.PLHExpiryDate,'%d.%m.%Y') as expDate, PLcomment FROM stpPickliste pl WHERE pl.picker = '{$picker}' AND pl.status != '1'";
+        $sql = "SELECT pl.*, DATE_FORMAT(pl.createDate,'%d.%m.%Y') as createDate, DATE_FORMAT(pl.PLHExpiryDate,'%d.%m.%Y') as expDate, PLcomment FROM stpPickliste pl WHERE pl.picker = '{$picker}' AND pl.status != '1' AND pl.status != '2'";
         return $this->db->select($sql);
     }
 

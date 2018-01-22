@@ -210,6 +210,7 @@ class Backend_Model extends Model
         $sql = "SELECT picklist.*, user.name, user.vorname, date_format(picklist.createDate, '%d.%m.%Y') as PicklistCreateDate FROM stpPickliste picklist
                 LEFT JOIN iUser user
                 ON picklist.picker = user.UID
+                WHERE picklist.Status < 2
                 /*WHERE picklist.Status = 0*/
                 ";
         $result = $this->db->select($sql);
@@ -259,28 +260,6 @@ class Backend_Model extends Model
         $this->db->select($sql_1);
         $this->db->select($sql_2);
         $this->db->select($sql_3);
-    }
-
-    /**
-     * Initialisierung der Requests
-     * nicht verwendet!
-     */
-    public function requestActions()
-    {
-        echo "<h1>Request Fired</h1>";
-        // Aktualisieren der Pickliste
-        if (isset($_REQUEST['updPicklist'])) {
-            $this->updatePicklist($_REQUEST['picklistID'], $_REQUEST['selPicker']);
-        }
-
-        // Löschen einer Pickliste
-        if ($_REQUEST['delPicklist']) {
-            try {
-                $this->delPicklist($_REQUEST['picklistID']);
-            } catch (Exception $e) {
-                echo $e;
-            }
-        }
     }
 }
 

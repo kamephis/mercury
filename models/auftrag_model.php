@@ -102,6 +102,18 @@ class Auftrag_Model extends Model
     }
 
     /**
+     * Prüfen ob der Auftrag bereits existiert
+     * @param $aNr
+     * @return int
+     */
+    public function checkAugtragsnummer($aNr)
+    {
+        $sql = "SELECT AuftragsID FROM stpZuschneideAuftraege";
+        $result = $this->db->select($sql);
+        return sizeof($result);
+    }
+
+    /**
      * Auftrag abschließen
      * Existiert eigentlich nur zur Erfassung der Endzeit des Auftrags und
      * der bearbeiteten Meteranzahl des Artikels -> Statistik

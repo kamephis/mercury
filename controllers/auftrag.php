@@ -10,6 +10,8 @@
 class Auftrag extends Controller
 {
     private $size = 1;
+    private $auftragAktiv = false;
+
     function __construct()
     {
         parent::__construct();

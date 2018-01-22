@@ -3,6 +3,7 @@
 // Beim 1. Aufruf erzeugen - REQUEST wird nur in diesem Schritt verwendet.
 // für alles andere wird der Wert aus der Session gelesen.
 $eanScanned = Session::get('eanScanned');
+
 // Benutzer ID
 $userID = null;
 
@@ -11,6 +12,12 @@ $aNr = null;
 
 // Gesamtanzahl der bearbeiteten Artikel (m)
 $artCnt = null;
+
+// Anzahl Positionen
+$listSize = sizeof($this->auftrag->getAuftrag(Session::get('artEAN')));
+
+// Anlegen eines neuen Auftrags in der Datenbank
+$userID = Session::get('UID');
 
 // Aktualisieren des ItemStatus auf 2 - fertig bearbeitet
 if ($_POST['savePos']) {
@@ -21,41 +28,38 @@ if ($_POST['savePos']) {
     echo "<script>location.replace('auftrag');</script>";
 }
 
-// Zurücksetzen des Meter Zählers (Session) - Anzeige auf ScanArt
-if ($_GET['eanScanned']) {
-    Session::set('geschnitteneMeterGesamt', 0);
-}
-
-// Anzahl Positionen
-$listSize = sizeof($this->auftrag->getAuftrag(Session::get('artEAN')));
 // Auftrag abschließen - Setzen des Auftragsstatus auf 1
 if ($_POST['finish'] || $listSize == 0) {
-    try {
-        $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
-        echo "<script>location.replace('scanArt');</script>";
-        //header('location: scanArt');
-    } catch (Exception $e) {
-        echo "Fehler: ";
-        echo $e;
-    }
-    // Aktivieren falls benötigt
-    //$this->message = $this->msg_positionen_bearbeitet;
+    $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
+    echo "<script>location.replace('scanArt');</script>";
 }
 
-if ($_GET['eanScanned'] = 1) {
-    // Anlegen eines neuen Auftrags in der Datenbank
-    $userID = Session::get('UID');
+if ($_GET['eanScanned'] == 1) {
 
-    // TODO: Eleganter lösen
-    if ($_GET['eanScanned']) {
-        $this->auftrag->newAuftrag($userID, Session::get('artEAN'));
-    }
+    // Zurücksetzen des Meter Zählers (Session) - Anzeige auf ScanArt
+    Session::set('geschnitteneMeterGesamt', 0);
+
+    // Erzeugen eines neuen Zuschneideauftrags
+    $this->auftrag->newAuftrag($userID, Session::get('artEAN'));
+
+    // Pixi Bestand abrufen - einmalig / Auftrag
+    $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
+    $bestand = $aBestand['PhysicalStock'];
+}
+/*
+else {
+    // Wenn keine EAN gescannt wurde, wird zur Scan-Form weitergeleitet
+    echo "<script>location.replace('scanArt');</script>";
+}
+*/
+
+// Abruf der Auftragsdaten falls existent
+if ($listSize > 0) {
     // Auslesen der neuen Auftragsnummer
     $aNr = $this->auftrag->getAuftragsnummer();
 
-    // Pixi Bestand abrufen
-    $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
-    $bestand = $aBestand['PhysicalStock'];
+    // gemeldete Fehler auslesen
+    $sItemFehler = $this->auftrag->getItemFehlerMax(Session::get('artEAN'));
 
     // Aufruf des neuen Auftrags - falls Positionen dazu existieren
     if ($this->auftrag->getAuftrag(Session::get('artEAN')) && $listSize > 0) {
@@ -64,20 +68,11 @@ if ($_GET['eanScanned'] = 1) {
     } else {
         $this->message = $this->msg_keine_positionen;
     }
-
-    // gemeldete Fehler auslesen
-    $sItemFehler = $this->auftrag->getItemFehlerMax(Session::get('artEAN'));
-
-
-} else {
-    // Wenn keine EAN gescannt wurde, wird zur Scan-Form weitergeleitet
-    echo "<script>location.replace('scanArt');</script>";
-    //header('location: scanArt');
 }
 
 $anz = Session::get('geschnitteneMeterGesamt');
-if ($_POST['saveFehler']) {
 
+if ($_POST['saveFehler']) {
     $articleID = $_POST['artID'];
     $aFehler = $_POST['saveFehler'];
     $sItemVerfMenge = $_POST['verfMenge'];
@@ -256,7 +251,7 @@ $title = $auftrag[0]['ItemName'];
                 <span class="glyphicon glyphicon-search pull-left"></span> <span class="push-right"> pixi Bestelldaten abfragen</span>
             </button>
         </form>-->
-
+        <!--
         <form action="logout" role="form" method="post">
             <input type="hidden" name="logout" value="1">
             <?php if ($listSize != 0) { ?>
@@ -265,6 +260,7 @@ $title = $auftrag[0]['ItemName'];
                 </button>
             <?php } ?>
         </form>
+        -->
         <form action="auftrag" role="form" method="post">
             <input type="hidden" name="finish" value="1">
             <!--data-toggle="modal" data-target="#modFinish"-->
@@ -405,10 +401,10 @@ $title = $auftrag[0]['ItemName'];
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default btn-block btn-lg btn-lg-modal"
+                        <!--<button type="button" class="btn btn-default btn-block btn-lg btn-lg-modal"
                                 data-dismiss="modal">
                             Schließen
-                        </button>
+                        </button>-->
 
                         <small>&nbsp;</small>
 
@@ -530,44 +526,3 @@ $title = $auftrag[0]['ItemName'];
         </script>
     <?php }
 } ?>
-
-<!-- Mod Auftrag abschließen / Wird derzeit nicht verwendet -->
-<!--
-<div id="modFinish" class="modal fade hidden-print" role="dialog">
-    <form action="auftrag" method="post">
-        <input type="hidden" name="finish" value="1">
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Auftrag Abschließen</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Durch betätigen des JA-Button, schließen Sie diesen Auftrag ab. Offenen Positionen die nicht
-                        bearbeitet werden konnten, erscheinen beim erneuten scannen der Artikel-EAN auf einem
-                        Folgeauftrag.</p>
-
-                    <div class="alert alert-info">
-                        <p>Sollten Sie Anmerkungen zu diesem Auftrag haben, können Sie diese in folgendes
-                            Kommentarfeld eintragen. Der Teamleiter sieht diese Nachricht dann in seiner
-                            Auftragsübersicht.</p>
-                    </div>
-
-                    <label>Kommentar:<br>
-                        <textarea rows="5" style="width:400px!important;" name="auftragKommentar"
-                                  class="form-control"></textarea></label>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-block btn-lg" data-dismiss="modal">NEIN
-                    </button>
-                    <button type="submit" class="btn btn-success btn-block btn-lg">JA</button>
-                </div>
-            </div>
-
-        </div>
-    </form>
-</div>
--->
-
-

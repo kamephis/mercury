@@ -7,26 +7,15 @@ $eanScanned = Session::get('eanScanned');
 // Benutzer ID
 $userID = null;
 
-// Init
-//$aNr = null;
-
 // Gesamtanzahl der bearbeiteten Artikel (m)
 $artCnt = null;
 
 // Anzahl Positionen
 $listSize = sizeof($this->auftrag->getAuftrag(Session::get('artEAN')));
+$anz = Session::get('geschnitteneMeterGesamt');
 
 // Anlegen eines neuen Auftrags in der Datenbank
 $userID = Session::get('UID');
-
-// Aktualisieren des ItemStatus auf 2 - fertig bearbeitet
-if ($_POST['savePos']) {
-    $_SESSION['geschnitteneMeterGesamt'] += $_POST['artMenge'];
-
-    // ItemStatus -> stpPicklistItems
-    $this->auftrag->setAuftragsPositionStatus($_POST['artID'], $aNr[0]['AuftragsNr']);
-    echo "<script>location.replace('auftrag');</script>";
-}
 
 // Erzeugen eines neuen Auftrags
 if ($_GET['eanScanned'] == 1) {
@@ -40,7 +29,6 @@ if ($_GET['eanScanned'] == 1) {
     $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
     $bestand = $aBestand['PhysicalStock'];
 }
-
 
 // Auslesen der neuen Auftragsnummer
 $aNr = $this->auftrag->getAuftragsnummer();
@@ -59,14 +47,20 @@ if ($listSize > 0) {
     }
 }
 
+// Aktualisieren des ItemStatus auf 2 - fertig bearbeitet
+if ($_POST['savePos']) {
+    $_SESSION['geschnitteneMeterGesamt'] += $_POST['artMenge'];
+
+    // ItemStatus -> stpPicklistItems
+    $this->auftrag->setAuftragsPositionStatus($_POST['artID'], $aNr[0]['AuftragsNr']);
+    echo "<script>location.replace('auftrag');</script>";
+}
+
 // Auftrag abschließen - Setzen des Auftragsstatus auf 1
 if ($_POST['finish'] || $listSize == 0) {
     $this->auftrag->finishAuftrag($aNr[0]['AuftragsNr'], $anz);
     echo "<script>location.replace('scanArt');</script>";
 }
-
-
-$anz = Session::get('geschnitteneMeterGesamt');
 
 if ($_POST['saveFehler']) {
     $articleID = $_POST['artID'];

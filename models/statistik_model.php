@@ -61,7 +61,7 @@ class Statistik_Model extends Model
         (auftrag.TimestampEnd - auftrag.TimestampStart) dauer,
         DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y') datum,
         concat(usr.vorname, ' ',usr.name) uname,
-        count(auftrag.Anzahl) Menge,
+        sum(auftrag.Anzahl) Menge,
         auftrag.* 
         
         FROM stpZuschneideAuftraege as auftrag
@@ -69,10 +69,11 @@ class Statistik_Model extends Model
         LEFT JOIN iUser as usr
         
         ON usr.UID = auftrag.UserID
+        
         WHERE auftrag.Status = 1
-        AND Anzahl > 0 
+        AND auftrag.Anzahl > 0 
         {$filter}
-        GROUP BY datum, auftrag.UserID
+        GROUP BY auftrag.UserID, DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y')
         ORDER BY auftrag.TimeStampStart DESC";
 
         return $this->db->select($sql);

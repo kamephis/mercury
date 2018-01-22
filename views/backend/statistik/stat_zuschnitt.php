@@ -5,7 +5,7 @@
                 <form name="frmFilter">
                     <?php $aPicker = $this->back->getAllPicker(); ?>
                     <label>Mitarbeiter
-                        <select name="bearbeiter" class="form-control">
+                        <select name="bearbeiter_zus" class="form-control">
                             <option value="">Alle</option>
                             <?php foreach ($aPicker as $sPicker) { ?>
                                 <option value="<?php echo $sPicker['UID'] ?>"><?php echo $sPicker['vorname'] . ' ' . $sPicker['name']; ?></option>
@@ -14,7 +14,7 @@
                     </label>
 
                     <label>Auftragsdatum
-                        <input type="date" id="auftragsdatum" name="auftragsdatum" class="form-control"
+                        <input type="date" id="auftragsdatum_zus" name="auftragsdatum_zus" class="form-control"
                                placeholder="T.M.JJJJ">
                     </label>
 
@@ -25,8 +25,8 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <?php /* if (isset($_REQUEST['auftragsdatum']) || isset($_REQUEST['bearbeiter'])) {*/
-                $zuschneideAuftraege = $this->statistik->getAuftragsInfos($_REQUEST['bearbeiter'], $_REQUEST['auftragsdatum']); ?>
+                <?php /* if (isset($_REQUEST['auftragsdatum_zus']) || isset($_REQUEST['bearbeiter_zus'])) {*/
+                $zuschneideAuftraege = $this->statistik->getAuftragsInfos($_REQUEST['bearbeiter_zus'], $_REQUEST['auftragsdatum_zus']); ?>
 
                 <table class="table table-responsive table-bordered table-striped">
                     <thead>
@@ -35,7 +35,7 @@
                         <th>Bearbeiter</th>
                         <th>EAN</th>
                         <th>Anzahl (m)</th>
-                        <th>Dauer (Minuten)</th>
+                        <th>Dauer (h)</th>
                     </tr>
                     </thead>
 
@@ -50,13 +50,13 @@
                             <td><a
                                         href="<?php echo URL . 'artikelinfo?searchType=ean&artikelnr=' . $zAuftrag['ArtEAN']; ?>"><?php echo $zAuftrag['ArtEAN']; ?></a>
                             </td>
-                            <td><?php echo $zAuftrag['Anzahl']; ?></td>
+                            <td><?php echo $zAuftrag['Menge']; ?></td>
                             <td><?php echo number_format(($zAuftrag['dauer'] / 60), 2, ',', ' '); ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>
                 </table>
-                <?php /*} */ ?>
+                <?php /* }*/ ?>
             </div>
         </div>
     </div>

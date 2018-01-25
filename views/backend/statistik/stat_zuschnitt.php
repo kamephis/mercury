@@ -35,7 +35,7 @@
                         <th>Bearbeiter</th>
                         <th>EAN</th>
                         <th>Anzahl (m)</th>
-                        <th>Dauer (h)</th>
+                        <th>Dauer (Min)</th>
                     </tr>
                     </thead>
 
@@ -51,7 +51,7 @@
                                         href="<?php echo URL . 'artikelinfo?searchType=ean&artikelnr=' . $zAuftrag['ArtEAN']; ?>"><?php echo $zAuftrag['ArtEAN']; ?></a>
                             </td>
                             <td><?php echo $zAuftrag['Menge']; ?></td>
-                            <td><?php echo number_format(($zAuftrag['dauer'] / 60), 2, ',', ' '); ?></td>
+                            <td><?php echo number_format($zAuftrag['dauer'] / 60, 2); ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>

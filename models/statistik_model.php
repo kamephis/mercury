@@ -27,9 +27,12 @@ class Statistik_Model extends Model
 
         $sql = "SELECT 
                   sum(picklisten.anzArtikel) as menge,
-                  sum(TIMESTAMPDIFF(MINUTE, picklisten.pickStart, picklisten.pickEnd)) as dauer,
+                  picklisten.pickStart as TimestampStart,
+                  picklisten.pickEnd as TimestampEnd,
+                  sum(TIMESTAMPDIFF(SECOND, picklisten.pickStart, picklisten.pickEnd)) as dauer,
                   concat(usr.vorname,' ',usr.name) picker,
-                  DATE_FORMAT(picklisten.createDate, '%d.%m.%Y') datum
+                  DATE_FORMAT(picklisten.createDate, '%d.%m.%Y') datum,
+                  picklisten.PLcomment
                   FROM stpPickliste as picklisten
                   
                   LEFT JOIN iUser as usr
@@ -58,7 +61,7 @@ class Statistik_Model extends Model
 
         $sql = "
         SELECT 
-        (auftrag.TimestampEnd - auftrag.TimestampStart) dauer,
+        sum(TIMESTAMPDIFF(SECOND,auftrag.TimestampStart, auftrag.TimestampEnd)) dauer,
         DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y') datum,
         concat(usr.vorname, ' ',usr.name) uname,
         sum(auftrag.Anzahl) Menge,

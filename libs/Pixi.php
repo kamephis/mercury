@@ -36,12 +36,11 @@ class Pixi
      */
     public function setStock($ean, $bin, $newStock, $user)
     {
-        if (is_soap_fault($this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'NewStockQty' => $newStock, 'Username' => $user)))) {
+        if (is_soap_fault($this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'LocId' => '', 'NewStockQty' => $newStock, 'Username' => $user, 'SMORef' => 0, 'SMTref' => 0, 'BatchNumber' => '', 'BestBeforeDate' => '')))) {
             echo "fehler";
         } else {
-            $this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'NewStockQty' => $newStock, 'Username' => $user));
+            $this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'LocId' => '', 'NewStockQty' => $newStock, 'Username' => $user, 'SMORef' => 0, 'SMTref' => 0, 'BatchNumber' => '', 'BestBeforeDate' => ''));
         }
-
     }
 
     /**
@@ -59,7 +58,6 @@ class Pixi
             return $aItemSuppl;
         }
     }
-
 
     /**
      * Lieferanteninfos

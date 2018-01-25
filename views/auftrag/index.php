@@ -24,11 +24,16 @@ if ($_GET['eanScanned'] == 1) {
 
     // Erzeugen eines neuen Zuschneideauftrags
     $this->auftrag->newAuftrag($userID, Session::get('artEAN'));
+}
 
-    // Pixi Bestand abrufen - einmalig / Auftrag
+// Pixi Bestand abrufen - einmalig / Auftrag
+if ($this->Pixi->getItemStock(Session::get('artEAN'))) {
     $aBestand = $this->Pixi->getItemStock(Session::get('artEAN'));
     $bestand = $aBestand['PhysicalStock'];
+} else {
+    $aBestand = array();
 }
+
 
 // Auslesen der neuen Auftragsnummer
 $aNr = $this->auftrag->getAuftragsnummer();

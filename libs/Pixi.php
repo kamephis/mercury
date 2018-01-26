@@ -36,11 +36,27 @@ class Pixi
      */
     public function setStock($ean, $bin, $newStock, $user)
     {
-        if (is_soap_fault($this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'LocId' => '', 'NewStockQty' => $newStock, 'Username' => $user, 'SMORef' => 0, 'SMTref' => 0, 'BatchNumber' => '', 'BestBeforeDate' => '')))) {
+        $this->oProxy->pixiSetStockMultiple(array('XML' => '
+        <ITEMSTOCK>
+	<ITEM>
+		<EANUPC>' . $ean . '</EANUPC>		
+		<INVBINS>
+			<INVBIN>				
+				<BINNAME>' . $bin . '</BINNAME>				
+				<STOCKADD>' . $newStock . '</STOCKADD>				
+			</INVBIN>
+		</INVBINS>
+	</ITEM>
+</ITEMSTOCK>
+        ', 'Username' => $user));
+
+        //$this->oProxy->pixiSetStock(array('EanUpc' => trim($ean), 'BinName' => trim($bin), 'NewStockQty' => $newStock, 'Username' => $user,'LocId' => '', 'SMORef' => '', 'SMTref' => ''));
+
+        /*if (is_soap_fault($this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'NewStockQty' => $newStock, 'Username' => $user)))) {
             echo "fehler";
         } else {
-            $this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'LocId' => '', 'NewStockQty' => $newStock, 'Username' => $user, 'SMORef' => 0, 'SMTref' => 0, 'BatchNumber' => '', 'BestBeforeDate' => ''));
-        }
+            $this->oProxy->pixiSetStock(array('EanUpc' => $ean, 'BinName' => $bin, 'NewStockQty' => $newStock, 'Username' => $user));
+        }*/
     }
 
     /**

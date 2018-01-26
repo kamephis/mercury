@@ -218,6 +218,96 @@ class Picklist_Model extends Model
         }
     }
 
+    public function stasi($plID, $uid, $numItems = null, $mod, $eanUpc, $binName = null, $fehlerhaft = null)
+    {
+        switch ($mod) {
+            case 'start':
+
+                $sql = "INSERT INTO 
+                                          stpZeiterfassung(
+                                           PL_ID,
+                                           UID,
+                                           NumItems,
+                                           BinName,
+                                           EanUpc
+                                          ) VALUES (
+                                           {$plID},
+                                           {$uid},
+                                           {$numItems},
+                                           '{$binName}',
+                                           '{$eanUpc}'
+                                            )";
+                $this->db->select($sql);
+                break;
+
+            case 'end':
+                $sql = "UPDATE stpZeiterfassung SET TimestampEnd = NOW(), fehlerhaft = {$fehlerhaft} WHERE PL_ID = {$plID} AND EanUpc = '{$eanUpc}' AND BinName = '{$binName}' AND UID = {$uid}";
+                $this->db->select($sql);
+                break;
+        }
+    }
+
+    /**
+     * Zeiterfassung Picker
+     * @param $plID
+     * @param $uid
+     * @param $numItems
+     * @param $mod
+     * @param $binName
+     * @param $eanUpc
+     * @param $fehlerhaft boolean
+     */
+    public function stasi_pdo($plID, $uid, $numItems = null, $mod, $eanUpc, $binName = null, $fehlerhaft = null)
+    {
+        $sqlInsertItems = null;
+
+        switch ($mod) {
+            case 'start':
+                $sqlInsertItemsStart = $this->db->prepare("INSERT INTO 
+                                  stpZeiterfassung(
+                                   PL_ID,
+                                   UID,
+                                   NumItems,
+                                   BinName,
+                                   EanUpc
+                                  ) VALUES (
+                                   :PL_ID,
+                                   :UID,
+                                   :NumItems,
+                                   :BinName,
+                                   :EanUpc
+                                    );");
+
+                $sqlInsertItemsStart->execute(
+                    array(
+
+                        'PL_ID' => $plID,
+                        'UID' => $uid,
+                        'NumItems' => $numItems,
+                        'BinName' => $binName,
+                        'EanUpc' => $eanUpc
+                    )
+                );
+                $sqlInsertItemsStart->closeCursor();
+                break;
+
+            case 'end':
+                $sqlInsertItemsEnd = $this->db->prepare("UPDATE stpZeiterfassung SET TimestampEnd = NOW(), fehlerhaft = :fehlerhaft, dauer = TIMESTAMPDIFF(SECOND, TimestampStart, TimestampEnd) WHERE PL_ID = :PL_ID AND EanUpc = :EanUpc AND BinName = :binName AND UID = :UID;");
+                $sqlInsertItemsEnd->execute(
+                    array(
+                        'PL_ID' => $plID,
+                        'UID' => $uid,
+                        'NumItems' => $numItems,
+                        'EanUpc' => $eanUpc,
+                        'BinName' => $binName,
+                        'fehlerhaft' => $fehlerhaft
+                    )
+                );
+                $sqlInsertItemsEnd->closeCursor();
+                break;
+        }
+    }
+
     /**
      * Picklisten Start
      *

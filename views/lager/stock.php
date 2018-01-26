@@ -13,7 +13,7 @@ if (!empty($_REQUEST['binName'])) {
 }
 
 if (!empty($_REQUEST['stock'])) {
-    $stock = $_REQUEST['stock'];
+    $newStock = $_REQUEST['stock'];
 }
 
 $usr = $_SESSION['vorname'] . " " . $_SESSION['name'];
@@ -27,7 +27,7 @@ if ($_REQUEST['setStock']) {
 <h1>Einlagern</h1>
 <form method="post">
     <label>EAN</label>
-    <input type="text" name="EanUPC" class="form-control">
+    <input type="text" name="EanUpc" class="form-control">
 
 
     <label>Lagerplatz (Format: AA-BB-CC)</label>

@@ -6,15 +6,8 @@ $_SESSION['plist'] = $plist;
 // Auslesen des Picklistentyps
 $plistType = $this->Picklist->getPicklistType($_SESSION['plist']);
 
-//
-if ($_REQUEST['referer'] == "picker") {
-    $this->Picklist->setPicklistTimer($plist, "start");
-}
-
 // Stoff gepickt - via EAN (itemPicked = Ean der Position, und BinKey (Lagerplatz))
 if ($_REQUEST['itemPicked']) {
-//    $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID'], $_REQUEST['BinKey']);
-
     if ($plistType == "gruppiert") {
         try {
             $this->Picklist->setItemStatus($_REQUEST['itemPicked'], $_SESSION['locationID'], null, 'gruppiert');
@@ -28,6 +21,9 @@ if ($_REQUEST['itemPicked']) {
             echo $e->getMessage();
         }
     }
+
+    // Stasi Log - Ende
+    $this->Picklist->stasi(Session::get('plist'), Session::get('UID'), '', 'end', $_REQUEST['itemPicked'], $_REQUEST['binName'], 1);
 
     // Aktualisieren -> nächste Position - refresh
     header('location: ' . URL . 'picklist?picklistNr=' . $_SESSION['plist'], true, 301);
@@ -69,6 +65,8 @@ if ($_REQUEST['setFehler']) {
             echo $e->getMessage();
         }
     }
+    // Position als in der Zeiterfassung fehlerhaft markieren
+    $this->Picklist->stasi($plist, Session::get('UID'), $_REQUEST['qty'], 'end', $_REQUEST['itemPicked'], $_REQUEST['binName'], 1);
 }
 
 // Picklisten Array - wenn das Picklisten-Array leer ist, werden die Positionen aus der DB geladen.
@@ -88,7 +86,7 @@ $anzPositionen = sizeof($this->Picklist->getAPicklist());
  * Falls keine Position übergeben wurde auf den Anfang zurückspringen
  */
 
-// Falls eine andere Pickliste aufgerufen wird, dann wird die gleiche POS in dieser Liste verwendet.
+// Falls eine andere Pickliste aufgerufen wird, dann wird die selbe POS in dieser Liste verwendet.
 if ($_REQUEST['referer']) {
     unset($_SESSION['pos']);
     $_SESSION['pos'] = 0;
@@ -101,17 +99,13 @@ if (isset($_REQUEST['pos'])) {
     }
 }
 
-// Picklistennavigation (manuell)
-//if ($_REQUEST['nav'] == 'n') {
-//    next($this->Picklist->getAPicklist());
-//}
-
-//if ($_REQUEST['nav'] == 'p') {
-//    prev($this->Picklist->getAPicklist());
-//}
-
 if (sizeof($this->Picklist->getAPicklist()) > 0) {
     $item = $this->Picklist->getAPicklist();
+
+    // Stasi Log - Start
+    $this->Picklist->stasi($plist, Session::get('UID'), $item[$_SESSION['pos']]['Qty'], 'start', $item[$_SESSION['pos']]['EanUpc'], $item[$_SESSION['pos']]['BinName']);
+
+    // Zeiterfassung
 
         // Lagerbestände
         if ($_REQUEST['updPixiBestand'] == 1) {
@@ -121,12 +115,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
 
     // Image
     $pickimage = IMG_ART_PATH . $item[$_SESSION['pos']]['PicLinkLarge'];
-
-    // TODO: Aktivieren für Artikel ohne Bild
-    //$pickimage = URL . '/out/img/placeholder.jpg';
-    //strlen($imgUrl) > 0 ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
-    //file_exists($imgUrl) ? $pickimage = $imgUrl : $pickimage = URL . '/out/img/placeholder.jpg';
-        ?>
+    ?>
 
         <div class="well-sm">
 
@@ -464,6 +453,9 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                                        value="<?php echo $item[$_SESSION['pos']]['ID']; ?>">
 
                                 <input type="hidden" name="picklistNr" value="<?php echo $_SESSION['plist']; ?>">
+                                <input type="hidden" name="qty" value="<?php echo $item[$_SESSION['pos']]['Qty']; ?>">
+                                <input type="hidden" name="binName"
+                                       value="<?php echo $item[$_SESSION['pos']]['BinName']; ?>">
                                 <input type="submit" class="btn btn-success btn-block btn-lg" value="JA">
                             </form>
                         </div>
@@ -478,7 +470,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
         </div>
     <?php /*}*/
 } else {
-    $this->Picklist->setPicklistTimer($plist, "end");
+    //$this->Picklist->setPicklistTimer($plist, "end");
 
     echo '<div class="alert alert-success">';
     echo '<center><span style="font-size:7em; display:block; margin-bottom:0.3em;" class="icon icon-happy"></span></center>';

@@ -26,10 +26,10 @@ class Statistik_Model extends Model
         }
 
         $sql = "SELECT 
-                  sum(picklisten.anzArtikel) as menge,
-                  picklisten.pickStart as TimestampStart,
-                  picklisten.pickEnd as TimestampEnd,
-                  sum(TIMESTAMPDIFF(SECOND, picklisten.pickStart, picklisten.pickEnd)) as dauer,
+                  sum(stasi.NumItems) as menge,
+                  stasi.TimestampStart as TimestampStart,
+                  stasi.TimestampEnd as TimestampEnd,
+                  sum(TIMESTAMPDIFF(SECOND, stasi.TimestampStart, stasi.TimestampEnd)) as dauer,
                   concat(usr.vorname,' ',usr.name) picker,
                   DATE_FORMAT(picklisten.createDate, '%d.%m.%Y') datum,
                   picklisten.PLcomment
@@ -38,6 +38,9 @@ class Statistik_Model extends Model
                   LEFT JOIN iUser as usr
                   ON usr.UID = picklisten.picker
                   
+                  RIGHT JOIN stpZeiterfassung as stasi
+                  ON stasi.PL_ID = picklisten.PLID
+                  
                   WHERE 1=1
                   {$cond}
                   
@@ -45,7 +48,6 @@ class Statistik_Model extends Model
 
         return $this->db->select($sql);
     }
-
 
     /**
      * Auslesen der Auftragsinfos

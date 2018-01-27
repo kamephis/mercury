@@ -75,7 +75,7 @@
                                         <?php echo $pickedList['datum']; ?></td>
                                     <td><?php echo utf8_encode($pickedList['picker']); ?></td>
                                     <td><?php echo $pickedList['menge']; ?></td>
-                                    <td><?php echo number_format($pickedList['dauer'] / 60, 2); ?></td>
+                                    <td><?php echo number_format(floor($pickedList['dauer'] / 60), 2); ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>

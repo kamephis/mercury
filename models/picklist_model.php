@@ -210,7 +210,6 @@ class Picklist_Model extends Model
         } else {
             // Einzelbearbeitung (LX)
             try {
-                //$this->Picklist->setItemStatus(null, $_SESSION['locationID'], $_REQUEST['itemID'], 'ungruppiert');
                 $this->db->update('stpPicklistItems', $aUpdate, 'ID = ' . $ID);
             } catch (Exception $e) {
                 echo $e->getMessage();
@@ -292,7 +291,7 @@ class Picklist_Model extends Model
                 break;
 
             case 'end':
-                $sqlInsertItemsEnd = $this->db->prepare("UPDATE stpZeiterfassung SET TimestampEnd = NOW(), fehlerhaft = :fehlerhaft, dauer = TIMESTAMPDIFF(SECOND, TimestampStart, TimestampEnd) WHERE PL_ID = :PL_ID AND EanUpc = :EanUpc AND BinName = :binName AND UID = :UID;");
+                $sqlInsertItemsEnd = $this->db->prepare("UPDATE stpZeiterfassung SET TimestampEnd = NOW(), fehlerhaft = :fehlerhaft  WHERE PL_ID = :PL_ID AND EanUpc = :EanUpc AND BinName = :binName AND UID = :UID;");
                 $sqlInsertItemsEnd->execute(
                     array(
                         'PL_ID' => $plID,

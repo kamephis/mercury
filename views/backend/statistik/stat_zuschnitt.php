@@ -73,16 +73,28 @@
                             <td colspan="5">
                                 <table class="table table-bordered">
                                     <tr>
+                                        <?php if ($_POST['getPixiDetails']) { ?>
+                                            <th>Art.</th>
+                                        <?php } ?>
                                         <th>EAN</th>
                                         <th>Menge</th>
                                         <th>Dauer</th>
+                                        <!--<th>Pixi</th>-->
                                     </tr>
 
                                     <?php
-                                    $auftragDetails = $this->statistik->getAuftragInfoUngruppiert($zAuftrag['UserID'], $zAuftrag['datum']);
+                                    $auftragDetails = $this->statistik->getAuftragInfoUngruppiert($zAuftrag['UserID'], $_POST['auftragsdatum_zus']);
 
                                     foreach ($auftragDetails as $detail) {
                                         echo "<tr>";
+                                        if ($_POST['getPixiDetails']) {
+                                            $pixi = $this->Pixi->getItemInfo($detail['ArtEAN']);
+
+                                            echo "<td>";
+                                            echo $pixi['ItemName'];
+                                            echo "</td>";
+                                        }
+
                                         echo "<td>";
                                         echo $detail['ArtEAN'];
                                         echo "</td>";
@@ -94,6 +106,16 @@
                                         echo "<td>";
                                         echo $detail['dauer'];
                                         echo "</td>";
+                                        /*
+                                                                                echo "<td>";
+                                                                                echo "<form>";
+                                                                                echo '<input type="hidden" name="ean" value="'.$detail['ArtEAN'].'">';
+                                                                                echo '<button type="submit" name="getPixiDetails" value="Pixi">';
+                                                                                echo 'Pixi';
+                                                                                echo '</button>';
+                                                                                echo "</form>";
+                                                                                echo "</td>";
+                                         */
 
                                         echo "</tr>";
                                         ?>

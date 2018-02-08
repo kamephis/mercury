@@ -32,6 +32,10 @@ class statistik extends Controller
             require_once('models/auftrag_model.php');
             $this->view->mAuftrag = new Auftrag_Model();
 
+            // Pixi
+            require_once('libs/Pixi.php');
+            $this->view->Pixi = new Pixi();
+
             $this->view->title = 'Mercury Statistik';
             $this->view->render('header');
             $this->view->render('navigation');

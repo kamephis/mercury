@@ -91,7 +91,7 @@ class Statistik_Model extends Model
     public function getAuftragInfoUngruppiert($userID, $date)
     {
         $filter = null;
-        if (isset($userID) && strlen($userID) > 0) $filter .= " AND usr.UID ='$userID' ";
+        if (isset($userID) && strlen($userID) > 0) $filter .= " AND auftrag.UserID ='$userID' ";
         if (isset($date) && strlen($date) > 0) $filter .= " AND auftrag.TimestampStart LIKE '{$date}%'";
 
         $sql = "
@@ -107,30 +107,17 @@ class Statistik_Model extends Model
       
         FROM stpZuschneideAuftraege as auftrag
 
-        /*CROSS JOIN(
-        	SELECT
-        	UserID,
-			SEC_TO_TIME(sum(TIMESTAMPDIFF(SECOND,TimestampStart, TimestampEnd))) dauer
-			FROM stpZuschneideAuftraege
-
-			WHERE Status = 1
-        	AND Anzahl > 0 
-        ) a2*/
-        
         LEFT JOIN iUser as usr
         ON usr.UID = auftrag.UserID
         
         WHERE auftrag.Status = 1
         AND auftrag.Anzahl > 0 
-        AND concat(usr.vorname,' ',usr.name) != 'Zu Schneider' /* Test user */
+        AND concat(usr.vorname,' ',usr.name) != 'Zu Schneider'
         {$filter}
                 
         /*HAVING dauer > 0*/
         ORDER BY auftrag.TimeStampStart DESC
         ";
-        echo "<textarea>";
-        echo $sql;
-        echo "</textarea>";
         return $this->db->select($sql);
     }
 
@@ -145,5 +132,4 @@ class Statistik_Model extends Model
         $result = $this->db->select($sql);
         return $result[0]['ItemName'];
     }
-
 }

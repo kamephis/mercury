@@ -183,7 +183,7 @@ class Pixi
      * @param $ItemNrSuppl
      * @return array|string
      */
-    function getItemInfo($ean, $ItemNrSuppl)
+    function getItemInfo($ean, $ItemNrSuppl = null)
     {
         $stock = $this->oProxy->pixiGetItemInfo(array('EANUPC' => $ean, 'ItemNrSuppl' => $ItemNrSuppl));
 

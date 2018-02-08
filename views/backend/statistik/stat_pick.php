@@ -7,11 +7,11 @@
 
         var data = google.visualization.arrayToDataTable([
             <?php
-            $jsonPickedLists = $this->statistik->getPickStatistik($_REQUEST['bearbeiter'], $_REQUEST['auftragsdatum']);
+            $jsonPickedLists = $this->statistik->getPickStatistik($_POST['bearbeiter'], $_POST['auftragsdatum_von'], $_POST['auftragsdatum_bis']);
             ?>
             ['Task', 'Hours per Day'],
             <?php foreach ($jsonPickedLists as $jPick) { ?>
-            ['<?php echo utf8_encode($jPick['picker']); ?>', <?php echo $jPick['menge']; ?>],
+            ['<?php echo utf8_encode($jPick['bearbeiter']); ?>', <?php echo $jPick['menge']; ?>],
             <?php } ?>
         ]);
 
@@ -31,7 +31,7 @@
         <div class="panel-body">
             <div id="piechart" style="width: 800px; height: 350px;"></div>
 
-            <form name="frmFilter">
+            <form name="frmFilter" method="post">
                 <?php $aPicker = $this->back->getAllPicker(); ?>
                 <label>Mitarbeiter
                     <select name="bearbeiter" class="form-control">
@@ -42,8 +42,12 @@
                     </select>
                 </label>
 
-                <label>Auftragsdatum
-                    <input type="date" id="auftragsdatum" name="auftragsdatum" class="form-control"
+                <label>Datum von:
+                    <input type="date" id="auftragsdatum_von" name="auftragsdatum_von" class="form-control"
+                           placeholder="T.M.JJJJ">
+                </label>
+                <label>Datum bis:
+                    <input type="date" id="auftragsdatum_von" name="auftragsdatum_bis" class="form-control"
                            placeholder="T.M.JJJJ">
                 </label>
 
@@ -54,15 +58,15 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <?php if (isset($_REQUEST['auftragsdatum']) || isset($_REQUEST['bearbeiter'])) {
-                        $aPickedLists = $this->statistik->getPickStatistik($_REQUEST['bearbeiter'], $_REQUEST['auftragsdatum']); ?>
+                    <?php if (isset($_POST['auftragsdatum_von']) && isset($_POST['auftragsdatum_bis']) || isset($_POST['bearbeiter'])) {
+                        $aPickedLists = $this->statistik->getPickStatistik($_POST['bearbeiter'], $_POST['auftragsdatum_von'], $_POST['auftragsdatum_bis']); ?>
                         <table class="table table-responsive table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Datum</th>
                                 <th>Bearbeiter</th>
                                 <th>Picks</th>
-                                <th>Dauer (Minuten)</th>
+                                <th>Dauer</th>
                             </tr>
                             </thead>
 
@@ -73,9 +77,10 @@
                                         <span style="font-size:0.8em;"
                                               class="glyphicon glyphicon-calendar"></span>
                                         <?php echo $pickedList['datum']; ?></td>
-                                    <td><?php echo utf8_encode($pickedList['picker']); ?></td>
+                                    <td><?php echo utf8_encode($pickedList['bearbeiter']); ?></td>
                                     <td><?php echo $pickedList['menge']; ?></td>
-                                    <td><?php echo number_format(floor($pickedList['dauer'] / 60), 2); ?></td>
+                                    <td><i class="glyphicon glyphicon-time"></i> <?php echo $pickedList['dauer']; ?>
+                                    </td>
                                 </tr>
                             <?php } ?>
                             </tbody>

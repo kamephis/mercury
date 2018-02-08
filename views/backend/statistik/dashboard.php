@@ -17,3 +17,9 @@ function my_date_diff($date1, $date2)
         <?php require_once('stat_zuschnitt.php'); ?>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+
+    }
+</script>

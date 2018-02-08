@@ -87,6 +87,21 @@ if ($_REQUEST['delPicklist']) {
 
 <script>
     $(document).ready(function () {
+
+        $(".btnGetStatistikDetails").on("click", function () {
+            var userID = $(this).data("UserID");
+            var datum = $(this).data("auftragsDatum");
+
+            $.ajax({
+                type: 'POST',
+                url: 'index.php?url=statistik/statistik_details',
+                data: {"UserID": userID, "auftragsDatum": datum},
+                success: function (data) {
+                    alert("blubb");
+                }
+            })
+        });
+
         $('.frmDel').submit(function () {
             $(this).find('button[data-class=btnDelPicklist]').prop('disabled', true).html('<span class="glyphicon fast-right-spinner glyphicon-trash glyphicon-refresh"></span> löschen...');
             $(this).submit();

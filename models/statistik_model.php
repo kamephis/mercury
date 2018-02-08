@@ -88,11 +88,12 @@ class Statistik_Model extends Model
      * Ungruppierte Ausgabe der Zuschnitt-Auftraege
      * @return array
      */
-    public function getAuftragInfoUngruppiert($userID, $date)
+    public function getAuftragInfoUngruppiert($userID, $date, $artEan = null)
     {
         $filter = null;
         if (isset($userID) && strlen($userID) > 0) $filter .= " AND auftrag.UserID ='$userID' ";
         if (isset($date) && strlen($date) > 0) $filter .= " AND auftrag.TimestampStart LIKE '{$date}%'";
+        if (isset($artEan) && strlen($artEan) > 0) $filter .= " AND auftrag.ArtEAN = '{$artEan}'";
 
         $sql = "
            SELECT 

@@ -1,3 +1,19 @@
+<?php
+if (!isset($_REQUEST['auftragsdatum_von'])) {
+    $setDate_pick = date("Y-m-d");
+} else {
+    $setDate_pick = $_REQUEST['auftragsdatum_von'];
+}
+
+if (!isset($_REQUEST['auftragsdatum_bis'])) {
+    $setDate_pick = date("Y-m-d");
+} else {
+    $setDate_pick = $_REQUEST['auftragsdatum_bis'];
+}
+
+
+?>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', {'packages': ['corechart']});
@@ -44,11 +60,11 @@
 
                 <label>Datum von:
                     <input type="date" id="auftragsdatum_von" name="auftragsdatum_von" class="form-control"
-                           placeholder="T.M.JJJJ">
+                           placeholder="T.M.JJJJ" value="<?php echo $setDate_pick; ?>">
                 </label>
                 <label>Datum bis:
                     <input type="date" id="auftragsdatum_von" name="auftragsdatum_bis" class="form-control"
-                           placeholder="T.M.JJJJ">
+                           placeholder="T.M.JJJJ" value="<?php echo $setDate_pick; ?>">
                 </label>
 
                 <button type="submit" class="btn btn-default">

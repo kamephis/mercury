@@ -24,11 +24,10 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
                     <input type="date" id="auftragsdatum_zus" name="auftragsdatum_zus" class="form-control"
                            placeholder="T.M.JJJJ" value="<?php echo $setDate; ?>">
                 </label>
-
                 <!--
-                <label>EAN
-                    <input type="text" name="artEan">
-                </label>
+                                <label>EAN
+                                    <input type="text" name="artEan" class="form-control">
+                                </label>
                 -->
                 <button type="submit" class="btn btn-default">
                     Auswertung anzeigen
@@ -37,7 +36,7 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <?php if (isset($_POST['auftragsdatum_zus']) || isset($_POST['bearbeiter_zus'])) {
+                <?php if (isset($_POST['auftragsdatum_zus']) || isset($_POST['bearbeiter_zus']) && !isset($_POST['artEan'])) {
                     $zuschneideAuftraege = $this->statistik->getAuftragsInfos($_POST['bearbeiter_zus'], $_POST['auftragsdatum_zus'], null); ?>
 
                     <table class="table table-responsive table-bordered table-striped">
@@ -108,7 +107,7 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
                                             }
 
                                             echo "<td>";
-                                            echo $detail['ArtEAN'];
+                                            echo '<a target="_blank" href=/artikelinfo?searchType=ean&artikelnr=' . $detail['ArtEAN'] . '>' . $detail['ArtEAN'] . '</a>';
                                             echo "</td>";
 
                                             echo "<td>";
@@ -118,17 +117,6 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
                                             echo "<td>";
                                             echo $detail['dauer'];
                                             echo "</td>";
-                                            /*
-                                                                                    echo "<td>";
-                                                                                    echo "<form>";
-                                                                                    echo '<input type="hidden" name="ean" value="'.$detail['ArtEAN'].'">';
-                                                                                    echo '<button type="submit" name="getPixiDetails" value="Pixi">';
-                                                                                    echo 'Pixi';
-                                                                                    echo '</button>';
-                                                                                    echo "</form>";
-                                                                                    echo "</td>";
-                                             */
-
                                             echo "</tr>";
                                             ?>
                                         <?php } ?>
@@ -138,6 +126,25 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
 
                         <?php } ?>
                         </tbody>
+                    </table>
+                <?php } elseif (isset($_POST['artEan'])) {
+                    $aSearchresult = $this->statistik->getAuftragsInfos($_POST['UserID'], $_POST['auftragsdatum_zus'], $_POST['artEan']);
+                    ?>
+                    <table class="table table-bordered table-striped table-responsive">
+                        <tr>
+                            <th>Bearbeiter</th>
+                            <th>EAN</th>
+                            <th>Dauer</th>
+                        </tr>
+
+                        <?php foreach ($aSearchresult as $res) { ?>
+                            <tr>
+                                <td><?php echo $res['uname']; ?></td>
+                                <td><?php echo $res['ArtEAN']; ?></td>
+                                <td><?php echo $res['dauer']; ?></td>
+                            </tr>
+                        <?php } ?>
+
                     </table>
                 <?php } ?>
             </div>

@@ -49,12 +49,13 @@ class Statistik_Model extends Model
      *
      * @return  array       Rückgabe aller Zuschneideaufträge
      */
-    public function getAuftragsInfos($userID, $date)
+    public function getAuftragsInfos($userID, $date, $ean = null)
     {
         $filter = null;
 
         if (isset($userID) && strlen($userID) > 0) $filter .= " AND UserID ='$userID' ";
         if (isset($date) && strlen($date) > 0) $filter .= " AND auftrag.TimestampStart LIKE '{$date}%'";
+        if (isset($ean) && strlen($ean) > 0) $filter .= " AND auftrag.ArtEAN = '{$ean}'";
 
         $sql = "
             SELECT 

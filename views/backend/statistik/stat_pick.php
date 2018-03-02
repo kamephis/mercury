@@ -1,14 +1,15 @@
 <?php
-if (!isset($_REQUEST['auftragsdatum_von'])) {
-    $setDate_pick = date("Y-m-d");
+if (isset($_REQUEST['auftragsdatum_von'])) {
+    $setDate_pickFrom = $_REQUEST['auftragsdatum_von'];
 } else {
-    $setDate_pick = $_REQUEST['auftragsdatum_von'];
+    $setDate_pickFrom = date("Y-m-d");
+
 }
 
-if (!isset($_REQUEST['auftragsdatum_bis'])) {
-    $setDate_pick = date("Y-m-d");
+if (isset($_REQUEST['auftragsdatum_bis'])) {
+    $setDate_pickTo = $_REQUEST['auftragsdatum_bis'];
 } else {
-    $setDate_pick = $_REQUEST['auftragsdatum_bis'];
+    $setDate_pickTo = date("Y-m-d");
 }
 
 
@@ -60,11 +61,11 @@ if (!isset($_REQUEST['auftragsdatum_bis'])) {
 
                 <label>Datum von:
                     <input type="date" id="auftragsdatum_von" name="auftragsdatum_von" class="form-control"
-                           placeholder="T.M.JJJJ" value="<?php echo $setDate_pick; ?>">
+                           value="<?php echo $setDate_pickFrom; ?>">
                 </label>
                 <label>Datum bis:
                     <input type="date" id="auftragsdatum_von" name="auftragsdatum_bis" class="form-control"
-                           placeholder="T.M.JJJJ" value="<?php echo $setDate_pick; ?>">
+                           value="<?php echo $setDate_pickTo; ?>">
                 </label>
 
                 <button type="submit" class="btn btn-default">
@@ -75,13 +76,16 @@ if (!isset($_REQUEST['auftragsdatum_bis'])) {
             <div class="row">
                 <div class="col-lg-12">
                     <?php if (isset($_POST['auftragsdatum_von']) && isset($_POST['auftragsdatum_bis']) || isset($_POST['bearbeiter'])) {
-                        $aPickedLists = $this->statistik->getPickStatistik($_POST['bearbeiter'], $_POST['auftragsdatum_von'], $_POST['auftragsdatum_bis']); ?>
+                        $aPickedLists = $this->statistik->getPickStatistik($_POST['bearbeiter'], $_POST['auftragsdatum_von'], $_POST['auftragsdatum_bis']);
+
+                        ?>
+
                         <table class="table table-responsive table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Datum</th>
                                 <th>Bearbeiter</th>
-                                <th>Picks</th>
+                                <th>Stück</th>
                                 <th>Dauer</th>
                             </tr>
                             </thead>
@@ -99,6 +103,16 @@ if (!isset($_REQUEST['auftragsdatum_bis'])) {
                                     </td>
                                 </tr>
                             <?php } ?>
+                            <?php
+                            $aPickedListsDay = $this->statistik->getPickStatistikDay($_POST['auftragsdatum_von'], $_POST['auftragsdatum_bis']);
+                            ?>
+                            <tr>
+                                <td></td>
+                                <td class="text-right"><b>Summe</b></td>
+                                <td><?php echo $aPickedListsDay[0]['menge']; ?></td>
+                                <td><i class="glyphicon glyphicon-time"></i> <?php echo $aPickedListsDay[0]['dauer']; ?>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     <?php } ?>

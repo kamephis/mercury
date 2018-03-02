@@ -44,6 +44,30 @@ class Statistik_Model extends Model
         return $this->db->select($sql);
     }
 
+    public function getPickStatistikDay($auftragsdatum_von = null, $auftragsdatum_bis = null)
+    {
+        $cond = "";
+
+        if (!empty($auftragsdatum_von) && !empty($auftragsdatum_bis)) {
+            $cond .= " AND stasi.TimestampStart BETWEEN '{$auftragsdatum_von} 00:00:00' AND DATE_ADD('{$auftragsdatum_bis} 00:00:00', INTERVAL 1 DAY)";
+
+        }
+
+        $sql = "
+        SELECT 
+                  sum(stasi.NumItems) as menge,
+                  SEC_TO_TIME(sum(TIMESTAMPDIFF(SECOND, stasi.TimestampStart, stasi.TimestampEnd))) as dauer,
+                  DATE_FORMAT(stasi.TimestampStart, '%d.%m.%Y') datum
+
+                  FROM stpZeiterfassung as stasi
+                  
+                  WHERE 1=1
+                  {$cond}
+
+        ";
+        return $this->db->select($sql);
+    }
+
     /**
      * Auslesen der Auftragsinfos
      *

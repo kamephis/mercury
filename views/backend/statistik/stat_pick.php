@@ -72,7 +72,7 @@ if (isset($_REQUEST['auftragsdatum_bis'])) {
                     Auswertung anzeigen
                 </button>
             </form>
-
+            <br>
             <div class="row">
                 <div class="col-lg-12">
                     <?php if (isset($_POST['auftragsdatum_von']) && isset($_POST['auftragsdatum_bis']) || isset($_POST['bearbeiter'])) {

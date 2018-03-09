@@ -1,8 +1,14 @@
 <?php
-if (!isset($_REQUEST['auftragsdatum_zus'])) {
-    $setDate = date("Y-m-d");
+if (isset($_REQUEST['auftragsdatum_zus_von'])) {
+    $setDate_zus_von = $_REQUEST['auftragsdatum_zus_von'];
 } else {
-    $setDate = $_REQUEST['auftragsdatum_zus'];
+    $setDate_zus_von = date("Y-m-d");
+}
+
+if (isset($_REQUEST['auftragsdatum_zus_bis'])) {
+    $setDate_zus_bis = $_REQUEST['auftragsdatum_zus_bis'];
+} else {
+    $setDate_zus_bis = date("Y-m-d");
 }
 ?>
 <div class="col-lg-6">
@@ -20,9 +26,13 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
                     </select>
                 </label>
 
-                <label>Auftragsdatum
-                    <input type="date" id="auftragsdatum_zus" name="auftragsdatum_zus" class="form-control"
-                           placeholder="T.M.JJJJ" value="<?php echo $setDate; ?>">
+                <label>Aufträge von
+                    <input type="date" id="auftragsdatum_zus" name="auftragsdatum_zus_von" class="form-control"
+                           value="<?php echo $setDate_zus_von; ?>">
+                </label>
+                <label>Aufträge bis
+                    <input type="date" id="auftragsdatum_zus" name="auftragsdatum_zus_bis" class="form-control"
+                           value="<?php echo $setDate_zus_bis; ?>">
                 </label>
                 <!--
                                 <label>EAN
@@ -36,8 +46,8 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <?php if (isset($_POST['auftragsdatum_zus']) || isset($_POST['bearbeiter_zus']) && !isset($_POST['artEan'])) {
-                    $zuschneideAuftraege = $this->statistik->getAuftragsInfos($_POST['bearbeiter_zus'], $_POST['auftragsdatum_zus'], null); ?>
+                <?php if (isset($_POST['auftragsdatum_zus_von']) || isset($_POST['bearbeiter_zus']) && !isset($_POST['artEan'])) {
+                    $zuschneideAuftraege = $this->statistik->getAuftragsInfos($_POST['bearbeiter_zus'], $_POST['auftragsdatum_zus_von'], $_POST['auftragsdatum_zus_bis'], null); ?>
 
                     <table class="table table-responsive table-bordered table-striped">
                         <thead>
@@ -124,7 +134,20 @@ if (!isset($_REQUEST['auftragsdatum_zus'])) {
                                 </td>
                             </tr>
 
-                        <?php } ?>
+                        <?php }
+                        $zuschneideAuftraegeSumme = $this->statistik->getAuftragsInfosSumme($_POST['bearbeiter_zus'], $_POST['auftragsdatum_zus_von'], $_POST['auftragsdatum_zus_bis'], null);
+
+
+                        ?>
+                        <tr>
+                            <td style="border-left:none!important; border-bottom:none!important; background:white!important;"></td>
+                            <td class="text-right"><b>Summe</b></td>
+                            <td><?php echo $zuschneideAuftraegeSumme[0]['menge']; ?></td>
+                            <td>
+                                <i class="glyphicon glyphicon-time"></i> <?php echo $zuschneideAuftraegeSumme[0]['dauer']; ?>
+                            </td>
+                            <td style="border-right:none!important; border-bottom:none!important; background:white!important;"></td>
+                        </tr>
                         </tbody>
                     </table>
                 <?php } elseif (isset($_POST['artEan'])) {

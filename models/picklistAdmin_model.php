@@ -146,15 +146,28 @@ class PicklistAdmin_Model extends Model
      * @param $pickerID
      * @return string
      */
-    private function getPickerInfo($pickerID)
+    public function getPickerInfo($pickerID)
     {
-        $sqlPickerInfo = "SELECT vorname, name FROM iUser WHERE UID = '{$pickerID}' ODER BY vorname ASC";
+        $sqlPickerInfo = "SELECT vorname, name, Username FROM iUser WHERE UID = '{$pickerID}' ORDER BY vorname ASC";
         $this->oMySqli = new mysqli();
         $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
         $query = $this->oMySqli->query($sqlPickerInfo);
         $result = $query->fetch_assoc();
 
         return $result['vorname'] . ' ' . $result['name'];
+    }
+
+
+    /**
+     * Informationen über den Picker abfragen
+     * @param $pickerID
+     * @return string
+     */
+    public function getFullPickerInfo($pickerID)
+    {
+        $sql = "SELECT vorname, name, Username FROM iUser WHERE UID = '{$pickerID}'";
+
+        return $this->db->select($sql);
     }
 
 
@@ -383,7 +396,7 @@ class PicklistAdmin_Model extends Model
      */
     public function getPicker()
     {
-        $sqlPicker = "SELECT UID,name,vorname,dept FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC";
+        $sqlPicker = "SELECT UID,name,vorname,Username,dept FROM iUser WHERE dept = 'picker' OR dept = 'teamleiter' ORDER BY vorname, name ASC";
         $result = $this->db->select($sqlPicker);
 
         return $result;

@@ -44,9 +44,19 @@ class Statistik_Model extends Model
         return $this->db->select($sql);
     }
 
-    public function getPickStatistikDay($auftragsdatum_von = null, $auftragsdatum_bis = null)
+    /**
+     * Bildung der Summe der Pickstatistik
+     * @param null $auftragsdatum_von
+     * @param null $auftragsdatum_bis
+     * @return array
+     */
+    public function getPickStatistikSumme($picker = null, $auftragsdatum_von = null, $auftragsdatum_bis = null)
     {
         $cond = "";
+
+        if (!empty($picker)) {
+            $cond .= " AND stasi.UID = " . $picker;
+        }
 
         if (!empty($auftragsdatum_von) && !empty($auftragsdatum_bis)) {
             $cond .= " AND stasi.TimestampStart BETWEEN '{$auftragsdatum_von} 00:00:00' AND DATE_ADD('{$auftragsdatum_bis} 00:00:00', INTERVAL 1 DAY)";
@@ -63,7 +73,7 @@ class Statistik_Model extends Model
                   
                   WHERE 1=1
                   {$cond}
-
+                  /*GROUP BY stasi.UID*/
         ";
         return $this->db->select($sql);
     }
@@ -73,12 +83,16 @@ class Statistik_Model extends Model
      *
      * @return  array       Rückgabe aller Zuschneideaufträge
      */
-    public function getAuftragsInfos($userID, $date, $ean = null)
+    public function getAuftragsInfos($userID, $date_von, $date_bis, $ean = null)
     {
         $filter = null;
 
         if (isset($userID) && strlen($userID) > 0) $filter .= " AND UserID ='$userID' ";
-        if (isset($date) && strlen($date) > 0) $filter .= " AND auftrag.TimestampStart LIKE '{$date}%'";
+
+        if (isset($date_von) && strlen($date_von) > 0 && (isset($date_bis) && strlen($date_bis) > 0)) {
+            $filter .= " AND auftrag.TimestampStart BETWEEN '{$date_von} 00:00:00' AND '{$date_bis} 00:00:00'";
+        }
+
         if (isset($ean) && strlen($ean) > 0) $filter .= " AND auftrag.ArtEAN = '{$ean}'";
 
         $sql = "
@@ -102,6 +116,46 @@ class Statistik_Model extends Model
         /*AND DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y') = '22.01.2018'*/
         {$filter}
         GROUP BY auftrag.UserID
+        HAVING dauer > 0
+        ORDER BY auftrag.TimeStampStart DESC
+        ";
+
+        return $this->db->select($sql);
+    }
+
+    public function getAuftragsInfosSumme($userID, $date_von, $date_bis, $ean = null)
+    {
+        $filter = null;
+
+        if (isset($userID) && strlen($userID) > 0) $filter .= " AND UserID ='$userID' ";
+
+        if (isset($date_von) && strlen($date_von) > 0 && (isset($date_bis) && strlen($date_bis) > 0)) {
+            $filter .= " AND auftrag.TimestampStart BETWEEN '{$date_von} 00:00:00' AND '{$date_bis} 00:00:00'";
+        }
+
+        if (isset($ean) && strlen($ean) > 0) $filter .= " AND auftrag.ArtEAN = '{$ean}'";
+
+        $sql = "
+            SELECT 
+        SEC_TO_TIME(sum(TIMESTAMPDIFF(SECOND,auftrag.TimestampStart, auftrag.TimestampEnd))) dauer,
+        DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y') datum,
+        concat(usr.vorname, ' ',usr.name) uname,
+        auftrag.UserID,
+        auftrag.ArtEAN,
+        sum(auftrag.Anzahl) menge
+      
+        FROM stpZuschneideAuftraege as auftrag
+        
+        LEFT JOIN iUser as usr
+        
+        ON usr.UID = auftrag.UserID
+        
+        WHERE auftrag.Status = 1
+        AND auftrag.Anzahl > 0 
+        AND concat(usr.vorname,' ',usr.name) != 'Zu Schneider' /* Test user */
+        /*AND DATE_FORMAT(auftrag.TimeStampStart,'%d.%m.%Y') = '22.01.2018'*/
+        {$filter}
+        /*GROUP BY auftrag.UserID*/
         HAVING dauer > 0
         ORDER BY auftrag.TimeStampStart DESC
         ";

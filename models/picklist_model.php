@@ -54,21 +54,6 @@ class Picklist_Model extends Model
 
                 ORDER BY pitem.BinSortNum
                 ";
-
-
-        $sql_org = "SELECT pitem.*, plist.PLHkey
-                FROM stpPicklistItems pitem, stpArtikel2Pickliste a2p, stpPickliste plist
-                WHERE
-                pitem.ID = a2p.ArtikelID AND
-                a2p.PicklistID = plist.PLHkey AND 
-                plist.PLHkey = '{$picklistNr}' AND
-                pitem.ItemStatus = 1 AND 
-                LENGTH(pitem.ItemFehlerUser) = 0
-                
-                GROUP BY pitem.EanUpc
-                ORDER BY pitem.BinSortNum
-                ";
-
         $result = $this->db->select($sql);
         return $result;
     }

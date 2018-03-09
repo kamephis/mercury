@@ -104,10 +104,10 @@ if (isset($_REQUEST['auftragsdatum_bis'])) {
                                 </tr>
                             <?php } ?>
                             <?php
-                            $aPickedListsDay = $this->statistik->getPickStatistikDay($_POST['auftragsdatum_von'], $_POST['auftragsdatum_bis']);
+                            $aPickedListsDay = $this->statistik->getPickStatistikSumme($_POST['bearbeiter'], $_POST['auftragsdatum_von'], $_POST['auftragsdatum_bis']);
                             ?>
                             <tr>
-                                <td></td>
+                                <td style="border-left:none!important; border-bottom:none!important; background:white!important;"></td>
                                 <td class="text-right"><b>Summe</b></td>
                                 <td><?php echo $aPickedListsDay[0]['menge']; ?></td>
                                 <td><i class="glyphicon glyphicon-time"></i> <?php echo $aPickedListsDay[0]['dauer']; ?>

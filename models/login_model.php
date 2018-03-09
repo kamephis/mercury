@@ -48,6 +48,11 @@ class Login_Model extends Model
         // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
         if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate']) && $totalRows > 0) {
 
+            // Wenn bereits eine Session für den Benutzer geöffnet ist, zerstöre die Session -> Nutzer wird überall abgemeldet.
+            if (isset($_SESSION['UID'])) {
+                session_destroy();
+            }
+
             Session::init();
             // Registrierung der Session Werte
             Session::set('UID', $result['UID']);
@@ -61,6 +66,7 @@ class Login_Model extends Model
             // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
             $this->redirect2TargetLocation($result['dept']);
             echo "<script>location.replace('" . $this->getSRedirectURL() . "');</script>";
+
         } else {
             // Zugriff verweigert
             header('Location: ' . URL . 'login?msg=401');

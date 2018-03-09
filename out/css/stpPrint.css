@@ -7,6 +7,12 @@
     border: 1px solid black;
 }
 
+.printCard {
+    width: 85mm;
+    height: 55mm;
+    font-size: 11pt;
+}
+
 .print-col-3cm-l,
 .print-col-3cm-r,
 .print-col-4cm,

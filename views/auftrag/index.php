@@ -298,6 +298,8 @@ $title = $auftrag[0]['ItemName'];
             $OrderDate = date_format(date_create($aOrderLine['OrderDate']), "d.m.Y H:i");
             $showPixiInfo = true;
         } else {
+            // TODO: Abfrage des Bundles und Auslesen der BundleItems
+            // ggf. über pixiGetItemBundleDefinition
             $OrderNrExternal = 'k. A.';
             $OrderDate = 'k. A.';
         }

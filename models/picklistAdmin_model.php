@@ -176,7 +176,8 @@ class PicklistAdmin_Model extends Model
      * aktiv!
      * @param $picklist
      */
-    public function importPicklist($picklist)
+    /*
+    public function impo2rtPicklist($picklist)
     {
         $sqlCheckPl = "SELECT PLIheaderRef FROM stpPicklistItems WHERE PLIheaderRef = '{$picklist}'";
         $this->oMySqli = new mysqli();
@@ -194,6 +195,11 @@ class PicklistAdmin_Model extends Model
             $this->oMySqli->real_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME, DB_PORT);
 
             $aPicklistDetails = $this->getPicklistDetails($picklist);
+
+            echo "<pre>";
+            print_r($aPicklistDetails);
+            echo "</pre>";
+            die();
 
 
             // Pickliste Zeile für Zeile in die stpPicklistItems Tabelle schreiben.
@@ -321,7 +327,7 @@ class PicklistAdmin_Model extends Model
         } else {
             Controller::showMessages('pixiImpCheck');
         }
-    }
+    }*/
 
     /**
      * Erstellen einer neuen Pickliste und

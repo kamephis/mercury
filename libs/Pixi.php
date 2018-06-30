@@ -112,6 +112,7 @@ class Pixi
     /**
      * Abrufen aller Pixi Picklisten
      * @return mixed
+     * @throws SoapFault
      */
     public function getAllPicklists()
     {
@@ -119,7 +120,7 @@ class Pixi
             $aPicklists = $this->oProxy->pixiShippingGetPicklistHeaders(array('LocID' => '001'));
             $aPicklists = $aPicklists['pixiShippingGetPicklistHeadersResult']['SqlRowSet']['diffgram']['SqlRowSet1']['row'];
             return $aPicklists;
-        } catch (Exception $e) {
+        } catch (SoapFault $e) {
             die($e->getMessage() . "<br>" . $e->getLine());
         }
     }

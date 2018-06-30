@@ -228,7 +228,7 @@
                                                     }
                                                     ?></center>
                                             </td>
-                                            <td><?php echo $pItem['ItemNrSuppl']; ?></td>
+                                            <td><?php echo $pItem['ItemNrInt']; ?></td>
                                             <td>
                                                 <a href="<?php echo URL . 'artikelinfo?searchType=ean&artikelnr=' . $pItem['EanUpc']; ?>"><?php echo $pItem['EanUpc']; ?></a>
                                                 <span class="visible-print">

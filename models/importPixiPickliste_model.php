@@ -54,7 +54,7 @@ class ImportPixiPickliste_Model extends Model
      *
      * @param $oxartnum
      * @return mixed
-     *
+     * TODO: Die oxartnum kann auch aus Pixi gelesen werden
      * PDO-Version
      */
     public function importOxidData__($oxartnum)
@@ -69,7 +69,6 @@ class ImportPixiPickliste_Model extends Model
             $result = $sqlSelOxidData->fetch(PDO::FETCH_ASSOC);
 
             $sqlSelOxidData->closeCursor();
-
 
             return $result;
 
@@ -128,7 +127,10 @@ class ImportPixiPickliste_Model extends Model
 
                 try {
                     foreach ($aPicklistDetails as $items) {
-                        $aOxid = $this->importOxidData($items['ItemNrSuppl']);
+                        // TODO: ItemNrSuppl ist höchstwahrscheinlich quatsch.
+                        $aOxid = $this->importOxidData($items['ItemNrInt']);
+                        //$aOxid = $this->importOxidData($items['ItemNrSuppl']);
+                        $this->db->exec('set names utf8');
 
                         $sqlInsertItems = $this->db->prepare("INSERT INTO 
                                   stpPicklistItems(
@@ -195,7 +197,7 @@ class ImportPixiPickliste_Model extends Model
 
                                 'PLIheaderRef' => $items['PLIheaderRef'],
                                 'BinSortNum' => $items['BinSortNum'],
-                                'ItemName' => $items['ItemName'],
+                                'ItemName' => utf8_encode($items['ItemName']),
                                 'BinName' => $items['BinName'],
                                 'BinKey' => $items['BinKey'],
 
@@ -228,7 +230,8 @@ class ImportPixiPickliste_Model extends Model
                 }
 
             } else {
-                $aOxid = $this->importOxidData($aPicklistDetails['ItemNrSuppl']);
+                //$aOxid = $this->importOxidData($aPicklistDetails['ItemNrSuppl']);
+                $aOxid = $this->importOxidData($aPicklistDetails['ItemNrInt']);
 
                 try {
                     $sqlInsertItems = $this->db->prepare("INSERT INTO 

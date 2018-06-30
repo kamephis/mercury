@@ -126,11 +126,12 @@ class Backend_Model extends Model
      *
      * TODO: prüfen, was das hier soll ^^
      */
+    /*
     public function getAuftragsuebersicht()
     {
         return $this->db->select($sql);
     }
-
+*/
     /**
      * Anzeige der Picklistenpositionen
      * @param $picklistNr

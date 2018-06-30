@@ -19,7 +19,30 @@ class Controller
         if (isset($_GET['msg'])) {
             $this->showMessages($_GET['msg']);
         }
+
+//        $uid = Session::get('UID');
+        // Prüfen ob user bereits angemeldet
+        //    $this->checkValidSession($uid);
     }
+
+    /**
+     * Prüfen ob ein user bereits angemeldet ist.
+     * @param $uid
+     */
+    public function checkValidSession($uid)
+    {
+        $sqlUser = $this->model->db->prepare("SELECT SESSION_ID FROM iUser WHERE UID = :uid");
+        $sqlUser->execute(array('uid' => $uid));
+        $result = $sqlUser->fetch(PDO::FETCH_ASSOC);
+
+        if ($result['UID'] != NULL) {
+            if (session_id() !== $result['UID']) {
+                session_destroy();
+                header('Location: ' . URL . 'login?msg=401');
+            }
+        }
+    }
+
 
     /**
      * @param $name

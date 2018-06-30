@@ -28,6 +28,10 @@ class Login_Model extends Model
         $this->checkAuth($_POST['userPasswd']);
     }
 
+    /**
+     * Benutzerauthentifizierung
+     * @param $sUserAccount
+     */
     private function checkAuth($sUserAccount)
     {
         $sUserAccount = explode('-', $sUserAccount);
@@ -48,12 +52,14 @@ class Login_Model extends Model
         // Entschlüsselung des Kennworts. Wenn erfolgreich: Registrieren der Session Variablen
         if ($result['Passwd'] == $this->decryptPassword($password, $result['RegDate']) && $totalRows > 0) {
 
-            // Wenn bereits eine Session für den Benutzer geöffnet ist, zerstöre die Session -> Nutzer wird überall abgemeldet.
-            if (isset($_SESSION['UID'])) {
-                session_destroy();
-            }
+            session_id($result['SESSION_ID']);
+            session_start();
+            // Ausloggen aktiver user
+            session_destroy();
 
+            // Neue Session starten
             Session::init();
+
             // Registrierung der Session Werte
             Session::set('UID', $result['UID']);
             Session::set('vorname', $result['vorname']);
@@ -62,6 +68,16 @@ class Login_Model extends Model
 
             // Rechte in die Session schreiben.
             Session::set('access_level', $result['access_level']);
+
+            // Session ID in die DB schreiben - falls ein user sich mehrmals anmeldet
+            try {
+                $sqlSaveSessionID = "UPDATE iUser SET SESSION_ID = :session_id WHERE UID = :UID";
+
+                $stmSaveSessionID = $this->db->prepare($sqlSaveSessionID);
+                $stmSaveSessionID->execute(array('UID' => $result['UID'], 'session_id' => session_id()));
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
 
             // Prüfung erfolgreich -> Weiterleitung an die jeweilige Zielseite
             $this->redirect2TargetLocation($result['dept']);

@@ -142,7 +142,7 @@ if (sizeof($this->Picklist->getAPicklist()) > 0) {
                             <b>Artikel</b>
                         </div>
                         <div class="col-sm-12">
-                            <h3 class="pick"><?php echo utf8_encode($item[$_SESSION['pos']]['ItemName']); ?></h3>
+                            <h3 class="pick"><?php echo $item[$_SESSION['pos']]['ItemName']; ?></h3>
                         </div>
                         <div class="clearfix"></div>
 
